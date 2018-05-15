@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ddddddddHHHHHHDDDDDDD.cs" />
     <Compile Include="EditableLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
