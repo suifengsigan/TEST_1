@@ -38,14 +38,14 @@ namespace License
                 {
                     case 0:
                         {
-                            if (IntPtr.Size == 8)
-                            {
-                                CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteIVNet\\Win_X64\\Sense4user.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\Sense4user.dll", true);
-                            }
-                            else
-                            {
-                                CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteIVNet\\Win_X86\\Sense4user.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\Sense4user.dll", true);
-                            }
+                            //if (IntPtr.Size == 8)
+                            //{
+                            //    CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteIVNet\\Win_X64\\Sense4user.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\Sense4user.dll", true);
+                            //}
+                            //else
+                            //{
+                            //    CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteIVNet\\Win_X86\\Sense4user.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\Sense4user.dll", true);
+                            //}
                             if (!Sense4Dev.Verification(out strMsg))
                             {
                                 return false;
@@ -54,14 +54,14 @@ namespace License
                         break;
                     case 1:
                         {
-                            if (IntPtr.Size == 8)
-                            {
-                                CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteVNet\\X64\\slm_runtime_easy.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\slm_runtime_easy.dll", true);
-                            }
-                            else
-                            {
-                                CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteVNet\\X86\\slm_runtime_easy.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\slm_runtime_easy.dll", true);
-                            }
+                            //if (IntPtr.Size == 8)
+                            //{
+                            //    CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteVNet\\X64\\slm_runtime_easy.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\slm_runtime_easy.dll", true);
+                            //}
+                            //else
+                            //{
+                            //    CopyFile(System.AppDomain.CurrentDomain.BaseDirectory + "\\EliteVNet\\X86\\slm_runtime_easy.dll", System.AppDomain.CurrentDomain.BaseDirectory + "\\slm_runtime_easy.dll", true);
+                            //}
                             if (!Sense5Dev.Verification(out strMsg))
                             {
                                 return false;
