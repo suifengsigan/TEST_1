@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>PHSnap</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\BLL\UG\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="NXOpen, Version=6.0.5.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BLL\UG\UG6.0\NXOpen.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpen.UF, Version=6.0.5.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BLL\UG\UG6.0\NXOpen.UF.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpen.Utilities, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BLL\UG\UG6.0\NXOpen.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="NXOpenUI, Version=6.0.5.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BLL\UG\UG6.0\NXOpenUI.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System" />
+    <Compile Include="Global.cs" />
+    <Compile Include="NXOpen\AllowTypes.cs" />
+    <Compile Include="NXOpen\EX.cs" />
+    <Compile Include="NXOpen\SelectPartFromList.cs" />
+    <Compile Include="NXOpen\SnapBlockDialog.cs" />
+    <Compile Include="Snap\Color.cs" />
+    <Compile Include="Snap\Compute.cs" />
+    <Compile Include="Snap\Create.cs" />
+    <Compile Include="Snap\Math.cs" />
+    <Compile Include="Snap\NX\NXObject.cs" />
+    <Compile Include="Snap\NX\Unit.cs" />
+    <Compile Include="Snap\NX\Component.cs" />
+    <Compile Include="Snap\NX\Category.cs" />
+    <Compile Include="Snap\Globals.cs" />
+    <Compile Include="Snap\Geom\Curve.cs" />
+    <Compile Include="Snap\Geom\Surface.cs" />
+    <Compile Include="Snap\Number.cs" />
+    <Compile Include="Snap\UnloadOption.cs" />
+    <Compile Include="Snap\InfoWindow.cs" />
+    <Compile Include="Snap\NX\TextStyle.cs" />
+    <Compile Include="Snap\NX\Feature.cs" />
+    <Compile Include="Snap\NX\OffsetCurve.cs" />
+    <Compile Include="Snap\NX\ProjectCurve.cs" />
+    <Compile Include="Snap\NX\Chamfer.cs" />
+    <Compile Include="Snap\NX\FaceBlend.cs" />
+    <Compile Include="Snap\NX\EdgeBlend.cs" />
+    <Compile Include="Snap\NX\DatumAxis.cs" />
+    <Compile Include="Snap\NX\ICurve.cs" />
+    <Compile Include="Snap\NX\Curve.cs" />
+    <Compile Include="Snap\NX\Ellipse.cs" />
+    <Compile Include="Snap\NX\Part.cs" />
+    <Compile Include="Snap\Geom\Transform.cs" />
+    <Compile Include="Snap\ChebyshevPoles.cs" />
+    <Compile Include="Snap\Geom\Box2d.cs" />
+    <Compile Include="Snap\Geom\Box3d.cs" />
+    <Compile Include="Snap\NX\OffsetFace.cs" />
+    <Compile Include="Snap\NX\TrimBody.cs" />
+    <Compile Include="Snap\NX\SplitBody.cs" />
+    <Compile Include="Snap\NX\Thicken.cs" />
+    <Compile Include="Snap\NX\ExtractFace.cs" />
+    <Compile Include="Snap\NX\Sew.cs" />
+    <Compile Include="Snap\NX\DatumCsys.cs" />
+    <Compile Include="Snap\NX\DatumPlane.cs" />
+    <Compile Include="Snap\NX\BoundedPlane.cs" />
+    <Compile Include="Snap\NX\Note.cs" />
+    <Compile Include="Snap\NX\ThroughCurves.cs" />
+    <Compile Include="Snap\NX\ThroughCurveMesh.cs" />
+    <Compile Include="Snap\NX\Expression.cs" />
+    <Compile Include="Snap\NX\ExpressionInteger.cs" />
+    <Compile Include="Snap\NX\ExpressionVector.cs" />
+    <Compile Include="Snap\NX\ExpressionPoint.cs" />
+    <Compile Include="Snap\NX\ExpressionString.cs" />
+    <Compile Include="Snap\NX\ExpressionNumber.cs" />
+    <Compile Include="Snap\NX\Edge.cs" />
+    <Compile Include="Snap\NX\Cone.cs" />
+    <Compile Include="Snap\Orientation.cs" />
+    <Compile Include="Snap\Position.cs" />
+    <Compile Include="Snap\Vector.cs" />
+    <Compile Include="Snap\NX\Arc.cs" />
+    <Compile Include="Snap\NX\Block.cs" />
+    <Compile Include="Snap\NX\Body.cs" />
+    <Compile Include="Snap\NX\Boolean.cs" />
+    <Compile Include="Snap\NX\Bsurface.cs" />
+    <Compile Include="Snap\NX\CoordinateSystem.cs" />
+    <Compile Include="Snap\NX\Cylinder.cs" />
+    <Compile Include="Snap\NX\ExpressionBoolean.cs" />
+    <Compile Include="Snap\NX\Extrude.cs" />
+    <Compile Include="Snap\NX\Face.cs" />
+    <Compile Include="Snap\NX\Line.cs" />
+    <Compile Include="Snap\NX\Matrix.cs" />
+    <Compile Include="Snap\NX\Point.cs" />
+    <Compile Include="Snap\NX\Revolve.cs" />
+    <Compile Include="Snap\NX\Ruled.cs" />
+    <Compile Include="Snap\NX\Sphere.cs" />
+    <Compile Include="Snap\NX\Spline.cs" />
+    <Compile Include="Snap\NX\Torus.cs" />
+    <Compile Include="Snap\NX\Tube.cs" />
+    <Compile Include="Snap\NX\ObjectTypes.cs" />
+    <Compile Include="Snap\NX\Section.cs" />
+    <Compile Include="Snap\Print.cs" />
+    <Compile Include="Snap\UI\Block\InterPartSelectionCopy.cs" />
+    <Compile Include="Snap\UI\Block\StepStatus.cs" />
+    <Compile Include="Snap\UI\Block\SnapFocusOption.cs" />
+    <Compile Include="Snap\UI\Block\EnumPresentationStyle.cs" />
+    <Compile Include="Snap\UI\Block\NumberPresentationStyle.cs" />
+    <Compile Include="Snap\UI\Block\StringPresentationStyle.cs" />
+    <Compile Include="Snap\UI\Block\ExpressionType.cs" />
+    <Compile Include="Snap\UI\Block\ExpressionSortOrder.cs" />
+    <Compile Include="Snap\UI\Block\SelectionScope.cs" />
+    <Compile Include="Snap\UI\Block\DimensionalityType.cs" />
+    <Compile Include="Snap\UI\Block\BalloonTooltipLayout.cs" />
+    <Compile Include="Snap\UI\Block\Layout.cs" />
+    <Compile Include="Snap\UI\Block\General.cs" />
+    <Compile Include="Snap\UI\Block\LabelBlock.cs" />
+    <Compile Include="Snap\UI\Block\Toggle.cs" />
+    <Compile Include="Snap\UI\Block\Separator.cs" />
+    <Compile Include="Snap\UI\Block\Enumeration.cs" />
+    <Compile Include="Snap\UI\Block\String.cs" />
+    <Compile Include="Snap\UI\Block\MultilineString.cs" />
+    <Compile Include="Snap\UI\Block\Button.cs" />
+    <Compile Include="Snap\UI\Block\ListBox.cs" />
+    <Compile Include="Snap\UI\Block\ColorPicker.cs" />
+    <Compile Include="Snap\UI\Block\RGBColorPicker.cs" />
+    <Compile Include="Snap\UI\Block\DrawingArea.cs" />
+    <Compile Include="Snap\UI\Block\Integer.cs" />
+    <Compile Include="Snap\UI\Block\Double.cs" />
+    <Compile Include="Snap\UI\Block\Expression.cs" />
+    <Compile Include="Snap\UI\Block\LinearDimension.cs" />
+    <Compile Include="Snap\UI\Block\AngularDimension.cs" />
+    <Compile Include="Snap\UI\Block\RadiusDimension.cs" />
+    <Compile Include="Snap\UI\Block\OnPathDimension.cs" />
+    <Compile Include="Snap\UI\Block\IntegerTable.cs" />
+    <Compile Include="Snap\UI\Block\DoubleTable.cs" />
+    <Compile Include="Snap\UI\Block\Group.cs" />
+    <Compile Include="Snap\UI\Block\TableLayout.cs" />
+    <Compile Include="Snap\UI\Block\SelectObject.cs" />
+    <Compile Include="Snap\UI\Block\SectionBuilder.cs" />
+    <Compile Include="Snap\UI\Block\SuperSection.cs" />
+    <Compile Include="Snap\UI\Block\CurveCollector.cs" />
+    <Compile Include="Snap\UI\Block\FaceCollector.cs" />
+    <Compile Include="Snap\UI\Block\SelectFeature.cs" />
+    <Compile Include="Snap\UI\Block\SpecifyPoint.cs" />
+    <Compile Include="Snap\UI\Block\SpecifyVector.cs" />
+    <Compile Include="Snap\UI\Block\SpecifyAxis.cs" />
+    <Compile Include="Snap\UI\Block\SpecifyPlane.cs" />
+    <Compile Include="Snap\UI\Block\SpecifyCsys.cs" />
+    <Compile Include="Snap\UI\Block\SpecifyCursorLocation.cs" />
+    <Compile Include="Snap\UI\Block\SpecifyOrientation.cs" />
+    <Compile Include="Snap\UI\Block\SelectPart.cs" />
+    <Compile Include="Snap\UI\Block\ReverseDirection.cs" />
+    <Compile Include="Snap\UI\Block\OrientXpress.cs" />
+    <Compile Include="Snap\UI\Block\SelectExpression.cs" />
+    <Compile Include="Snap\UI\Block\PropertyAccess.cs" />
+    <Compile Include="Snap\UI\Block\PropertyType.cs" />
+    <Compile Include="Snap\UI\Block\PropertyKey.cs" />
+    <Compile Include="Snap\UI\Block\SnapPointsStateSet.cs" />
+    <Compile Include="Snap\UI\Block\SnapPointState.cs" />
+    <Compile Include="Snap\UI\BlockDialog.cs" />
+    <Compile Include="Snap\UI\DialogMode.cs" />
+    <Compile Include="Snap\UI\BlockForm.cs" />
+    <Compile Include="Snap\UI\Input.cs" />
+    <Compile Include="Snap\UI\Response.cs" />
+    <Compile Include="Snap\UI\WinForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Snap\UI\Selection.cs" />
+    <Compile Include="Snap\UI\MaskTriple.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+</Project>
