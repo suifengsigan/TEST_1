@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHSnapV6", "PHEactV6\PHSnapV6.csproj", "{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnapEx", "SnapEx\SnapEx.csproj", "{90E81E37-1ECB-48D1-AEF7-2372B9B3F32F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55} = {FF579802-FFB6-4344-8EC3-1A1EA0E92C55}
@@ -43,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotationElec", "RotationEle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotationElecUI", "RotationElec\RotationElecUI.csproj", "{692A1CBC-970C-42F2-AD8F-0375B0307210}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHSnapV6", "PHSnapV6\PHSnapV6.csproj", "{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,12 +51,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Debug|x86.ActiveCfg = Debug|x86
-		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Debug|x86.Build.0 = Debug|x86
-		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|Any CPU.ActiveCfg = Release|x86
-		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|x86.ActiveCfg = Release|x86
-		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|x86.Build.0 = Release|x86
 		{90E81E37-1ECB-48D1-AEF7-2372B9B3F32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90E81E37-1ECB-48D1-AEF7-2372B9B3F32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90E81E37-1ECB-48D1-AEF7-2372B9B3F32F}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -153,6 +147,12 @@ Global
 		{692A1CBC-970C-42F2-AD8F-0375B0307210}.Release|Any CPU.Build.0 = Release|Any CPU
 		{692A1CBC-970C-42F2-AD8F-0375B0307210}.Release|x86.ActiveCfg = Release|Any CPU
 		{692A1CBC-970C-42F2-AD8F-0375B0307210}.Release|x86.Build.0 = Release|Any CPU
+		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Debug|x86.ActiveCfg = Debug|x86
+		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Debug|x86.Build.0 = Debug|x86
+		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|Any CPU.ActiveCfg = Release|x86
+		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|x86.ActiveCfg = Release|x86
+		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
