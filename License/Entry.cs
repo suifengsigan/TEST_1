@@ -14,10 +14,9 @@ namespace License
         public static Entry Instance = new Entry();
         void CopyFile(string oldFile, string newFile, bool b)
         {
-            try { File.Copy(oldFile, newFile, b); }
-            catch (Exception ex)
+            if (!File.Exists(newFile))
             {
-                Console.Write(ex);
+                File.Copy(oldFile, newFile, b);
             }
         }
         public bool Verification(int SenseVar, out string strMsg)
