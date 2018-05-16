@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8DE8CD87-0E4F-4B65-BBAE-F138240F888B}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>NXOpen.Utilities</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\PHEact\Application\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="NXOpen\Utilities\NXRemotableObject.cs" />
+    <Compile Include="NXOpen\TaggedObject.cs" />
+    <Compile Include="NXOpen\Utilities\BaseSession.cs" />
+    <Compile Include="NXOpen\Utilities\NeedDOTNETAuthorLicenseException.cs" />
+    <Compile Include="NXOpen\Utilities\NeedSNAPAuthorLicenseException.cs" />
+    <Compile Include="NXOpen\IDefinitionContext.cs" />
+    <Compile Include="NXOpen\SimulationAction.cs" />
+    <Compile Include="NXOpen\IRuntimeContext.cs" />
+    <Compile Include="NXOpen\BehaviorDef.cs" />
+    <Compile Include="NXOpen\Utilities\Decryptor.cs" />
+    <Compile Include="NXOpenUI\FormUtilities.cs" />
+    <Compile Include="NXOpenUI\Win32Utilities.cs" />
+    <Compile Include="NXOpenUI\RestoreParentOnClose.cs" />
+    <Compile Include="NXOpen\Utilities\VersionCreated.cs" />
+    <Compile Include="NXOpen\Utilities\IHasHandle.cs" />
+    <Compile Include="NXOpen\Utilities\JAM.cs" />
+    <Compile Include="NXOpen\NXException.cs" />
+    <Compile Include="NXOpenUI\NXInputBox.cs" />
+    <Compile Include="NXOpen\Utilities\ObjectMapEntry.cs" />
+    <Compile Include="NXOpen\Utilities\DeletedObjectQueue.cs" />
+    <Compile Include="NXOpen\Utilities\NXObjectManager.cs" />
+    <Compile Include="NXOpen\Utilities\Runnable.cs" />
+    <Compile Include="NXOpen\Utilities\MessageRunner.cs" />
+    <Compile Include="NXOpen\Utilities\MessageControl.cs" />
+    <Compile Include="NXOpen\Utilities\NXRemotingHelper.cs" />
+    <Compile Include="NXOpen\Utilities\ResourceUtilities.cs" />
+    <Compile Include="NXOpen\Utilities\MissingResourceException.cs" />
+    <Compile Include="NXOpen\RuntimeObject.cs" />
+    <Compile Include="NXOpen\RigidBody.cs" />
+    <Compile Include="NXOpen\Utilities\IItemFactory.cs" />
+    <Compile Include="NXOpen\ShapeBody.cs" />
+    <Compile Include="NXOpen\CollisionBody.cs" />
+    <Compile Include="NXOpen\CollisionSensor.cs" />
+    <Compile Include="NXOpen\TransportSurface.cs" />
+    <Compile Include="NXOpen\CollisionMaterial.cs" />
+    <Compile Include="NXOpen\Joint.cs" />
+    <Compile Include="NXOpen\AxisJoint.cs" />
+    <Compile Include="NXOpen\HingeJoint.cs" />
+    <Compile Include="NXOpen\SlidingJoint.cs" />
+    <Compile Include="NXOpen\CylindricalJoint.cs" />
+    <Compile Include="NXOpen\FixedJoint.cs" />
+    <Compile Include="NXOpen\BallJoint.cs" />
+    <Compile Include="NXOpen\LimitJoint.cs" />
+    <Compile Include="NXOpen\AngularLimit.cs" />
+    <Compile Include="NXOpen\LinearLimit.cs" />
+    <Compile Include="NXOpen\SpringJoint.cs" />
+    <Compile Include="NXOpen\AngularSpring.cs" />
+    <Compile Include="NXOpen\LinearSpring.cs" />
+    <Compile Include="NXOpen\ControlBase.cs" />
+    <Compile Include="NXOpen\SpeedControl.cs" />
+    <Compile Include="NXOpen\PositionControl.cs" />
+    <Compile Include="NXOpen\BreakingConstraint.cs" />
+    <Compile Include="NXOpen\GearCoupling.cs" />
+    <Compile Include="NXOpen\CamCoupling.cs" />
+    <Compile Include="NXOpen\ElecCamCoupling.cs" />
+    <Compile Include="NXOpen\PreventCollision.cs" />
+    <Compile Include="NXOpen\ChangeMaterial.cs" />
+    <Compile Include="NXOpen\ComponentPart.cs" />
+    <Compile Include="NXOpen\SourceBehavior.cs" />
+    <Compile Include="NXOpen\SinkBehavior.cs" />
+    <Compile Include="NXOpen\GraphControl.cs" />
+    <Compile Include="NXOpen\ExternalConnection.cs" />
+    <Compile Include="NXOpen\Signal.cs" />
+    <Compile Include="NXOpen\SignalAdapter.cs" />
+    <Compile Include="NXOpen\Parameter.cs" />
+    <Compile Include="NXOpen\ProxyObject.cs" />
+    <Compile Include="NXOpen\RuntimeParameters.cs" />
+    <Compile Include="NXOpen\Utilities\InstanceFunc.cs" />
+    <Compile Include="NXOpen\Utilities\ClassDefs.cs" />
+    <Compile Include="NXOpen\Utilities\BaseTypeDefs.cs" />
+    <Compile Include="NXOpen\Utilities\FetchConnect.cs" />
+    <Compile Include="NXOpen\Utilities\EstablishConnect.cs" />
+    <Compile Include="NXOpen\Utilities\RuntimeImpl.cs" />
+    <Compile Include="NXOpen\Utilities\PhysicsInit.cs" />
+    <Compile Include="NXOpen\Utilities\PropertyFunc.cs" />
+    <Compile Include="NXOpen\Utilities\CodeDomCompiler.cs" />
+    <Compile Include="NXOpen\Utilities\ScriptHost.cs" />
+    <Compile Include="NXOpen\Tag.cs" />
+    <Compile Include="NXOpen\TaggedObjectCollection.cs" />
+    <Compile Include="NXOpen\Utilities\TestCompare.cs" />
+    <Compile Include="NXOpen\Utilities\ThreadRunner.cs" />
+    <Compile Include="NXOpen\TransientObject.cs" />
+    <Compile Include="NXOpen\VectorArithmetic\Vector3.cs" />
+    <Compile Include="NXOpen\VectorArithmetic\Matrix3.cs" />
+    <Compile Include="NXOpen\VectorArithmetic\Quaternion.cs" />
+  </ItemGroup>
+</Project>

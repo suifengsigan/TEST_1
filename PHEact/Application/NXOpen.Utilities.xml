@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NXOpen.Utilities</name>
+    </assembly>
+    <members>
+        <member name="T:NXOpen.Utilities.BaseSession">
+            <summary>
+            A base class for NXOpen session objects
+            </summary>
+        </member>
+        <member name="T:NXOpen.TaggedObject">
+            <summary>
+            An object which has a Tag.
+            </summary>
+        </member>
+        <member name="T:NXOpen.Utilities.NXRemotableObject">
+            <summary>
+            A base class for all NXOpen remotable objects
+            </summary>
+        </member>
+        <member name="M:NXOpen.Utilities.NXRemotableObject.initialize">
+            <summary>
+            Initialize the object.
+            </summary>
+        </member>
+        <member name="M:NXOpen.Utilities.NXRemotableObject.SyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage)">
+            <summary>
+            Synchronously processes the given message.
+            </summary>
+            <param name="msg">The message to process. </param>
+            <returns>A reply message in response to the request.</returns>
+        </member>
+        <member name="M:NXOpen.Utilities.NXRemotableObject.AsyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage,System.Runtime.Remoting.Messaging.IMessageSink)">
+            <summary>
+            Asynchronously processes the given message.
+            </summary>
+            <param name="msg">The message to process. </param>
+            <param name="replySink">The reply sink for the reply message. </param>
+            <returns>Returns an IMessageCtrl interface that provides a way to control asynchronous messages after they have been dispatched.</returns>
+        </member>
+        <member name="P:NXOpen.Utilities.NXRemotableObject.NextSink">
+            <summary>
+            Gets the next message sink in the sink chain. 
+            </summary>
+        </member>
+        <member name="M:NXOpen.TaggedObject.initialize">
+            <summary>
+            Initialize the object. 
+            </summary>
+        </member>
+        <member name="M:NXOpen.TaggedObject.ToString">
+            <summary>
+            Returns a String that represents the current Object. 
+            </summary>
+            <returns>A String that represents the current Object. </returns>
+        </member>
+        <member name="M:NXOpen.TaggedObject.PrintTestData(System.String)">
+            <summary>
+            This is an internal method for testing purposes that should not be called.
+            </summary>
+            <param name="variableName"></param>
+        </member>
+        <member name="P:NXOpen.TaggedObject.Tag">
+            <summary>
+            Returns the tag of this object.
+            </summary>
+            <remarks>The tag of the object is an identifier for the object.
+            It is used when calling methods of
+            classes in the NXOpen.UF namespace.
+            </remarks>
+        </member>
+        <member name="M:NXOpen.Utilities.BaseSession.initialize">
+            <summary>
+             Initialize the object. 
+            </summary>
+        </member>
+        <member name="M:NXOpen.Utilities.BaseSession.StaticInitialize">
+            <exclude/>
+        </member>
+        <member name="M:NXOpen.Utilities.BaseSession.InitLicense">
+            <exclude/>
+        </member>
+        <member name="M:NXOpen.Utilities.BaseSession.SetTestOutput(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:NXOpen.Utilities.BaseSession.SetTestOutput(System.String,System.Int32)">
+            <exclude/>
+        </member>
+        <member name="M:NXOpen.Utilities.BaseSession.CloseTestOutput">
+            <exclude/>
+        </member>
+        <member name="M:NXOpen.Utilities.BaseSession.CompareTestOutput(System.String,System.String)">
+            <exclude/>
+        </member>
+        <member name="T:NXOpen.Utilities.Decryptor">
+            <exclude/>
+        </member>
+        <member name="T:NXOpenUI.FormUtilities">
+            <summary>
+            Provides utility methods for applications using Windows Forms running in NX.
+            </summary>
+        </member>
+        <member name="M:NXOpenUI.FormUtilities.GetNXIcon">
+            <summary>Gets the icon used by NX. </summary>    
+        </member>
+        <member name="M:NXOpenUI.FormUtilities.SetApplicationIcon(System.Windows.Forms.Form)">
+            <summary>Sets the icon for the supplied form the same as the icon used by NX. </summary>    
+        </member>
+        <member name="M:NXOpenUI.FormUtilities.GetDefaultParentWindowHandle">
+            <summary>Gets the parent window handle of the main application window. </summary>  
+        </member>
+        <member name="M:NXOpenUI.FormUtilities.ReparentForm(System.Windows.Forms.Form)">
+            <summary>Set the parent for the form window of the NXOpen application. </summary>
+        </member>
+        <member name="T:NXOpen.Utilities.JAM">
+            <exclude/>
+        </member>
+        <member name="T:NXOpen.NXException">
+            <summary>
+            A base class for exceptions thrown by NXOpen methods
+            </summary>
+        </member>
+        <member name="M:NXOpen.NXException.Create(System.Int32)">
+            <summary>
+            Creates an NXException.
+            </summary>
+        </member>
+        <member name="M:NXOpen.NXException.AssertErrorCode(System.Int32)">
+            <summary>
+            Assert if the error code is unexpected.
+            </summary>
+        </member>
+        <member name="P:NXOpen.NXException.ErrorCode">
+            <summary>
+            Gets the error code associated with this exception.
+            </summary>
+        </member>
+        <member name="P:NXOpen.NXException.Message">
+            <summary>
+            Gets the error message associated with this exception.
+            </summary>
+        </member>
+        <member name="P:NXOpen.NXException.UndoMark">
+            <summary>
+            Gets the undo mark associated with this exception.
+            </summary>
+        </member>
+        <member name="T:NXOpenUI.NXInputBox">
+            <summary>
+            Provides static methods for creating simple text or numeric entry dialogs using Windows Forms controls.
+            </summary>
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.GetInputString(System.String)">
+            <summary>Displays a simple text entry dialog to the user and returns the string the user enters. </summary>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.GetInputString(System.String,System.String)">
+            <summary>Displays a simple text entry dialog to the user and returns the string the user enters. </summary>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+            <param name="caption">Caption string for the window title to the text entry dialog.</param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.GetInputString(System.String,System.String,System.String)">
+            <summary>Displays a simple text entry dialog to the user and returns the string the user enters. </summary>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+            <param name="caption">Caption string for the window title to the text entry dialog.</param>  
+            <param name="initialText">Initial text to use as default text in the text entry box.</param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.GetInputNumber(System.String)">
+            <summary>Displays a simple text entry dialog to the user and returns the number the user enters. </summary>  
+            <remarks><para>Throws a FormatException if the input text does not form a valid number.</para>
+            <para>Throws an OverflowException if the input text is outside the valid range for doubles.</para></remarks>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.GetInputNumber(System.String,System.String)">
+            <summary>Displays a simple text entry dialog to the user and returns the number the user enters. </summary>  
+            <remarks><para>Throws a FormatException if the input text does not form a valid number.</para>
+            <para>Throws an OverflowException if the input text is outside the valid range for doubles.</para></remarks>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+            <param name="caption">Caption string for the window title to the text entry dialog.</param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.GetInputNumber(System.String,System.String,System.String)">
+            <summary>Displays a simple text entry dialog to the user and returns the number the user enters. </summary>  
+            <remarks><para>Throws a FormatException if the input text does not form a valid number.</para>
+            <para>Throws an OverflowException if the input text is outside the valid range for doubles.</para></remarks>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+            <param name="caption">Caption string for the window title to the text entry dialog.</param>  
+            <param name="initialText">Initial text to use as default text in the text entry box.
+            <para>This initial text should form a valid double number.</para></param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.GetInputNumber(System.String,System.String,System.Double)">
+            <summary>Displays a simple text entry dialog to the user and returns the number the user enters. </summary>  
+            <remarks><para>Throws a FormatException if the input text does not form a valid number.</para>
+            <para>Throws an OverflowException if the input text is outside the valid range for doubles.</para></remarks>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+            <param name="caption">Caption string for the window title to the text entry dialog.</param>  
+            <param name="initialNumber">Initial double to use as a default number in the text entry box.</param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.ParseInputNumber(System.String,System.String,System.String,System.Globalization.NumberStyles,System.IFormatProvider,System.Double@)">
+            <summary>Displays a simple text entry dialog to the user, parses the string the user enters, and 
+            if it is a valid number, sets result to the value the user entered and returns true. </summary>  
+            <remarks><para>Throws a FormatException if the input text does not form a valid number.</para>
+            <para>Throws an OverflowException if the input text is outside the valid range for doubles.</para></remarks>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+            <param name="caption">Caption string for the window title to the text entry dialog.</param>  
+            <param name="initialText">Initial text to use as default text in the text entry box.
+            <para>This initial text should form a valid double number.</para></param>  
+            <param name="style">The permitted format of the input number defined as a combination of one or more 
+            System.Globalization.NumberStyles constants.</param>  
+            <param name="provider">A format provider that defines the valid culture-specific format for the input number.</param>  
+            <param name="result">An out parameter containing the parsed number input by the user. If the 
+            method returns true, result contains a valid double number.</param>  
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.ParseInputNumber(System.String,System.String,System.Double,System.Globalization.NumberStyles,System.IFormatProvider,System.Double@)">
+            <summary>Displays a simple text entry dialog to the user and returns the string the user enters. </summary>  
+            <remarks><para>Throws a FormatException if the input text does not form a valid number.</para>
+            <para>Throws an OverflowException if the input text is outside the valid range for doubles.</para></remarks>  
+            <param name="prompt">Prompt string to the user for the text entry box.</param>  
+            <param name="caption">Caption string for the window title to the text entry dialog.</param>  
+            <param name="initialNumber">Initial double to use as a default number in the text entry box.</param>  
+            <param name="style">The permitted format of the input number defined as a combination of one or more 
+            System.Globalization.NumberStyles constants.</param>  
+            <param name="provider">A format provider that defines the valid culture-specific format for the input number.</param>  
+            <param name="result">An out parameter containing the parsed number input by the user. If the 
+            method returns true, result contains a valid double number.</param>  
+        </member>
+        <member name="T:NXOpenUI.NXInputBox.NXInputBoxForm">
+            <summary>
+            Represents the Windows Forms controls for the NXInputBox.
+            </summary>
+        </member>
+        <member name="F:NXOpenUI.NXInputBox.NXInputBoxForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.NXInputBoxForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NXOpenUI.NXInputBox.NXInputBoxForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NXOpen.Utilities.NXObjectManager">
+            <summary>
+            Maintains a mapping between Tags and objects.
+            </summary>
+            <remarks>This class can be used to help use methods in the NXOpen.UF namespace
+            together with objects in the NXOpen namespace.</remarks>
+        </member>
+        <member name="M:NXOpen.Utilities.NXObjectManager.Get(NXOpen.Tag)">
+            <summary>
+            Returns the object corresponding to a tag. 
+            </summary>
+            <remarks>The object that is returned by this method is unique for given tag
+            while that tag is alive. The Tag property of the object will return the
+            tag with which it was obtained by this method.
+            Methods in classes in the NXOpen.UF namespace may return tags and Get
+            can be used to obtain the corresponding object.
+            </remarks>
+            <param name="objectTag">Tag for which an object is wanted.</param>
+            <returns>The object for this tag</returns>
+        </member>
+        <member name="T:NXOpen.Utilities.ResourceUtilities">
+            <exclude/>
+        </member>
+        <member name="M:NXOpen.Utilities.ResourceUtilities.#ctor(System.Byte[])">
+                        Constructs a new instance, based on the data from an Assembly DLL. Throws a
+                        MissingResourceException if the assembly does not contain the appropriate NX
+                        resource.
+        </member>
+        <member name="M:NXOpen.Utilities.ResourceUtilities.computeHash">
+                        Computes a hashcode from the contents of the assembly. 
+        </member>
+        <member name="M:NXOpen.Utilities.ResourceUtilities.getEmbeddedData">
+                       Gets the embeddedData embedded in the resource block
+        </member>
+        <member name="M:NXOpen.Utilities.ResourceUtilities.getSignature">
+                       Gets the signature embedded in the resource block
+        </member>
+        <member name="M:NXOpen.Utilities.ResourceUtilities.setEmbeddedData(System.Byte[])">
+                       Embeds the given data in the resource block. If the data length is greater than 256
+                       bytes, it is truncated to 256.
+            
+        </member>
+        <member name="M:NXOpen.Utilities.ResourceUtilities.setSignature(System.Byte[])">
+                       Embeds the given signature in the resource block. Note that the embedded data should be set first before
+                       calling this method.
+        </member>
+        <member name="T:NXOpen.Utilities.MissingResourceException">
+            <summary>
+            Exception that is thrown when trying to load a DLL that has not
+            been properly built and signed by the SignLibrary utility.
+            </summary>
+        </member>
+        <member name="T:NXOpen.Utilities.ScriptHost">
+            <exclude/>
+        </member>
+        <member name="T:NXOpen.Tag">
+            <summary>
+            A tag used to identify an object within NX.
+            </summary>
+        </member>
+        <member name="F:NXOpen.Tag.Null">
+            <summary>
+            Null is a unique tag value that does not identity any object.
+            </summary>
+        </member>
+        <member name="T:NXOpen.TaggedObjectCollection">
+            <summary>
+            A base class for all NXOpen tagged object collections
+            </summary>
+        </member>
+        <member name="M:NXOpen.TaggedObjectCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An IEnumerator object that can be used to iterate through the collection. </returns>
+        </member>
+        <member name="M:NXOpen.TaggedObjectCollection.EnumerateMoveNext(NXOpen.Tag@,System.Byte[])">
+            <summary>
+            Advances the enumerator to the next element of the collection. 
+            </summary>
+            <param name="currentTag">current tag</param>
+            <param name="state">state</param>
+            <returns></returns>
+        </member>
+        <member name="M:NXOpen.TaggedObjectCollection.initialize">
+            <summary>
+            Initialize the object. 
+            </summary>
+        </member>
+        <member name="T:NXOpen.TransientObject">
+            <summary>
+            A base class for all NXOpen transient objects
+            </summary>
+        </member>
+        <member name="M:NXOpen.TransientObject.Dispose">
+            <summary>
+            Frees the object from memory.  
+            </summary>
+            <remarks>After this method is called, it is illegal to use the object.
+            This method is automatically called when the object is 
+            deleted by the garbage collector.  
+            </remarks>
+        </member>
+        <member name="M:NXOpen.TransientObject.FreeResource">
+            <summary>
+            Frees the object from memory. 
+            </summary>
+        </member>
+        <member name="M:NXOpen.TransientObject.ToString">
+            <summary>
+            Returns a String that represents the current Object.
+            </summary>
+        </member>
+        <member name="M:NXOpen.TransientObject.PrintTestData(System.String)">
+            <exclude/>
+        </member>
+        <member name="P:NXOpen.TransientObject.Handle">
+            <summary>
+            Handle of the internal object represented by this object.
+            </summary>
+            <remarks>This property should not be used by automation programs.</remarks>
+        </member>
+    </members>
+</doc>
