@@ -13,6 +13,7 @@ namespace GeomcopyElecUIEx
             GeomcopyElecUI theGeomcopyElecUI = null;
             try
             {
+                AssemblyLoader.Entry.InitAssembly();
                 theGeomcopyElecUI = new GeomcopyElecUI();
                 // The following method shows the dialog immediately
                 theGeomcopyElecUI.Show();

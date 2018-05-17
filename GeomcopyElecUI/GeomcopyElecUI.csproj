@@ -76,5 +76,11 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AssemblyLoader\AssemblyLoader.csproj">
+      <Project>{4d127110-1258-4440-8f7a-5d630b67ab33}</Project>
+      <Name>AssemblyLoader</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
