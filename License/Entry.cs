@@ -14,10 +14,12 @@ namespace License
         public static Entry Instance = new Entry();
         void CopyFile(string oldFile, string newFile, bool b)
         {
-            if (!File.Exists(newFile))
+            try { File.Copy(oldFile, newFile, b); }
+            catch (Exception ex)
             {
-                File.Copy(oldFile, newFile, b);
+                Console.Write(ex);
             }
+            
         }
         public bool Verification(int SenseVar, out string strMsg)
         {
