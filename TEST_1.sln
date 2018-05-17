@@ -47,6 +47,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotationElecUI", "RotationE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHSnapV6", "PHSnapV6\PHSnapV6.csproj", "{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeomcopyElec", "GeomcopyElec\GeomcopyElec.csproj", "{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeomcopyElecUI", "GeomcopyElecUI\GeomcopyElecUI.csproj", "{79EE2468-1D92-408B-AA58-1C277E09E658}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55} = {FF579802-FFB6-4344-8EC3-1A1EA0E92C55}
+		{90E81E37-1ECB-48D1-AEF7-2372B9B3F32F} = {90E81E37-1ECB-48D1-AEF7-2372B9B3F32F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,6 +165,22 @@ Global
 		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|Any CPU.ActiveCfg = Release|x86
 		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|x86.ActiveCfg = Release|x86
 		{FF579802-FFB6-4344-8EC3-1A1EA0E92C55}.Release|x86.Build.0 = Release|x86
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Debug|x86.Build.0 = Debug|Any CPU
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Release|x86.ActiveCfg = Release|Any CPU
+		{04DAA9C0-A70D-4D52-B409-5431C0B5D2E2}.Release|x86.Build.0 = Release|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Debug|x86.Build.0 = Debug|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Release|x86.ActiveCfg = Release|Any CPU
+		{79EE2468-1D92-408B-AA58-1C277E09E658}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

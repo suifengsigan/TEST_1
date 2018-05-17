@@ -48,17 +48,17 @@ public partial class GeomcopyElecUI
     private static UI theUI = null;
     private string theDlxFileName;
     private NXOpen.BlockStyler.BlockDialog theDialog;
-    private NXOpen.BlockStyler.Group group;// Block type: Group
-    private NXOpen.BlockStyler.SelectObject bodySelect0;// Block type: Selection
-    private NXOpen.BlockStyler.SpecifyPlane plane0;// Block type: Specify Plane
-    private NXOpen.BlockStyler.StringBlock stringElecName;// Block type: String
-    private NXOpen.BlockStyler.Toggle toggleJiaju;// Block type: Toggle
-    private NXOpen.BlockStyler.SelectObject selectionJiaju;// Block type: Selection
-    private NXOpen.BlockStyler.Toggle toggle0;// Block type: Toggle
-    private NXOpen.BlockStyler.Group groupXYZ;// Block type: Group
-    private NXOpen.BlockStyler.ExpressionBlock expressionX;// Block type: Expression
-    private NXOpen.BlockStyler.ExpressionBlock expressionY;// Block type: Expression
-    private NXOpen.BlockStyler.ExpressionBlock expressionZ;// Block type: Expression
+    private Snap.UI.Block.Group group;// Block type: Group
+    private Snap.UI.Block.SelectObject bodySelect0;// Block type: Selection
+    private Snap.UI.Block.SpecifyPlane plane0;// Block type: Specify Plane
+    private Snap.UI.Block.String stringElecName;// Block type: String
+    private Snap.UI.Block.Toggle toggleJiaju;// Block type: Toggle
+    private Snap.UI.Block.SelectObject selectionJiaju;// Block type: Selection
+    private Snap.UI.Block.Toggle toggle0;// Block type: Toggle
+    private Snap.UI.Block.Group groupXYZ;// Block type: Group
+    private Snap.UI.Block.Expression expressionX;// Block type: Expression
+    private Snap.UI.Block.Expression expressionY;// Block type: Expression
+    private Snap.UI.Block.Expression expressionZ;// Block type: Expression
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -243,17 +243,17 @@ public partial class GeomcopyElecUI
     {
         try
         {
-            group = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group");
-            bodySelect0 = (NXOpen.BlockStyler.SelectObject)theDialog.TopBlock.FindBlock("bodySelect0");
-            plane0 = (NXOpen.BlockStyler.SpecifyPlane)theDialog.TopBlock.FindBlock("plane0");
-            stringElecName = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("stringElecName");
-            toggleJiaju = (NXOpen.BlockStyler.Toggle)theDialog.TopBlock.FindBlock("toggleJiaju");
-            selectionJiaju = (NXOpen.BlockStyler.SelectObject)theDialog.TopBlock.FindBlock("selectionJiaju");
-            toggle0 = (NXOpen.BlockStyler.Toggle)theDialog.TopBlock.FindBlock("toggle0");
-            groupXYZ = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("groupXYZ");
-            expressionX = (NXOpen.BlockStyler.ExpressionBlock)theDialog.TopBlock.FindBlock("expressionX");
-            expressionY = (NXOpen.BlockStyler.ExpressionBlock)theDialog.TopBlock.FindBlock("expressionY");
-            expressionZ = (NXOpen.BlockStyler.ExpressionBlock)theDialog.TopBlock.FindBlock("expressionZ");
+            group = Snap.UI.Block.Group.GetBlock(theDialog,"group");
+            bodySelect0 = Snap.UI.Block.SelectObject.GetBlock(theDialog,"bodySelect0");
+            plane0 = Snap.UI.Block.SpecifyPlane.GetBlock(theDialog, "plane0");
+            stringElecName = Snap.UI.Block.String.GetBlock(theDialog, "stringElecName");
+            toggleJiaju = Snap.UI.Block.Toggle.GetBlock(theDialog,"toggleJiaju");
+            selectionJiaju = Snap.UI.Block.SelectObject.GetBlock(theDialog,"selectionJiaju");
+            toggle0 = Snap.UI.Block.Toggle.GetBlock(theDialog,"toggle0");
+            groupXYZ = Snap.UI.Block.Group.GetBlock(theDialog,"groupXYZ");
+            expressionX = Snap.UI.Block.Expression.GetBlock(theDialog,"expressionX");
+            expressionY = Snap.UI.Block.Expression.GetBlock(theDialog,"expressionY");
+            expressionZ = Snap.UI.Block.Expression.GetBlock(theDialog,"expressionZ");
         }
         catch (Exception ex)
         {
@@ -306,42 +306,42 @@ public partial class GeomcopyElecUI
     {
         try
         {
-            if (block == bodySelect0)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == plane0)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == stringElecName)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == toggleJiaju)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == selectionJiaju)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == toggle0)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == expressionX)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == expressionY)
-            {
-                //---------Enter your code here-----------
-            }
-            else if (block == expressionZ)
-            {
-                //---------Enter your code here-----------
-            }
+            //if (block == bodySelect0)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == plane0)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == stringElecName)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == toggleJiaju)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == selectionJiaju)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == toggle0)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == expressionX)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == expressionY)
+            //{
+            //    //---------Enter your code here-----------
+            //}
+            //else if (block == expressionZ)
+            //{
+            //    //---------Enter your code here-----------
+            //}
         }
         catch (Exception ex)
         {
