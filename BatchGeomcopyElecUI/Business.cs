@@ -41,14 +41,14 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
 
     public override void Update(NXOpen.BlockStyler.UIBlock block)
     {
-        if (block == bodySelect0)
+        if (block == bodySelect0.NXOpenBlock)
         {
-            var selectedObjs = bodySelect0.GetSelectedObjects().ToList();
-            var bodies = new List<NXOpen.NXObject>();
+            var selectedObjs = bodySelect0.SelectedObjects.ToList();
+            var bodies = new List<Snap.NX.NXObject>();
 
             selectedObjs.ForEach(u =>
             {
-                var body = u as NXOpen.Body;
+                var body = Snap.NX.Body.Wrap(u.NXOpenTag);
                 if (SnapEx.Helper.IsEactElecBody(body))
                 {
                     bodies.Add(body);
@@ -57,7 +57,7 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
 
             if (selectedObjs.Count != bodies.Count)
             {
-                bodySelect0.SetSelectedObjects(bodies.ToArray());
+                bodySelect0.SelectedObjects = bodies.ToArray();
             }
 
             //stringElecName.Show = bodies.Count <= 1;
@@ -68,21 +68,21 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
             //    SetElecName();
             //}
         }
-        else if (block == selectionJiaju) 
+        else if (block == selectionJiaju.NXOpenBlock) 
         {
-            var selectedObjs = selectionJiaju.GetSelectedObjects().ToList();
-            var bodies = new List<NXOpen.NXObject>();
+            var selectedObjs = selectionJiaju.SelectedObjects.ToList();
+            var bodies = new List<Snap.NX.NXObject>();
 
             selectedObjs.ForEach(u =>
             {
-                var body = u as NXOpen.Body;
+                var body = Snap.NX.Body.Wrap(u.NXOpenTag);
                 if (!SnapEx.Helper.IsEactElecBody(body))
                 {
                     bodies.Add(body);
                 }
             });
 
-            selectionJiaju.SetSelectedObjects(bodies.ToArray());
+            selectionJiaju.SelectedObjects = bodies.ToArray();
         }
         //else if (block == stringElecName)
         //{
@@ -111,8 +111,8 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
         });
         tempObjs.Clear();
         if (!togglePreview.Value&&isPreview) return;
-        var bodies = bodySelect0.GetSelectedObjects().ToList();
-        var plane = plane0.GetSelectedObjects().FirstOrDefault() as NXOpen.Plane;
+        var bodies = bodySelect0.SelectedObjects.ToList();
+        var plane = plane0.SpecifiedPlane;
         if (bodies.Count > 0 && plane != null)
         {
             //int order = GetMaxOrder();
@@ -127,12 +127,12 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
             bodies.ForEach(u =>
             {
                 //order++;
-                tempObjs.Add(GeomcopyElec(isPreview, u as NXOpen.Body, plane
+                tempObjs.Add(GeomcopyElec(isPreview, Snap.NX.Body.Wrap(u.NXOpenTag).NXOpenBody, plane.NXOpenDisplayableObject as NXOpen.Plane
                     //, order
                     ));
             });
 
-            GeomcopyJiaju(isPreview, plane);
+            GeomcopyJiaju(isPreview, plane.NXOpenDisplayableObject as NXOpen.Plane);
         }
 
         if (isPreview)
@@ -151,8 +151,8 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
                 var y = expressionY.Value;
                 var z = expressionZ.Value;
                 var trans = Snap.Geom.Transform.CreateTranslation(new Snap.Vector(x, y, z));
-                selectionJiaju.GetSelectedObjects().ToList().ForEach(u => {
-                    Snap.NX.Body snapU = u as NXOpen.Body;
+                selectionJiaju.SelectedObjects.ToList().ForEach(u => {
+                    Snap.NX.Body snapU = Snap.NX.Body.Wrap(u.NXOpenTag);
                     if (snapU != null)
                     {
                         var jiaju = snapU.Copy();

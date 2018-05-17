@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FA0DC1E8-7AAA-4258-A63B-EC3FE45F1750}</ProjectGuid>
+    <ProjectGuid>{07FDEA51-090C-49A5-8F05-5E6E2B598CE4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BatchGeomcopyElec</RootNamespace>
-    <AssemblyName>BatchGeomcopyElec</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>BatchGeomcopyElecUIEx</RootNamespace>
+    <AssemblyName>BatchGeomcopyElecUI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -46,30 +46,32 @@
       <HintPath>..\..\BLL\UG\NXOpenUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PHSnap">
+      <HintPath>..\..\BLL\UG\PHSnap.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SnapEx">
+      <HintPath>..\..\BLL\UG\SnapEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="GeomcopyElecUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BatchGeomcopyElecUI\BatchGeomcopyElecUI.csproj">
-      <Project>{07fdea51-090c-49a5-8f05-5e6e2b598ce4}</Project>
-      <Name>BatchGeomcopyElecUI</Name>
+    <ProjectReference Include="..\AssemblyLoader\AssemblyLoader.csproj">
+      <Project>{4d127110-1258-4440-8f7a-5d630b67ab33}</Project>
+      <Name>AssemblyLoader</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
