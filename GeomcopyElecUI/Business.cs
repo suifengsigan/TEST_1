@@ -311,7 +311,8 @@ partial class GeomcopyElecUI : SnapEx.BaseUI
 
     string GetElecName(double order)
     {
-        var body = bodySelect0.SelectedObjects.FirstOrDefault() as Snap.NX.Body;
+        var tempBody = bodySelect0.SelectedObjects.FirstOrDefault();
+        var body = tempBody == null ? null : Snap.NX.Body.Wrap(tempBody.NXOpenTag).NXOpenBody;
         string selectedComName = body.OwningComponent == null ? body.Name : body.OwningComponent.Name;
         var name = string.Empty;
         var strList = selectedComName.Split('-').ToList();
