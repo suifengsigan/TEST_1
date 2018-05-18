@@ -65,35 +65,35 @@ namespace EactBom
 
             if (datas.Count > 0 || (shareElecDatas != null && shareElecDatas.Count > 0))
             {
-                if (isExportStd)
-                {
-                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件...")); }
-                    var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"STDFILE\{0}\{1}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
-                    if (!System.IO.Directory.Exists(path))
-                    {
-                        System.IO.Directory.CreateDirectory(path);
-                    }
-                    positions.ForEach(u =>
-                    {
-                        if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件:{0}", u.Electrode.ElecBody.Name)); }
-                        //移至绝对坐标原点
-                        var baseDir = u.Electrode.BaseFace.GetFaceDirection();
-                        {
-                            var transY = Snap.Geom.Transform.CreateRotation(new Snap.Orientation(baseDir), new Snap.Orientation(new Snap.Vector(0, 0, 1)));
-                            var pos = u.Electrode.GetElecBasePos().Copy(transY);
-                            var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
-                            SnapEx.Create.ExportStp(u.Electrode.ElecBody, System.IO.Path.Combine(path, string.Format("{0}ZPlus", u.Electrode.ElecBody.Name)), transY, transX);
-                        }
+                //if (isExportStd)
+                //{
+                //    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件...")); }
+                //    var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"STDFILE\{0}\{1}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
+                //    if (!System.IO.Directory.Exists(path))
+                //    {
+                //        System.IO.Directory.CreateDirectory(path);
+                //    }
+                //    positions.ForEach(u =>
+                //    {
+                //        if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件:{0}", u.Electrode.ElecBody.Name)); }
+                //        //移至绝对坐标原点
+                //        var baseDir = u.Electrode.BaseFace.GetFaceDirection();
+                //        {
+                //            var transY = Snap.Geom.Transform.CreateRotation(new Snap.Orientation(baseDir), new Snap.Orientation(new Snap.Vector(0, 0, 1)));
+                //            var pos = u.Electrode.GetElecBasePos().Copy(transY);
+                //            var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
+                //            SnapEx.Create.ExportStp(u.Electrode.ElecBody, System.IO.Path.Combine(path, string.Format("{0}ZPlus", u.Electrode.ElecBody.Name)), transY, transX);
+                //        }
 
-                        {
-                            var transY = Snap.Geom.Transform.CreateRotation(new Snap.Orientation(baseDir), new Snap.Orientation(new Snap.Vector(0, 0, -1)));
-                            var pos = u.Electrode.GetElecBasePos().Copy(transY);
-                            var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
-                            SnapEx.Create.ExportStp(u.Electrode.ElecBody, System.IO.Path.Combine(path, string.Format("{0}Z", u.Electrode.ElecBody.Name)), transY, transX);
-                        }
+                //        {
+                //            var transY = Snap.Geom.Transform.CreateRotation(new Snap.Orientation(baseDir), new Snap.Orientation(new Snap.Vector(0, 0, -1)));
+                //            var pos = u.Electrode.GetElecBasePos().Copy(transY);
+                //            var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
+                //            SnapEx.Create.ExportStp(u.Electrode.ElecBody, System.IO.Path.Combine(path, string.Format("{0}Z", u.Electrode.ElecBody.Name)), transY, transX);
+                //        }
 
-                    });
-                }
+                //    });
+                //}
 
                 //CNC图档
                 if (isExportCncPrt)
@@ -155,6 +155,7 @@ namespace EactBom
                             EACTFTP.NextDirectory(sToPath);
                             EACTFTP.UpLoadFile(fileName);
                         }
+                       
                     });
                 }
 
@@ -258,6 +259,27 @@ namespace EactBom
                             EACTFTP.NextDirectory(sToPath);
                             EACTFTP.UpLoadFile(fileName);
                         }
+
+                        if (isExportStd)
+                        {
+                            var stpFileName = string.Format("{0}{1}", System.IO.Path.Combine(path, u.Electrode.ElecBody.Name), ".stp");
+                            SnapEx.Create.ExportStp(fileName, stpFileName);
+                            if (System.IO.File.Exists(stpFileName))
+                            {
+                                if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件...")); }
+                                //Ftp上传
+                                var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
+                                string sToPath = string.Format("{0}/{1}/{2}", "CMM_PROG", steelInfo.MODEL_NUMBER, GetPARTFILENAME(u.Electrode.ElecBody, steelInfo));
+                                if (!EACTFTP.DirectoryExist(sToPath))
+                                {
+                                    EACTFTP.MakeDirPath(sToPath);
+                                }
+                                EACTFTP.DeleteFtpDirWithAll(sToPath, false);
+                                EACTFTP.NextDirectory(sToPath);
+                                EACTFTP.UpLoadFile(stpFileName);
+                            }
+                        }
+                       
                     });
                 }
 

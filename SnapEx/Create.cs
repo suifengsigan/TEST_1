@@ -96,6 +96,54 @@ namespace SnapEx
             #endregion
             return area;
         }
+
+        public static void ExportStp(Snap.NX.Body body, string path, Func<Snap.Geom.Transform> func = null, params Snap.Geom.Transform[] transfroms)
+        {
+            var fileName = string.Format("{0}{1}", path, ".stp");
+            if (System.IO.File.Exists(fileName))
+            {
+                System.IO.File.Delete(fileName);
+            }
+            var workPart = NXOpen.Session.GetSession().Parts.Work;
+            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Visible, "ExportStp");
+            try
+            {
+                if (body.IsOccurrence)
+                {
+                    transfroms.ToList().ForEach(u =>
+                    {
+                        var trans = u.Matrix;
+                        Matrix3x3 matrix = new Matrix3x3();
+                        matrix.Xx = trans[0]; matrix.Xy = trans[4]; matrix.Xz = trans[8];
+                        matrix.Yx = trans[1]; matrix.Yy = trans[5]; matrix.Yz = trans[9];
+                        matrix.Zx = trans[2]; matrix.Zy = trans[6]; matrix.Zz = trans[10];
+                        workPart.ComponentAssembly.MoveComponent(body.OwningComponent, new Vector3d(trans[3], trans[7], trans[11]), matrix);
+                    });
+                }
+                else
+                {
+                    var trans = Snap.Geom.Transform.CreateTranslation();
+                    transfroms.ToList().ForEach(u =>
+                    {
+                        trans = Snap.Geom.Transform.Composition(trans, u);
+                    });
+                    body.Move(trans);
+                    if (func != null)
+                    {
+                        body.Move(func());
+                    }
+                }
+
+                SnapEx.Create.ExportStp(new List<NXObject> { body }, path);
+            }
+            catch (Exception ex)
+            {
+                UI.GetUI().NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, ex.Message);
+            }
+
+            Snap.Globals.UndoToMark(mark, null);
+        }
+
         public static void ExportPrt(Snap.NX.Body body, string path,Func<Snap.Geom.Transform> func=null, params Snap.Geom.Transform[] transfroms) 
         {
             var fileName = string.Format("{0}{1}", path, ".prt");
@@ -184,6 +232,53 @@ namespace SnapEx
            
             Snap.Globals.UndoToMark(mark, null);
         }
+
+        public static void ExportStp(string inFileName,string outFileName)
+        {
+            string str = string.Format("\"{0}\\step214ug\\step214ug.exe\" \"{1}\" \"o={2}\" \"d={3}\\step214ug\\ugstep214.def\""
+                ,"I:\\UG\\NX 9.0-64bit"
+                , inFileName
+                , outFileName
+                ,"I:\\UG\\NX 9.0-64bit"
+                );
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.UseShellExecute = false;    //是否使用操作系统shell启动
+            p.StartInfo.RedirectStandardInput = true;//接受来自调用程序的输入信息
+            p.StartInfo.RedirectStandardOutput = true;//由调用程序获取输出信息
+            p.StartInfo.RedirectStandardError = true;//重定向标准错误输出
+            p.StartInfo.CreateNoWindow = true;//不显示程序窗口
+            p.Start();//启动程序
+
+            //向cmd窗口发送输入信息
+            p.StandardInput.WriteLine(str + "&exit");
+
+            p.StandardInput.AutoFlush = true;
+            //p.StandardInput.WriteLine("exit");
+            //向标准输入写入要执行的命令。这里使用&是批处理命令的符号，表示前面一个命令不管是否执行成功都执行后面(exit)命令，如果不执行exit命令，后面调用ReadToEnd()方法会假死
+            //同类的符号还有&&和||前者表示必须前一个命令执行成功才会执行后面的命令，后者表示必须前一个命令执行失败才会执行后面的命令
+
+
+
+            //获取cmd窗口的输出信息
+            string output = p.StandardOutput.ReadToEnd();
+
+            //StreamReader reader = p.StandardOutput;
+            //string line=reader.ReadLine();
+            //while (!reader.EndOfStream)
+            //{
+            //    str += line + "  ";
+            //    line = reader.ReadLine();
+            //}
+
+            p.WaitForExit();//等待程序执行完退出进程
+            p.Close();
+
+
+            Console.WriteLine(output);
+        }
+
         public static void ExportStp(List<NXOpen.NXObject> list, string path)
         {
             Session theSession = Session.GetSession();
@@ -204,7 +299,8 @@ namespace SnapEx
                 step214Creator1.ExportSelectionBlock.SelectionComp.Add(u);
             });
 
-            step214Creator1.FileSaveFlag = false;
+            step214Creator1.FileSaveFlag =false;
+            step214Creator1.ValidationProperties = false;
 
             step214Creator1.LayerMask = "1-256";
 
