@@ -235,11 +235,12 @@ namespace SnapEx
 
         public static void ExportStp(string inFileName,string outFileName)
         {
+            var UGII_BASE_DIR = System.Environment.GetEnvironmentVariable("UGII_BASE_DIR");
             string str = string.Format("\"{0}\\step214ug\\step214ug.exe\" \"{1}\" \"o={2}\" \"d={3}\\step214ug\\ugstep214.def\""
-                ,"I:\\UG\\NX 9.0-64bit"
+                , UGII_BASE_DIR
                 , inFileName
                 , outFileName
-                ,"I:\\UG\\NX 9.0-64bit"
+                , UGII_BASE_DIR
                 );
 
             System.Diagnostics.Process p = new System.Diagnostics.Process();
