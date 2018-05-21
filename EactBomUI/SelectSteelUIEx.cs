@@ -115,7 +115,10 @@ partial class SelectSteelUI : SnapEx.BaseUI
             MouldInfo.Orientation = Snap.Orientation.Identity;
             MouldInfo.Origin = new Snap.Position((box.MinX + box.MaxX) / 2, (box.MinY + box.MaxY) / 2, box.MaxZ);
         }
-       
+
+        NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, MouldInfo.Origin.Array);
+        Snap.Globals.WcsOrientation = MouldInfo.Orientation;
+
         Result = System.Windows.Forms.DialogResult.OK;
     }
 

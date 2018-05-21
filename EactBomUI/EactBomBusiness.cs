@@ -504,10 +504,7 @@ namespace EactBom
                     var positioning = new PositioningInfo();
                     positioning.Electrode = info;
                     var pos = info.GetElecBasePos();
-                    var transMove = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - steelInfo.Origin);
-                    var transRotation = Snap.Geom.Transform.CreateRotation(Snap.Orientation.Identity, steelInfo.Orientation);
-                    pos.Move(transMove);
-                    pos.Move(transRotation);
+                    pos = Snap.NX.CoordinateSystem.MapAcsToWcs(pos);
                     positioning.X = Math.Round(pos.X,4);
                     positioning.Y = Math.Round(pos.Y, 4);
                     positioning.Z = Math.Round(pos.Z, 4);

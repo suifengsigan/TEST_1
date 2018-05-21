@@ -184,7 +184,7 @@ namespace ElecManage
             baseFace = null;
             var workPart = Snap.Globals.WorkPart;
             var box = body.Box;
-            var p2 = new Snap.Position((box.MaxX + box.MinX) / 2, (box.MaxY + box.MinY) / 2);
+            var p2 = new Snap.Position((box.MaxX + box.MinX) / 2, (box.MaxY + box.MinY) / 2, (box.MaxZ + box.MinZ) / 2);
             var lines = new List<Snap.NX.Line>();
             if (!string.IsNullOrEmpty(body.Name))
             {
@@ -192,8 +192,14 @@ namespace ElecManage
                 foreach (var line in lines.ToList())
                 {
                     var p1 = (line.StartPoint + line.EndPoint) / 2;
-                    p2.Z = p1.Z;
-                    if (SnapEx.Helper.Equals(p1, p2, SnapEx.Helper.Tolerance) && Snap.Compute.Distance(line, body) < SnapEx.Helper.Tolerance)
+                    var tempVec = p1 - p2;
+                    var tempOri = Snap.Globals.Wcs.Orientation.AxisZ;
+                    if ((
+                        SnapEx.Helper.Equals(tempVec, tempOri, SnapEx.Helper.Tolerance) 
+                        || SnapEx.Helper.Equals(tempVec, -tempOri, SnapEx.Helper.Tolerance)
+                        || SnapEx.Helper.Equals(p1, p2, SnapEx.Helper.Tolerance)
+                        )&& Snap.Compute.Distance(line, body) < SnapEx.Helper.Tolerance
+                        )
                     {
 
                     }
