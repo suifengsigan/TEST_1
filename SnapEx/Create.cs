@@ -20,80 +20,88 @@ namespace SnapEx
         public static double GetProjectionArea(Snap.NX.Face face, double max_facet_size = 1)
         {
             var area = 0.0;
-            var positions = new List<Snap.Position>();
-            #region old code
-            var parameters = new NXOpen.UF.UFFacet.Parameters();
-
-            var ufSession = NXOpen.UF.UFSession.GetUFSession();
-            var facet = ufSession.Facet;
-            facet.AskDefaultParameters(out parameters);
-            parameters.max_facet_edges = 3;
-            parameters.specify_max_facet_size = true;
-            parameters.max_facet_size = max_facet_size;
-
-            NXOpen.Tag facet_model = NXOpen.Tag.Null;
-            facet.FacetSolid(face.NXOpenTag, ref parameters, out facet_model);
-
-            if (facet_model == NXOpen.Tag.Null) return area;
-            NXOpen.Tag solid = NXOpen.Tag.Null;
-            facet.AskSolidOfModel(facet_model, out solid);
-            if (solid != face.NXOpenTag) return area;
-
-            int facet_id = NXOpen.UF.UFConstants.UF_FACET_NULL_FACET_ID;
-            bool isWhile = true;
-            while (isWhile)
+            try
             {
-                facet.CycleFacets(facet_model, ref facet_id);
-                if (facet_id != NXOpen.UF.UFConstants.UF_FACET_NULL_FACET_ID)
+                var positions = new List<Snap.Position>();
+                #region old code
+                var parameters = new NXOpen.UF.UFFacet.Parameters();
+
+                var ufSession = NXOpen.UF.UFSession.GetUFSession();
+                var facet = ufSession.Facet;
+                facet.AskDefaultParameters(out parameters);
+                parameters.max_facet_edges = 3;
+                parameters.specify_max_facet_size = true;
+                parameters.max_facet_size = max_facet_size;
+
+                NXOpen.Tag facet_model = NXOpen.Tag.Null;
+                facet.FacetSolid(face.NXOpenTag, ref parameters, out facet_model);
+
+                if (facet_model == NXOpen.Tag.Null) return area;
+                NXOpen.Tag solid = NXOpen.Tag.Null;
+                facet.AskSolidOfModel(facet_model, out solid);
+                if (solid != face.NXOpenTag) return area;
+
+                int facet_id = NXOpen.UF.UFConstants.UF_FACET_NULL_FACET_ID;
+                bool isWhile = true;
+                while (isWhile)
                 {
-                    int num_vertices = 0;
-                    facet.AskNumVertsInFacet(facet_model, facet_id, out num_vertices);
-                    if (num_vertices == 3)
+                    facet.CycleFacets(facet_model, ref facet_id);
+                    if (facet_id != NXOpen.UF.UFConstants.UF_FACET_NULL_FACET_ID)
                     {
-                        var vertices = new double[num_vertices, 3];
-                        facet.AskVerticesOfFacet(facet_model, facet_id, out num_vertices, vertices);
-                        double[] vecZ = { 0, 0, 1 };
-                        var projectorZAxis = new List<double[]>();
-                        projectorZAxis.Add(new double[] { 0, 0, 0 });
-                        projectorZAxis.Add(new double[] { 0, 0, 0 });
-                        projectorZAxis.Add(new double[] { 0, 0, 0 });
-                        double[] projectorZLength = { 0, 0, 0 };
-                        var verticesList = new List<double[]>();
-                        for (int x = 0; x < 3; x++)
+                        int num_vertices = 0;
+                        facet.AskNumVertsInFacet(facet_model, facet_id, out num_vertices);
+                        if (num_vertices == 3)
                         {
-                            var dList = new List<double>();
-                            for (int y = 0; y < 3; y++)
+                            var vertices = new double[num_vertices, 3];
+                            facet.AskVerticesOfFacet(facet_model, facet_id, out num_vertices, vertices);
+                            double[] vecZ = { 0, 0, 1 };
+                            var projectorZAxis = new List<double[]>();
+                            projectorZAxis.Add(new double[] { 0, 0, 0 });
+                            projectorZAxis.Add(new double[] { 0, 0, 0 });
+                            projectorZAxis.Add(new double[] { 0, 0, 0 });
+                            double[] projectorZLength = { 0, 0, 0 };
+                            var verticesList = new List<double[]>();
+                            for (int x = 0; x < 3; x++)
                             {
-                                dList.Add(vertices[x, y]);
+                                var dList = new List<double>();
+                                for (int y = 0; y < 3; y++)
+                                {
+                                    dList.Add(vertices[x, y]);
+                                }
+                                verticesList.Add(dList.ToArray());
                             }
-                            verticesList.Add(dList.ToArray());
+                            for (int i = 0; i < num_vertices; i++)
+                            {
+                                var vertice = verticesList[i];
+                                var zAxis = projectorZAxis[i];
+                                ufSession.Vec3.Dot(vertice, vecZ, out projectorZLength[i]);
+                                ufSession.Vec3.Scale(projectorZLength[i], vecZ, zAxis);
+                                ufSession.Vec3.Sub(vertice, zAxis, vertice);
+                            }
+                            double[] vec1 = { 0, 0, 0 }, vec2 = { .0, .0, .0 }, cross_vec = { .0, .0, .0 };
+                            var tempFaceArea = 0.0;
+                            ufSession.Vec3.Sub(verticesList[1], verticesList[0], vec1);
+                            ufSession.Vec3.Sub(verticesList[2], verticesList[0], vec2);
+                            ufSession.Vec3.Cross(vec1, vec2, cross_vec);
+                            ufSession.Vec3.Mag(cross_vec, out tempFaceArea);
+                            area += tempFaceArea;
                         }
-                        for (int i = 0; i < num_vertices; i++)
-                        {
-                            var vertice = verticesList[i];
-                            var zAxis = projectorZAxis[i];
-                            ufSession.Vec3.Dot(vertice, vecZ, out projectorZLength[i]);
-                            ufSession.Vec3.Scale(projectorZLength[i], vecZ, zAxis);
-                            ufSession.Vec3.Sub(vertice, zAxis, vertice);
-                        }
-                        double[] vec1 = { 0, 0, 0 }, vec2 = { .0, .0, .0 }, cross_vec = { .0, .0, .0 };
-                        var tempFaceArea = 0.0;
-                        ufSession.Vec3.Sub(verticesList[1], verticesList[0], vec1);
-                        ufSession.Vec3.Sub(verticesList[2], verticesList[0], vec2);
-                        ufSession.Vec3.Cross(vec1, vec2, cross_vec);
-                        ufSession.Vec3.Mag(cross_vec, out tempFaceArea);
-                        area+=tempFaceArea;
+                    }
+                    else
+                    {
+                        isWhile = false;
                     }
                 }
-                else
-                {
-                    isWhile = false;
-                }
-            }
 
-            ufSession.Obj.DeleteObject(facet_model);
-            positions = positions.Distinct().ToList();
-            #endregion
+                ufSession.Obj.DeleteObject(facet_model);
+                positions = positions.Distinct().ToList();
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                area = 0;
+            }
             return area;
         }
 
