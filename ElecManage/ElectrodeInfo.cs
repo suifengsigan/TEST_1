@@ -53,7 +53,7 @@ namespace ElecManage
         {
             get 
             {
-                var elecBox = _body.Box;
+                var elecBox = _body.AcsToWcsBox3d();
                 return string.Format("{0}x{1}x{2}",
                                 Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4)
                                 , Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY),4)
