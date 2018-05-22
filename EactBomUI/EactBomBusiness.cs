@@ -351,9 +351,9 @@ namespace EactBom
                 if (positions.IndexOf(item) > 0) continue;
 
                 //TODO 导BOM
-                var elecBox = electrodeBody.Box;
-                var baseFaceBox = electrode.BaseFace.Box;
-                var topFaceBox = electrode.TopFace.Box;
+                var elecBox = electrodeBody.AcsToWcsBox3d();
+                var baseFaceBox = electrode.BaseFace.AcsToWcsBox3d();
+                var topFaceBox = electrode.TopFace.AcsToWcsBox3d();
                 var STRETCHH = Math.Abs(elecBox.MinZ - elecBox.MaxZ);
                 var HEADPULLUPH = Math.Abs(STRETCHH - Math.Abs((baseFaceBox.MinZ + baseFaceBox.MaxZ) / 2 - (topFaceBox.MinZ + topFaceBox.MaxZ) / 2));
                 var PROCESSNUM = positions.Count.ToString();
