@@ -44,8 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EACTFTP.cs" />
+    <Compile Include="Ftp\EACTFTP.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="Ftp\FtpClient.cs" />
+    <Compile Include="Ftp\FtpLib.cs" />
+    <Compile Include="Ftp\FtpLibEx.cs" />
+    <Compile Include="Ftp\ftplib\Extensions.cs" />
+    <Compile Include="Ftp\ftplib\FtpConnection.cs" />
+    <Compile Include="Ftp\ftplib\FtpDirectoryInfo.cs" />
+    <Compile Include="Ftp\ftplib\FtpException.cs" />
+    <Compile Include="Ftp\ftplib\FtpFileInfo.cs" />
+    <Compile Include="Ftp\ftplib\WinApi.cs" />
     <Compile Include="IEACTFTP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
