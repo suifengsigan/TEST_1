@@ -55,7 +55,27 @@
             UFSession uFSession = Globals.UFSession;
             double[] matrix = new double[12];
             double[] numArray2 = Snap.Math.MatrixMath.MatrixToVector(orientation1.Array);
+            numArray2[0] = orientation1.AxisZ.X;
+            numArray2[1] = orientation1.AxisZ.Y;
+            numArray2[2] = orientation1.AxisZ.Z;
+            numArray2[3] = orientation1.AxisX.X;
+            numArray2[4] = orientation1.AxisX.Y;
+            numArray2[5] = orientation1.AxisX.Z;
+            numArray2[6] = orientation1.AxisY.X;
+            numArray2[7] = orientation1.AxisY.Y;
+            numArray2[8] = orientation1.AxisY.Z;
+
+
             double[] numArray3 = Snap.Math.MatrixMath.MatrixToVector(orientation2.Array);
+            numArray3[0] = orientation2.AxisZ.X;
+            numArray3[1] = orientation2.AxisZ.Y;
+            numArray3[2] = orientation2.AxisZ.Z;
+            numArray3[3] = orientation2.AxisX.X;
+            numArray3[4] = orientation2.AxisX.Y;
+            numArray3[5] = orientation2.AxisX.Z;
+            numArray3[6] = orientation2.AxisY.X;
+            numArray3[7] = orientation2.AxisY.Y;
+            numArray3[8] = orientation2.AxisY.Z;
             uFSession.Trns.CreateCsysMappingMatrix(numArray2, numArray3, matrix, out num);
             return new Transform(matrix);
         }

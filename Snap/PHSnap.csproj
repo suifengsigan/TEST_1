@@ -15,7 +15,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\BLL\UG\</OutputPath>
+    <OutputPath>..\..\..\PHEact\Application\SnapDll\UG9.0\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +24,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\BLL\UG\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,15 +33,19 @@
   <ItemGroup>
     <Reference Include="NXOpen">
       <HintPath>..\..\BLL\UG\UG9.0\NXOpen.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NXOpen.UF">
       <HintPath>..\..\BLL\UG\UG9.0\NXOpen.UF.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NXOpen.Utilities">
       <HintPath>..\..\BLL\UG\UG9.0\NXOpen.Utilities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NXOpenUI">
       <HintPath>..\..\BLL\UG\UG9.0\NXOpenUI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Drawing" />
