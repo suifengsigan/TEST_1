@@ -20,7 +20,7 @@ namespace SnapEx
             return false;
         }
 
-        public static bool Equals(Snap.Vector v1, Snap.Vector v2, double tolerance)
+        static bool _Equals(Snap.Vector v1, Snap.Vector v2, double tolerance)
         {
             v1 = Snap.Vector.Unit(v1);
             v2 = Snap.Vector.Unit(v2);
@@ -31,15 +31,9 @@ namespace SnapEx
             return false;
         }
         
-        public static bool Equals(Snap.Vector v1,Snap.Vector v2) 
+        public static bool Equals(Snap.Vector v1,Snap.Vector v2, double tolerance=Tolerance) 
         {
-            v1 = Snap.Vector.Unit(v1);
-            v2 = Snap.Vector.Unit(v2);
-            if (v1.X == v2.X && v1.Y == v2.Y && v1.Z == v2.Z) 
-            {
-                return true;
-            }
-            return false;
+            return _Equals(v1, v2, tolerance);
         }
 
         public static double CAngle(QuadrantType type, QuadrantType defaultType) 
