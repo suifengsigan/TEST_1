@@ -65,6 +65,15 @@ namespace EactBom
 
             if (datas.Count > 0 || (shareElecDatas != null && shareElecDatas.Count > 0))
             {
+                //去参数
+                positions.ForEach(u => {
+                    var list = Enumerable.Select(u.Electrode.ElecBody.NXOpenBody.GetFeatures(), m => Snap.NX.Feature.Wrap(m.Tag)).ToList();
+                    if (list.Count > 1)
+                    {
+                        SnapEx.Create.RemoveParameters(new List<NXOpen.Body> { u.Electrode.ElecBody });
+                    }
+                });
+
                 //CNC图档
                 if (isExportCncPrt)
                 {
@@ -149,12 +158,6 @@ namespace EactBom
                         var headFaces = new List<Snap.NX.Face>();
                         var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
                         var baseDir = u.Electrode.BaseFace.GetFaceDirection();
-
-                        var list = Enumerable.Select(u.Electrode.ElecBody.NXOpenBody.GetFeatures(), m => Snap.NX.Feature.Wrap(m.Tag)).ToList();
-                        if (list.Count > 1)
-                        {
-                            SnapEx.Create.RemoveParameters(new List<NXOpen.Body> { u.Electrode.ElecBody });
-                        }
 
                         var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
                         allPoss.ForEach(h =>
