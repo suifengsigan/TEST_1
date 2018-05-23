@@ -170,9 +170,9 @@ namespace EactBom
                                     var transR1 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
                                     var transR2 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), baseDir, h.C);
                                     var transM1 = Snap.Geom.Transform.CreateTranslation(h.Electrode.GetElecBasePos() - u.Electrode.GetElecBasePos());
+                                    transR1 = Snap.Geom.Transform.Composition(transR1, transR2);
+                                    transR1 = Snap.Geom.Transform.Composition(transR1, transM1);
                                     u.Electrode.ElecBody.Move(transR1);
-                                    u.Electrode.ElecBody.Move(transR2);
-                                    u.Electrode.ElecBody.Move(transM1);
                                     //u.Electrode.ElecBody.Copy().Color = System.Drawing.Color.Red;
                                 }
                                 u.Electrode.ElecHeadFaces.ToList().ForEach(m =>
