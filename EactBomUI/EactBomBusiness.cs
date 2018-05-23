@@ -150,6 +150,12 @@ namespace EactBom
                         var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
                         var baseDir = u.Electrode.BaseFace.GetFaceDirection();
 
+                        var list = Enumerable.Select(u.Electrode.ElecBody.NXOpenBody.GetFeatures(), m => Snap.NX.Feature.Wrap(m.Tag)).ToList();
+                        if (list.Count > 1)
+                        {
+                            SnapEx.Create.RemoveParameters(new List<NXOpen.Body> { u.Electrode.ElecBody });
+                        }
+
                         var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
                         allPoss.ForEach(h =>
                         {
