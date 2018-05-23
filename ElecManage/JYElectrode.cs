@@ -149,7 +149,7 @@ namespace ElecManage
                 faces.Remove(u);
             });
 
-            faces.InsertRange(0, tempFaces);
+            faces = tempFaces;
 
             foreach (var u in faces)
             {
