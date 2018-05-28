@@ -113,10 +113,12 @@ namespace EactBom
                                 {
                                     case 1://长度矩阵
                                         {
-                                            var uv = u.Electrode.BaseFace.BoxUV;
-                                            if (Math.Abs(uv.MaxU - uv.MinU) < Math.Abs(uv.MaxV - uv.MinV))
+                                            var uv = u.Electrode.BaseFace.Box;
+                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                            if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
                                             {
-                                                trans = Snap.Geom.Transform.Composition(trans,Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
+                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
                                             }
                                         }
                                         break;
@@ -222,8 +224,10 @@ namespace EactBom
                                 {
                                     case 1://长度矩阵
                                         {
-                                            var uv = u.Electrode.BaseFace.BoxUV;
-                                            if (Math.Abs(uv.MaxU - uv.MinU) < Math.Abs(uv.MaxV - uv.MinV))
+                                            var uv = u.Electrode.BaseFace.Box;
+                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                            if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
                                             {
                                                 trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90);
                                             }

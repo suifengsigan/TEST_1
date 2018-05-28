@@ -189,6 +189,9 @@ namespace SnapEx
                     }
                 }
 
+                NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, Snap.Position.Origin.Array);
+                Snap.Globals.WcsOrientation = Snap.Orientation.Identity;
+
                 NXOpen.UF.UFSession.GetUFSession().Part.Export(path, 1, new Tag[] { body.NXOpenTag });
             }
             catch (Exception ex)
