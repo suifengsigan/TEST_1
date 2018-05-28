@@ -43,6 +43,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
     {
         sMRNUMBER.Value = string.Empty;
         sMODELNUMBER.Value = string.Empty;
+        enumSelectedXX.SelectedIndex = (int)EactBom.EactBomBusiness.Instance.ConfigData.QuadrantType;
         RereshUI();
     }
 
@@ -118,6 +119,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
 
         NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, MouldInfo.Origin.Array);
         Snap.Globals.WcsOrientation = MouldInfo.Orientation;
+        ElecManage.Entry.Instance.DefaultQuadrantType = (QuadrantType)enumSelectedXX.SelectedIndex;
 
         Result = System.Windows.Forms.DialogResult.OK;
     }
