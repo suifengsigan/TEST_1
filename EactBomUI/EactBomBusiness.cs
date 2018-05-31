@@ -97,7 +97,18 @@ namespace EactBom
                         var topFaceUV = u.Electrode.TopFace.BoxUV;
                         var topFaceCenterPoint = u.Electrode.TopFace.Position((topFaceUV.MinU + topFaceUV.MaxU) / 2, (topFaceUV.MinV + topFaceUV.MaxV) / 2);
                         var box3d = u.Electrode.ElecBody.AcsToWcsBox3d();
-                        topFaceCenterPoint = topFaceCenterPoint + (System.Math.Abs(box3d.MaxZ - box3d.MinZ) * baseDir);
+                        switch (ConfigData.CNCTranRule)
+                        {
+                            case 2://长度矩阵Y轴（基准台底面）
+                                {
+                                    break;
+                                }
+                            default:
+                                {
+                                    topFaceCenterPoint = topFaceCenterPoint + (System.Math.Abs(box3d.MaxZ - box3d.MinZ) * baseDir);
+                                    break;
+                                }
+                        }
                         var pos = topFaceCenterPoint.Copy(transY);
                         var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
                         var baseFaceOrientation = new Snap.Orientation(topFaceDir);
@@ -120,8 +131,20 @@ namespace EactBom
                                             {
                                                 trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
                                             }
+                                            break;
                                         }
-                                        break;
+                                    case 2://长度矩阵Y轴（基准台底面）
+                                        {
+                                            var uv = u.Electrode.BaseFace.Box;
+                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                            if (absX >= absY)
+                                            {
+                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), -90));
+                                            }
+                                            break;
+                                        }
+                                        
                                 }
                                 return trans;
                             }
@@ -229,6 +252,7 @@ namespace EactBom
                                             var absY = Math.Abs(uv.MaxY - uv.MinY);
                                             if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
                                             {
+                                                //u.Electrode.ElecBody.SetStringAttribute("EACT_EDM_ELEC_CMM_ROTATION", "1");
                                                 trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90);
                                             }
                                         }
