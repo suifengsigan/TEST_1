@@ -243,6 +243,7 @@ namespace EactBom
                                 area *= 0.5;
                                 u.Electrode.ElecBody.SetStringAttribute("EACT_EDM_ELEC_AREA", area.ToString());
                                 var trans = Snap.Geom.Transform.CreateTranslation();
+                                bool isCmmRotation = false;
                                 switch (ConfigData.EDMTranRule)
                                 {
                                     case 1://长度矩阵
@@ -252,16 +253,18 @@ namespace EactBom
                                             var absY = Math.Abs(uv.MaxY - uv.MinY);
                                             if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
                                             {
-                                                //u.Electrode.ElecBody.SetStringAttribute("EACT_EDM_ELEC_CMM_ROTATION", "1");
+                                                isCmmRotation = true;
                                                 trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90);
                                             }
                                         }
                                         break;
                                 }
+                                var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
+                                datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation?"1":"0");
                                 return trans;
                             }
                             , transY, transQ, transX);
-
+                        
                         var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, u.Electrode.ElecBody.Name), ".prt");
                         if (System.IO.File.Exists(fileName))
                         {

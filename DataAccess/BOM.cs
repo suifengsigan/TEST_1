@@ -115,17 +115,17 @@ namespace DataAccess
                                 insert_cuprum_sql = "insert into EACT_cuprum(mouldid,cuprumname,cuprumsn,frienum,vdi,struff,strufftype,STYLIST,";
                                 insert_cuprum_sql += "Dateofdelivery,openstruff,discharging,Shape,rock,Procdirection,Rmf,offsetx,offsety,";
                                 insert_cuprum_sql += "x,y,z,c,steel,Substratecquadrant,STEELMODELSN,STEELMODULESN,Assemblyexp,PARTFILENAME,HEADPULLUPH,STRETCHH,STRUFFGROUPL,UNIT";
-                                insert_cuprum_sql += ",PROCESSNUM";
+                                insert_cuprum_sql += ",PROCESSNUM,REGION";
                                 insert_cuprum_sql += ") output inserted.cuprumid values({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}',";
                                 insert_cuprum_sql += "'{8}','{9}','{10}','{11}','{12}','{13}','{14}',{15},{16},";
-                                insert_cuprum_sql += "'{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}')";
+                                insert_cuprum_sql += "'{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}')";
                                 insert_cuprum_sql = string.Format(insert_cuprum_sql,
                                     mouldId ,item.CUPRUMNAME , item.CUPRUMSN , item.FRIENUM, item.VDI, item.STRUFF, item.STRUFFTYPE
                                     , creator, item.DATEOFDELIVERY, item.OPENSTRUFF, item.DISCHARGING, item.SHAPE, item.ROCK
                                     , item.PROCDIRECTION, item.RMF, DecimalConvert(item.OFFSETX)
                                     , DecimalConvert(item.OFFSETY), item.X, item.Y, item.Z, item.C, item.STEEL, item.SUBSTRATECQUADRANT
                                      , item.STEELMODELSN, item.STEELMODULESN, item.ASSEMBLYEXP, item.PARTFILENAME, item.HEADPULLUPH, item.STRETCHH
-                                     , item.STRUFFGROUPL , item.UNIT,item.PROCESSNUM
+                                     , item.STRUFFGROUPL , item.UNIT,item.PROCESSNUM,item.REGION
                                     );
                                 string cuprumId = conn.ExecuteScalar(insert_cuprum_sql, null, _tran, null, null).ToString();
 
