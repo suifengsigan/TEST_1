@@ -127,7 +127,9 @@ namespace ElecManage
         {
             get
             {
-                return _body.GetAttrValue(ELEC_FINISH_SPACE);
+                double result = 0;
+                double.TryParse(_body.GetAttrValue(ELEC_FINISH_SPACE), out result);
+                return (-Math.Abs(result)).ToString();
             }
             set
             {
@@ -141,7 +143,9 @@ namespace ElecManage
         {
             get
             {
-                return _body.GetAttrValue(ELEC_MIDDLE_SPACE);
+                double result = 0;
+                double.TryParse(_body.GetAttrValue(ELEC_MIDDLE_SPACE), out result);
+                return (-Math.Abs(result)).ToString();
             }
             set
             {
@@ -155,7 +159,9 @@ namespace ElecManage
         {
             get
             {
-                return _body.GetAttrValue(ELEC_ROUGH_SPACE);
+                double result = 0;
+                double.TryParse(_body.GetAttrValue(ELEC_ROUGH_SPACE), out result);
+                return (-Math.Abs(result)).ToString();
             }
             set
             {
