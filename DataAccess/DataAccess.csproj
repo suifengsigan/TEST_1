@@ -49,6 +49,12 @@
     <Compile Include="Entry.cs" />
     <Compile Include="BOM\GenerateAutoCode.cs" />
     <Compile Include="BOM\IBom.cs" />
+    <Compile Include="ModelV2\EACT_CUPRUM.cs" />
+    <Compile Include="ModelV2\EACT_CUPRUM_MAKE.cs" />
+    <Compile Include="ModelV2\EACT_CUPRUM_POS.cs" />
+    <Compile Include="ModelV2\EACT_MOULD.cs" />
+    <Compile Include="ModelV2\EACT_STEEL.cs" />
+    <Compile Include="ModelV2\EACT_STEEL_CUPRUM.cs" />
     <Compile Include="Model\BOM.cs" />
     <Compile Include="Model\EACT_CUPRUM.cs" />
     <Compile Include="Model\EACT_CUPRUM_EXP.cs" />
