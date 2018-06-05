@@ -41,11 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BOM.cs" />
+    <Compile Include="BOM\BOM.cs" />
+    <Compile Include="BOM\BomV1.cs" />
+    <Compile Include="BOM\BomV2.cs" />
     <Compile Include="DAL.cs" />
-    <Compile Include="Eman.cs" />
+    <Compile Include="BOM\Eman.cs" />
     <Compile Include="Entry.cs" />
-    <Compile Include="GenerateAutoCode.cs" />
+    <Compile Include="BOM\GenerateAutoCode.cs" />
+    <Compile Include="BOM\IBom.cs" />
     <Compile Include="Model\BOM.cs" />
     <Compile Include="Model\EACT_CUPRUM.cs" />
     <Compile Include="Model\EACT_CUPRUM_EXP.cs" />

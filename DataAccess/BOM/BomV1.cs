@@ -7,19 +7,19 @@ using Dapper;
 
 namespace DataAccess
 {
-    public abstract class BOM
+    public class BomV1:IBom
     {
         /// <summary>
         /// 获取所有的共用电极信息
         /// </summary>
-        public static List<EACT_CUPRUM> GetCuprumList(List<string> cuprumNames,string modelNo,string partNo)
+        public List<EACT_CUPRUM> GetCuprumList(List<string> cuprumNames, string modelNo, string partNo)
         {
             if (cuprumNames.Count <= 0) return new List<EACT_CUPRUM>();
             using (var conn = DAL.GetConn())
             {
                 conn.Open();
                 var sql = new StringBuilder();
-                sql.AppendFormat("select * from EACT_CUPRUM ec where (ec.STEELMODELSN !='{0}' or ec.STEELMODULESN !='{1}') and ec.PARTFILENAME in ", modelNo,partNo);
+                sql.AppendFormat("select * from EACT_CUPRUM ec where (ec.STEELMODELSN !='{0}' or ec.STEELMODULESN !='{1}') and ec.PARTFILENAME in ", modelNo, partNo);
                 sql.Append("(");
                 sql.Append(string.Join(",", Enumerable.Select(cuprumNames, u => string.Format("'{0}'", u)).ToArray()));
                 sql.Append(")");
@@ -49,7 +49,7 @@ namespace DataAccess
         /// <summary>
         /// 新增共用电极
         /// </summary>
-        private static string InsertCuprumEx(EACT_CUPRUM_EXP exp) 
+        private static string InsertCuprumEx(EACT_CUPRUM_EXP exp)
         {
             return string.Format("insert into EACT_CUPRUM_EXP(CUPRUMID,MODELNO,PARTNO,X,Y,Z,C) output inserted.ID values(@CUPRUMID,@MODELNO,@PARTNO,@X,@Y,@Z,@C)");
         }
@@ -57,9 +57,9 @@ namespace DataAccess
         /// <summary>
         /// 获取电极列表
         /// </summary>
-        public static List<EACT_CUPRUM> GetCuprumList(string cuprumName) 
+        public static List<EACT_CUPRUM> GetCuprumList(string cuprumName)
         {
-            using (var conn = DAL.GetConn()) 
+            using (var conn = DAL.GetConn())
             {
                 conn.Open();
                 var sql = new StringBuilder();
@@ -72,7 +72,7 @@ namespace DataAccess
         /// <summary>
         /// 导BOM
         /// </summary>
-        public static void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID,bool isImportEman, List<EACT_CUPRUM_EXP> cuprumEXPs = null)
+        public void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID, bool isImportEman, List<EACT_CUPRUM_EXP> cuprumEXPs = null)
         {
             using (var conn = DAL.GetConn())
             {
@@ -88,13 +88,13 @@ namespace DataAccess
                     {
                         string ids = string.Join(",", Enumerable.Select(CupRumList, u => string.Format("'{0}'", u.CUPRUMSN)).ToArray());
                         //TODO 先判断待导入的电极在库中是否已经存在，如果存在则先删除再插入
-                        
+
                         //清除符合条件的预装表数据
                         var delete_cuprum_assembly_sql = string.Format("delete from EACT_cuprum_assembly where CUPRUMID in(select cuprumid from EACT_cuprum where CUPRUMSN in({0}))", ids.TrimEnd(','));
-                        
+
                         //清除符合条件的电极表数据
                         var delete_cuprum_sql = string.Format("delete from EACT_cuprum where CUPRUMSN in({0})", ids.TrimEnd(','));
-                        
+
                         //插入钢件并返回插入的钢件ID
                         var select_mould_sql = string.Format("select mouldid from EACT_mould where sn='{0}'", CupRumList[0].STEELMODELSN);
                         var insert_mould_sql = string.Format("insert into EACT_mould(SN,DESIGNER,DESIGNERTIME) output inserted.mouldid values('{0}','{1}',getdate())", CupRumList[0].STEELMODELSN, creator);
@@ -106,7 +106,7 @@ namespace DataAccess
                         {
                             mouldId = conn.ExecuteScalar(insert_mould_sql, null, _tran, null, null).ToString();
                         }
-                        if (mouldId != null) 
+                        if (mouldId != null)
                         {
                             foreach (var item in CupRumList)
                             {
@@ -120,17 +120,17 @@ namespace DataAccess
                                 insert_cuprum_sql += "'{8}','{9}','{10}','{11}','{12}','{13}','{14}',{15},{16},";
                                 insert_cuprum_sql += "'{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}')";
                                 insert_cuprum_sql = string.Format(insert_cuprum_sql,
-                                    mouldId ,item.CUPRUMNAME , item.CUPRUMSN , item.FRIENUM, item.VDI, item.STRUFF, item.STRUFFTYPE
+                                    mouldId, item.CUPRUMNAME, item.CUPRUMSN, item.FRIENUM, item.VDI, item.STRUFF, item.STRUFFTYPE
                                     , creator, item.DATEOFDELIVERY, item.OPENSTRUFF, item.DISCHARGING, item.SHAPE, item.ROCK
                                     , item.PROCDIRECTION, item.RMF, DecimalConvert(item.OFFSETX)
                                     , DecimalConvert(item.OFFSETY), item.X, item.Y, item.Z, item.C, item.STEEL, item.SUBSTRATECQUADRANT
                                      , item.STEELMODELSN, item.STEELMODULESN, item.ASSEMBLYEXP, item.PARTFILENAME, item.HEADPULLUPH, item.STRETCHH
-                                     , item.STRUFFGROUPL , item.UNIT,item.PROCESSNUM,item.REGION
+                                     , item.STRUFFGROUPL, item.UNIT, item.PROCESSNUM, item.REGION
                                     );
                                 string cuprumId = conn.ExecuteScalar(insert_cuprum_sql, null, _tran, null, null).ToString();
 
                                 //共用电极
-                                if (cuprumEXPs != null) 
+                                if (cuprumEXPs != null)
                                 {
                                     var shareElec = new DataAccess.Model.EACT_CUPRUM_EXP();
                                     shareElec.CUPRUMID = decimal.Parse(cuprumId);
@@ -139,7 +139,7 @@ namespace DataAccess
                                     shareElec.X = item.X;
                                     shareElec.Y = item.Y;
                                     shareElec.Z = item.Z;
-                                    shareElec.C=item.C;
+                                    shareElec.C = item.C;
                                     cuprumEXPs.Add(shareElec);
                                 }
 
@@ -149,7 +149,7 @@ namespace DataAccess
                                 if (struffId == null)
                                 {
                                     var insert_cuprum_struff_sql = string.Format("insert into EACT_cuprum_struff output inserted.struffid select '{0}' where not exists(select * from EACT_cuprum_struff where STRUFFNAME='{0}')", item.STRUFF);
-                                    struffId = conn.ExecuteScalar(insert_cuprum_struff_sql, null, _tran,null,null).ToString();
+                                    struffId = conn.ExecuteScalar(insert_cuprum_struff_sql, null, _tran, null, null).ToString();
                                 }
                                 //插入物料规格(如果匹配记录不存在则新增一条)
                                 var select_cuprum_spec_sql = string.Format("select specid from EACT_cuprum_spec where specl={0} and specw={1} and spech={2}", item.EDMCONDITIONSN.ToLower().Split('x')[0], item.EDMCONDITIONSN.ToLower().Split('x')[1], item.EDMCONDITIONSN.ToLower().Split('x')[2]);
@@ -178,7 +178,7 @@ namespace DataAccess
                     }
 
                     //删除
-                    if (cuprumEXPs != null) 
+                    if (cuprumEXPs != null)
                     {
                         if (cuprumEXPs.Count > 0) { conn.Execute(DeleteCuprumEx(cuprumEXPs), null, _tran, null, null); }
                         cuprumEXPs.ForEach(u =>
@@ -189,7 +189,7 @@ namespace DataAccess
 
                     _tran.Commit();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _tran.Rollback();
                     throw ex;
