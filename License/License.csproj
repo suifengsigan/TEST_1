@@ -48,6 +48,7 @@
     <Compile Include="Sense5Dev\SlmRuntime.cs" />
     <Compile Include="Sense5Dev\SSDefine.cs" />
     <Compile Include="Sense5Dev\SSErrCode.cs" />
+    <Compile Include="Sense5Dev\SlmRuntime64.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

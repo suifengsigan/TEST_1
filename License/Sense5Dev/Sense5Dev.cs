@@ -22,7 +22,9 @@ namespace License
             try
             {
                 string psd = "06AAA67F3CE60AEAB761A4CAEA3FF33D";
-                Ret = SlmRuntime.SlmInitEasy(psd);
+                if (IntPtr.Size == 8) { Ret = SlmRuntime64.SlmInitEasy(psd); }
+                else { Ret = SlmRuntime.SlmInitEasy(psd); }
+              
                 if (Ret != SSErrCode.SS_OK)
                 {
                     StrMsg = string.Format("05 - 加密锁认证失败:0x{0:X8}", Ret);
@@ -33,8 +35,17 @@ namespace License
                 //
                 //02. FIND LICENSE
                 //
-                IntPtr FindLic = SlmRuntime.SlmFindLicenseEasy(500, INFO_FORMAT_TYPE.JSON);
-                Ret = SlmRuntime.SlmGetLastError();
+                if (IntPtr.Size == 8)
+                {
+                    IntPtr FindLic = SlmRuntime64.SlmFindLicenseEasy(500, INFO_FORMAT_TYPE.JSON);
+                    Ret = SlmRuntime64.SlmGetLastError();
+                }
+                else
+                {
+                    IntPtr FindLic = SlmRuntime.SlmFindLicenseEasy(500, INFO_FORMAT_TYPE.JSON);
+                    Ret = SlmRuntime.SlmGetLastError();
+                }
+              
                 if (Ret != SSErrCode.SS_OK)
                 {
                     StrMsg = string.Format("05 - 加密锁获取LICENSE失败:0x{0:X8}", Ret);
@@ -50,9 +61,17 @@ namespace License
                 stLogin.license_id = 500;
                 System.IntPtr stLoginPtr = Marshal.AllocCoTaskMem(Marshal.SizeOf(stLogin));
                 Marshal.StructureToPtr(stLogin, stLoginPtr, false);
-
-                Handle = SlmRuntime.SlmLoginEasy(stLoginPtr, INFO_FORMAT_TYPE.STRUCT);
-                Ret = SlmRuntime.SlmGetLastError();
+                if (IntPtr.Size == 8)
+                {
+                    Handle = SlmRuntime64.SlmLoginEasy(stLoginPtr, INFO_FORMAT_TYPE.STRUCT);
+                    Ret = SlmRuntime64.SlmGetLastError();
+                }
+                else
+                {
+                    Handle = SlmRuntime.SlmLoginEasy(stLoginPtr, INFO_FORMAT_TYPE.STRUCT);
+                    Ret = SlmRuntime.SlmGetLastError();
+                }
+             
                 if (Ret != SSErrCode.SS_OK)
                 {
                     StrMsg = string.Format("05 - 加密锁登录失败:0x{0:X8}", Ret);

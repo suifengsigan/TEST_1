@@ -8,9 +8,9 @@ namespace SLM
     /// <summary>
     /// 
     /// </summary>
-    internal class SlmRuntime
+    internal class SlmRuntime64
     {
-        public const string DllName = "slm_runtime_easyX86.dll";
+        public const string DllName = "slm_runtime_easyX64.dll";
         /// <summary>
         /// 
         /// </summary>
@@ -31,7 +31,7 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#3", CallingConvention = CallingConvention.StdCall)]
         public static extern IntPtr AppMsgGetLastInfo();
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -63,8 +63,8 @@ namespace SLM
         /// <returns>SLM_HANDLE_INDEX</returns>
         [DllImport(DllName, EntryPoint = "#7", CallingConvention = CallingConvention.StdCall)]
         public static extern SLM_HANDLE_INDEX SlmLoginEasy(
-            IntPtr                        LicenseParam,
-            INFO_FORMAT_TYPE              ParamFormat);
+            IntPtr LicenseParam,
+            INFO_FORMAT_TYPE ParamFormat);
 
         /// <summary>
         /// 
@@ -83,8 +83,8 @@ namespace SLM
         /// <returns>"IntPtr" 需要调用SlmFreeEasy 释放</returns>
         [DllImport(DllName, EntryPoint = "#9", CallingConvention = CallingConvention.StdCall)]
         public static extern IntPtr SlmFindLicenseEasy(
-            UInt32            LicenseID,
-            INFO_FORMAT_TYPE  Format);
+            UInt32 LicenseID,
+            INFO_FORMAT_TYPE Format);
 
         /// <summary>
         /// 
@@ -94,7 +94,7 @@ namespace SLM
         [DllImport(DllName, EntryPoint = "#28", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmKeepAliveEasy(
             SLM_HANDLE_INDEX SlmHandle);
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -105,7 +105,7 @@ namespace SLM
         [DllImport(DllName, EntryPoint = "#10", CallingConvention = CallingConvention.StdCall)]
         public static extern IntPtr SlmGetInfoEasy(
             SLM_HANDLE_INDEX SlmHandle,
-            INFO_TYPE        InfoType,
+            INFO_TYPE InfoType,
             INFO_FORMAT_TYPE Format);
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#32", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmCheckModuleEasy(
-            SLM_HANDLE_INDEX   SlmHandle,
-            UInt32             ModuleID);
+            SLM_HANDLE_INDEX SlmHandle,
+            UInt32 ModuleID);
 
         /// <summary>
         /// 
@@ -129,10 +129,10 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#11", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmEncryptEasy(
-            SLM_HANDLE_INDEX                              SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             [In, MarshalAs(UnmanagedType.LPArray)] byte[] InputBuff,
             [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] OutBuff,
-            UInt32                                        Len);
+            UInt32 Len);
 
         /// <summary>
         /// 
@@ -144,10 +144,10 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#12", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmDecryptEasy(
-            SLM_HANDLE_INDEX                              SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             [In, MarshalAs(UnmanagedType.LPArray)] byte[] InputBuff,
             [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] OutBuff,
-            UInt32                                        Len);
+            UInt32 Len);
 
         /// <summary>
         /// 
@@ -158,7 +158,7 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#13", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmUserDataGetSizeEasy(
-            SLM_HANDLE_INDEX   SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             LIC_USER_DATA_TYPE Type);
 
         /// <summary>
@@ -172,11 +172,11 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#14", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmUserDataReadEasy(
-            SLM_HANDLE_INDEX       SlmHandle,
-            LIC_USER_DATA_TYPE     Type,
+            SLM_HANDLE_INDEX SlmHandle,
+            LIC_USER_DATA_TYPE Type,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] ReadBuff,
-            UInt32                 Offset,
-            UInt32                 Len);
+            UInt32 Offset,
+            UInt32 Len);
 
         /// <summary>
         /// 写许可的读写数据区 ,数据区操作之前请先确认内存区的大小，可以使用slm_user_data_getsize获得
@@ -188,10 +188,10 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#15", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmUserDataWriteEasy(
-            SLM_HANDLE_INDEX      SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] WriteBuff,
-            UInt32                Offset,
-            UInt32                Len);
+            UInt32 Offset,
+            UInt32 Len);
 
         /// <summary>
         /// 
@@ -201,8 +201,8 @@ namespace SLM
         /// <returns>返回数据区大小</returns>
         [DllImport(DllName, EntryPoint = "#36", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmPubDataGetSizeEasy(
-            SLM_HANDLE_INDEX       SlmHandle,
-            UInt32                 LicenseID);
+            SLM_HANDLE_INDEX SlmHandle,
+            UInt32 LicenseID);
 
         /// <summary>
         /// 
@@ -216,10 +216,10 @@ namespace SLM
         [DllImport(DllName, EntryPoint = "#37", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmPubDataReadEasy(
             SLM_HANDLE_INDEX SlmHandle,
-            UInt32           LicenseID,
+            UInt32 LicenseID,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] ReadBuff,
-            UInt32                 Offset,
-            UInt32                 Len);
+            UInt32 Offset,
+            UInt32 Len);
 
         /// <summary>
         /// SS内存托管内存申请
@@ -230,7 +230,7 @@ namespace SLM
         [DllImport(DllName, EntryPoint = "#16", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmMemAllocEasy(
             SLM_HANDLE_INDEX SlmHandle,
-            UInt32           Size);
+            UInt32 Size);
 
         /// <summary>
         /// 释放托管内存
@@ -240,8 +240,8 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#17", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmMemFreeEasy(
-            SLM_HANDLE_INDEX   SlmHandle,
-            UInt32             MemID);
+            SLM_HANDLE_INDEX SlmHandle,
+            UInt32 MemID);
 
         /// <summary>
         /// SS内存托管读
@@ -255,10 +255,10 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#18", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmMemReadEasy(
-            SLM_HANDLE_INDEX          SlmHandle,
-            UInt32                    MemID,
-            UInt32                    Offset,
-            UInt32                    Len,
+            SLM_HANDLE_INDEX SlmHandle,
+            UInt32 MemID,
+            UInt32 Offset,
+            UInt32 Len,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] readbuff);
 
         /// <summary>
@@ -272,10 +272,10 @@ namespace SLM
         /// <returns>UInt32 返回写入数据长度</returns>
         [DllImport(DllName, EntryPoint = "#19", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmMemWriteEasy(
-            SLM_HANDLE_INDEX   SlmHandle,
-            UInt32             MemID,
-            UInt32             Offset,
-            UInt32             Len,
+            SLM_HANDLE_INDEX SlmHandle,
+            UInt32 MemID,
+            UInt32 Offset,
+            UInt32 Len,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] writebuff
             );
 
@@ -292,13 +292,13 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#21", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmExecuteStaticEasy(
-            SLM_HANDLE_INDEX                             SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             [In, MarshalAs(UnmanagedType.LPTStr)] string ExfName,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] InBuff,
-            UInt32                                       InSize,
+            UInt32 InSize,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] OutBuff,
-            UInt32                                       OutSize,
-            ref UInt32                                   RetSize);
+            UInt32 OutSize,
+            ref UInt32 RetSize);
 
         /// <summary>
         /// 许可动态执行代码，由开发商API gen_dynamic_code生成
@@ -314,14 +314,14 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#20", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmExecuteDynamicEasy(
-            SLM_HANDLE_INDEX      SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] ExfBuff,
-            UInt32                ExfSize,
+            UInt32 ExfSize,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] InBuff,
-            UInt32                InSize,
+            UInt32 InSize,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] OutBuff,
-            UInt32                OutSize,
-            ref UInt32            RetSize);
+            UInt32 OutSize,
+            ref UInt32 RetSize);
 
         /// <summary>
         /// 
@@ -339,14 +339,14 @@ namespace SLM
         [DllImport(DllName, EntryPoint = "#35", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmExecuteEasy(
             SLM_HANDLE_INDEX SlmHandle,
-            UInt32           CodeType,
+            UInt32 CodeType,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] CodeBuff,
-            UInt32           CodeSize,
+            UInt32 CodeSize,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] InBuff,
-            UInt32           InSize,
+            UInt32 InSize,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 7)] byte[] OutBuff,
-            UInt32           OutSize,
-            ref UInt32       RetSize);
+            UInt32 OutSize,
+            ref UInt32 RetSize);
 
         /// <summary>
         /// 获取锁的设备证书
@@ -358,10 +358,10 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#29", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmGetDeviceCertEasy(
-            SLM_HANDLE_INDEX           SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] DeviceCert,
-            UInt32                     CertSize,
-            ref UInt32                 RetSize);
+            UInt32 CertSize,
+            ref UInt32 RetSize);
 
         /// <summary>
         /// 设备正版验证
@@ -375,12 +375,12 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#30", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmSignByDeviceEasy(
-            SLM_HANDLE_INDEX               SlmHandle,
+            SLM_HANDLE_INDEX SlmHandle,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] SignData,
-            UInt32                         SignSize,
+            UInt32 SignSize,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] Signature,
-            UInt32                         BuffSize,
-            ref UInt32                     SignatureSize);
+            UInt32 BuffSize,
+            ref UInt32 SignatureSize);
 
         /// <summary>
         /// 闪烁指示灯
@@ -392,10 +392,10 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#22", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmLedControlEasy(
-            SLM_HANDLE_INDEX     SlmHandle,
-            UInt32               Color,
-            UInt32               State,
-            UInt32               Interval);
+            SLM_HANDLE_INDEX SlmHandle,
+            UInt32 Color,
+            UInt32 State,
+            UInt32 Interval);
 
         /// <summary>
         /// 
@@ -405,7 +405,7 @@ namespace SLM
         /// <returns></returns>
         [DllImport(DllName, EntryPoint = "#23", CallingConvention = CallingConvention.StdCall)]
         public static extern UInt32 SlmGetVersionEasy(
-            ref UInt32 APIVersion, 
+            ref UInt32 APIVersion,
             ref UInt32 SSVersion);
 
         /// <summary>
@@ -416,7 +416,7 @@ namespace SLM
         /// <returns>成功返回错误码信息（不需要调用slm_free释放），失败返回空指针NULL</returns>
         [DllImport(DllName, EntryPoint = "#24", CallingConvention = CallingConvention.StdCall)]
         public static extern IntPtr SlmErrorFormatEasy(
-            UInt32 ErrorCode, 
+            UInt32 ErrorCode,
             UInt32 Language);
 
         /// <summary>

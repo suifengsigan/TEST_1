@@ -111,19 +111,35 @@ namespace License
             public byte[] bID;
             public uint dwAtrLen;
         }
-
+        const string DllNameX86 = "Sense4userX86.dll";
         //Assume that Sense4user.dll in c:\, if not, modify the lines below
-        [DllImport("Sense4user.dll")]
+        [DllImport(DllNameX86)]
         private static extern uint S4Enum([MarshalAs(UnmanagedType.LPArray), Out] SENSE4_CONTEXT[] s4_context, ref uint size);
-        [DllImport("Sense4user.dll")]
+        [DllImport(DllNameX86)]
         private static extern uint S4Open(ref SENSE4_CONTEXT s4_context);
-        [DllImport("Sense4user.dll")]
+        [DllImport(DllNameX86)]
         private static extern uint S4Close(ref SENSE4_CONTEXT s4_context);
-        [DllImport("Sense4user.dll")]
+        [DllImport(DllNameX86)]
         private static extern uint S4Control(ref SENSE4_CONTEXT s4Ctx, uint ctlCode, byte[] inBuff,
             uint inBuffLen, byte[] outBuff, uint outBuffLen, ref uint BytesReturned);
-        [DllImport("Sense4user.dll")]
+        [DllImport(DllNameX86)]
         private static extern uint S4Execute(ref SENSE4_CONTEXT s4Ctx, string FileID, byte[] InBuffer,
+            uint InbufferSize, byte[] OutBuffer, uint OutBufferSize, ref uint BytesReturned);
+
+
+        const string DllNameX64 = "Sense4userX64.dll";
+        //Assume that Sense4user.dll in c:\, if not, modify the lines below
+        [DllImport(DllNameX64, EntryPoint = "S4Enum")]
+        private static extern uint S4Enum64([MarshalAs(UnmanagedType.LPArray), Out] SENSE4_CONTEXT[] s4_context, ref uint size);
+        [DllImport(DllNameX64, EntryPoint = "S4Open")]
+        private static extern uint S4Open64(ref SENSE4_CONTEXT s4_context);
+        [DllImport(DllNameX64, EntryPoint = "S4Close")]
+        private static extern uint S4Close64(ref SENSE4_CONTEXT s4_context);
+        [DllImport(DllNameX64, EntryPoint = "S4Control")]
+        private static extern uint S4Control64(ref SENSE4_CONTEXT s4Ctx, uint ctlCode, byte[] inBuff,
+            uint inBuffLen, byte[] outBuff, uint outBuffLen, ref uint BytesReturned);
+        [DllImport(DllNameX64, EntryPoint = "S4Execute")]
+        private static extern uint S4Execute64(ref SENSE4_CONTEXT s4Ctx, string FileID, byte[] InBuffer,
             uint InbufferSize, byte[] OutBuffer, uint OutBufferSize, ref uint BytesReturned);
 
 
@@ -131,8 +147,96 @@ namespace License
 
         #region  Verification
 
+        public static bool VerificationX64(out string strMsg)
+        {
+            try
+            {
+                strMsg = string.Empty;
+
+                uint size = 0;
+
+                byte[] inBuffer = new byte[512];
+
+                byte[] outBuffer = new byte[256];
+
+                byte[] wModID = new byte[2];
+
+                byte[] wNewtimeouts = new byte[2];
+
+                uint BytesReturned = 0;
+
+                // 查找网络锁，配置文件在同目录下：e4ncli.ini
+                uint ret = S4Enum64(null, ref size);
+                SENSE4_CONTEXT[] si = new SENSE4_CONTEXT[size / Marshal.SizeOf(typeof(SENSE4_CONTEXT))];
+                ret = S4Enum64(si, ref size);
+                if (ret != S4_SUCCESS)
+                {
+                    strMsg = "04 - 加密锁启动失败！代码：" + ret.ToString();
+                    //MessageDxUtil.ShowMsg("04 - 加密锁启动失败！代码：" + ret.ToString(), MessageDxUtil.MsgType.Warning);
+                    return false;
+                }
+
+                int siIndex = -1;
+                //验证加密锁的ID
+                for (int i = 0; i < si.Length; i++)
+                {
+                    var siList = new List<byte>(si[i].bAtr);
+
+                    siList.RemoveRange(0, int.Parse(si[i].dwAtrLen.ToString()) - 8);
+
+                    var sSer = Encoding.Default.GetString(siList.ToArray());
+
+                    if (sSer.Trim().IndexOf("EAct") != -1)
+                    {
+                        siIndex = i;
+                        break;
+                    }
+                }
+
+                if (siIndex == -1)
+                {
+                    strMsg = "04 - 没有发现EAct系统的加密狗！";
+                    //MessageDxUtil.ShowMsg("04 - 没有发现EAct系统的加密狗！", MessageDxUtil.MsgType.Warning);
+                    return false;
+                }
+
+                // 打开网络锁
+                ret = S4Open64(ref si[siIndex]);
+                if (ret != S4_SUCCESS)
+                {
+                    strMsg = "04 - 加密锁网络访问失败！代码：" + ret.ToString();
+                    //MessageDxUtil.ShowMsg("04 - 加密锁网络访问失败！代码：" + ret.ToString(), MessageDxUtil.MsgType.Warning);
+                    return false;
+                }
+
+                // 获取授权
+                wModID[0] = 0x01;
+                wModID[1] = 0x00;
+                ret = S4Control64(ref si[siIndex], S4_GET_LICENSE, wModID, 2, null, 0, ref BytesReturned);
+                if (ret != S4_SUCCESS)
+                {
+                    S4Close64(ref si[siIndex]);
+                    strMsg = "04 - 请插入加密锁或检查加密锁服务是否启动！代码：" + ret.ToString();
+                    //MessageDxUtil.ShowMsg("04 - 请插入加密锁或检查加密锁服务是否启动！代码：" + ret.ToString(), MessageDxUtil.MsgType.Warning);
+                    return false;
+                }
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                strMsg = "04 - 加密锁验证失败！错误：" + ex.Message.ToString();
+                //MessageDxUtil.ShowMsg("04 - 加密锁验证失败！错误：" + ex.Message.ToString(), MessageDxUtil.MsgType.Warning);
+                return false;
+            }
+        }
+
         public static bool Verification(out string strMsg)
         {
+            if (IntPtr.Size == 8)
+            {
+                return VerificationX64(out strMsg);
+            }
             try
             {
                 strMsg=string.Empty;
