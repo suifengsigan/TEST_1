@@ -74,6 +74,12 @@ namespace EactBom
                     }
                 });
 
+                var PRTFILEPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE"));
+                if (System.IO.Directory.Exists(PRTFILEPath))
+                {
+                    System.IO.Directory.Delete(PRTFILEPath, true);
+                }
+
                 //CNC图档
                 if (isExportCncPrt)
                 {
