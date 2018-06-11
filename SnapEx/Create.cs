@@ -183,7 +183,7 @@ namespace SnapEx
                         trans = Snap.Geom.Transform.Composition(trans, u);
                     });
                     body.Move(trans);
-                    if (func != null) 
+                    if (func != null)
                     {
                         body.Move(func());
                     }
@@ -196,10 +196,12 @@ namespace SnapEx
             }
             catch (Exception ex)
             {
-                UI.GetUI().NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, ex.Message);
+                throw ex;
             }
-
-            Snap.Globals.UndoToMark(mark, null);
+            finally
+            {
+                Snap.Globals.UndoToMark(mark, null);
+            }
         }
         public static void ExportStp(Snap.NX.Body body, string path, params Snap.Geom.Transform[] transfroms) 
         {
