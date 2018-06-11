@@ -197,7 +197,7 @@ namespace EactBom
                         var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
                         allPoss.ForEach(h =>
                         {
-                            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Visible, "EACT_EDM_ELEC_AREA");
+                            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "EACT_EDM_ELEC_AREA");
                             try
                             {
                                 if (u != h) 

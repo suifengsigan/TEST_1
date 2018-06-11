@@ -113,7 +113,7 @@ namespace SnapEx
                 System.IO.File.Delete(fileName);
             }
             var workPart = NXOpen.Session.GetSession().Parts.Work;
-            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Visible, "ExportStp");
+            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "ExportStp");
             try
             {
                 if (body.IsOccurrence)
@@ -160,7 +160,7 @@ namespace SnapEx
                 System.IO.File.Delete(fileName);
             }
             var workPart = NXOpen.Session.GetSession().Parts.Work;
-            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Visible, "ExportPrt");
+            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "ExportPrt");
             try
             {
                 if (body.IsOccurrence)
@@ -211,7 +211,7 @@ namespace SnapEx
                 System.IO.File.Delete(fileName);
             }
             var workPart = NXOpen.Session.GetSession().Parts.Work;
-            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Visible, "ExportStp");
+            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "ExportStp");
             try 
             {
                 if (body.IsOccurrence)
