@@ -192,7 +192,16 @@ namespace SnapEx
                 NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, Snap.Position.Origin.Array);
                 Snap.Globals.WcsOrientation = Snap.Orientation.Identity;
 
-                NXOpen.UF.UFSession.GetUFSession().Part.Export(path, 1, new Tag[] { body.NXOpenTag });
+                //NXOpen.UF.UFSession.GetUFSession().Part.Export(path, 1, new Tag[] { body.NXOpenTag });
+                NXOpen.UF.UFPart.ExportOptions options = new NXOpen.UF.UFPart.ExportOptions();
+                options.new_part = true;
+                options.params_mode = NXOpen.UF.UFPart.ExportParamsMode.RemoveParams;
+                options.expression_mode = NXOpen.UF.UFPart.ExportExpMode.CopyExpDeeply;
+                NXOpen.UF.UFSession.GetUFSession().Part.ExportWithOptions(
+                    path,
+                    1, new Tag[] { body.NXOpenTag },
+                    ref options
+                    );
             }
             catch (Exception ex)
             {

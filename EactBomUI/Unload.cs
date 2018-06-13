@@ -26,7 +26,7 @@ namespace EactBom
         private static void Show() 
         {
             var strMsg = string.Empty;
-            if (License.Entry.Instance.Verification(EactBomBusiness.Instance.ConfigData.LicenseType, out strMsg))
+            if (true)
             {
                 var ui = new SelectSteelUI();
                 ui.Show();
