@@ -452,20 +452,20 @@ namespace EactBom
                                 cuprum.FRIENUM = info.FINISH_SPACE;
                                 cuprum.RMF = "3";
                                 cuprum.VDI = info.F_SMOOTH;
-                                cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, "F");
+                                cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, ConfigData.EleFType);
                                 break;
 
                             case 1:
                                 cuprum.FRIENUM = info.MIDDLE_SPACE;
                                 cuprum.RMF = "2";
                                 cuprum.VDI = info.M_SMOOTH;
-                                cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, "M");
+                                cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, ConfigData.EleMType);
                                 break;
                             default:
                                 cuprum.FRIENUM = info.ROUGH_SPACE;
                                 cuprum.RMF = "1";
                                 cuprum.VDI = info.R_SMOOTH;
-                                cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, "R");
+                                cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, ConfigData.EleRType);
                                 break;
                         }
 

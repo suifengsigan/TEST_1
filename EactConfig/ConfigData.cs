@@ -30,6 +30,7 @@ namespace EactConfig
             var json=Newtonsoft.Json.JsonConvert.SerializeObject(data);
             File.WriteAllText(_path, json);
         }
+        
 
         /// <summary>
         /// 数据库信息
@@ -95,6 +96,13 @@ namespace EactConfig
         public bool ExportPrt = false;
         public bool ExportCNCPrt = false;
         public bool IsImportEman = false;
+
+        private string _EleRType { get; set; }
+        public string EleRType { set { _EleRType = value; } get { if (string.IsNullOrEmpty(_EleRType)) return "R"; return _EleRType; } }
+        private string _EleMType { get; set; }
+        public string EleMType { set { _EleMType = value; } get { if (string.IsNullOrEmpty(_EleMType)) return "M"; return _EleMType; } }
+        private string _EleFType { get; set; }
+        public string EleFType { set { _EleFType = value; } get { if (string.IsNullOrEmpty(_EleFType)) return "F"; return _EleFType; } }
         /// <summary>
         /// CNC翻转规则
         /// </summary>

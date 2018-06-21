@@ -32,6 +32,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cbImportEman = new System.Windows.Forms.CheckBox();
             this.txtDbLoginPass = new System.Windows.Forms.TextBox();
             this.txtDbLoginUser = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -82,7 +83,13 @@
             this.label11 = new System.Windows.Forms.Label();
             this.cbbQuadrantType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.cbImportEman = new System.Windows.Forms.CheckBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.txtEleRType = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtEleMType = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtEleFType = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -97,6 +104,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPoperty)).BeginInit();
             this.panel4.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -124,6 +132,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -153,6 +162,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "数据库配置";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cbImportEman
+            // 
+            this.cbImportEman.AutoSize = true;
+            this.cbImportEman.Location = new System.Drawing.Point(33, 274);
+            this.cbImportEman.Name = "cbImportEman";
+            this.cbImportEman.Size = new System.Drawing.Size(72, 16);
+            this.cbImportEman.TabIndex = 38;
+            this.cbImportEman.Text = "导入EMan";
+            this.cbImportEman.UseVisualStyleBackColor = true;
             // 
             // txtDbLoginPass
             // 
@@ -630,15 +649,72 @@
             this.label10.TabIndex = 0;
             this.label10.Text = "默认象限角";
             // 
-            // cbImportEman
+            // tabPage5
             // 
-            this.cbImportEman.AutoSize = true;
-            this.cbImportEman.Location = new System.Drawing.Point(33, 274);
-            this.cbImportEman.Name = "cbImportEman";
-            this.cbImportEman.Size = new System.Drawing.Size(72, 16);
-            this.cbImportEman.TabIndex = 38;
-            this.cbImportEman.Text = "导入EMan";
-            this.cbImportEman.UseVisualStyleBackColor = true;
+            this.tabPage5.Controls.Add(this.txtEleFType);
+            this.tabPage5.Controls.Add(this.label15);
+            this.tabPage5.Controls.Add(this.txtEleMType);
+            this.tabPage5.Controls.Add(this.label14);
+            this.tabPage5.Controls.Add(this.txtEleRType);
+            this.tabPage5.Controls.Add(this.label16);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(711, 355);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Eact配置";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // txtEleRType
+            // 
+            this.txtEleRType.Location = new System.Drawing.Point(143, 26);
+            this.txtEleRType.Name = "txtEleRType";
+            this.txtEleRType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleRType.TabIndex = 17;
+            this.txtEleRType.Text = "R";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(106, 29);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 12);
+            this.label16.TabIndex = 16;
+            this.label16.Text = "粗";
+            // 
+            // txtEleMType
+            // 
+            this.txtEleMType.Location = new System.Drawing.Point(257, 26);
+            this.txtEleMType.Name = "txtEleMType";
+            this.txtEleMType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleMType.TabIndex = 19;
+            this.txtEleMType.Text = "M";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(220, 29);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(17, 12);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "中";
+            // 
+            // txtEleFType
+            // 
+            this.txtEleFType.Location = new System.Drawing.Point(380, 26);
+            this.txtEleFType.Name = "txtEleFType";
+            this.txtEleFType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleFType.TabIndex = 21;
+            this.txtEleFType.Text = "F";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(343, 29);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 12);
+            this.label15.TabIndex = 20;
+            this.label15.Text = "精";
             // 
             // FrmConfig
             // 
@@ -667,6 +743,8 @@
             this.panel4.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -728,5 +806,12 @@
         private System.Windows.Forms.CheckBox cbbExportCNC;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox cbImportEman;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TextBox txtEleFType;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtEleMType;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtEleRType;
+        private System.Windows.Forms.Label label16;
     }
 }

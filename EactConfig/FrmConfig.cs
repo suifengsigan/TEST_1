@@ -187,6 +187,9 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            txtEleFType.Text = data.EleFType;
+            txtEleMType.Text = data.EleMType;
+            txtEleRType.Text = data.EleRType;
             txtDatabaseName.Text = data.DataBaseInfo.Name;
             txtDatabaseIP.Text = data.DataBaseInfo.IP;
             txtDataBaseUser.Text = data.DataBaseInfo.User;
@@ -224,6 +227,9 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.EleFType = txtEleFType.Text;
+                data.EleMType = txtEleMType.Text;
+                data.EleRType = txtEleRType.Text;
                 data.DataBaseInfo.Name = txtDatabaseName.Text;
                 data.DataBaseInfo.IP = txtDatabaseIP.Text;
                 data.DataBaseInfo.User = txtDataBaseUser.Text;
