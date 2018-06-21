@@ -188,45 +188,51 @@ namespace EactBom
                     }
                     positions.ForEach(u =>
                     {
-                        u.Electrode.InitAllFace();
+                        if (ConfigData.IsSetPrtColor)
+                        {
+                            u.Electrode.InitAllFace();
+                        }
+
                         if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Prt文件:{0}", u.Electrode.ElecBody.Name)); }
                         var headFaces = new List<Snap.NX.Face>();
                         var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
                         var baseDir = u.Electrode.BaseFace.GetFaceDirection();
 
                         var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
-                        allPoss.ForEach(h =>
+                        if (ConfigData.IsSetPrtColor)
                         {
-                            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "EACT_EDM_ELEC_AREA");
-                            try
+                            allPoss.ForEach(h =>
                             {
-                                if (u != h) 
+                                var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "EACT_EDM_ELEC_AREA");
+                                try
                                 {
-                                    var transR1 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
-                                    var transR2 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), baseDir, h.C);
-                                    var transM1 = Snap.Geom.Transform.CreateTranslation(h.Electrode.GetElecBasePos() - u.Electrode.GetElecBasePos());
-                                    transR1 = Snap.Geom.Transform.Composition(transR1, transR2);
-                                    transR1 = Snap.Geom.Transform.Composition(transR1, transM1);
-                                    u.Electrode.ElecBody.Move(transR1);
-                                    //u.Electrode.ElecBody.Copy().Color = System.Drawing.Color.Red;
-                                }
-                                u.Electrode.ElecHeadFaces.ToList().ForEach(m =>
-                                {
-                                    var headFace = headFaces.FirstOrDefault(f => f.NXOpenTag == m.NXOpenTag);
-                                    if (headFace == null && Snap.Compute.Distance(m, steelInfo.MouldBody) < SnapEx.Helper.Tolerance)
+                                    if (u != h)
                                     {
-                                        headFaces.Add(m);
+                                        var transR1 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
+                                        var transR2 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), baseDir, h.C);
+                                        var transM1 = Snap.Geom.Transform.CreateTranslation(h.Electrode.GetElecBasePos() - u.Electrode.GetElecBasePos());
+                                        transR1 = Snap.Geom.Transform.Composition(transR1, transR2);
+                                        transR1 = Snap.Geom.Transform.Composition(transR1, transM1);
+                                        u.Electrode.ElecBody.Move(transR1);
+                                        //u.Electrode.ElecBody.Copy().Color = System.Drawing.Color.Red;
                                     }
-                                });
-                            }
-                            catch (Exception ex)
-                            {
-                                NXOpen.UI.GetUI().NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, ex.Message);
-                            }
+                                    u.Electrode.ElecHeadFaces.ToList().ForEach(m =>
+                                    {
+                                        var headFace = headFaces.FirstOrDefault(f => f.NXOpenTag == m.NXOpenTag);
+                                        if (headFace == null && Snap.Compute.Distance(m, steelInfo.MouldBody) < SnapEx.Helper.Tolerance)
+                                        {
+                                            headFaces.Add(m);
+                                        }
+                                    });
+                                }
+                                catch (Exception ex)
+                                {
+                                    NXOpen.UI.GetUI().NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, ex.Message);
+                                }
 
-                            Snap.Globals.UndoToMark(mark, null);
-                        });
-
+                                Snap.Globals.UndoToMark(mark, null);
+                            });
+                        }
 
                         //移至绝对坐标原点
                         var acsOrientation = Snap.Orientation.Identity;

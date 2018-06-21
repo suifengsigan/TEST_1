@@ -104,6 +104,10 @@ namespace EactConfig
         private string _EleFType { get; set; }
         public string EleFType { set { _EleFType = value; } get { if (string.IsNullOrEmpty(_EleFType)) return "F"; return _EleFType; } }
         /// <summary>
+        /// 是否进行电打面分析
+        /// </summary>
+        public bool IsSetPrtColor = true;
+        /// <summary>
         /// CNC翻转规则
         /// </summary>
         public int CNCTranRule = 0;

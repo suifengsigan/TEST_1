@@ -187,6 +187,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsSetPrtColor.Checked = data.IsSetPrtColor;
             txtEleFType.Text = data.EleFType;
             txtEleMType.Text = data.EleMType;
             txtEleRType.Text = data.EleRType;
@@ -227,6 +228,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsSetPrtColor = cbIsSetPrtColor.Checked;
                 data.EleFType = txtEleFType.Text;
                 data.EleMType = txtEleMType.Text;
                 data.EleRType = txtEleRType.Text;

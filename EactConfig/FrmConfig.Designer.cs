@@ -90,6 +90,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleFType = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -485,6 +486,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.cbIsSetPrtColor);
             this.tabPage4.Controls.Add(this.label13);
             this.tabPage4.Controls.Add(this.cbbCNCTransRule);
             this.tabPage4.Controls.Add(this.cbbExportCNC);
@@ -511,7 +513,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(329, 162);
+            this.label13.Location = new System.Drawing.Point(516, 201);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(47, 12);
             this.label13.TabIndex = 47;
@@ -521,7 +523,7 @@
             // 
             this.cbbCNCTransRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbCNCTransRule.FormattingEnabled = true;
-            this.cbbCNCTransRule.Location = new System.Drawing.Point(171, 195);
+            this.cbbCNCTransRule.Location = new System.Drawing.Point(171, 235);
             this.cbbCNCTransRule.Name = "cbbCNCTransRule";
             this.cbbCNCTransRule.Size = new System.Drawing.Size(392, 20);
             this.cbbCNCTransRule.TabIndex = 46;
@@ -529,7 +531,7 @@
             // cbbExportCNC
             // 
             this.cbbExportCNC.AutoSize = true;
-            this.cbbExportCNC.Location = new System.Drawing.Point(80, 197);
+            this.cbbExportCNC.Location = new System.Drawing.Point(80, 237);
             this.cbbExportCNC.Name = "cbbExportCNC";
             this.cbbExportCNC.Size = new System.Drawing.Size(66, 16);
             this.cbbExportCNC.TabIndex = 45;
@@ -540,16 +542,16 @@
             // 
             this.cbbEdmTransRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbEdmTransRule.FormattingEnabled = true;
-            this.cbbEdmTransRule.Location = new System.Drawing.Point(407, 157);
+            this.cbbEdmTransRule.Location = new System.Drawing.Point(171, 157);
             this.cbbEdmTransRule.Name = "cbbEdmTransRule";
-            this.cbbEdmTransRule.Size = new System.Drawing.Size(156, 20);
+            this.cbbEdmTransRule.Size = new System.Drawing.Size(392, 20);
             this.cbbEdmTransRule.TabIndex = 44;
             // 
             // btnSetPrtColor
             // 
-            this.btnSetPrtColor.Location = new System.Drawing.Point(171, 157);
+            this.btnSetPrtColor.Location = new System.Drawing.Point(171, 196);
             this.btnSetPrtColor.Name = "btnSetPrtColor";
-            this.btnSetPrtColor.Size = new System.Drawing.Size(130, 23);
+            this.btnSetPrtColor.Size = new System.Drawing.Size(331, 23);
             this.btnSetPrtColor.TabIndex = 43;
             this.btnSetPrtColor.Text = "设置电打面颜色";
             this.btnSetPrtColor.UseVisualStyleBackColor = true;
@@ -576,7 +578,7 @@
             // rbCanPUpdate
             // 
             this.rbCanPUpdate.AutoSize = true;
-            this.rbCanPUpdate.Location = new System.Drawing.Point(80, 299);
+            this.rbCanPUpdate.Location = new System.Drawing.Point(285, 270);
             this.rbCanPUpdate.Name = "rbCanPUpdate";
             this.rbCanPUpdate.Size = new System.Drawing.Size(72, 16);
             this.rbCanPUpdate.TabIndex = 40;
@@ -586,7 +588,7 @@
             // cbShareElec
             // 
             this.cbShareElec.AutoSize = true;
-            this.cbShareElec.Location = new System.Drawing.Point(80, 266);
+            this.cbShareElec.Location = new System.Drawing.Point(171, 270);
             this.cbShareElec.Name = "cbShareElec";
             this.cbShareElec.Size = new System.Drawing.Size(72, 16);
             this.cbShareElec.TabIndex = 39;
@@ -596,7 +598,7 @@
             // cbExportStp
             // 
             this.cbExportStp.AutoSize = true;
-            this.cbExportStp.Location = new System.Drawing.Point(80, 230);
+            this.cbExportStp.Location = new System.Drawing.Point(80, 270);
             this.cbExportStp.Name = "cbExportStp";
             this.cbExportStp.Size = new System.Drawing.Size(42, 16);
             this.cbExportStp.TabIndex = 38;
@@ -716,6 +718,16 @@
             this.label15.TabIndex = 20;
             this.label15.Text = "精";
             // 
+            // cbIsSetPrtColor
+            // 
+            this.cbIsSetPrtColor.AutoSize = true;
+            this.cbIsSetPrtColor.Location = new System.Drawing.Point(80, 200);
+            this.cbIsSetPrtColor.Name = "cbIsSetPrtColor";
+            this.cbIsSetPrtColor.Size = new System.Drawing.Size(84, 16);
+            this.cbIsSetPrtColor.TabIndex = 48;
+            this.cbIsSetPrtColor.Text = "电打面分析";
+            this.cbIsSetPrtColor.UseVisualStyleBackColor = true;
+            // 
             // FrmConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -813,5 +825,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtEleRType;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox cbIsSetPrtColor;
     }
 }
