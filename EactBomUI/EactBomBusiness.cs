@@ -572,11 +572,14 @@ namespace EactBom
             var mouldBody = mouldInfo.MouldBody;
             var result = new List<ViewElecInfo>();
             var workPart = Snap.Globals.WorkPart;
+            var removeBodies = new List<Snap.NX.Body>();
+            removeBodies.Add(mouldBody);
             workPart.Bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag&&!string.IsNullOrEmpty(u.Name)).ToList().ForEach(u =>
             {
                 var distance = Snap.Compute.Distance(mouldBody, u);
                 if (distance <= SnapEx.Helper.Tolerance)
                 {
+                    removeBodies.Add(u);
                     var elec = result.FirstOrDefault(m => m.ElectName == u.Name);
                     if (elec == null)
                     {
@@ -596,6 +599,23 @@ namespace EactBom
                     {
                         elec.Bodies.Add(u);
                     }
+                }
+            });
+
+
+            //去参数
+            removeBodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid).ToList().ForEach(u => {
+                try
+                {
+                    var list = Enumerable.Select(u.NXOpenBody.GetFeatures(), m => Snap.NX.Feature.Wrap(m.Tag)).ToList();
+                    if (list.Count > 1)
+                    {
+                        SnapEx.Create.RemoveParameters(new List<NXOpen.Body> { u });
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             });
 
