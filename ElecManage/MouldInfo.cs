@@ -34,5 +34,10 @@ namespace ElecManage
         public Snap.Position Origin = new Snap.Position();
         [NonSerialized]
         public Snap.Orientation Orientation = Snap.Orientation.Identity;
+        /// <summary>
+        /// 镶件体
+        /// </summary>
+        [NonSerialized]
+        public List<Snap.NX.Body> SInsertBodies = new List<Snap.NX.Body>();
     }
 }

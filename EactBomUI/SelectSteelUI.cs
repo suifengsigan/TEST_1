@@ -57,6 +57,8 @@ public partial class SelectSteelUI
     private Snap.UI.Block.Enumeration enum0;// Block type: Enumeration
     private Snap.UI.Block.SpecifyCsys coord_system0;// Block type: Specify Csys
     private Snap.UI.Block.Enumeration enumSelectedXX;// Block type: Enumeration
+    private Snap.UI.Block.Toggle toggleSInsert;// Block type: Toggle
+    private Snap.UI.Block.SelectObject selectionSInsert;// Block type: Selection
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -250,6 +252,8 @@ public partial class SelectSteelUI
             enumSelectedXX = Snap.UI.Block.Enumeration.GetBlock(theDialog, "enumSelectedXX");
             enum0 = Snap.UI.Block.Enumeration.GetBlock(theDialog, "enum0");
             coord_system0 = Snap.UI.Block.SpecifyCsys.GetBlock(theDialog, "coord_system0");
+            toggleSInsert = Snap.UI.Block.Toggle.GetBlock(theDialog, "toggleSInsert");
+            selectionSInsert = Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectionSInsert");
         }
         catch (Exception ex)
         {

@@ -219,10 +219,16 @@ namespace EactBom
                                     u.Electrode.ElecHeadFaces.ToList().ForEach(m =>
                                     {
                                         var headFace = headFaces.FirstOrDefault(f => f.NXOpenTag == m.NXOpenTag);
-                                        if (headFace == null && Snap.Compute.Distance(m, steelInfo.MouldBody) < SnapEx.Helper.Tolerance)
-                                        {
-                                            headFaces.Add(m);
-                                        }
+                                        var matchBodies = new List<Snap.NX.Body>();
+                                        matchBodies.Add(steelInfo.MouldBody);
+                                        matchBodies.AddRange(steelInfo.SInsertBodies);
+                                        matchBodies.ForEach(mb => {
+                                            if (headFace == null && Snap.Compute.Distance(m, mb) < SnapEx.Helper.Tolerance)
+                                            {
+                                                headFaces.Add(m);
+                                            }
+                                        });
+                                       
                                     });
                                 }
                                 catch (Exception ex)

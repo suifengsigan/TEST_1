@@ -17,6 +17,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
     void RereshUI() 
     {
         coord_system0.Show = enum0.SelectedItem == "指定";
+        selectionSInsert.Show = toggleSInsert.Value;
     }
     
     public override void Init()
@@ -34,17 +35,19 @@ partial class SelectSteelUI : SnapEx.BaseUI
         }
         eMATERAL.Items = list.ToArray();
         _items = list;
+        
+        selectSteel.AllowMultiple = false;
+        selectSteel.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
 
-        var block = Snap.UI.Block.SelectObject.GetBlock(theDialog, selectSteel.Name);
-        block.AllowMultiple = false;
-        block.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
+        selectionSInsert.AllowMultiple = true;
+        selectionSInsert.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
     }
     public override void DialogShown()
     {
         sMRNUMBER.Value = string.Empty;
         sMODELNUMBER.Value = string.Empty;
         enumSelectedXX.SelectedIndex = (int)EactBom.EactBomBusiness.Instance.ConfigData.QuadrantType;
-        RereshUI();
+        RereshUI(); 
     }
 
     public override void Update(NXOpen.BlockStyler.UIBlock block)
@@ -115,6 +118,11 @@ partial class SelectSteelUI : SnapEx.BaseUI
             var box = steel.Box;
             MouldInfo.Orientation = Snap.Orientation.Identity;
             MouldInfo.Origin = new Snap.Position((box.MinX + box.MaxX) / 2, (box.MinY + box.MaxY) / 2, box.MaxZ);
+        }
+
+        if (toggleSInsert.Value)
+        {
+            MouldInfo.SInsertBodies = Enumerable.Select(selectionSInsert.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
         }
 
         NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, MouldInfo.Origin.Array);
