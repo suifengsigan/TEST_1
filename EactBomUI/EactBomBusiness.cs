@@ -269,19 +269,7 @@ namespace EactBom
                                 u.Electrode.ElecBody.SetStringAttribute("EACT_EDM_ELEC_AREA", area.ToString());
                                 var trans = Snap.Geom.Transform.CreateTranslation();
                                 bool isCmmRotation = false;
-                                var edmTranRule = ConfigData.EDMTranRule;
-                                if (ConfigData.EDMTranRule == 3)
-                                {
-                                    if (ConfigData.QuadrantType == QuadrantType.First)
-                                    {
-                                        edmTranRule = 1;
-                                    }
-                                    else
-                                    {
-                                        edmTranRule = 2;
-                                    }
-                                }
-                                switch (edmTranRule)
+                                switch (ConfigData.EDMTranRule)
                                 {
                                     case 1://长度矩阵
                                         {
@@ -303,7 +291,35 @@ namespace EactBom
                                             trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
                                             if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
                                             {
+                                                isCmmRotation = true;
                                                 trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 270));
+                                            }
+                                            break;
+                                        }
+                                    case 3://JR
+                                        {
+                                            if (ElecManage.Entry.Instance.DefaultQuadrantType == QuadrantType.First)
+                                            {
+                                                var uv = u.Electrode.BaseFace.Box;
+                                                var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                                var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                                if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
+                                                {
+                                                    isCmmRotation = true;
+                                                    trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), -90);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                var uv = u.Electrode.BaseFace.Box;
+                                                var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                                var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
+                                                if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
+                                                {
+                                                    isCmmRotation = true;
+                                                    trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
+                                                }
                                             }
                                             break;
                                         }
