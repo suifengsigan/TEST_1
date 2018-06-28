@@ -269,7 +269,19 @@ namespace EactBom
                                 u.Electrode.ElecBody.SetStringAttribute("EACT_EDM_ELEC_AREA", area.ToString());
                                 var trans = Snap.Geom.Transform.CreateTranslation();
                                 bool isCmmRotation = false;
-                                switch (ConfigData.EDMTranRule)
+                                var edmTranRule = ConfigData.EDMTranRule;
+                                if (ConfigData.EDMTranRule == 3)
+                                {
+                                    if (ConfigData.QuadrantType == QuadrantType.First)
+                                    {
+                                        edmTranRule = 1;
+                                    }
+                                    else
+                                    {
+                                        edmTranRule = 2;
+                                    }
+                                }
+                                switch (edmTranRule)
                                 {
                                     case 1://长度矩阵
                                         {
