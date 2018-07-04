@@ -73,6 +73,7 @@ namespace EactConfig
         {
             [DisplayName("选项")]
             public string Value { get; set; }
+            public bool IsDefault = false;
         }
 
         /// <summary>

@@ -71,6 +71,65 @@ namespace EactConfig
             //dataGridViewPSelection.SelectionChanged += dataGridView2_SelectionChanged;
             btnPSelectionDelete.Click += btnPSelectionDelete_Click;
             btnPSelectionUpdate.Click += btnPSelectionUpdate_Click;
+            dataGridViewPSelection.CellMouseDown += DataGridViewPSelection_CellMouseDown;
+            dataGridViewPSelection.CellPainting += DataGridViewPSelection_CellPainting;
+        }
+
+        private void DataGridViewPSelection_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            var dataGridView1 = dataGridViewPSelection;
+            if (e.RowIndex > -1)
+            {
+                var obj = dataGridViewPSelection.Rows[e.RowIndex].DataBoundItem as ConfigData.PopertySelection;
+                if (obj.IsDefault)
+                {
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                }
+                else
+                {
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Brown;
+                }
+            }
+
+        }
+
+        ContextMenuStrip _cms;
+        private void DataGridViewPSelection_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var dataGridView1 = dataGridViewPSelection;
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex >= 0)
+                {
+                    var obj = dataGridViewPSelection.Rows[e.RowIndex].DataBoundItem as ConfigData.PopertySelection;
+                    if (_cms == null)
+                    {
+                        _cms = new ContextMenuStrip();
+                        _cms.Items.Add("设为默认");
+                        _cms.ItemClicked += _cms_ItemClicked;
+                    }
+                    //弹出操作菜单
+                    _cms.Show(MousePosition.X, MousePosition.Y);
+                }
+            }
+        }
+
+        private void _cms_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+           
+            dataGridViewPSelection.Rows.Cast<DataGridViewRow>().ToList().ForEach(u => {
+                var data = u.DataBoundItem as ConfigData.PopertySelection;
+                var currentRow = dataGridViewPSelection.CurrentRow;
+                if (currentRow == u)
+                {
+                    data.IsDefault = true;
+                }
+                else
+                {
+                    data.IsDefault = false;
+                }
+            });
+
             
         }
 
