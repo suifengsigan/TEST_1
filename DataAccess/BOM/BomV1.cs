@@ -163,12 +163,22 @@ namespace DataAccess
                                     specId = conn.ExecuteScalar(insert_cuprum_spec_sql, null, _tran, null, null).ToString();
                                 }
                                 //匹配夹具（根据长宽的取值区间，取第一个符合条件的；如果找不到匹配项，默认取第一条记录）
-                                var select_chuck_type_sql = "select top 1 chucktypeid from";
-                                select_chuck_type_sql += "(select chucktypeid from EACT_chuck_type where (specmaxw>={0} and specminw<={0}) and (specmaxl>={1} and specminl<={1})";
-                                select_chuck_type_sql += " union all ";
-                                select_chuck_type_sql += "select min(chucktypeid) from EACT_chuck_type) t";
-                                select_chuck_type_sql = string.Format(select_chuck_type_sql, item.EDMCONDITIONSN.ToLower().Split('x')[0], item.EDMCONDITIONSN.ToLower().Split('x')[1]);
-                                string chuckId = conn.ExecuteScalar(select_chuck_type_sql, null, _tran, null, null).ToString();
+                                string chuckId = null;
+                                if (!string.IsNullOrEmpty(item.CHUCK))
+                                {
+                                    var newSelect_chuck_type_sql = string.Format("select top 1 chucktypeid from EACT_chuck_type where TypeName='{0}'", item.CHUCK);
+                                    var sValue = conn.ExecuteScalar(newSelect_chuck_type_sql, null, _tran, null, null);
+                                    chuckId = sValue == null ? null : sValue.ToString();
+                                }
+                                if (string.IsNullOrEmpty(chuckId))
+                                {
+                                    var select_chuck_type_sql = "select top 1 chucktypeid from";
+                                    select_chuck_type_sql += "(select chucktypeid from EACT_chuck_type where (specmaxw>={0} and specminw<={0}) and (specmaxl>={1} and specminl<={1})";
+                                    select_chuck_type_sql += " union all ";
+                                    select_chuck_type_sql += "select min(chucktypeid) from EACT_chuck_type) t";
+                                    select_chuck_type_sql = string.Format(select_chuck_type_sql, item.EDMCONDITIONSN.ToLower().Split('x')[0], item.EDMCONDITIONSN.ToLower().Split('x')[1]);
+                                    chuckId = conn.ExecuteScalar(select_chuck_type_sql, null, _tran, null, null).ToString();
+                                }
                                 //插入电极预装表
                                 var insert_cuprum_assembly_sql = "insert into EACT_cuprum_assembly(cuprumid,specid,struffid,chucktypeid,RECORDTIME)";
                                 insert_cuprum_assembly_sql += " values(" + cuprumId + "," + specId + "," + struffId + "," + chuckId + ",getdate())";

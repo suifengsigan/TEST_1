@@ -534,6 +534,7 @@ namespace EactBom
                         cuprum.CLEARROOT = string.Empty;
                         cuprum.UNIT = info.UNIT;
                         cuprum.STRUFFGROUPL = string.Empty;
+                        cuprum.CHUCK = info.ELEC_CLAMP_GENERAL_TYPE;
                         cuprums.Add(cuprum);
                     }
                 }
@@ -595,6 +596,51 @@ namespace EactBom
                     positioning.Z = Math.Round(pos.Z, 4);
                     positioning.QuadrantType = info.GetQuadrantType();
                     result.Add(positioning);
+                    var pInfo = positioning.Electrode.GetElectrodeInfo();
+
+                    //设置默认属性
+                    ConfigData.Poperties.ForEach(p => {
+                        var selection = p.Selections.FirstOrDefault(f => f.IsDefault) ?? p.Selections.FirstOrDefault();
+                        var defalutValue = string.Empty;
+                        if (selection != null)
+                        {
+                            defalutValue = selection.Value;
+                        }
+                        if (p.DisplayName == "电极材质" && string.IsNullOrEmpty(pInfo.MAT_NAME))
+                        {
+                            pInfo.MAT_NAME = defalutValue;
+                        }
+                        else if (p.DisplayName == "加工方向" && string.IsNullOrEmpty(pInfo.EDMPROCDIRECTION))
+                        {
+                            pInfo.EDMPROCDIRECTION = defalutValue;
+                        }
+                        else if (p.DisplayName == "电极类型" && string.IsNullOrEmpty(pInfo.UNIT))
+                        {
+                            pInfo.UNIT = defalutValue;
+                        }
+                        else if (p.DisplayName == "摇摆方式" && string.IsNullOrEmpty(pInfo.EDMROCK))
+                        {
+                            pInfo.EDMROCK = defalutValue;
+                        }
+                        else if (p.DisplayName == "精公光洁度" && string.IsNullOrEmpty(pInfo.F_SMOOTH))
+                        {
+                            pInfo.F_SMOOTH = defalutValue;
+                        }
+                        else if (p.DisplayName == "中公光洁度" && string.IsNullOrEmpty(pInfo.M_SMOOTH))
+                        {
+                            pInfo.M_SMOOTH = defalutValue;
+                        }
+                        else if (p.DisplayName == "粗公光洁度" && string.IsNullOrEmpty(pInfo.R_SMOOTH))
+                        {
+                            pInfo.R_SMOOTH = defalutValue;
+                        }
+                        else if (p.DisplayName == "夹具类型" && string.IsNullOrEmpty(pInfo.ELEC_CLAMP_GENERAL_TYPE))
+                        {
+                            pInfo.ELEC_CLAMP_GENERAL_TYPE = defalutValue;
+                        }
+                        
+                    });
+
                 }
             });
 
