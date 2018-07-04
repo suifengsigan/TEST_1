@@ -250,6 +250,54 @@ namespace EactBom
                         cbbChuckType.Text = info.ELEC_CLAMP_GENERAL_TYPE;
                         cbbProdirection.Text = info.EDMPROCDIRECTION;
                         txtElecSize.Text = info.ElecSize;
+
+                        EactBomBusiness.Instance.ConfigData.Poperties.ForEach(u => {
+                            ComboBox cbb = null;
+                            if (u.DisplayName == "电极材质")
+                            {
+                                cbb = cboxMAT_NAME;
+                            }
+                            else if (u.DisplayName == "加工方向")
+                            {
+                                cbb = cbbProdirection;
+                            }
+                            else if (u.DisplayName == "电极类型")
+                            {
+                                cbb = cbbElecType;
+                            }
+                            else if (u.DisplayName == "摇摆方式")
+                            {
+                                cbb = cbbRock;
+                            }
+                            else if (u.DisplayName == "精公光洁度")
+                            {
+                                cbb = cbbFSmoth;
+                            }
+                            else if (u.DisplayName == "中公光洁度")
+                            {
+                                cbb = cbbMSmoth;
+                            }
+                            else if (u.DisplayName == "粗公光洁度")
+                            {
+                                cbb = cbbRSmoth;
+                            }
+                            else if (u.DisplayName == "夹具类型")
+                            {
+                                cbb = cbbChuckType;
+                            }
+
+                            if (cbb != null)
+                            {
+                                if (string.IsNullOrEmpty(cbb.Text))
+                                {
+                                    var selection = u.Selections.FirstOrDefault(f => f.IsDefault) ?? u.Selections.FirstOrDefault();
+                                    if (selection != null)
+                                    {
+                                        cbb.Text = selection.Value;
+                                    }
+                                }
+                            }
+                        });
                     }
                     _curCuprum = item;
                 }
