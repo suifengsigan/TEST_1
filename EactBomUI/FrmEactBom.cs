@@ -192,6 +192,52 @@ namespace EactBom
                         info.ELEC_CLAMP_GENERAL_TYPE = cbbChuckType.Text;
                     });
                     MessageBox.Show("保存属性成功");
+                    //新增记忆功能
+                    EactBomBusiness.Instance.ConfigData.Poperties.ForEach(u => {
+                        ComboBox cbb = null;
+                        if (u.DisplayName == "电极材质")
+                        {
+                            cbb = cboxMAT_NAME;
+                        }
+                        else if (u.DisplayName == "加工方向")
+                        {
+                            cbb = cbbProdirection;
+                        }
+                        else if (u.DisplayName == "电极类型")
+                        {
+                            cbb = cbbElecType;
+                        }
+                        else if (u.DisplayName == "摇摆方式")
+                        {
+                            cbb = cbbRock;
+                        }
+                        else if (u.DisplayName == "精公光洁度")
+                        {
+                            cbb = cbbFSmoth;
+                        }
+                        else if (u.DisplayName == "中公光洁度")
+                        {
+                            cbb = cbbMSmoth;
+                        }
+                        else if (u.DisplayName == "粗公光洁度")
+                        {
+                            cbb = cbbRSmoth;
+                        }
+                        else if (u.DisplayName == "夹具类型")
+                        {
+                            cbb = cbbChuckType;
+                        }
+
+                        if (cbb!=null&&!string.IsNullOrEmpty(cbb.Text))
+                        {
+                            var selection = u.Selections.FirstOrDefault(s => s.Value == cbb.Text);
+                            if (selection != null)
+                            {
+                                u.Selections.ForEach(s => { s.IsDefault = false; });
+                                selection.IsDefault = true;
+                            }
+                        }
+                    });
                 }
             }
             catch(Exception ex)

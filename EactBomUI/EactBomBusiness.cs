@@ -34,7 +34,7 @@ namespace EactBom
                 if (u.Checked) 
                 {
                     if (showMsgHandle != null) { showMsgHandle(string.Format("正在导入电极:{0}", u.ElectName)); }
-                    var tempPoss = GetPositioningInfos(u,steelInfo);
+                    var tempPoss = GetPositioningInfos(u,steelInfo,true);
                     if (ConfigData.ShareElec && u.ShareElec())//共用电极
                     {
                         var shareElec = u.ShareElecList.FirstOrDefault();
@@ -577,7 +577,7 @@ namespace EactBom
         /// <summary>
         /// 获取跑位信息
         /// </summary>
-        public List<PositioningInfo> GetPositioningInfos(ViewElecInfo elecInfo, ElecManage.MouldInfo steelInfo) 
+        public List<PositioningInfo> GetPositioningInfos(ViewElecInfo elecInfo, ElecManage.MouldInfo steelInfo, bool isSetDefault = false) 
         {
             var result = new List<PositioningInfo>();
             var workPart = Snap.Globals.WorkPart;
@@ -598,49 +598,51 @@ namespace EactBom
                     result.Add(positioning);
                     var pInfo = positioning.Electrode.GetElectrodeInfo();
 
-                    //设置默认属性
-                    ConfigData.Poperties.ForEach(p => {
-                        var selection = p.Selections.FirstOrDefault(f => f.IsDefault) ?? p.Selections.FirstOrDefault();
-                        var defalutValue = string.Empty;
-                        if (selection != null)
-                        {
-                            defalutValue = selection.Value;
-                        }
-                        if (p.DisplayName == "电极材质" && string.IsNullOrEmpty(pInfo.MAT_NAME))
-                        {
-                            pInfo.MAT_NAME = defalutValue;
-                        }
-                        else if (p.DisplayName == "加工方向" && string.IsNullOrEmpty(pInfo.EDMPROCDIRECTION))
-                        {
-                            pInfo.EDMPROCDIRECTION = defalutValue;
-                        }
-                        else if (p.DisplayName == "电极类型" && string.IsNullOrEmpty(pInfo.UNIT))
-                        {
-                            pInfo.UNIT = defalutValue;
-                        }
-                        else if (p.DisplayName == "摇摆方式" && string.IsNullOrEmpty(pInfo.EDMROCK))
-                        {
-                            pInfo.EDMROCK = defalutValue;
-                        }
-                        else if (p.DisplayName == "精公光洁度" && string.IsNullOrEmpty(pInfo.F_SMOOTH))
-                        {
-                            pInfo.F_SMOOTH = defalutValue;
-                        }
-                        else if (p.DisplayName == "中公光洁度" && string.IsNullOrEmpty(pInfo.M_SMOOTH))
-                        {
-                            pInfo.M_SMOOTH = defalutValue;
-                        }
-                        else if (p.DisplayName == "粗公光洁度" && string.IsNullOrEmpty(pInfo.R_SMOOTH))
-                        {
-                            pInfo.R_SMOOTH = defalutValue;
-                        }
-                        else if (p.DisplayName == "夹具类型" && string.IsNullOrEmpty(pInfo.ELEC_CLAMP_GENERAL_TYPE))
-                        {
-                            pInfo.ELEC_CLAMP_GENERAL_TYPE = defalutValue;
-                        }
-                        
-                    });
+                    if (isSetDefault)
+                    {
+                        //设置默认属性
+                        ConfigData.Poperties.ForEach(p => {
+                            var selection = p.Selections.FirstOrDefault(f => f.IsDefault) ?? p.Selections.FirstOrDefault();
+                            var defalutValue = string.Empty;
+                            if (selection != null)
+                            {
+                                defalutValue = selection.Value;
+                            }
+                            if (p.DisplayName == "电极材质" && string.IsNullOrEmpty(pInfo.MAT_NAME))
+                            {
+                                pInfo.MAT_NAME = defalutValue;
+                            }
+                            else if (p.DisplayName == "加工方向" && string.IsNullOrEmpty(pInfo.EDMPROCDIRECTION))
+                            {
+                                pInfo.EDMPROCDIRECTION = defalutValue;
+                            }
+                            else if (p.DisplayName == "电极类型" && string.IsNullOrEmpty(pInfo.UNIT))
+                            {
+                                pInfo.UNIT = defalutValue;
+                            }
+                            else if (p.DisplayName == "摇摆方式" && string.IsNullOrEmpty(pInfo.EDMROCK))
+                            {
+                                pInfo.EDMROCK = defalutValue;
+                            }
+                            else if (p.DisplayName == "精公光洁度" && string.IsNullOrEmpty(pInfo.F_SMOOTH))
+                            {
+                                pInfo.F_SMOOTH = defalutValue;
+                            }
+                            else if (p.DisplayName == "中公光洁度" && string.IsNullOrEmpty(pInfo.M_SMOOTH))
+                            {
+                                pInfo.M_SMOOTH = defalutValue;
+                            }
+                            else if (p.DisplayName == "粗公光洁度" && string.IsNullOrEmpty(pInfo.R_SMOOTH))
+                            {
+                                pInfo.R_SMOOTH = defalutValue;
+                            }
+                            else if (p.DisplayName == "夹具类型" && string.IsNullOrEmpty(pInfo.ELEC_CLAMP_GENERAL_TYPE))
+                            {
+                                pInfo.ELEC_CLAMP_GENERAL_TYPE = defalutValue;
+                            }
 
+                        });
+                    }
                 }
             });
 
