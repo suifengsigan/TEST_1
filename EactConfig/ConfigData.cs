@@ -100,11 +100,11 @@ namespace EactConfig
         /// <summary>
         /// 是否启用属性记忆功能
         /// </summary>
-        public bool IsAttributeMemory = true;
+        public bool IsAttributeMemory = false;
         /// <summary>
         /// 是否启用属性默认值功能
         /// </summary>
-        public bool IsAttributeSetDefault = true;
+        public bool IsAttributeSetDefault = false;
 
         private string _EleRType { get; set; }
         public string EleRType { set { _EleRType = value; } get { if (string.IsNullOrEmpty(_EleRType)) return "R"; return _EleRType; } }
