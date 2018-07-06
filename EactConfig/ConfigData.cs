@@ -97,6 +97,8 @@ namespace EactConfig
         public bool ExportPrt = false;
         public bool ExportCNCPrt = false;
         public bool IsImportEman = false;
+        public bool IsAttributeMemory = true;
+        public bool IsAttributeSetDefault = true;
 
         private string _EleRType { get; set; }
         public string EleRType { set { _EleRType = value; } get { if (string.IsNullOrEmpty(_EleRType)) return "R"; return _EleRType; } }
