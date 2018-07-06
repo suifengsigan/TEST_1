@@ -598,6 +598,11 @@ namespace EactBom
                     result.Add(positioning);
                     var pInfo = positioning.Electrode.GetElectrodeInfo();
 
+                    if (!ConfigData.IsAttributeSetDefault)
+                    {
+                        isSetDefault = false;
+                    }
+
                     if (isSetDefault)
                     {
                         //设置默认属性

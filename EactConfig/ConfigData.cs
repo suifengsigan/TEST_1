@@ -97,7 +97,13 @@ namespace EactConfig
         public bool ExportPrt = false;
         public bool ExportCNCPrt = false;
         public bool IsImportEman = false;
+        /// <summary>
+        /// 是否启用属性记忆功能
+        /// </summary>
         public bool IsAttributeMemory = true;
+        /// <summary>
+        /// 是否启用属性默认值功能
+        /// </summary>
         public bool IsAttributeSetDefault = true;
 
         private string _EleRType { get; set; }
