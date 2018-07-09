@@ -45,6 +45,7 @@ namespace EactConfig
             cbbLicenseType.Items.Add(new ComboBoxItem { Text = "slm_runtime_easy", Value =1 });
             cbbElecNameRule.Items.Add(new ComboBoxItem { Text = "A-B-C", Value = 0 });
             cbbElecNameRule.Items.Add(new ComboBoxItem { Text = "C", Value = 1 });
+            cbbElecNameRule.Items.Add(new ComboBoxItem { Text = "C(A-C)", Value = 2 });
             cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "默认矩阵", Value = 0 });
             cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵", Value = 1 });
             cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵Y轴", Value = 2 });

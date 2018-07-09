@@ -728,6 +728,11 @@ namespace EactBom
                         partName = body.Name;
                         break;
                     }
+                case 2://A(A-C)
+                    {
+                        partName = string.Format("{0}-{1}", steelInfo.MODEL_NUMBER, body.Name);
+                        break;
+                    }
                 default://C
                     {
                         break;
