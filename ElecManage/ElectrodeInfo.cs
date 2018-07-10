@@ -64,6 +64,15 @@ namespace ElecManage
         }
 
         /// <summary>
+        /// 电极名称
+        /// </summary>
+        public virtual string Elec_Name
+        {
+            get { return _body.Name; }
+            set { _body.Name = value; }
+        }
+
+        /// <summary>
         /// 夹具类型
         /// </summary>
         public virtual string ELEC_CLAMP_GENERAL_TYPE 
