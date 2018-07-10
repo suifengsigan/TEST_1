@@ -90,91 +90,88 @@ namespace ElecManage
         /// <summary>
         /// 精公数量
         /// </summary>
-        public virtual string FINISH_NUMBER 
+        public virtual int FINISH_NUMBER 
         {
             get 
-            { 
-                return _body.GetAttrValue(ELEC_FINISH_NUMBER);
+            {
+                return _body.GetAttrIntegerValue(ELEC_FINISH_NUMBER);
             }
             set 
             {
-                SetStringAttribute(ELEC_FINISH_NUMBER, value);
+                _body.SetIntegerAttribute(ELEC_FINISH_NUMBER, value);
             }
         }
         /// <summary>
         /// 中公数量
         /// </summary>
-        public virtual string MIDDLE_NUMBER
+        public virtual int MIDDLE_NUMBER
         {
             get
             {
-                return _body.GetAttrValue(ELEC_MIDDLE_NUMBER);
+                return _body.GetAttrIntegerValue(ELEC_MIDDLE_NUMBER);
             }
             set
             {
-                SetStringAttribute(ELEC_MIDDLE_NUMBER, value);
+                _body.SetIntegerAttribute(ELEC_MIDDLE_NUMBER, value);
             }
         }
         /// <summary>
         /// 粗公数量
         /// </summary>
-        public virtual string ROUGH_NUMBER
+        public virtual int ROUGH_NUMBER
         {
             get
             {
-                return _body.GetAttrValue(ELEC_ROUGH_NUMBER);
+                return _body.GetAttrIntegerValue(ELEC_ROUGH_NUMBER);
             }
             set
             {
-                SetStringAttribute(ELEC_ROUGH_NUMBER, value);
+                _body.SetIntegerAttribute(ELEC_ROUGH_NUMBER, value);
             }
         }
         /// <summary>
         /// 精公火花位
         /// </summary>
-        public virtual string FINISH_SPACE
+        public virtual double FINISH_SPACE
         {
             get
             {
-                double result = 0;
-                double.TryParse(_body.GetAttrValue(ELEC_FINISH_SPACE), out result);
-                return (-Math.Abs(result)).ToString();
+                double result = _body.GetAttrRealValue(ELEC_FINISH_SPACE);
+                return (-Math.Abs(result));
             }
             set
             {
-                SetStringAttribute(ELEC_FINISH_SPACE, value);
+                _body.SetRealAttribute(ELEC_FINISH_SPACE, value);
             }
         }
         /// <summary>
         /// 中公火花位
         /// </summary>
-        public virtual string MIDDLE_SPACE
+        public virtual double MIDDLE_SPACE
         {
             get
             {
-                double result = 0;
-                double.TryParse(_body.GetAttrValue(ELEC_MIDDLE_SPACE), out result);
-                return (-Math.Abs(result)).ToString();
+                double result = _body.GetAttrRealValue(ELEC_MIDDLE_SPACE);
+                return (-Math.Abs(result));
             }
             set
             {
-                SetStringAttribute(ELEC_MIDDLE_SPACE, value);
+                _body.SetRealAttribute(ELEC_MIDDLE_SPACE, value);
             }
         }
         /// <summary>
         /// 粗公火花位
         /// </summary>
-        public virtual string ROUGH_SPACE
+        public virtual double ROUGH_SPACE
         {
             get
             {
-                double result = 0;
-                double.TryParse(_body.GetAttrValue(ELEC_ROUGH_SPACE), out result);
-                return (-Math.Abs(result)).ToString();
+                double result = _body.GetAttrRealValue(ELEC_ROUGH_SPACE);
+                return (-Math.Abs(result));
             }
             set
             {
-                SetStringAttribute(ELEC_ROUGH_SPACE, value);
+                _body.SetRealAttribute(ELEC_ROUGH_SPACE, value);
             }
         }
 

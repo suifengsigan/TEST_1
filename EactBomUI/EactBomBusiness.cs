@@ -473,15 +473,15 @@ namespace EactBom
                     int tempVar = 0;
                     if (i == 0) //精公
                     {
-                        int.TryParse(info.FINISH_NUMBER, out tempVar);
+                        tempVar = info.FINISH_NUMBER;
                     }
                     else if (i == 1)
                     {
-                        int.TryParse(info.MIDDLE_NUMBER, out tempVar);
+                        tempVar = info.MIDDLE_NUMBER;
                     }
                     else
                     {
-                        int.TryParse(info.ROUGH_NUMBER, out tempVar);
+                        tempVar = info.ROUGH_NUMBER;
                     }
                     for (int j = 0; j < tempVar; j++)
                     {
@@ -489,20 +489,20 @@ namespace EactBom
                         switch (i)
                         {
                             case 0:
-                                cuprum.FRIENUM = info.FINISH_SPACE;
+                                cuprum.FRIENUM = info.FINISH_SPACE.ToString();
                                 cuprum.RMF = "3";
                                 cuprum.VDI = info.F_SMOOTH;
                                 cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, ConfigData.EleFType);
                                 break;
 
                             case 1:
-                                cuprum.FRIENUM = info.MIDDLE_SPACE;
+                                cuprum.FRIENUM = info.MIDDLE_SPACE.ToString();
                                 cuprum.RMF = "2";
                                 cuprum.VDI = info.M_SMOOTH;
                                 cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, ConfigData.EleMType);
                                 break;
                             default:
-                                cuprum.FRIENUM = info.ROUGH_SPACE;
+                                cuprum.FRIENUM = info.ROUGH_SPACE.ToString();
                                 cuprum.RMF = "1";
                                 cuprum.VDI = info.R_SMOOTH;
                                 cuprum.CUPRUMNAME = string.Format("{0}-{1}", partName, ConfigData.EleRType);

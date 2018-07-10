@@ -6,30 +6,16 @@ partial class SetPropertyUI : SnapEx.BaseUI
 {
     EactConfig.ConfigData _configData = EactConfig.ConfigData.GetInstance();
 
-    int ConvertToInt(string value)
-    {
-        int result = 0;
-        int.TryParse(value, out result);
-        return result;
-    }
-
-    double ConvertToDouble(string value)
-    {
-        double result = 0.00;
-        double.TryParse(value, out result);
-        return result;
-    }
-
     void SetDefaultValue(ElecManage.ElectrodeInfo info)
     {
         //赋值
         strElecName.Value = info == null ? string.Empty : info.Elec_Name; ;
-        txtFINISHNUMBER.Value = ConvertToInt(info == null ? string.Empty : info.FINISH_NUMBER);
-        txtMIDDLENUMBER.Value = ConvertToInt(info == null ? string.Empty : info.MIDDLE_NUMBER);
-        txtROUGHNUMBER.Value = ConvertToInt(info == null ? string.Empty : info.ROUGH_NUMBER);
-        txtFINISHSPACE.Value = ConvertToDouble(info == null ? string.Empty : info.FINISH_SPACE);
-        txtMIDDLESPACE.Value = ConvertToDouble(info == null ? string.Empty : info.MIDDLE_SPACE);
-        txtROUGHSPACE.Value = ConvertToDouble(info == null ? string.Empty : info.ROUGH_SPACE);
+        txtFINISHNUMBER.Value =(info == null ? 0 : info.FINISH_NUMBER);
+        txtMIDDLENUMBER.Value =(info == null ? 0 : info.MIDDLE_NUMBER);
+        txtROUGHNUMBER.Value = (info == null ? 0 : info.ROUGH_NUMBER);
+        txtFINISHSPACE.Value = (info == null ? 0 : info.FINISH_SPACE);
+        txtMIDDLESPACE.Value = (info == null ? 0 : info.MIDDLE_SPACE);
+        txtROUGHSPACE.Value = (info == null ? 0 : info.ROUGH_SPACE);
 
         _configData.Poperties.ForEach(u => {
             Snap.UI.Block.General cbb = null;
@@ -92,12 +78,11 @@ partial class SetPropertyUI : SnapEx.BaseUI
     {
         selectCuprum.AllowMultiple = true;
         selectCuprum.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
-        SetDefaultValue(null);
     }
 
     public override void DialogShown()
     {
-        
+        SetDefaultValue(null);
     }
 
     public override void Update(NXOpen.BlockStyler.UIBlock block)
@@ -147,19 +132,76 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
     public override void Apply()
     {
-        var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
-        var unNameC = cuprums.Where(u => string.IsNullOrEmpty(u.Name)).ToList();
-        var nameC = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToList();
-
-        if (unNameC.Count > 0)
+        try
         {
-            theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "电极名称不能为空");
-            return;
+            var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
+            var unNameC = cuprums.Where(u => string.IsNullOrEmpty(u.Name)).ToList();
+            var nameC = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToList();
+
+            if (cuprums.Count == 1 && string.IsNullOrEmpty(strElecName.Value))
+            {
+                theUI.NXMessageBox.Show("错误", NXOpen.NXMessageBox.DialogType.Error, "电极名称不能为空");
+                return;
+            }
+
+            cuprums.ForEach(u => {
+                Snap.Globals.WorkPart.Bodies.Where(m => m.Name == u.Name).ToList().ForEach(b => {
+                    if (cuprums.Count == 1)
+                    {
+                        b.Name = strElecName.Value;
+                    }
+
+                    var info = new ElecManage.ElectrodeInfo(b);
+                    info.FINISH_NUMBER = txtFINISHNUMBER.Value;
+                    info.MIDDLE_NUMBER = txtMIDDLENUMBER.Value;
+                    info.ROUGH_NUMBER = txtROUGHNUMBER.Value;
+                    info.FINISH_SPACE = txtFINISHSPACE.Value;
+                    info.MIDDLE_SPACE = txtMIDDLESPACE.Value;
+                    info.ROUGH_SPACE = txtROUGHSPACE.Value;
+
+                    _configData.Poperties.ForEach(p => {
+                        if (p.DisplayName == "电极材质")
+                        {
+                            info.MAT_NAME = p.Selections[cboxMATNAME.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "加工方向")
+                        {
+                            info.EDMPROCDIRECTION = p.Selections[cbbProdirection.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "电极类型")
+                        {
+                            info.UNIT = p.Selections[cbbElecType.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "摇摆方式")
+                        {
+                            info.EDMROCK = p.Selections[cbbRock.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "精公光洁度")
+                        {
+                            info.F_SMOOTH = p.Selections[cbbFSmoth.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "中公光洁度")
+                        {
+                            info.M_SMOOTH = p.Selections[cbbMSmoth.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "粗公光洁度")
+                        {
+                            info.R_SMOOTH = p.Selections[cbbRSmoth.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "夹具类型")
+                        {
+                            info.ELEC_CLAMP_GENERAL_TYPE = p.Selections[cbbChuckType.SelectedIndex].Value;
+                        }
+                    });
+                });
+            });
+
+            theUI.NXMessageBox.Show("成功", NXOpen.NXMessageBox.DialogType.Information, "电极信息保存成功");
         }
-
-        nameC.ForEach(u => {
-        });
-
+        catch (Exception ex)
+        {
+            theUI.NXMessageBox.Show("错误", NXOpen.NXMessageBox.DialogType.Error, ex.Message);
+        }
 
     }
 }

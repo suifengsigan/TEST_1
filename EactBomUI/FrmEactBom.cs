@@ -285,12 +285,12 @@ namespace EactBom
                     {
                         var pos = list.First();
                         var info = pos.Electrode.GetElectrodeInfo();
-                        txtFINISH_NUMBER.Text = info.FINISH_NUMBER;
-                        txtMIDDLE_NUMBER.Text = info.MIDDLE_NUMBER;
-                        txtROUGH_NUMBER.Text = info.ROUGH_NUMBER;
-                        txtFINISH_SPACE.Text = info.FINISH_SPACE;
-                        txtMIDDLE_SPACE.Text = info.MIDDLE_SPACE;
-                        txtROUGH_SPACE.Text = info.ROUGH_SPACE;
+                        txtFINISH_NUMBER.Text = info.FINISH_NUMBER.ToString();
+                        txtMIDDLE_NUMBER.Text = info.MIDDLE_NUMBER.ToString();
+                        txtROUGH_NUMBER.Text = info.ROUGH_NUMBER.ToString();
+                        txtFINISH_SPACE.Text = info.FINISH_SPACE.ToString();
+                        txtMIDDLE_SPACE.Text = info.MIDDLE_SPACE.ToString();
+                        txtROUGH_SPACE.Text = info.ROUGH_SPACE.ToString();
                         cboxMAT_NAME.Text = info.MAT_NAME;
                         cbbElecType.Text = info.UNIT;
                         cbbFSmoth.Text = info.F_SMOOTH;

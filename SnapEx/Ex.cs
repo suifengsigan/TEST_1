@@ -42,6 +42,23 @@ namespace SnapEx
         /// <summary>
         /// 获取属性值
         /// </summary>
+        public static int GetAttrIntegerValue(this Snap.NX.NXObject nxObject, string title)
+        {
+            int result = 0;
+            int.TryParse(nxObject.GetAttrValue(title), out result);
+            return result;
+        }
+
+        public static double GetAttrRealValue(this Snap.NX.NXObject nxObject, string title)
+        {
+            double result = 0.00;
+            double.TryParse(nxObject.GetAttrValue(title), out result);
+            return result;
+        }
+
+        /// <summary>
+        /// 获取属性值
+        /// </summary>
         public static string GetAttrValue(this Snap.NX.NXObject nxObject, string title)
         {
             string result = string.Empty;
