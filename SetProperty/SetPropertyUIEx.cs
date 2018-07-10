@@ -147,6 +147,19 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
     public override void Apply()
     {
+        var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
+        var unNameC = cuprums.Where(u => string.IsNullOrEmpty(u.Name)).ToList();
+        var nameC = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToList();
+
+        if (unNameC.Count > 0)
+        {
+            theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "电极名称不能为空");
+            return;
+        }
+
+        nameC.ForEach(u => {
+        });
+
 
     }
 }
