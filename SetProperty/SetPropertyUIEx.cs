@@ -145,7 +145,13 @@ partial class SetPropertyUI : SnapEx.BaseUI
             }
 
             cuprums.ForEach(u => {
-                Snap.Globals.WorkPart.Bodies.Where(m => m.Name == u.Name).ToList().ForEach(b => {
+                var bodies = cuprums;
+                if (cuprums.Count > 1)
+                {
+                    bodies = Snap.Globals.WorkPart.Bodies.Where(m => m.Name == u.Name).ToList();
+                }
+
+                bodies.ForEach(b => {
                     if (cuprums.Count == 1)
                     {
                         b.Name = strElecName.Value;
