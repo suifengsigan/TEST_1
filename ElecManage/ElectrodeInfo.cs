@@ -34,7 +34,7 @@ namespace ElecManage
         protected string R_ELEC_SMOOTH = "R_ELEC_SMOOTH";
         protected string NEW_OR_MODIFY_MODL = "NEW_OR_MODIFY_MODL";//开料原因
         protected string EACT_EDMPROCDIRECTION = "EACT_EDMPROCDIRECTION";//加工方向
-        protected string EACT_EDMROCK = "EACT_EDMROCK "; //摇摆方式
+        protected string EACT_EDMROCK = "EACT_EDMROCK"; //摇摆方式
         protected string EACT_SHAREELEC = "EACT_SHAREELEC";//共用电极
 
         void SetStringAttribute(string name, string value) 
