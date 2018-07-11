@@ -34,7 +34,7 @@ namespace EactBom
                 if (u.Checked) 
                 {
                     if (showMsgHandle != null) { showMsgHandle(string.Format("正在导入电极:{0}", u.ElectName)); }
-                    var tempPoss = GetPositioningInfos(u,steelInfo,true);
+                    var tempPoss = GetPositioningInfos(u,steelInfo);
                     if (ConfigData.ShareElec && u.ShareElec())//共用电极
                     {
                         var shareElec = u.ShareElecList.FirstOrDefault();
@@ -577,7 +577,7 @@ namespace EactBom
         /// <summary>
         /// 获取跑位信息
         /// </summary>
-        public List<PositioningInfo> GetPositioningInfos(ViewElecInfo elecInfo, ElecManage.MouldInfo steelInfo, bool isSetDefault = false) 
+        public List<PositioningInfo> GetPositioningInfos(ViewElecInfo elecInfo, ElecManage.MouldInfo steelInfo) 
         {
             var result = new List<PositioningInfo>();
             var workPart = Snap.Globals.WorkPart;
@@ -596,58 +596,6 @@ namespace EactBom
                     positioning.Z = Math.Round(pos.Z, 4);
                     positioning.QuadrantType = info.GetQuadrantType();
                     result.Add(positioning);
-                    var pInfo = positioning.Electrode.GetElectrodeInfo();
-
-                    if (!ConfigData.IsAttributeSetDefault)
-                    {
-                        isSetDefault = false;
-                    }
-
-                    if (isSetDefault)
-                    {
-                        //设置默认属性
-                        ConfigData.Poperties.ForEach(p => {
-                            var selection = p.Selections.FirstOrDefault(f => f.IsDefault) ?? p.Selections.FirstOrDefault();
-                            var defalutValue = string.Empty;
-                            if (selection != null)
-                            {
-                                defalutValue = selection.Value;
-                            }
-                            if (p.DisplayName == "电极材质" && string.IsNullOrEmpty(pInfo.MAT_NAME))
-                            {
-                                pInfo.MAT_NAME = defalutValue;
-                            }
-                            else if (p.DisplayName == "加工方向" && string.IsNullOrEmpty(pInfo.EDMPROCDIRECTION))
-                            {
-                                pInfo.EDMPROCDIRECTION = defalutValue;
-                            }
-                            else if (p.DisplayName == "电极类型" && string.IsNullOrEmpty(pInfo.UNIT))
-                            {
-                                pInfo.UNIT = defalutValue;
-                            }
-                            else if (p.DisplayName == "摇摆方式" && string.IsNullOrEmpty(pInfo.EDMROCK))
-                            {
-                                pInfo.EDMROCK = defalutValue;
-                            }
-                            else if (p.DisplayName == "精公光洁度" && string.IsNullOrEmpty(pInfo.F_SMOOTH))
-                            {
-                                pInfo.F_SMOOTH = defalutValue;
-                            }
-                            else if (p.DisplayName == "中公光洁度" && string.IsNullOrEmpty(pInfo.M_SMOOTH))
-                            {
-                                pInfo.M_SMOOTH = defalutValue;
-                            }
-                            else if (p.DisplayName == "粗公光洁度" && string.IsNullOrEmpty(pInfo.R_SMOOTH))
-                            {
-                                pInfo.R_SMOOTH = defalutValue;
-                            }
-                            else if (p.DisplayName == "夹具类型" && string.IsNullOrEmpty(pInfo.ELEC_CLAMP_GENERAL_TYPE))
-                            {
-                                pInfo.ELEC_CLAMP_GENERAL_TYPE = defalutValue;
-                            }
-
-                        });
-                    }
                 }
             });
 
@@ -691,20 +639,14 @@ namespace EactBom
 
 
             //去参数
-            removeBodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid).ToList().ForEach(u => {
-                try
-                {
-                    var list = Enumerable.Select(u.NXOpenBody.GetFeatures(), m => Snap.NX.Feature.Wrap(m.Tag)).ToList();
-                    if (list.Count > 1)
-                    {
-                        SnapEx.Create.RemoveParameters(new List<NXOpen.Body> { u });
-                    }
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            });
+            try
+            {
+                SnapEx.Create.RemoveParameters(Enumerable.Select(removeBodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid),u=>u.NXOpenBody).ToList());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             if (ConfigData.ShareElec) 
             {
