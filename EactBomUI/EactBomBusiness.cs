@@ -147,10 +147,9 @@ namespace EactBom
                                             var uv = u.Electrode.BaseFace.Box;
                                             var absX = Math.Abs(uv.MaxX - uv.MinX);
                                             var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
                                             if (absX >= absY)
                                             {
-                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
+                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 270));
                                             }
                                             break;
                                         }
