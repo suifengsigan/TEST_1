@@ -608,7 +608,9 @@ namespace EactBom
             var workPart = Snap.Globals.WorkPart;
             var removeBodies = new List<Snap.NX.Body>();
             removeBodies.Add(mouldBody);
-            workPart.Bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag&&!string.IsNullOrEmpty(u.Name)).ToList().ForEach(u =>
+            var bodies = workPart.Bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag && !string.IsNullOrEmpty(u.Name)).ToList();
+            bodies=bodies.OrderBy(u => u.Name).ToList();
+            bodies.ForEach(u =>
             {
                 var distance = Snap.Compute.Distance(mouldBody, u);
                 if (distance <= SnapEx.Helper.Tolerance)
