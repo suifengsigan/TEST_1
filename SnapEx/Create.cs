@@ -11,6 +11,14 @@ namespace SnapEx
 {
     public static class Create
     {
+        public static Vector MapAcsToWcs(Vector absVector, Snap.Orientation wcs)
+        {
+            Vector axisX = wcs.AxisX;
+            Vector axisY = wcs.AxisY;
+            Vector axisZ = wcs.AxisZ;
+            return new Vector((double)(absVector * axisX), (double)(absVector * axisY), (double)(absVector * axisZ));
+        }
+
         /// <summary>
         /// 获取投影面积
         /// </summary>

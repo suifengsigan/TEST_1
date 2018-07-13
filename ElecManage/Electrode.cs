@@ -61,7 +61,7 @@ namespace ElecManage
             var chamferFace = GetChamferFace();
             if (chamferFace != null) 
             {
-                var dir = Snap.NX.CoordinateSystem.MapAcsToWcs(chamferFace.GetFaceDirection());
+                var dir = SnapEx.Create.MapAcsToWcs(chamferFace.GetFaceDirection(),new Snap.Orientation(-BaseFace.GetFaceDirection()));
                 result = SnapEx.Helper.GetQuadrantType(dir);
             }
             return result;
