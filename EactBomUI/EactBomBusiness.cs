@@ -96,7 +96,7 @@ namespace EactBom
                         var baseDir = u.Electrode.BaseFace.GetFaceDirection();
                         var acsOrientation = Snap.Orientation.Identity;
                         acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var wcsOrientation = Snap.Globals.WcsOrientation;
+                        var wcsOrientation = new Snap.Orientation(-baseDir);
                         wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
                         var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
                         var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
@@ -105,7 +105,7 @@ namespace EactBom
                         transY = Snap.Geom.Transform.Composition(transR, transY);
                         var topFaceUV = u.Electrode.TopFace.BoxUV;
                         var topFaceCenterPoint = u.Electrode.TopFace.Position((topFaceUV.MinU + topFaceUV.MaxU) / 2, (topFaceUV.MinV + topFaceUV.MaxV) / 2);
-                        var box3d = u.Electrode.ElecBody.AcsToWcsBox3d();
+                        var box3d = u.Electrode.ElecBody.AcsToWcsBox3d(wcsOrientation);
                         switch (ConfigData.CNCTranRule)
                         {
                             case 2://长度矩阵Y轴（基准台底面）
@@ -242,7 +242,7 @@ namespace EactBom
                         //移至绝对坐标原点
                         var acsOrientation = Snap.Orientation.Identity;
                         acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var wcsOrientation = Snap.Globals.WcsOrientation;
+                        var wcsOrientation = new Snap.Orientation(baseDir);
                         wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
                         var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
                         var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
@@ -250,7 +250,6 @@ namespace EactBom
                         var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
                         transY = Snap.Geom.Transform.Composition(transR, transY);
                         var pos = u.Electrode.GetElecBasePos().Copy(transY);
-                        var baseFaceOrientation = new Snap.Orientation(topFaceDir);
                         var transQ = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
                         pos = pos.Copy(transQ);
                         var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);

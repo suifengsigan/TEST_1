@@ -7,6 +7,21 @@ namespace SnapEx
 {
     public static class Ex
     {
+        public static Snap.Geom.Box3d AcsToWcsBox3d(this Snap.NX.NXObject obj, Snap.Orientation wcs)
+        {
+            var corners = new List<Snap.Position>();
+            obj.Box.Corners.ToList().ForEach(u => {
+                var acsOrientation = Snap.Orientation.Identity;
+                var wcsOrientation = wcs;
+                var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
+                corners.Add(u.Copy(transR));
+            });
+            var xList = Enumerable.Select(corners, u => u.X).ToList();
+            var yList = Enumerable.Select(corners, u => u.Y).ToList();
+            var zList = Enumerable.Select(corners, u => u.Z).ToList();
+
+            return new Snap.Geom.Box3d(xList.Min(), yList.Min(), zList.Min(), xList.Max(), yList.Max(), zList.Max());
+        }
         public static Snap.Geom.Box3d AcsToWcsBox3d(this Snap.NX.NXObject obj)
         {
             var corners = new List<Snap.Position>();
