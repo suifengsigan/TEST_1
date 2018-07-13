@@ -128,6 +128,10 @@ namespace ElecManage
         /// </summary>
         static void GetBaseFace(Snap.NX.Body body, List<Snap.NX.Line> diagonalLines, out Snap.NX.Face face, out Snap.NX.Line line)
         {
+            if (body.Name == "A05")
+            {
+
+            }
             Snap.NX.Face outFace = null;
             Snap.NX.Line outLine = null;
             var faces = body.Faces.ToList();
@@ -137,7 +141,24 @@ namespace ElecManage
             {
                 faces = new List<Snap.NX.Face> { baseFace };
             }
-            var tempFaces = faces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -Snap.Globals.WcsOrientation.AxisZ, SnapEx.Helper.Tolerance)).ToList();
+
+            var tempFaces = new List<Snap.NX.Face>();
+            if (!Entry.Instance.IsDistinguishSideElec)
+            {
+                tempFaces = faces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -Snap.Globals.WcsOrientation.AxisZ, SnapEx.Helper.Tolerance)).ToList();
+            }
+            else
+            {
+                tempFaces.AddRange(faces.Where(u =>
+               SnapEx.Helper.Equals(u.GetFaceDirection(), -Snap.Globals.WcsOrientation.AxisZ, SnapEx.Helper.Tolerance)
+               ||SnapEx.Helper.Equals(u.GetFaceDirection(), Snap.Globals.WcsOrientation.AxisZ, SnapEx.Helper.Tolerance)
+               || SnapEx.Helper.Equals(u.GetFaceDirection(), -Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance)
+                || SnapEx.Helper.Equals(u.GetFaceDirection(), Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance)
+                 || SnapEx.Helper.Equals(u.GetFaceDirection(), -Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance)
+                  || SnapEx.Helper.Equals(u.GetFaceDirection(), Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance)
+                ).ToList());
+            }
+           
             tempFaces = tempFaces.OrderByDescending(u =>
             {
                 var uv = u.BoxUV;
@@ -191,21 +212,35 @@ namespace ElecManage
                 lines = workPart.NXOpenPart.Layers.GetAllObjectsOnLayer(body.Layer).ToArray().Where(u => u is NXOpen.Line).Select(u=>Snap.NX.Line.Wrap(u.Tag)).ToList();
                 foreach (var line in lines.ToList())
                 {
-                    var p1 = (line.StartPoint + line.EndPoint) / 2;
-                    var tempVec = p1 - p2;
-                    var tempOri = Snap.Globals.Wcs.Orientation.AxisZ;
-                    if ((
-                        SnapEx.Helper.Equals(tempVec, tempOri, SnapEx.Helper.Tolerance) 
-                        || SnapEx.Helper.Equals(tempVec, -tempOri, SnapEx.Helper.Tolerance)
-                        || SnapEx.Helper.Equals(p1, p2, SnapEx.Helper.Tolerance)
-                        )&& Snap.Compute.Distance(line, body) < SnapEx.Helper.Tolerance
-                        )
+                    if (!Entry.Instance.IsDistinguishSideElec)
                     {
+                        var p1 = (line.StartPoint + line.EndPoint) / 2;
+                        var tempVec = p1 - p2;
+                        var tempOri = Snap.Globals.Wcs.Orientation.AxisZ;
+                        if ((
+                            SnapEx.Helper.Equals(tempVec, tempOri, SnapEx.Helper.Tolerance)
+                            || SnapEx.Helper.Equals(tempVec, -tempOri, SnapEx.Helper.Tolerance)
+                            || SnapEx.Helper.Equals(p1, p2, SnapEx.Helper.Tolerance)
+                            ) && Snap.Compute.Distance(line, body) < SnapEx.Helper.Tolerance
+                            )
+                        {
 
+                        }
+                        else
+                        {
+                            lines.Remove(line);
+                        }
                     }
-                    else 
+                    else
                     {
-                        lines.Remove(line);
+                        if (Snap.Compute.Distance(line, body) < SnapEx.Helper.Tolerance)
+                        {
+
+                        }
+                        else
+                        {
+                            lines.Remove(line);
+                        }
                     }
                 }
             }

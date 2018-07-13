@@ -97,7 +97,10 @@ namespace EactConfig
         public bool ExportPrt = false;
         public bool ExportCNCPrt = false;
         public bool IsImportEman = false;
-
+        /// <summary>
+        /// 是否识别侧放电极
+        /// </summary>
+        public bool IsDistinguishSideElec = true;
         private string _EleRType { get; set; }
         public string EleRType { set { _EleRType = value; } get { if (string.IsNullOrEmpty(_EleRType)) return "R"; return _EleRType; } }
         private string _EleMType { get; set; }

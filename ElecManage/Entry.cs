@@ -12,9 +12,11 @@ namespace ElecManage
     {
         private Entry() { }
         public static Entry Instance = new Entry();
-
         public QuadrantType DefaultQuadrantType = QuadrantType.Three;
-
+        /// <summary>
+        /// 是否识别侧放电极
+        /// </summary>
+        public bool IsDistinguishSideElec = false;
         /// <summary>
         /// 获取电极信息
         /// </summary>
