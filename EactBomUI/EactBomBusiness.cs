@@ -24,7 +24,7 @@ namespace EactBom
         {
             var datas = new List<DataAccess.Model.EACT_CUPRUM>();
             List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas = null;
-            if (ConfigData.ShareElec) 
+            //if (ConfigData.ShareElec) 
             {
                 shareElecDatas = new List<DataAccess.Model.EACT_CUPRUM_EXP>();
             }
