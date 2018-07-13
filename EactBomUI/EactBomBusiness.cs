@@ -325,6 +325,7 @@ namespace EactBom
                                 }
                                 var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
                                 datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation?"1":"0");
+                                datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = area.ToString());
                                 return trans;
                             }
                             , transY, transQ, transX);
