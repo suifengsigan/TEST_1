@@ -128,8 +128,9 @@ partial class SelectSteelUI : SnapEx.BaseUI
         NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, MouldInfo.Origin.Array);
         Snap.Globals.WcsOrientation = MouldInfo.Orientation;
         ElecManage.Entry.Instance.DefaultQuadrantType = (QuadrantType)enumSelectedXX.SelectedIndex;
+        ElecManage.Entry.Instance.IsDistinguishSideElec = toggleIsDistinguishSideElec.Value;
 
-        Result = System.Windows.Forms.DialogResult.OK;
+       Result = System.Windows.Forms.DialogResult.OK;
     }
 
 }
