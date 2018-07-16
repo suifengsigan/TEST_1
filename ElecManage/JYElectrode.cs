@@ -128,10 +128,6 @@ namespace ElecManage
         /// </summary>
         static void GetBaseFace(Snap.NX.Body body, List<Snap.NX.Line> diagonalLines, out Snap.NX.Face face, out Snap.NX.Line line)
         {
-            if (body.Name == "A05")
-            {
-
-            }
             Snap.NX.Face outFace = null;
             Snap.NX.Line outLine = null;
             var faces = body.Faces.ToList();
