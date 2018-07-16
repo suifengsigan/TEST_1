@@ -244,8 +244,10 @@ namespace ElecManage
                     }
                 }
             }
-
-            GetBaseFace(body, lines, out baseFace, out result);
+            if (lines.Count > 0)
+            {
+                GetBaseFace(body, lines, out baseFace, out result);
+            }
             return result;
         }
         public static Electrode GetElectrode(Snap.NX.Body body)
