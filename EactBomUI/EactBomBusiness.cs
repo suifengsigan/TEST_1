@@ -240,7 +240,7 @@ namespace EactBom
                         //移至绝对坐标原点
                         var acsOrientation = Snap.Orientation.Identity;
                         acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var wcsOrientation = new Snap.Orientation(baseDir);
+                        var wcsOrientation = new Snap.Orientation(-baseDir);
                         wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
                         var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
                         var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
