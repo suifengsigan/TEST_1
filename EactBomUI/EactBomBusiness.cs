@@ -406,56 +406,62 @@ namespace EactBom
                 electrode.TopFace.SetStringAttribute("ELEC_BASE_BOTTOM_FACE", "1");
                 electrode.BaseFace.SetStringAttribute("ELEC_BASE_EDM_FACE","1");
 
-                var baseFaceDir = electrode.TopFace.GetFaceDirection();
-                var baseFaceOrientation = new Snap.Orientation(baseFaceDir);
-                var xFaces = new List<Snap.NX.Face>();
-                var yFaces = new List<Snap.NX.Face>();
-                var trans = Snap.Geom.Transform.CreateRotation(electrode.GetElecBasePos(), baseFaceDir, item.C);
-                var xDir = baseFaceOrientation.AxisX.Copy(trans);
-                var yDir = baseFaceOrientation.AxisY.Copy(trans);
-                electrode.ElecBody.Faces.Where(u=>u.ObjectSubType==Snap.NX.ObjectTypes.SubType.FacePlane).ToList().ForEach(u =>
+                #region
+                var topFaceDir = electrode.TopFace.GetFaceDirection();
+                var topFaceOrientation = new Snap.Orientation(topFaceDir);
+                if (false)
                 {
-                    if (u.IsHasAttr("EACT_ELECT_X_FACE")) { u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_X_FACE"); }
-                    if (u.IsHasAttr("EACT_ELECT_Y_FACE")) { u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_Y_FACE"); }
-                    if (SnapEx.Helper.Equals(xDir, u.GetFaceDirection(), SnapEx.Helper.Tolerance))
+                    var xFaces = new List<Snap.NX.Face>();
+                    var yFaces = new List<Snap.NX.Face>();
+                    var trans = Snap.Geom.Transform.CreateRotation(electrode.GetElecBasePos(), topFaceDir, item.C);
+                    var xDir = topFaceOrientation.AxisX.Copy(trans);
+                    var yDir = topFaceOrientation.AxisY.Copy(trans);
+                    electrode.ElecBody.Faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).ToList().ForEach(u =>
                     {
-                        xFaces.Add(u);
-                    }
-                    else if (SnapEx.Helper.Equals(yDir, u.GetFaceDirection(), SnapEx.Helper.Tolerance))
-                    {
-                        yFaces.Add(u);
-                    }
-                });
+                        if (u.IsHasAttr("EACT_ELECT_X_FACE")) { u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_X_FACE"); }
+                        if (u.IsHasAttr("EACT_ELECT_Y_FACE")) { u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_Y_FACE"); }
+                        if (SnapEx.Helper.Equals(xDir, u.GetFaceDirection(), SnapEx.Helper.Tolerance))
+                        {
+                            xFaces.Add(u);
+                        }
+                        else if (SnapEx.Helper.Equals(yDir, u.GetFaceDirection(), SnapEx.Helper.Tolerance))
+                        {
+                            yFaces.Add(u);
+                        }
+                    });
 
-                if (xFaces.Count > 0 && yFaces.Count > 0) 
-                {
-                    if (xFaces.Count > 1)
+                    if (xFaces.Count > 0 && yFaces.Count > 0)
                     {
-                        xFaces = xFaces.Where(u => Snap.Compute.Distance(u, electrode.TopFace) < SnapEx.Helper.Tolerance && Snap.Compute.Distance(u, electrode.BaseFace) < SnapEx.Helper.Tolerance).ToList();
-                    }
+                        if (xFaces.Count > 1)
+                        {
+                            xFaces = xFaces.Where(u => Snap.Compute.Distance(u, electrode.TopFace) < SnapEx.Helper.Tolerance && Snap.Compute.Distance(u, electrode.BaseFace) < SnapEx.Helper.Tolerance).ToList();
+                        }
 
-                    if (xFaces.Count > 0)
-                    {
-                        xFaces.FirstOrDefault().SetStringAttribute("EACT_ELECT_X_FACE", "1");
-                    }
+                        if (xFaces.Count > 0)
+                        {
+                            xFaces.FirstOrDefault().SetStringAttribute("EACT_ELECT_X_FACE", "1");
+                        }
 
-                    if (yFaces.Count > 1)
-                    {
-                        yFaces = yFaces.Where(u => Snap.Compute.Distance(u, electrode.TopFace) < SnapEx.Helper.Tolerance && Snap.Compute.Distance(u, electrode.BaseFace) < SnapEx.Helper.Tolerance).ToList();
-                    }
+                        if (yFaces.Count > 1)
+                        {
+                            yFaces = yFaces.Where(u => Snap.Compute.Distance(u, electrode.TopFace) < SnapEx.Helper.Tolerance && Snap.Compute.Distance(u, electrode.BaseFace) < SnapEx.Helper.Tolerance).ToList();
+                        }
 
-                    if (yFaces.Count > 0)
-                    {
-                        yFaces.FirstOrDefault().SetStringAttribute("EACT_ELECT_Y_FACE", "1");
+                        if (yFaces.Count > 0)
+                        {
+                            yFaces.FirstOrDefault().SetStringAttribute("EACT_ELECT_Y_FACE", "1");
+                        }
                     }
                 }
+
+                #endregion
 
                 if (positions.IndexOf(item) > 0) continue;
 
                 //TODO 导BOM
-                var elecBox = electrodeBody.AcsToWcsBox3d();
-                var baseFaceBox = electrode.BaseFace.AcsToWcsBox3d();
-                var topFaceBox = electrode.TopFace.AcsToWcsBox3d();
+                var elecBox = electrodeBody.AcsToWcsBox3d(topFaceOrientation);
+                var baseFaceBox = electrode.BaseFace.AcsToWcsBox3d(topFaceOrientation);
+                var topFaceBox = electrode.TopFace.AcsToWcsBox3d(topFaceOrientation);
                 var STRETCHH = Math.Abs(elecBox.MinZ - elecBox.MaxZ);
                 var HEADPULLUPH = Math.Abs(STRETCHH - Math.Abs((baseFaceBox.MinZ + baseFaceBox.MaxZ) / 2 - (topFaceBox.MinZ + topFaceBox.MaxZ) / 2));
                 var PROCESSNUM = positions.Count.ToString();
