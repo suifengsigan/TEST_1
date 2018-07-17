@@ -168,14 +168,33 @@ namespace ElecManage
 
             faces = tempFaces;
 
+            foreach (var item in diagonalLines.ToList())
+            {
+                Snap.NX.Line diagonalLine = item;
+                if (Snap.Compute.Distance(diagonalLine, body) >= SnapEx.Helper.Tolerance)
+                {
+                    diagonalLines.Remove(item);
+                }
+            }
+
             foreach (var u in faces)
             {
-                var corners = u.Box.Corners.Distinct().ToList();
+                var tempDiagonaLines = new List<Snap.NX.Line>();
                 foreach (var item in diagonalLines)
                 {
                     Snap.NX.Line diagonalLine = item;
                     if (Snap.Compute.Distance(diagonalLine, u) < SnapEx.Helper.Tolerance)
                     {
+                        tempDiagonaLines.Add(item);
+                    }
+                }
+
+                if (tempDiagonaLines.Count > 0)
+                {
+                    var corners = u.Box.Corners.Distinct().ToList();
+                    foreach (var item in tempDiagonaLines)
+                    {
+                        Snap.NX.Line diagonalLine = item;
                         var startPos = corners.Where(m => SnapEx.Helper.Equals(m, diagonalLine.StartPoint, SnapEx.Helper.Tolerance));
                         var endPos = corners.Where(m => SnapEx.Helper.Equals(m, diagonalLine.EndPoint, SnapEx.Helper.Tolerance));
                         if (startPos.Count() > 0 && endPos.Count() > 0)
