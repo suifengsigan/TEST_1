@@ -119,9 +119,7 @@ namespace EactBom
                                 }
                         }
                         var pos = topFaceCenterPoint.Copy(transY);
-                        var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
-                        var baseFaceOrientation = new Snap.Orientation(topFaceDir);
-                        var transQ = Snap.Geom.Transform.CreateRotation(topFaceCenterPoint, topFaceDir, u.C);
+                        var transQ = Snap.Geom.Transform.CreateRotation(topFaceCenterPoint, new Snap.Vector(0, 0, 1), u.C);
                         pos = pos.Copy(transQ);
                         var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
                         SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, u.Electrode.ElecBody.Name),
@@ -250,7 +248,7 @@ namespace EactBom
                         var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
                         transY = Snap.Geom.Transform.Composition(transR, transY);
                         var pos = u.Electrode.GetElecBasePos().Copy(transY);
-                        var transQ = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
+                        var transQ = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), new Snap.Vector(0, 0, 1), u.C);
                         pos = pos.Copy(transQ);
                         var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
                         SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, u.Electrode.ElecBody.Name),
