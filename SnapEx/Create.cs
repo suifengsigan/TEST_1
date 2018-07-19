@@ -11,6 +11,20 @@ namespace SnapEx
 {
     public static class Create
     {
+        /// <summary>
+        /// WAVE
+        /// </summary>
+        public static NXOpen.Tag CreateLinkedBody(Snap.NX.Body body, Snap.NX.Component comp, Snap.NX.Component toComp)
+        {
+            var ufSession = NXOpen.UF.UFSession.GetUFSession();
+            NXOpen.Tag tempTag;
+            ufSession.So.CreateXformAssyCtxt(toComp.Prototype.NXOpenTag, comp.NXOpenTag, toComp.NXOpenTag, out tempTag);
+            NXOpen.Tag linkTag;
+            ufSession.Wave.CreateLinkedBody(body.NXOpenTag, tempTag, toComp.Prototype.NXOpenTag, false, out linkTag);
+            NXOpen.Tag tgTag;
+            ufSession.Modl.AskFeatBody(linkTag, out tgTag);
+            return tgTag;
+        }
         public static Vector MapAcsToWcs(Vector absVector, Snap.Orientation wcs)
         {
             Vector axisX = wcs.AxisX;
@@ -25,7 +39,7 @@ namespace SnapEx
         /// <param name="face"></param>
         /// <param name="max_facet_size"></param>
         /// <returns></returns>
-        public static double GetProjectionArea(Snap.NX.Face face, double max_facet_size = 1)
+        public static double GetProjectionArea(Snap.NX.Face face,Snap.Orientation dir=null, double max_facet_size = 1)
         {
             var area = 0.0;
             try
@@ -62,7 +76,7 @@ namespace SnapEx
                         {
                             var vertices = new double[num_vertices, 3];
                             facet.AskVerticesOfFacet(facet_model, facet_id, out num_vertices, vertices);
-                            double[] vecZ = { 0, 0, 1 };
+                            double[] vecZ = (dir??new Snap.Orientation()).AxisZ.Array;
                             var projectorZAxis = new List<double[]>();
                             projectorZAxis.Add(new double[] { 0, 0, 0 });
                             projectorZAxis.Add(new double[] { 0, 0, 0 });

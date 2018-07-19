@@ -23,6 +23,35 @@ namespace SnapEx
             return list;
         }
 
+        public static List<Snap.NX.Body> BodiesByName(this Snap.NX.Part part,string name)
+        {
+            var ufSession = NXOpen.UF.UFSession.GetUFSession();
+            NXOpen.Tag tempTag = NXOpen.Tag.Null;
+            var list = new List<Snap.NX.Body>();
+            do
+            {
+                ufSession.Obj.CycleByNameAndType(part.NXOpenTag, name, NXOpen.UF.UFConstants.UF_solid_type, true, ref tempTag);
+                if (tempTag != NXOpen.Tag.Null)
+                {
+                    try
+                    {
+                        Snap.NX.NXObject nxopenTaggedObject = GetObjectFromTag(tempTag);
+                        if (nxopenTaggedObject != null&&nxopenTaggedObject.ObjectType==Snap.NX.ObjectTypes.Type.Body)
+                        {
+                            list.Add(Snap.NX.Body.Wrap(tempTag));
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("BodiesByName:" + ex.Message);
+                    }
+                    var dd = Snap.NX.NXObject.Wrap(tempTag);
+                }
+            }
+            while (tempTag != NXOpen.Tag.Null);
+            return list;
+        }
+
         private static NXOpen.NXObject[] Members(Snap.NX.Component comp)
         {
             var uFSession = NXOpen.UF.UFSession.GetUFSession();

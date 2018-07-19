@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SnapEx;
+using System.IO;
 
 namespace EactBom
 {
@@ -688,6 +689,89 @@ namespace EactBom
             return partName;
         }
 
-       
+        public double GetBodyProjectionArea(ElecManage.MouldInfo steelInfo, List<ElecManage.PositioningInfo> positions)
+        {
+            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "EACT_ELECHEADFACEAREA");
+            double area = 0;
+            try
+            {
+                var EACT_ELECHEADFACE = string.Format("EACT_ELECHEADFACE{0}", Guid.NewGuid().ToString("N")).ToUpper();
+                var headFaceInts = new List<int>();
+                if (positions.Count > 0)
+                {
+                    var u = positions.First();
+                    var elecBody = u.Electrode.ElecBody;
+                    var headFaces = u.Electrode.ElecHeadFaces;
+                    for (int i = 0; i < headFaces.Count; i++)
+                    {
+                        var hf = headFaces[i];
+                        hf.SetIntegerAttribute(EACT_ELECHEADFACE, i + 1);
+                    };
+                    var cs = new List<Snap.NX.Component>();
+                    var dir = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"TEMPPRTFILE", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
+                    if (Directory.Exists(dir))
+                    {
+                        Directory.Delete(dir, true);
+                    }
+                    Directory.CreateDirectory(dir);
+                    var path = System.IO.Path.Combine(dir, string.Format("{0}.prt", elecBody.Name));
+                    var nxObjects = new List<NXOpen.NXObject> { elecBody };
+                    var c = SnapEx.Create.ExtractObject(nxObjects, path, true);
+                    var workPart = Snap.Globals.WorkPart.NXOpenPart;
+                    cs.Add(c);
+
+                    var baseDir = u.Electrode.BaseFace.GetFaceDirection();
+                    var topFaceDir = -baseDir;
+                    positions.ForEach(h =>
+                    {
+                        if (u != h)
+                        {
+                            Snap.NX.Component newComponent = workPart.ComponentAssembly.CopyComponents(new List<NXOpen.Assemblies.Component> { c }.ToArray()).First();
+                            cs.Add(newComponent);
+                            var transR1 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
+                            var transR2 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), baseDir, h.C);
+                            var transM1 = Snap.Geom.Transform.CreateTranslation(h.Electrode.GetElecBasePos() - u.Electrode.GetElecBasePos());
+                            transR1 = Snap.Geom.Transform.Composition(transR1, transR2);
+                            transR1 = Snap.Geom.Transform.Composition(transR1, transM1);
+                            var trans = transR1.Matrix;
+                            NXOpen.Matrix3x3 matrix = new NXOpen.Matrix3x3();
+                            matrix.Xx = trans[0]; matrix.Xy = trans[4]; matrix.Xz = trans[8];
+                            matrix.Yx = trans[1]; matrix.Yy = trans[5]; matrix.Yz = trans[9];
+                            matrix.Zx = trans[2]; matrix.Zy = trans[6]; matrix.Zz = trans[10];
+                            workPart.ComponentAssembly.MoveComponent(newComponent, new NXOpen.Vector3d(trans[3], trans[7], trans[11]), matrix);
+                        }
+                    });
+
+                    var occBodies = Snap.Globals.WorkPart.BodiesByName(u.Electrode.ElecBody.Name).Where(m => m.IsOccurrence).ToList();
+                    foreach (var body in occBodies)
+                    {
+                        if (body != null)
+                        {
+                            body.Faces.ToList().ForEach(f =>
+                            {
+                                var hfInt = f.GetAttrIntegerValue(EACT_ELECHEADFACE);
+                                if (hfInt > 0 && !headFaceInts.Contains(hfInt) && Snap.Compute.Distance(f, steelInfo.MouldBody) < SnapEx.Helper.Tolerance)
+                                {
+                                    headFaceInts.Add(hfInt);
+                                    area += SnapEx.Create.GetProjectionArea(f, new Snap.Orientation(topFaceDir));
+                                }
+                            });
+                        }
+                    }
+                    area *= 0.5;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Snap.Globals.UndoToMark(mark, null);
+            }
+
+            return area;
+        }
+
     }
 }
