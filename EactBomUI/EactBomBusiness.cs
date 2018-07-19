@@ -689,10 +689,11 @@ namespace EactBom
             return partName;
         }
 
-        public double GetBodyProjectionArea(ElecManage.MouldInfo steelInfo, List<ElecManage.PositioningInfo> positions)
+        public double GetBodyProjectionArea(ElecManage.MouldInfo steelInfo, List<ElecManage.PositioningInfo> positions,out List<Snap.NX.Face> touchHeadFaces)
         {
             var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "EACT_ELECHEADFACEAREA");
             double area = 0;
+            touchHeadFaces = new List<Snap.NX.Face>();
             try
             {
                 var EACT_ELECHEADFACE = string.Format("EACT_ELECHEADFACE{0}", Guid.NewGuid().ToString("N")).ToUpper();
@@ -753,11 +754,15 @@ namespace EactBom
                                 if (hfInt > 0 && !headFaceInts.Contains(hfInt) && Snap.Compute.Distance(f, steelInfo.MouldBody) < SnapEx.Helper.Tolerance)
                                 {
                                     headFaceInts.Add(hfInt);
-                                    area += SnapEx.Create.GetProjectionArea(f, new Snap.Orientation(topFaceDir));
                                 }
                             });
                         }
                     }
+
+                    touchHeadFaces = headFaces.Where(hf => headFaceInts.Contains(hf.GetAttrIntegerValue(EACT_ELECHEADFACE))).ToList();
+                    touchHeadFaces.ForEach(thf => {
+                        area += SnapEx.Create.GetProjectionArea(thf, new Snap.Orientation(topFaceDir));
+                    });
                     area *= 0.5;
                 }
             }
