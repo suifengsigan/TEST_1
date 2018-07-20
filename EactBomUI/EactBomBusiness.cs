@@ -647,7 +647,7 @@ namespace EactBom
             //去参数
             try
             {
-                SnapEx.Create.RemoveParameters(Enumerable.Select(removeBodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid),u=>u.NXOpenBody).ToList());
+                SnapEx.Create.RemoveParameters(Enumerable.Select(workPart.Bodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid),u=>u.NXOpenBody).ToList());
             }
             catch (Exception ex)
             {
