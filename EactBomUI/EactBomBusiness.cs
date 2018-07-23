@@ -620,6 +620,27 @@ namespace EactBom
             return result;
         }
 
+        /// <summary>
+        /// 正则表达式提取值
+        /// </summary>
+        public static string RegexGetValue(string rule, string str)
+        {
+            string result = string.Empty;
+            var match = System.Text.RegularExpressions.Regex.Match(str, rule);
+            if (match.Success)
+            {
+                result = match.Value;   
+            }
+            return result;
+        }
+
+        public static int RegexGetInt(string rule, string str)
+        {
+            int result = 0;
+            int.TryParse(RegexGetValue(rule, str), out result);
+            return result;
+        }
+
         public List<ViewElecInfo> GetElecList(MouldInfo mouldInfo,Action<string> action=null) 
         {
             var mouldBody = mouldInfo.MouldBody;
@@ -628,7 +649,8 @@ namespace EactBom
             var removeBodies = new List<Snap.NX.Body>();
             removeBodies.Add(mouldBody);
             var bodies = workPart.Bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag && !string.IsNullOrEmpty(u.Name)).ToList();
-            bodies=bodies.OrderBy(u => u.Name).ToList();
+            var reg = @"\d+$";
+            bodies =bodies.OrderBy(u => RegexGetInt(reg,u.Name)).ToList();
             bodies.ForEach(u =>
             {
                 var distance = Snap.Compute.Distance(mouldBody, u);
