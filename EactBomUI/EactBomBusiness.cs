@@ -38,19 +38,28 @@ namespace EactBom
                     var tempPoss = GetPositioningInfos(u,steelInfo);
                     if (ConfigData.ShareElec && u.ShareElec())//共用电极
                     {
-                        var shareElec = u.ShareElecList.FirstOrDefault();
-                        tempPoss.ForEach(p => {
-                            shareElecDatas.Add(new DataAccess.Model.EACT_CUPRUM_EXP {
+                        //var shareElec = u.ShareElecList.FirstOrDefault();
+                        foreach (var shareElec in u.ShareElecList)
+                        {
+                            shareElecDatas.Add(new DataAccess.Model.EACT_CUPRUM_EXP
+                            {
                                 CUPRUMID = shareElec.CUPRUMID
-                                ,MODELNO = steelInfo.MODEL_NUMBER
-                                ,PARTNO=steelInfo.MR_NUMBER
-                                ,X=p.X.ToString()
-                                ,Y=p.Y.ToString()
-                                ,Z=p.Z.ToString()
-                                ,C=p.C.ToString()
-                                ,CUPRUMNAME=shareElec.CUPRUMNAME
+                               ,
+                                MODELNO = steelInfo.MODEL_NUMBER
+                               ,
+                                PARTNO = steelInfo.MR_NUMBER
+                               ,
+                                X = string.Join(",", tempPoss.Select(m => m.X.ToString()).ToArray())
+                               ,
+                                Y = string.Join(",", tempPoss.Select(m => m.Y.ToString()).ToArray())
+                               ,
+                                Z = string.Join(",", tempPoss.Select(m => m.Z.ToString()).ToArray())
+                               ,
+                                C = string.Join(",", tempPoss.Select(m => m.C.ToString()).ToArray())
+                               ,
+                                CUPRUMNAME = shareElec.CUPRUMNAME
                             });
-                        });
+                        }
                     }
                     else
                     {
