@@ -4,7 +4,22 @@ using System.Linq;
 using System.Text;
 partial class SetPropertyUI : SnapEx.BaseUI
 {
+    bool _isAllowMultiple = false;
     EactConfig.ConfigData _configData = EactConfig.ConfigData.GetInstance();
+    ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b)
+    {
+        ElecManage.ElectrodeInfo info = null;
+        var xkElec = ElecManage.XKElectrode.GetElectrode(b);
+        if (xkElec != null)
+        {
+            info = new ElecManage.XKElectrodeInfo(b);
+        }
+        else
+        {
+            info = new ElecManage.ElectrodeInfo(b);
+        }
+        return info;
+    }
 
     void SetDefaultValue(ElecManage.ElectrodeInfo info)
     {
@@ -76,7 +91,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
     }
     public override void Init()
     {
-        selectCuprum.AllowMultiple = true;
+        selectCuprum.AllowMultiple = _isAllowMultiple;
         selectCuprum.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
     }
 
@@ -92,41 +107,48 @@ partial class SetPropertyUI : SnapEx.BaseUI
             var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
             var unNameC = cuprums.Where(u => string.IsNullOrEmpty(u.Name)).ToList();
             var nameC = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToList();
-            if (nameC.Count > 1)
-            {
-                strElecName.Show = false;
-            }
-            else
-            {
-                strElecName.Show = true;
-            }
+           
 
             if (nameC.Count == 1)
             {
-                SetDefaultValue(new ElecManage.ElectrodeInfo(nameC.First()));
+                SetDefaultValue(GetElecInfo(nameC.First()));
             }
 
-            if (cuprums.Count != 1)
+            if (_isAllowMultiple)
             {
-                selectCuprum.AllowMultiple = true;
-               
-                if (unNameC.Count > 0)
+                if (nameC.Count > 1)
                 {
-                    theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "电极名称不能为空");
-                    selectCuprum.SelectedObjects = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToArray();
-                }
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(cuprums.First().Name))
-                {
-                    selectCuprum.AllowMultiple = false;
+                    strElecName.Show = false;
                 }
                 else
                 {
+                    strElecName.Show = true;
+                }
+
+                if (cuprums.Count != 1)
+                {
+
                     selectCuprum.AllowMultiple = true;
+
+                    if (unNameC.Count > 0)
+                    {
+                        theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "电极名称不能为空");
+                        selectCuprum.SelectedObjects = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToArray();
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(cuprums.First().Name))
+                    {
+                        selectCuprum.AllowMultiple = false;
+                    }
+                    else
+                    {
+                        selectCuprum.AllowMultiple = true;
+                    }
                 }
             }
+
         }
     }
 
@@ -144,20 +166,16 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 return;
             }
 
+            if (cuprums.Count == 1)
+            {
+                cuprums.First().Name = strElecName.Value;
+            }
+
             cuprums.ForEach(u => {
-                var bodies = cuprums;
-                if (cuprums.Count > 1)
-                {
-                    bodies = Snap.Globals.WorkPart.Bodies.Where(m => m.Name == u.Name).ToList();
-                }
+                var bodies = Snap.Globals.WorkPart.Bodies.Where(m => m.Name == u.Name).ToList();
 
                 bodies.ForEach(b => {
-                    if (cuprums.Count == 1)
-                    {
-                        b.Name = strElecName.Value;
-                    }
-
-                    var info = new ElecManage.ElectrodeInfo(b);
+                    ElecManage.ElectrodeInfo info = GetElecInfo(b);
                     info.FINISH_NUMBER = txtFINISHNUMBER.Value;
                     info.MIDDLE_NUMBER = txtMIDDLENUMBER.Value;
                     info.ROUGH_NUMBER = txtROUGHNUMBER.Value;
