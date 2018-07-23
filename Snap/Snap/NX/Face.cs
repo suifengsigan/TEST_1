@@ -271,9 +271,16 @@
             {
                 throw new ArgumentException("The uv array must have length = 2");
             }
-            int mode = 0;
-            Vector[] vectorArray = SurfaceEvaluate(this, mode, uv[0], uv[1]);
-            return new Snap.Position(vectorArray[0].X, vectorArray[0].Y, vectorArray[0].Z);
+            //int mode = 0;
+            //Vector[] vectorArray = SurfaceEvaluate(this, mode, uv[0], uv[1]);
+           
+            //return new Snap.Position(vectorArray[0].X, vectorArray[0].Y, vectorArray[0].Z);
+
+            //UF_MODL_ask_face_prop(解决建模器报错问题_ph_update_201807231515)
+            double[] u1 = new double[3], v1 = new double[3], u2 = new double[3], v2 = new double[3], unitNorm = new double[3], radii = new double[2];
+            double[] point = new double[3];
+            NXOpen.UF.UFSession.GetUFSession().Modl.AskFaceProps(this.NXOpenTag, uv, point, u1, v1, u2, v2, unitNorm, radii);
+            return new Snap.Position(point);
         }
 
         public Snap.Position[,] PositionArray(double[] paramsU, double[] paramsV)
