@@ -399,8 +399,8 @@
                 Tag tag = this.NXOpenFace.Tag;
                 double[] numArray = new double[4];
                 Globals.UFSession.Modl.AskFaceUvMinmax(tag, numArray);
-                boxd = new Box2d(numArray[0], numArray[2], numArray[1], numArray[3]);
-                return new Box2d(numArray[0], numArray[2], numArray[1], numArray[3]) { MinU = this.FactorU * boxd.MinU, MaxU = this.FactorU * boxd.MaxU, MinV = this.FactorV * boxd.MinV, MaxV = this.FactorV * boxd.MaxV };
+                return boxd = new Box2d(numArray[0], numArray[2], numArray[1], numArray[3]);
+                //return new Box2d(numArray[0], numArray[2], numArray[1], numArray[3]) { MinU = this.FactorU * boxd.MinU, MaxU = this.FactorU * boxd.MaxU, MinV = this.FactorV * boxd.MinV, MaxV = this.FactorV * boxd.MaxV };
             }
         }
 
