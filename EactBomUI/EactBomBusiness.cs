@@ -268,7 +268,7 @@ namespace EactBom
                                 bool isCmmRotation = false;
                                 switch (ConfigData.EDMTranRule)
                                 {
-                                    case 1://长度矩阵
+                                    case 1://长度矩阵X轴
                                         {
                                             var uv = u.Electrode.BaseFace.Box;
                                             var absX = Math.Abs(uv.MaxX - uv.MinX);
@@ -318,6 +318,11 @@ namespace EactBom
                                                     trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
                                                 }
                                             }
+                                            break;
+                                        }
+                                    case 4://默认矩阵(沿Y轴)
+                                        {
+                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
                                             break;
                                         }
                                 }

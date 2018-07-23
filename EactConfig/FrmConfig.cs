@@ -46,13 +46,14 @@ namespace EactConfig
             cbbElecNameRule.Items.Add(new ComboBoxItem { Text = "A-B-C", Value = 0 });
             cbbElecNameRule.Items.Add(new ComboBoxItem { Text = "C", Value = 1 });
             cbbElecNameRule.Items.Add(new ComboBoxItem { Text = "C(A-C)", Value = 2 });
-            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "默认矩阵", Value = 0 });
-            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵", Value = 1 });
-            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵Y轴", Value = 2 });
+            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "默认矩阵(沿X轴)", Value = 0 });
+            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "默认矩阵(沿Y轴)", Value = 4 });
+            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿X轴)", Value = 1 });
+            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿Y轴)", Value = 2 });
             cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "JR", Value = 3 });
-            cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "默认矩阵", Value = 0 });
-            cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵", Value = 1 });
-            cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵Y轴(基准台底面)", Value = 2 });
+            cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "默认矩阵(沿X轴)", Value = 0 });
+            cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿X轴)", Value = 1 });
+            cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿Y轴_基准台底面)", Value = 2 });
             //cbbUGVersion.Items.Add(new ComboBoxItem { Text = "UG6.0", Value = 0 });
             //cbbUGVersion.Items.Add(new ComboBoxItem { Text = "UG9.0", Value = 1 });
         }
