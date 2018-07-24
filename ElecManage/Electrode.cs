@@ -123,17 +123,24 @@ namespace ElecManage
 
                 allFace.ToList().ForEach(u =>
                 {
-                    var uv = u.BoxUV;
-                    var cneterPoint = u.Position((uv.MaxU + uv.MinU) / 2, (uv.MaxV + uv.MinV) / 2);
-                    var resullt = Snap.Compute.ClosestPoints(cneterPoint, plane);
-                    var dir = Snap.Vector.Unit(resullt.Point1 - resullt.Point2);
-                    if (SnapEx.Helper.Equals(dir, faceDirection))
+                    try
                     {
-                        headFaces.Add(u);
+                        var uv = u.BoxUV;
+                        var cneterPoint = u.Position((uv.MaxU + uv.MinU) / 2, (uv.MaxV + uv.MinV) / 2);
+                        var resullt = Snap.Compute.ClosestPoints(cneterPoint, plane);
+                        var dir = Snap.Vector.Unit(resullt.Point1 - resullt.Point2);
+                        if (SnapEx.Helper.Equals(dir, faceDirection))
+                        {
+                            headFaces.Add(u);
+                        }
+                        else if (u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane && SnapEx.Helper.Equals(dir, -faceDirection))
+                        {
+                            tempSideFaces.Add(u);
+                        }
                     }
-                    else if(u.ObjectSubType==Snap.NX.ObjectTypes.SubType.FacePlane&&SnapEx.Helper.Equals(dir,-faceDirection)) 
+                    catch (Exception ex)
                     {
-                        tempSideFaces.Add(u);
+                        Console.WriteLine(ex.Message);
                     }
                 });
             }

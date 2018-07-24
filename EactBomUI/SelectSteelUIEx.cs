@@ -69,6 +69,25 @@ partial class SelectSteelUI : SnapEx.BaseUI
                     eMATERAL.Items = _items.ToArray();
                     //eMATERAL.SelectedIndex = _items.ToList().IndexOf(info.MR_MATERAL);
                 }
+
+                //默认值
+                if (string.IsNullOrEmpty(info.MODEL_NUMBER)|| string.IsNullOrEmpty(info.MR_NUMBER))
+                {
+                    var tempStrs = System.IO.Path.GetFileNameWithoutExtension(Snap.Globals.WorkPart.FullPath).Split('-').ToList();
+                    if (tempStrs.Count >= 2)
+                    {
+                        if (string.IsNullOrEmpty(info.MODEL_NUMBER))
+                        {
+                            sMODELNUMBER.Value = tempStrs[0];
+                        }
+
+                        if (string.IsNullOrEmpty(info.MR_NUMBER))
+                        {
+                            sMRNUMBER.Value = tempStrs[1];
+                        }
+                    }
+                }
+                
             }
         }
     }

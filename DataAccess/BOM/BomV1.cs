@@ -86,14 +86,14 @@ namespace DataAccess
                     }
                     if (CupRumList.Count > 0)
                     {
-                        string ids = string.Join(",", Enumerable.Select(CupRumList, u => string.Format("'{0}'", u.CUPRUMSN)).ToArray());
+                        string ids = string.Join(",", Enumerable.Select(CupRumList, u => string.Format("'{0}'", u.CUPRUMSN + u.STEELMODELSN)).ToArray());
                         //TODO 先判断待导入的电极在库中是否已经存在，如果存在则先删除再插入
 
                         //清除符合条件的预装表数据
-                        var delete_cuprum_assembly_sql = string.Format("delete from EACT_cuprum_assembly where CUPRUMID in(select cuprumid from EACT_cuprum where CUPRUMSN in({0}))", ids.TrimEnd(','));
+                        var delete_cuprum_assembly_sql = string.Format("delete from EACT_cuprum_assembly where CUPRUMID in(select cuprumid from EACT_cuprum where CUPRUMSN+STEELMODELSN in({0}))", ids.TrimEnd(','));
 
                         //清除符合条件的电极表数据
-                        var delete_cuprum_sql = string.Format("delete from EACT_cuprum where CUPRUMSN in({0})", ids.TrimEnd(','));
+                        var delete_cuprum_sql = string.Format("delete from EACT_cuprum where CUPRUMSN+STEELMODELSN in({0})", ids.TrimEnd(','));
 
                         //插入钢件并返回插入的钢件ID
                         var select_mould_sql = string.Format("select mouldid from EACT_mould where sn='{0}'", CupRumList[0].STEELMODELSN);
