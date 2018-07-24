@@ -93,6 +93,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.cbbFtpPathType = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -274,6 +276,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cbbFtpPathType);
+            this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.txtFtpPass);
             this.tabPage2.Controls.Add(this.txtFtpUser);
             this.tabPage2.Controls.Add(this.label5);
@@ -751,6 +755,24 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "粗";
             // 
+            // cbbFtpPathType
+            // 
+            this.cbbFtpPathType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbFtpPathType.FormattingEnabled = true;
+            this.cbbFtpPathType.Location = new System.Drawing.Point(127, 164);
+            this.cbbFtpPathType.Name = "cbbFtpPathType";
+            this.cbbFtpPathType.Size = new System.Drawing.Size(372, 20);
+            this.cbbFtpPathType.TabIndex = 30;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(34, 167);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 12);
+            this.label18.TabIndex = 29;
+            this.label18.Text = "路径类型";
+            // 
             // FrmConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -851,5 +873,7 @@
         private System.Windows.Forms.CheckBox cbIsSetPrtColor;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox cbIsSetPropertyAllowMultiple;
+        private System.Windows.Forms.ComboBox cbbFtpPathType;
+        private System.Windows.Forms.Label label18;
     }
 }

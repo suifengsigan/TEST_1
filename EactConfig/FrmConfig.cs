@@ -37,6 +37,8 @@ namespace EactConfig
 
         void InitUI() 
         {
+            cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "默认", Value = 0 });
+            cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "FZ", Value = 1 });
             cbbQuadrantType.Items.Add(new ComboBoxItem { Text = "第一象限", Value = QuadrantType.First });
             cbbQuadrantType.Items.Add(new ComboBoxItem { Text = "第二象限", Value = QuadrantType.Second });
             cbbQuadrantType.Items.Add(new ComboBoxItem { Text = "第三象限", Value = QuadrantType.Three });
@@ -282,6 +284,8 @@ namespace EactConfig
             cbbEdmTransRule.SelectedIndex = EdmTransRuleItems.IndexOf(EdmTransRuleItems.FirstOrDefault(u => (int)u.Value == data.EDMTranRule));
             var CNCTransRuleItems = cbbCNCTransRule.Items.Cast<ComboBoxItem>().ToList();
             cbbCNCTransRule.SelectedIndex = CNCTransRuleItems.IndexOf(CNCTransRuleItems.FirstOrDefault(u => (int)u.Value == data.CNCTranRule));
+            var FtpPathType = cbbFtpPathType.Items.Cast<ComboBoxItem>().ToList();
+            cbbFtpPathType.SelectedIndex = FtpPathType.IndexOf(FtpPathType.FirstOrDefault(u => (int)u.Value == data.FtpPathType));
             //var ugVersionItems = cbbUGVersion.Items.Cast<ComboBoxItem>().ToList();
             //cbbUGVersion.SelectedIndex = ugVersionItems.IndexOf(ugVersionItems.FirstOrDefault(u => (int)u.Value == data.UGVersion));
         }
@@ -318,6 +322,7 @@ namespace EactConfig
                 data.ElecNameRule = (int)(cbbElecNameRule.SelectedItem as ComboBoxItem).Value;
                 data.EDMTranRule = (int)(cbbEdmTransRule.SelectedItem as ComboBoxItem).Value;
                 data.CNCTranRule = (int)(cbbCNCTransRule.SelectedItem as ComboBoxItem).Value;
+                data.FtpPathType = (int)(cbbFtpPathType.SelectedItem as ComboBoxItem).Value;
                 data.Poperties = dataGridViewPoperty.DataSource as List<ConfigData.Poperty> ?? new List<ConfigData.Poperty>();
                 ConfigData.WriteConfig(data);
                 MessageBox.Show("保存成功");

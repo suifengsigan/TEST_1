@@ -172,15 +172,7 @@ namespace EactBom
                         if (System.IO.File.Exists(fileName))
                         {
                             //Ftp上传
-                            var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
-                            string sToPath = string.Format("{0}/{1}/{2}", "CNC", steelInfo.MODEL_NUMBER, GetPARTFILENAME(u.Electrode.ElecBody, steelInfo));
-                            if (!EACTFTP.DirectoryExist(sToPath))
-                            {
-                                EACTFTP.MakeDirPath(sToPath);
-                            }
-                            EACTFTP.DeleteFtpDirWithAll(sToPath, false);
-                            EACTFTP.NextDirectory(sToPath);
-                            EACTFTP.UpLoadFile(fileName);
+                            FtpUpload("CNC", steelInfo, fileName, partName);
                         }
                        
                     });
@@ -347,15 +339,7 @@ namespace EactBom
                         if (System.IO.File.Exists(fileName))
                         {
                             //Ftp上传
-                            var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
-                            string sToPath = string.Format("{0}/{1}/{2}", "CMM", steelInfo.MODEL_NUMBER, GetPARTFILENAME(u.Electrode.ElecBody, steelInfo));
-                            if (!EACTFTP.DirectoryExist(sToPath))
-                            {
-                                EACTFTP.MakeDirPath(sToPath);
-                            }
-                            EACTFTP.DeleteFtpDirWithAll(sToPath, false);
-                            EACTFTP.NextDirectory(sToPath);
-                            EACTFTP.UpLoadFile(fileName);
+                            FtpUpload("CMM", steelInfo, fileName, partName);
                         }
 
                         if (isExportStd)
@@ -366,15 +350,8 @@ namespace EactBom
                             {
                                 if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件...")); }
                                 //Ftp上传
-                                var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
-                                string sToPath = string.Format("{0}/{1}/{2}", "CMM_PROG", steelInfo.MODEL_NUMBER, GetPARTFILENAME(u.Electrode.ElecBody, steelInfo));
-                                if (!EACTFTP.DirectoryExist(sToPath))
-                                {
-                                    EACTFTP.MakeDirPath(sToPath);
-                                }
-                                EACTFTP.DeleteFtpDirWithAll(sToPath, false);
-                                EACTFTP.NextDirectory(sToPath);
-                                EACTFTP.UpLoadFile(stpFileName);
+
+                                FtpUpload("CMM_PROG", steelInfo, stpFileName, partName);
                             }
                         }
                        
@@ -387,6 +364,40 @@ namespace EactBom
             {
                 throw new Exception("未找到可导入的电极,请检查电极属性信息！");
             }
+        }
+
+        private void FtpUpload(string type, ElecManage.MouldInfo steelInfo, string fileName, string partName)
+        {
+            var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
+            string sToPath = string.Format("{0}/{1}/{2}", type, steelInfo.MODEL_NUMBER, partName);
+            switch (ConfigData.FtpPathType)
+            {
+                case 1:
+                    {
+                        sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
+                        break;
+                    }
+            }
+            if (!EACTFTP.DirectoryExist(sToPath))
+            {
+                EACTFTP.MakeDirPath(sToPath);
+            }
+
+            switch (ConfigData.FtpPathType)
+            {
+                case 0:
+                    {
+                        EACTFTP.DeleteFtpDirWithAll(sToPath, false);
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
+            EACTFTP.NextDirectory(sToPath);
+            EACTFTP.UpLoadFile(fileName);
         }
 
 

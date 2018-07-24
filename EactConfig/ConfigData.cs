@@ -129,5 +129,6 @@ namespace EactConfig
         /// 是否支持属性修改
         /// </summary>
         public bool IsCanPropertyUpdate=false;
+        public int FtpPathType = 0;
     }
 }
