@@ -249,6 +249,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsSetPropertyAllowMultiple.Checked = data.IsSetPropertyAllowMultiple;
             cbIsSetPrtColor.Checked = data.IsSetPrtColor;
             txtEleFType.Text = data.EleFType;
             txtEleMType.Text = data.EleMType;
@@ -290,6 +291,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsSetPropertyAllowMultiple = cbIsSetPropertyAllowMultiple.Checked;
                 data.IsSetPrtColor = cbIsSetPrtColor.Checked;
                 data.EleFType = txtEleFType.Text;
                 data.EleMType = txtEleMType.Text;

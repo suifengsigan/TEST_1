@@ -91,6 +91,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
     }
     public override void Init()
     {
+        _isAllowMultiple = _configData.IsSetPropertyAllowMultiple;
         selectCuprum.AllowMultiple = _isAllowMultiple;
         selectCuprum.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
     }

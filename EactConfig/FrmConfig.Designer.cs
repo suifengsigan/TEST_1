@@ -68,6 +68,7 @@
             this.btnPopertyUpate = new System.Windows.Forms.Button();
             this.btnPopertyAdd = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbbCNCTransRule = new System.Windows.Forms.ComboBox();
             this.cbbExportCNC = new System.Windows.Forms.CheckBox();
@@ -84,13 +85,14 @@
             this.cbbQuadrantType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.txtEleRType = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtEleMType = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cbIsSetPropertyAllowMultiple = new System.Windows.Forms.CheckBox();
             this.txtEleFType = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
+            this.txtEleMType = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtEleRType = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -510,6 +512,16 @@
             this.tabPage4.Text = "基本配置";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // cbIsSetPrtColor
+            // 
+            this.cbIsSetPrtColor.AutoSize = true;
+            this.cbIsSetPrtColor.Location = new System.Drawing.Point(80, 200);
+            this.cbIsSetPrtColor.Name = "cbIsSetPrtColor";
+            this.cbIsSetPrtColor.Size = new System.Drawing.Size(84, 16);
+            this.cbIsSetPrtColor.TabIndex = 48;
+            this.cbIsSetPrtColor.Text = "电打面分析";
+            this.cbIsSetPrtColor.UseVisualStyleBackColor = true;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -653,6 +665,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.label17);
+            this.tabPage5.Controls.Add(this.cbIsSetPropertyAllowMultiple);
             this.tabPage5.Controls.Add(this.txtEleFType);
             this.tabPage5.Controls.Add(this.label15);
             this.tabPage5.Controls.Add(this.txtEleMType);
@@ -667,39 +681,24 @@
             this.tabPage5.Text = "Eact配置";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // txtEleRType
+            // label17
             // 
-            this.txtEleRType.Location = new System.Drawing.Point(143, 26);
-            this.txtEleRType.Name = "txtEleRType";
-            this.txtEleRType.Size = new System.Drawing.Size(47, 21);
-            this.txtEleRType.TabIndex = 17;
-            this.txtEleRType.Text = "R";
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(106, 73);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(77, 12);
+            this.label17.TabIndex = 41;
+            this.label17.Text = "赋属性工具：";
             // 
-            // label16
+            // cbIsSetPropertyAllowMultiple
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(106, 29);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(17, 12);
-            this.label16.TabIndex = 16;
-            this.label16.Text = "粗";
-            // 
-            // txtEleMType
-            // 
-            this.txtEleMType.Location = new System.Drawing.Point(257, 26);
-            this.txtEleMType.Name = "txtEleMType";
-            this.txtEleMType.Size = new System.Drawing.Size(47, 21);
-            this.txtEleMType.TabIndex = 19;
-            this.txtEleMType.Text = "M";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(220, 29);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(17, 12);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "中";
+            this.cbIsSetPropertyAllowMultiple.AutoSize = true;
+            this.cbIsSetPropertyAllowMultiple.Location = new System.Drawing.Point(222, 73);
+            this.cbIsSetPropertyAllowMultiple.Name = "cbIsSetPropertyAllowMultiple";
+            this.cbIsSetPropertyAllowMultiple.Size = new System.Drawing.Size(48, 16);
+            this.cbIsSetPropertyAllowMultiple.TabIndex = 40;
+            this.cbIsSetPropertyAllowMultiple.Text = "多选";
+            this.cbIsSetPropertyAllowMultiple.UseVisualStyleBackColor = true;
             // 
             // txtEleFType
             // 
@@ -718,15 +717,39 @@
             this.label15.TabIndex = 20;
             this.label15.Text = "精";
             // 
-            // cbIsSetPrtColor
+            // txtEleMType
             // 
-            this.cbIsSetPrtColor.AutoSize = true;
-            this.cbIsSetPrtColor.Location = new System.Drawing.Point(80, 200);
-            this.cbIsSetPrtColor.Name = "cbIsSetPrtColor";
-            this.cbIsSetPrtColor.Size = new System.Drawing.Size(84, 16);
-            this.cbIsSetPrtColor.TabIndex = 48;
-            this.cbIsSetPrtColor.Text = "电打面分析";
-            this.cbIsSetPrtColor.UseVisualStyleBackColor = true;
+            this.txtEleMType.Location = new System.Drawing.Point(257, 26);
+            this.txtEleMType.Name = "txtEleMType";
+            this.txtEleMType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleMType.TabIndex = 19;
+            this.txtEleMType.Text = "M";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(220, 29);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(17, 12);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "中";
+            // 
+            // txtEleRType
+            // 
+            this.txtEleRType.Location = new System.Drawing.Point(143, 26);
+            this.txtEleRType.Name = "txtEleRType";
+            this.txtEleRType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleRType.TabIndex = 17;
+            this.txtEleRType.Text = "R";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(106, 29);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 12);
+            this.label16.TabIndex = 16;
+            this.label16.Text = "粗";
             // 
             // FrmConfig
             // 
@@ -826,5 +849,7 @@
         private System.Windows.Forms.TextBox txtEleRType;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckBox cbIsSetPrtColor;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox cbIsSetPropertyAllowMultiple;
     }
 }

@@ -97,6 +97,7 @@ namespace EactConfig
         public bool ExportPrt = false;
         public bool ExportCNCPrt = false;
         public bool IsImportEman = false;
+        public bool IsSetPropertyAllowMultiple = false;
         /// <summary>
         /// 是否识别侧放电极
         /// </summary>
