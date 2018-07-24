@@ -180,11 +180,21 @@
         {
             get
             {
-                NXOpen.Face[] faces = this.NXOpenBody.GetFaces();
+                //NXOpen.Face[] faces = this.NXOpenBody.GetFaces();
+                //Snap.NX.Face[] faceArray2 = new Snap.NX.Face[faces.Length];
+                //for (int i = 0; i < faces.Length; i++)
+                //{
+                //    faceArray2[i] = Snap.NX.Face.CreateFace(faces[i]);
+                //}
+                //return faceArray2;
+
+                //YL解决破面问题
+                NXOpen.Tag[] faces = null;
+                Globals.UFSession.Modl.AskBodyFaces(this.NXOpenTag, out faces);
                 Snap.NX.Face[] faceArray2 = new Snap.NX.Face[faces.Length];
                 for (int i = 0; i < faces.Length; i++)
                 {
-                    faceArray2[i] = Snap.NX.Face.CreateFace(faces[i]);
+                    faceArray2[i] = Snap.NX.Face.Wrap(faces[i]);
                 }
                 return faceArray2;
             }
