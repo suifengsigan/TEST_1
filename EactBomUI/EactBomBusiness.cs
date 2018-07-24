@@ -102,6 +102,7 @@ namespace EactBom
                     positions.ForEach(u =>
                     {
                         if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CNC图档:{0}", u.Electrode.ElecBody.Name)); }
+                        var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
                         //移至绝对坐标原点
                         var baseDir = u.Electrode.BaseFace.GetFaceDirection();
                         var acsOrientation = Snap.Orientation.Identity;
@@ -132,7 +133,7 @@ namespace EactBom
                         var transQ = Snap.Geom.Transform.CreateRotation(topFaceCenterPoint, new Snap.Vector(0, 0, 1), u.C);
                         pos = pos.Copy(transQ);
                         var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
-                        SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, u.Electrode.ElecBody.Name),
+                        SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, partName),
                             () =>
                             {
                                 var trans = Snap.Geom.Transform.CreateTranslation();
@@ -167,7 +168,7 @@ namespace EactBom
                             }
                             , transY, transQ, transX);
 
-                        var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, u.Electrode.ElecBody.Name), ".prt");
+                        var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".prt");
                         if (System.IO.File.Exists(fileName))
                         {
                             //Ftp上传
@@ -195,6 +196,7 @@ namespace EactBom
                     }
                     positions.ForEach(u =>
                     {
+                        var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
                         if (ConfigData.IsSetPrtColor)
                         {
                             u.Electrode.InitAllFace();
@@ -261,7 +263,7 @@ namespace EactBom
                         var transQ = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), new Snap.Vector(0, 0, 1), u.C);
                         pos = pos.Copy(transQ);
                         var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
-                        SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, u.Electrode.ElecBody.Name),
+                        SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, partName),
                             () =>
                             {
                                 headFaces.ForEach(m => { m.Color = System.Drawing.Color.FromArgb(ConfigData.EDMColor); });
@@ -335,14 +337,13 @@ namespace EactBom
                                             break;
                                         }
                                 }
-                                var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
                                 datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation?"1":"0");
                                 datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = area.ToString());
                                 return trans;
                             }
                             , transY, transQ, transX);
                         
-                        var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, u.Electrode.ElecBody.Name), ".prt");
+                        var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".prt");
                         if (System.IO.File.Exists(fileName))
                         {
                             //Ftp上传
@@ -359,7 +360,7 @@ namespace EactBom
 
                         if (isExportStd)
                         {
-                            var stpFileName = string.Format("{0}{1}", System.IO.Path.Combine(path, u.Electrode.ElecBody.Name), ".stp");
+                            var stpFileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".stp");
                             SnapEx.Create.ExportStp(fileName, stpFileName);
                             if (System.IO.File.Exists(stpFileName))
                             {
