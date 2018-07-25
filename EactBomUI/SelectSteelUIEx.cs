@@ -17,7 +17,9 @@ partial class SelectSteelUI : SnapEx.BaseUI
     void RereshUI() 
     {
         coord_system0.Show = enum0.SelectedItem == "指定";
-        selectionSInsert.Show = toggleSInsert.Value;
+        enumSInsert.Show = toggleSInsert.Value;
+        selectionSInsert.Show = toggleSInsert.Value && enumSInsert.SelectedItem == "对象";
+        integerSInsertLayer.Show= toggleSInsert.Value && enumSInsert.SelectedItem == "图层";
     }
     
     public override void Init()
@@ -141,7 +143,25 @@ partial class SelectSteelUI : SnapEx.BaseUI
 
         if (toggleSInsert.Value)
         {
-            MouldInfo.SInsertBodies = Enumerable.Select(selectionSInsert.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
+            if (integerSInsertLayer.Show)
+            {
+                var bodies=Snap.Globals.WorkPart.Bodies.Where(u => u.Layer == integerSInsertLayer.Value).ToList();
+                foreach (var item in bodies.ToList())
+                {
+                    var distance = Snap.Compute.Distance(steel, item);
+                    bool isContact = distance <= SnapEx.Helper.Tolerance;
+                    if (!isContact)
+                    {
+                        bodies.RemoveAll(u=>u.NXOpenTag==item.NXOpenTag);
+                    }
+                }
+
+                MouldInfo.SInsertBodies = bodies;
+            }
+            else
+            {
+                MouldInfo.SInsertBodies = Enumerable.Select(selectionSInsert.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
+            }
         }
 
         NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, MouldInfo.Origin.Array);
