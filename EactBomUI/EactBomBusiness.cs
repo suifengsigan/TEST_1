@@ -658,17 +658,27 @@ namespace EactBom
             var mouldBody = mouldInfo.MouldBody;
             var result = new List<ViewElecInfo>();
             var workPart = Snap.Globals.WorkPart;
-            var removeBodies = new List<Snap.NX.Body>();
-            removeBodies.Add(mouldBody);
             var bodies = workPart.Bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag && !string.IsNullOrEmpty(u.Name)).ToList();
+            mouldInfo.SInsertBodies.ForEach(u => {
+                bodies.RemoveAll(m => m.NXOpenTag == u.NXOpenTag);
+            });
             var reg = @"\d+$";
             bodies =bodies.OrderBy(u => RegexGetInt(reg,u.Name)).ToList();
             bodies.ForEach(u =>
             {
                 var distance = Snap.Compute.Distance(mouldBody, u);
-                if (distance <= SnapEx.Helper.Tolerance)
+                bool isContact = distance <= SnapEx.Helper.Tolerance;
+                if (!isContact)
                 {
-                    removeBodies.Add(u);
+                    foreach (var item in mouldInfo.SInsertBodies)
+                    {
+                        distance = Snap.Compute.Distance(item, u);
+                        isContact = distance <= SnapEx.Helper.Tolerance;
+                        if (isContact) { break; }
+                    }
+                }
+                if (isContact)
+                {
                     var elec = result.FirstOrDefault(m => m.ElectName == u.Name);
                     if (elec == null)
                     {
