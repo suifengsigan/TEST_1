@@ -146,6 +146,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
             if (integerSInsertLayer.Show)
             {
                 var bodies=Snap.Globals.WorkPart.Bodies.Where(u => u.Layer == integerSInsertLayer.Value).ToList();
+                bodies = bodies.Where(u => u.NXOpenTag != steel.NXOpenTag).ToList();
                 foreach (var item in bodies.ToList())
                 {
                     var distance = Snap.Compute.Distance(steel, item);
