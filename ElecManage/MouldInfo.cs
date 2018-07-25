@@ -39,5 +39,7 @@ namespace ElecManage
         /// </summary>
         [NonSerialized]
         public List<Snap.NX.Body> SInsertBodies = new List<Snap.NX.Body>();
+        [NonSerialized]
+        public List<Snap.NX.Body> ElecBodies = new List<Snap.NX.Body>();
     }
 }

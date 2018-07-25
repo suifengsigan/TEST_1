@@ -16,6 +16,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
 
     void RereshUI() 
     {
+        groupElec.Show = EactBom.EactBomBusiness.Instance.ConfigData.IsCanSelElecInBom;
         coord_system0.Show = enum0.SelectedItem == "指定";
         enumSInsert.Show = toggleSInsert.Value;
         selectionSInsert.Show = toggleSInsert.Value && enumSInsert.SelectedItem == "对象";
@@ -40,6 +41,9 @@ partial class SelectSteelUI : SnapEx.BaseUI
         
         selectSteel.AllowMultiple = false;
         selectSteel.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
+
+        selectElec.AllowMultiple = true;
+        selectElec.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
 
         selectionSInsert.AllowMultiple = true;
         selectionSInsert.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
@@ -163,6 +167,11 @@ partial class SelectSteelUI : SnapEx.BaseUI
             {
                 MouldInfo.SInsertBodies = Enumerable.Select(selectionSInsert.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
             }
+        }
+
+        if (groupElec.Show)
+        {
+            MouldInfo.ElecBodies=Enumerable.Select(selectElec.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
         }
 
         NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, MouldInfo.Origin.Array);

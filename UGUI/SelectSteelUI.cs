@@ -9,7 +9,7 @@
 //        Created by: PENGHUI
 //              Version: NX 9
 //              Date: 07-25-2018  (Format: mm-dd-yyyy)
-//              Time: 10:08 (Format: hh-mm)
+//              Time: 14:43 (Format: hh-mm)
 //
 //==============================================================================
 
@@ -55,6 +55,8 @@ public class SelectSteelUI
     private NXOpen.BlockStyler.Enumeration enumSInsert;// Block type: Enumeration
     private NXOpen.BlockStyler.SelectObject selectionSInsert;// Block type: Selection
     private NXOpen.BlockStyler.IntegerBlock integerSInsertLayer;// Block type: Integer
+    private NXOpen.BlockStyler.Group groupElec;// Block type: Group
+    private NXOpen.BlockStyler.SelectObject selectElec;// Block type: Selection
     private NXOpen.BlockStyler.Group group;// Block type: Group
     private NXOpen.BlockStyler.StringBlock sMODELNUMBER;// Block type: String
     private NXOpen.BlockStyler.StringBlock sMRNUMBER;// Block type: String
@@ -256,6 +258,8 @@ public class SelectSteelUI
             enumSInsert = (NXOpen.BlockStyler.Enumeration)theDialog.TopBlock.FindBlock("enumSInsert");
             selectionSInsert = (NXOpen.BlockStyler.SelectObject)theDialog.TopBlock.FindBlock("selectionSInsert");
             integerSInsertLayer = (NXOpen.BlockStyler.IntegerBlock)theDialog.TopBlock.FindBlock("integerSInsertLayer");
+            groupElec = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("groupElec");
+            selectElec = (NXOpen.BlockStyler.SelectObject)theDialog.TopBlock.FindBlock("selectElec");
             group = (NXOpen.BlockStyler.Group)theDialog.TopBlock.FindBlock("group");
             sMODELNUMBER = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("sMODELNUMBER");
             sMRNUMBER = (NXOpen.BlockStyler.StringBlock)theDialog.TopBlock.FindBlock("sMRNUMBER");
@@ -319,6 +323,10 @@ public class SelectSteelUI
             //---------Enter your code here-----------
             }
             else if(block == integerSInsertLayer)
+            {
+            //---------Enter your code here-----------
+            }
+            else if(block == selectElec)
             {
             //---------Enter your code here-----------
             }

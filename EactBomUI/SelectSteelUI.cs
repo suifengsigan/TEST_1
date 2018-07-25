@@ -62,6 +62,8 @@ public partial class SelectSteelUI
     private Snap.UI.Block.Toggle toggleIsDistinguishSideElec;
     private Snap.UI.Block.Enumeration enumSInsert;// Block type: Enumeration
     private Snap.UI.Block.Integer integerSInsertLayer;// Block type: Integer
+    private Snap.UI.Block.Group groupElec;// Block type: Group
+    private Snap.UI.Block.SelectObject selectElec;// Block type: Selection
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -263,6 +265,12 @@ public partial class SelectSteelUI
 
             enumSInsert = Snap.UI.Block.Enumeration.GetBlock(theDialog, "enumSInsert");
             integerSInsertLayer = Snap.UI.Block.Integer.GetBlock(theDialog, "integerSInsertLayer");
+
+            //         private Snap.UI.Block.Group groupElec;// Block type: Group
+            //private Snap.UI.Block.SelectObject selectElec;// Block type: Selection
+            selectElec = Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectElec");
+            groupElec = Snap.UI.Block.Group.GetBlock(theDialog, "groupElec");
+
         }
         catch (Exception ex)
         {

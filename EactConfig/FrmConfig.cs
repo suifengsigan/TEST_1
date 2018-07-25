@@ -251,6 +251,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsCanSelElecInBom.Checked = data.IsCanSelElecInBom;
             cbIsSetPropertyAllowMultiple.Checked = data.IsSetPropertyAllowMultiple;
             cbIsSetPrtColor.Checked = data.IsSetPrtColor;
             txtEleFType.Text = data.EleFType;
@@ -295,6 +296,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsCanSelElecInBom= cbIsCanSelElecInBom.Checked;
                 data.IsSetPropertyAllowMultiple = cbIsSetPropertyAllowMultiple.Checked;
                 data.IsSetPrtColor = cbIsSetPrtColor.Checked;
                 data.EleFType = txtEleFType.Text;

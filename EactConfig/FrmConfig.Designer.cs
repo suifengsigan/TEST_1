@@ -46,6 +46,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cbbFtpPathType = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.txtFtpPass = new System.Windows.Forms.TextBox();
             this.txtFtpUser = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -93,8 +95,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.cbbFtpPathType = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.cbIsCanSelElecInBom = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -291,6 +293,24 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "FTP配置";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cbbFtpPathType
+            // 
+            this.cbbFtpPathType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbFtpPathType.FormattingEnabled = true;
+            this.cbbFtpPathType.Location = new System.Drawing.Point(127, 164);
+            this.cbbFtpPathType.Name = "cbbFtpPathType";
+            this.cbbFtpPathType.Size = new System.Drawing.Size(372, 20);
+            this.cbbFtpPathType.TabIndex = 30;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(34, 167);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 12);
+            this.label18.TabIndex = 29;
+            this.label18.Text = "路径类型";
             // 
             // txtFtpPass
             // 
@@ -669,6 +689,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.label19);
+            this.tabPage5.Controls.Add(this.cbIsCanSelElecInBom);
             this.tabPage5.Controls.Add(this.label17);
             this.tabPage5.Controls.Add(this.cbIsSetPropertyAllowMultiple);
             this.tabPage5.Controls.Add(this.txtEleFType);
@@ -755,23 +777,24 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "粗";
             // 
-            // cbbFtpPathType
+            // label19
             // 
-            this.cbbFtpPathType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbFtpPathType.FormattingEnabled = true;
-            this.cbbFtpPathType.Location = new System.Drawing.Point(127, 164);
-            this.cbbFtpPathType.Name = "cbbFtpPathType";
-            this.cbbFtpPathType.Size = new System.Drawing.Size(372, 20);
-            this.cbbFtpPathType.TabIndex = 30;
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(106, 104);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(59, 12);
+            this.label19.TabIndex = 43;
+            this.label19.Text = "BOM工具：";
             // 
-            // label18
+            // cbIsCanSelElecInBom
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(34, 167);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(53, 12);
-            this.label18.TabIndex = 29;
-            this.label18.Text = "路径类型";
+            this.cbIsCanSelElecInBom.AutoSize = true;
+            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(222, 104);
+            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
+            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(72, 16);
+            this.cbIsCanSelElecInBom.TabIndex = 42;
+            this.cbIsCanSelElecInBom.Text = "可选电极";
+            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -875,5 +898,7 @@
         private System.Windows.Forms.CheckBox cbIsSetPropertyAllowMultiple;
         private System.Windows.Forms.ComboBox cbbFtpPathType;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox cbIsCanSelElecInBom;
     }
 }

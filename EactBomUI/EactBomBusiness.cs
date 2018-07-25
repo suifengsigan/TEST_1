@@ -164,6 +164,15 @@ namespace EactBom
                                         }
                                         
                                 }
+                                switch (ConfigData.FtpPathType)
+                                {
+                                    case 1:
+                                        {
+                                            u.Electrode.ElecBody.Name = partName;
+                                            u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
+                                            break;
+                                        }
+                                }
                                 return trans;
                             }
                             , transY, transQ, transX);
@@ -331,6 +340,15 @@ namespace EactBom
                                 }
                                 datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation?"1":"0");
                                 datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = area.ToString());
+                                switch (ConfigData.FtpPathType)
+                                {
+                                    case 1:
+                                        {
+                                            u.Electrode.ElecBody.Name = partName;
+                                            u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
+                                            break;
+                                        }
+                                }
                                 return trans;
                             }
                             , transY, transQ, transX);
@@ -655,62 +673,105 @@ namespace EactBom
 
         public List<ViewElecInfo> GetElecList(MouldInfo mouldInfo,Action<string> action=null) 
         {
-            var mouldBody = mouldInfo.MouldBody;
-            var result = new List<ViewElecInfo>();
             var workPart = Snap.Globals.WorkPart;
-            var bodies = workPart.Bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag && !string.IsNullOrEmpty(u.Name)).ToList();
-            mouldInfo.SInsertBodies.ForEach(u => {
-                bodies.RemoveAll(m => m.NXOpenTag == u.NXOpenTag);
-            });
-            var reg = @"\d+$";
-            bodies =bodies.OrderBy(u => RegexGetInt(reg,u.Name)).ToList();
-            bodies.ForEach(u =>
-            {
-                var distance = Snap.Compute.Distance(mouldBody, u);
-                bool isContact = distance <= SnapEx.Helper.Tolerance;
-                if (!isContact)
-                {
-                    foreach (var item in mouldInfo.SInsertBodies)
-                    {
-                        distance = Snap.Compute.Distance(item, u);
-                        isContact = distance <= SnapEx.Helper.Tolerance;
-                        if (isContact) { break; }
-                    }
-                }
-                if (isContact)
-                {
-                    var elec = result.FirstOrDefault(m => m.ElectName == u.Name);
-                    if (elec == null)
-                    {
-                        var info = Electrode.GetElectrode(u);
-                        if (info != null)
-                        {
-                            if (action != null) {
-                                action(u.Name);
-                            }
-                            var viewInfo = new ViewElecInfo { ElectName = u.Name };
-                            viewInfo.Bodies.Add(u);
-                            result.Add(viewInfo);
-                            elec = viewInfo;
-                        }
-                    }
-                    else 
-                    {
-                        elec.Bodies.Add(u);
-                    }
-                }
-            });
-
-
             //去参数
             try
             {
-                SnapEx.Create.RemoveParameters(Enumerable.Select(workPart.Bodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid),u=>u.NXOpenBody).ToList());
+                SnapEx.Create.RemoveParameters(Enumerable.Select(workPart.Bodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid), u => u.NXOpenBody).ToList());
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            var mouldBody = mouldInfo.MouldBody;
+            var result = new List<ViewElecInfo>();
+            if (ConfigData.IsCanSelElecInBom)
+            {
+                var bodies = mouldInfo.ElecBodies;
+                mouldInfo.SInsertBodies.ForEach(u => {
+                    bodies.RemoveAll(m => m.NXOpenTag == u.NXOpenTag);
+                });
+                bodies = bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag && !string.IsNullOrEmpty(u.Name)).ToList();
+                var reg = @"\d+$";
+                bodies = bodies.OrderBy(u => RegexGetInt(reg, u.Name)).ToList();
+                bodies.ForEach(u =>
+                {
+                    bool isContact = true;
+                    if (isContact)
+                    {
+                        var elec = result.FirstOrDefault(m => m.ElectName == u.Name);
+                        if (elec == null)
+                        {
+                            var info = Electrode.GetElectrode(u);
+                            if (info != null)
+                            {
+                                if (action != null)
+                                {
+                                    action(u.Name);
+                                }
+                                var viewInfo = new ViewElecInfo { ElectName = u.Name };
+                                viewInfo.Bodies.Add(u);
+                                result.Add(viewInfo);
+                                elec = viewInfo;
+                            }
+                        }
+                        else
+                        {
+                            elec.Bodies.Add(u);
+                        }
+                    }
+                });
+            }
+            else
+            {
+                var bodies = workPart.Bodies.Where(u => u.NXOpenTag != mouldBody.NXOpenTag && !string.IsNullOrEmpty(u.Name)).ToList();
+                mouldInfo.SInsertBodies.ForEach(u => {
+                    bodies.RemoveAll(m => m.NXOpenTag == u.NXOpenTag);
+                });
+                var reg = @"\d+$";
+                bodies = bodies.OrderBy(u => RegexGetInt(reg, u.Name)).ToList();
+                bodies.ForEach(u =>
+                {
+                    var distance = Snap.Compute.Distance(mouldBody, u);
+                    bool isContact = distance <= SnapEx.Helper.Tolerance;
+                    if (!isContact)
+                    {
+                        foreach (var item in mouldInfo.SInsertBodies)
+                        {
+                            distance = Snap.Compute.Distance(item, u);
+                            isContact = distance <= SnapEx.Helper.Tolerance;
+                            if (isContact) { break; }
+                        }
+                    }
+                    if (isContact)
+                    {
+                        var elec = result.FirstOrDefault(m => m.ElectName == u.Name);
+                        if (elec == null)
+                        {
+                            var info = Electrode.GetElectrode(u);
+                            if (info != null)
+                            {
+                                if (action != null)
+                                {
+                                    action(u.Name);
+                                }
+                                var viewInfo = new ViewElecInfo { ElectName = u.Name };
+                                viewInfo.Bodies.Add(u);
+                                result.Add(viewInfo);
+                                elec = viewInfo;
+                            }
+                        }
+                        else
+                        {
+                            elec.Bodies.Add(u);
+                        }
+                    }
+                });
+            }
+           
+
+
+            
 
             if (ConfigData.ShareElec) 
             {
