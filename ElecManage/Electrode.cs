@@ -125,8 +125,8 @@ namespace ElecManage
                 {
                     try
                     {
-                        var uv = u.BoxUV;
-                        var cneterPoint = u.Position((uv.MaxU + uv.MinU) / 2, (uv.MaxV + uv.MinV) / 2);
+                        var uv = u.Box;
+                        var cneterPoint = new Snap.Position((uv.MaxX+uv.MinX)/2, (uv.MaxY + uv.MinY) / 2, (uv.MaxZ + uv.MinZ) / 2);
                         var resullt = Snap.Compute.ClosestPoints(cneterPoint, plane);
                         var dir = Snap.Vector.Unit(resullt.Point1 - resullt.Point2);
                         if (SnapEx.Helper.Equals(dir, faceDirection))
