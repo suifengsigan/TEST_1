@@ -251,6 +251,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsExportBomXls.Checked = data.IsExportBomXls;
             cbIsCanSelElecInBom.Checked = data.IsCanSelElecInBom;
             cbIsSetPropertyAllowMultiple.Checked = data.IsSetPropertyAllowMultiple;
             cbIsSetPrtColor.Checked = data.IsSetPrtColor;
@@ -296,6 +297,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsExportBomXls = cbIsExportBomXls.Checked;
                 data.IsCanSelElecInBom= cbIsCanSelElecInBom.Checked;
                 data.IsSetPropertyAllowMultiple = cbIsSetPropertyAllowMultiple.Checked;
                 data.IsSetPrtColor = cbIsSetPrtColor.Checked;

@@ -87,6 +87,8 @@
             this.cbbQuadrantType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.cbIsCanSelElecInBom = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
             this.cbIsSetPropertyAllowMultiple = new System.Windows.Forms.CheckBox();
             this.txtEleFType = new System.Windows.Forms.TextBox();
@@ -95,8 +97,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.cbIsCanSelElecInBom = new System.Windows.Forms.CheckBox();
+            this.cbIsExportBomXls = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -512,6 +513,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.cbIsExportBomXls);
             this.tabPage4.Controls.Add(this.cbIsSetPrtColor);
             this.tabPage4.Controls.Add(this.label13);
             this.tabPage4.Controls.Add(this.cbbCNCTransRule);
@@ -614,7 +616,7 @@
             // rbCanPUpdate
             // 
             this.rbCanPUpdate.AutoSize = true;
-            this.rbCanPUpdate.Location = new System.Drawing.Point(285, 270);
+            this.rbCanPUpdate.Location = new System.Drawing.Point(393, 270);
             this.rbCanPUpdate.Name = "rbCanPUpdate";
             this.rbCanPUpdate.Size = new System.Drawing.Size(72, 16);
             this.rbCanPUpdate.TabIndex = 40;
@@ -707,6 +709,25 @@
             this.tabPage5.Text = "Eact配置";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(106, 104);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(59, 12);
+            this.label19.TabIndex = 43;
+            this.label19.Text = "BOM工具：";
+            // 
+            // cbIsCanSelElecInBom
+            // 
+            this.cbIsCanSelElecInBom.AutoSize = true;
+            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(222, 104);
+            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
+            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(72, 16);
+            this.cbIsCanSelElecInBom.TabIndex = 42;
+            this.cbIsCanSelElecInBom.Text = "可选电极";
+            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -777,24 +798,15 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "粗";
             // 
-            // label19
+            // cbIsExportBomXls
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(106, 104);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(59, 12);
-            this.label19.TabIndex = 43;
-            this.label19.Text = "BOM工具：";
-            // 
-            // cbIsCanSelElecInBom
-            // 
-            this.cbIsCanSelElecInBom.AutoSize = true;
-            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(222, 104);
-            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
-            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(72, 16);
-            this.cbIsCanSelElecInBom.TabIndex = 42;
-            this.cbIsCanSelElecInBom.Text = "可选电极";
-            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
+            this.cbIsExportBomXls.AutoSize = true;
+            this.cbIsExportBomXls.Location = new System.Drawing.Point(286, 270);
+            this.cbIsExportBomXls.Name = "cbIsExportBomXls";
+            this.cbIsExportBomXls.Size = new System.Drawing.Size(60, 16);
+            this.cbIsExportBomXls.TabIndex = 49;
+            this.cbIsExportBomXls.Text = "物料单";
+            this.cbIsExportBomXls.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -900,5 +912,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.CheckBox cbIsCanSelElecInBom;
+        private System.Windows.Forms.CheckBox cbIsExportBomXls;
     }
 }

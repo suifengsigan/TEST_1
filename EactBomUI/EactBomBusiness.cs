@@ -376,6 +376,12 @@ namespace EactBom
                     });
                 }
 
+                if (ConfigData.IsExportBomXls)
+                {
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出物料单...")); }
+                    ExcelHelper.ExportExcelBom(Enumerable.Select(positions,s=>s.Electrode).ToList(), steelInfo);
+                }
+
                 DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER,ConfigData.IsImportEman, shareElecDatas);
             }
             else
@@ -785,7 +791,7 @@ namespace EactBom
             return result;
         }
 
-        string GetPARTFILENAME(Snap.NX.Body body, MouldInfo steelInfo)
+        public string GetPARTFILENAME(Snap.NX.Body body, MouldInfo steelInfo)
         {
             string partName = string.Format("{0}-{1}-{2}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER, body.Name);
             switch (ConfigData.ElecNameRule)

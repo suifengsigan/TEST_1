@@ -99,6 +99,7 @@ namespace EactConfig
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
         public bool IsCanSelElecInBom = false;
+        public bool IsExportBomXls = false;
         /// <summary>
         /// 是否识别侧放电极
         /// </summary>
