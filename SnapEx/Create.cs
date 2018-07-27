@@ -218,7 +218,7 @@ namespace SnapEx
                 NXOpen.UF.UFPart.ExportOptions options = new NXOpen.UF.UFPart.ExportOptions();
                 options.new_part = true;
                 options.params_mode = NXOpen.UF.UFPart.ExportParamsMode.RemoveParams;
-                options.expression_mode = NXOpen.UF.UFPart.ExportExpMode.CopyExpDeeply;
+                options.expression_mode = NXOpen.UF.UFPart.ExportExpMode.CopyExpShallowly;
                 NXOpen.UF.UFSession.GetUFSession().Part.ExportWithOptions(
                     path,
                     1, new Tag[] { body.NXOpenTag },
