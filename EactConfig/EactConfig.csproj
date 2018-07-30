@@ -83,6 +83,12 @@
     <Compile Include="FrmConfig.Designer.cs">
       <DependentUpon>FrmConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMatchJiaju.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMatchJiaju.Designer.cs">
+      <DependentUpon>FrmMatchJiaju.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unload.cs" />
   </ItemGroup>
@@ -92,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmConfig.resx">
       <DependentUpon>FrmConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMatchJiaju.resx">
+      <DependentUpon>FrmMatchJiaju.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

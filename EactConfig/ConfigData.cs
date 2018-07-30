@@ -74,6 +74,10 @@ namespace EactConfig
             [DisplayName("选项")]
             public string Value { get; set; }
             public bool IsDefault = false;
+            /// <summary>
+            /// 拓展字段1
+            /// </summary>
+            public string Ex1 = string.Empty;
         }
 
         /// <summary>

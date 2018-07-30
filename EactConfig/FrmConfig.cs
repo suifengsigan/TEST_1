@@ -32,6 +32,7 @@ namespace EactConfig
             //view.ColumnHeadersVisible = false;
             view.RowHeadersVisible = false;
             view.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            view.AllowUserToResizeRows = false;
             view.MultiSelect = false;
         }
 
@@ -106,12 +107,17 @@ namespace EactConfig
                 if (e.RowIndex >= 0)
                 {
                     var obj = dataGridViewPSelection.Rows[e.RowIndex].DataBoundItem as ConfigData.PopertySelection;
-                    if (_cms == null)
+                    _cms = new ContextMenuStrip();
+                    _cms.Items.Add("设为默认");
+                    if (dataGridViewPoperty.CurrentRow != null)
                     {
-                        _cms = new ContextMenuStrip();
-                        _cms.Items.Add("设为默认");
-                        _cms.ItemClicked += _cms_ItemClicked;
+                        var objPoperty = dataGridViewPoperty.CurrentRow.DataBoundItem as ConfigData.Poperty;
+                        if (objPoperty != null && objPoperty.DisplayName == "夹具类型")
+                        {
+                            _cms.Items.Add("夹具设置");
+                        }
                     }
+                    _cms.ItemClicked += _cms_ItemClicked;
                     //弹出操作菜单
                     _cms.Show(MousePosition.X, MousePosition.Y);
                 }
@@ -120,21 +126,32 @@ namespace EactConfig
 
         private void _cms_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-           
-            dataGridViewPSelection.Rows.Cast<DataGridViewRow>().ToList().ForEach(u => {
-                var data = u.DataBoundItem as ConfigData.PopertySelection;
-                var currentRow = dataGridViewPSelection.CurrentRow;
-                if (currentRow == u)
-                {
-                    data.IsDefault = true;
+            if (e.ClickedItem.Text == "夹具设置")
+            {
+                if (dataGridViewPSelection.CurrentRow != null) {
+                    var obj = dataGridViewPSelection.CurrentRow.DataBoundItem as ConfigData.PopertySelection;
+                    if (obj != null)
+                    {
+                        new FrmMatchJiaju(obj).ShowDialog();
+                    }
                 }
-                else
-                {
-                    data.IsDefault = false;
-                }
-            });
-
-            
+                
+            }
+            else
+            {
+                dataGridViewPSelection.Rows.Cast<DataGridViewRow>().ToList().ForEach(u => {
+                    var data = u.DataBoundItem as ConfigData.PopertySelection;
+                    var currentRow = dataGridViewPSelection.CurrentRow;
+                    if (currentRow == u)
+                    {
+                        data.IsDefault = true;
+                    }
+                    else
+                    {
+                        data.IsDefault = false;
+                    }
+                });
+            }
         }
 
         void btnPSelectionUpdate_Click(object sender, EventArgs e)
