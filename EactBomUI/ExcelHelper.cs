@@ -35,6 +35,7 @@ namespace EactBom
 
                 IFont titleFont = workbook.CreateFont();
                 titleFont.FontHeightInPoints = 10;//设置字体大小
+                titleFont.FontName = "宋体";
 
                 ICellStyle styleThin = workbook.CreateCellStyle();
                 styleThin.BorderBottom = BorderStyle.Thin;
