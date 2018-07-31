@@ -581,7 +581,7 @@ namespace EactBom
                         cuprum.SHAPE = "简单有底";
                         cuprum.OPENSTRUFF = info.OPENSTRUFF;
                         cuprum.DISCHARGING = string.Empty;
-                        cuprum.EDMCONDITIONSN = info.ElecSize;
+                        cuprum.EDMCONDITIONSN = info.ElecCuttingSize(ConfigData.PQBlankStock);
                         cuprum.HEADPULLUPH = STRETCHH.ToString();
                         cuprum.STRETCHH = HEADPULLUPH.ToString();
                         cuprum.CLEARROOTH = string.Empty;
