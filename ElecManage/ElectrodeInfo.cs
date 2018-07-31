@@ -49,11 +49,70 @@ namespace ElecManage
             _body = body;
         }
 
+        public double Y
+        {
+            get
+            {
+                var elecBox = GetBox3d();
+                return Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4);
+            }
+            set { }
+        }
+
+        public double X
+        {
+            get
+            {
+                var elecBox = GetBox3d();
+                return Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4);
+            }
+            set { }
+        }
+
+        public double Z
+        {
+            get
+            {
+                var elecBox = GetBox3d();
+                return Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4);
+            }
+            set { }
+        }
+
+        public double CuttingY(double blankstock)
+        {
+            var elecBox = GetBox3d();
+            return (int)Math.Ceiling(Math.Abs(elecBox.MaxY - elecBox.MinY)) + (blankstock * 2);
+        }
+
+        public double CuttingX(double blankstock)
+        {
+            var elecBox = GetBox3d();
+            return (int)Math.Ceiling(Math.Abs(elecBox.MaxX - elecBox.MinX)) + (blankstock * 2);
+        }
+
+        /// <summary>
+        /// 开料尺寸
+        /// </summary>
+        public string ElecCuttingSize(double blankstock)
+        {
+            var elecBox = GetBox3d();
+            return string.Format("{0}x{1}x{2}",
+                            (int)Math.Ceiling(Math.Abs(elecBox.MaxX - elecBox.MinX)) + (blankstock * 2)
+                            , (int)Math.Ceiling(Math.Abs(elecBox.MaxY - elecBox.MinY)) + (blankstock * 2)
+                            , (int)Math.Ceiling(Math.Abs(elecBox.MaxZ - elecBox.MinZ)) + (blankstock * 2)
+                            );
+        }
+
+
+        /// <summary>
+        /// 实际尺寸
+        /// </summary>
         public string ElecSize 
         {
             get 
             {
-                var elecBox = _body.AcsToWcsBox3d();
+                var elecBox = GetBox3d();
                 return string.Format("{0}x{1}x{2}",
                                 Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4)
                                 , Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY),4)
@@ -61,6 +120,11 @@ namespace ElecManage
                                 );
             }
             set { }
+        }
+
+        private Snap.Geom.Box3d GetBox3d()
+        {
+            return _body.AcsToWcsBox3d();
         }
 
         /// <summary>

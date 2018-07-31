@@ -102,8 +102,18 @@ namespace EactConfig
         public bool ExportCNCPrt = false;
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
+        /// <summary>
+        /// BOM工具是否可以选择电极
+        /// </summary>
         public bool IsCanSelElecInBom = false;
+        /// <summary>
+        /// 是否导出物料单
+        /// </summary>
         public bool IsExportBomXls = false;
+        /// <summary>
+        /// 毛坯余量
+        /// </summary>
+        public double PQBlankStock = 1.5;
         /// <summary>
         /// 是否识别侧放电极
         /// </summary>

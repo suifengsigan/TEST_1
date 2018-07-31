@@ -70,6 +70,7 @@
             this.btnPopertyUpate = new System.Windows.Forms.Button();
             this.btnPopertyAdd = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cbIsExportBomXls = new System.Windows.Forms.CheckBox();
             this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbbCNCTransRule = new System.Windows.Forms.ComboBox();
@@ -97,7 +98,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.cbIsExportBomXls = new System.Windows.Forms.CheckBox();
+            this.txtPQBlankStock = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -538,6 +540,16 @@
             this.tabPage4.Text = "基本配置";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // cbIsExportBomXls
+            // 
+            this.cbIsExportBomXls.AutoSize = true;
+            this.cbIsExportBomXls.Location = new System.Drawing.Point(286, 270);
+            this.cbIsExportBomXls.Name = "cbIsExportBomXls";
+            this.cbIsExportBomXls.Size = new System.Drawing.Size(60, 16);
+            this.cbIsExportBomXls.TabIndex = 49;
+            this.cbIsExportBomXls.Text = "物料单";
+            this.cbIsExportBomXls.UseVisualStyleBackColor = true;
+            // 
             // cbIsSetPrtColor
             // 
             this.cbIsSetPrtColor.AutoSize = true;
@@ -691,6 +703,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.label20);
+            this.tabPage5.Controls.Add(this.txtPQBlankStock);
             this.tabPage5.Controls.Add(this.label19);
             this.tabPage5.Controls.Add(this.cbIsCanSelElecInBom);
             this.tabPage5.Controls.Add(this.label17);
@@ -798,15 +812,22 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "粗";
             // 
-            // cbIsExportBomXls
+            // txtPQBlankStock
             // 
-            this.cbIsExportBomXls.AutoSize = true;
-            this.cbIsExportBomXls.Location = new System.Drawing.Point(286, 270);
-            this.cbIsExportBomXls.Name = "cbIsExportBomXls";
-            this.cbIsExportBomXls.Size = new System.Drawing.Size(60, 16);
-            this.cbIsExportBomXls.TabIndex = 49;
-            this.cbIsExportBomXls.Text = "物料单";
-            this.cbIsExportBomXls.UseVisualStyleBackColor = true;
+            this.txtPQBlankStock.Location = new System.Drawing.Point(380, 71);
+            this.txtPQBlankStock.Name = "txtPQBlankStock";
+            this.txtPQBlankStock.Size = new System.Drawing.Size(47, 21);
+            this.txtPQBlankStock.TabIndex = 44;
+            this.txtPQBlankStock.Text = "1.5";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(307, 74);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(53, 12);
+            this.label20.TabIndex = 45;
+            this.label20.Text = "毛坯余量";
             // 
             // FrmConfig
             // 
@@ -913,5 +934,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.CheckBox cbIsCanSelElecInBom;
         private System.Windows.Forms.CheckBox cbIsExportBomXls;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtPQBlankStock;
     }
 }

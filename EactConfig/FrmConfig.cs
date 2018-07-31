@@ -268,6 +268,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            txtPQBlankStock.Text = data.PQBlankStock.ToString();
             cbIsExportBomXls.Checked = data.IsExportBomXls;
             cbIsCanSelElecInBom.Checked = data.IsCanSelElecInBom;
             cbIsSetPropertyAllowMultiple.Checked = data.IsSetPropertyAllowMultiple;
@@ -314,6 +315,9 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                var PQBlankStock = 1.5;
+                double.TryParse(txtPQBlankStock.Text, out PQBlankStock);
+                data.PQBlankStock = PQBlankStock;
                 data.IsExportBomXls = cbIsExportBomXls.Checked;
                 data.IsCanSelElecInBom= cbIsCanSelElecInBom.Checked;
                 data.IsSetPropertyAllowMultiple = cbIsSetPropertyAllowMultiple.Checked;

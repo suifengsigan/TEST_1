@@ -21,6 +21,40 @@ partial class SetPropertyUI : SnapEx.BaseUI
         return info;
     }
 
+    /// <summary>
+    /// 匹配夹具
+    /// </summary>
+    EactConfig.ConfigData.PopertySelection MatchJiaju(ElecManage.ElectrodeInfo info)
+    {
+        EactConfig.ConfigData.PopertySelection result = null;
+        if (info != null)
+        {
+            var p = _configData.Poperties.FirstOrDefault(u => u.DisplayName == "夹具类型");
+            var x = info.CuttingX(_configData.PQBlankStock);
+            var y = info.CuttingY(_configData.PQBlankStock);
+            if (p != null)
+            {
+                p.Selections.ForEach(m => {
+                    var list = EactConfig.MatchJiaju.DeserializeObject(m.Ex1);
+                    list.ForEach(u => {
+                        if ((IsEquals(x, u.X) && IsEquals(y, u.Y)) || IsEquals(x, u.Y) && IsEquals(y, u.X))
+                        {
+                            result = m;
+                        }
+                    });
+                    return;
+                });
+            }
+        }
+         
+        return result;
+    }
+
+    bool IsEquals(double x,double x1)
+    {
+        return Math.Abs(x - x1) < SnapEx.Helper.Tolerance;
+    }
+
     void SetDefaultValue(ElecManage.ElectrodeInfo info)
     {
         //赋值
@@ -79,7 +113,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
             if (cbb is Snap.UI.Block.Enumeration)
             {
                 var enumration = cbb as Snap.UI.Block.Enumeration;
-                var defaultSelection = string.IsNullOrEmpty(realValue)?u.Selections.FirstOrDefault(m => m.IsDefault): u.Selections.FirstOrDefault(m => m.Value==realValue);
+                var defaultSelection = string.IsNullOrEmpty(realValue)?(MatchJiaju(info)??u.Selections.FirstOrDefault(m => m.IsDefault)): u.Selections.FirstOrDefault(m => m.Value==realValue);
                 if (defaultSelection != null)
                 {
                     u.Selections.Remove(defaultSelection);

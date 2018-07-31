@@ -95,7 +95,7 @@ namespace EactBom
 
                     //开料尺寸
                     cellIndex++;
-                    sheet.GetRow(rowStart).CreateCell(cellIndex).SetCellValue("");
+                    sheet.GetRow(rowStart).CreateCell(cellIndex).SetCellValue(info.ElecCuttingSize(EactBomBusiness.Instance.ConfigData.PQBlankStock).Replace('x', '*'));
                     sheet.GetRow(rowStart).GetCell(cellIndex).CellStyle = style;
 
                     //夹具
