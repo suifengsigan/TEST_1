@@ -113,7 +113,11 @@ partial class SetPropertyUI : SnapEx.BaseUI
             if (cbb is Snap.UI.Block.Enumeration)
             {
                 var enumration = cbb as Snap.UI.Block.Enumeration;
-                var defaultSelection = string.IsNullOrEmpty(realValue)?(MatchJiaju(info)??u.Selections.FirstOrDefault(m => m.IsDefault)): u.Selections.FirstOrDefault(m => m.Value==realValue);
+                var defaultSelection = string.IsNullOrEmpty(realValue)?(u.Selections.FirstOrDefault(m => m.IsDefault)): u.Selections.FirstOrDefault(m => m.Value==realValue);
+                if (u.DisplayName == "夹具类型")
+                {
+                    defaultSelection = string.IsNullOrEmpty(realValue) ? (MatchJiaju(info) ?? u.Selections.FirstOrDefault(m => m.IsDefault)) : u.Selections.FirstOrDefault(m => m.Value == realValue);
+                }
                 if (defaultSelection != null)
                 {
                     u.Selections.Remove(defaultSelection);
