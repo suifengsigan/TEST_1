@@ -42,6 +42,8 @@ namespace EactBom
                 styleThin.BorderLeft = BorderStyle.Thin;
                 styleThin.BorderRight = BorderStyle.Thin;
                 styleThin.BorderTop = BorderStyle.Thin;
+                styleThin.Alignment = HorizontalAlignment.Center;
+                styleThin.VerticalAlignment = VerticalAlignment.Center;
                 styleThin.SetFont(titleFont);
 
                 ICellStyle styleBottom = workbook.CreateCellStyle();
@@ -49,6 +51,8 @@ namespace EactBom
                 styleBottom.BorderLeft = BorderStyle.Thin;
                 styleBottom.BorderRight = BorderStyle.Thin;
                 styleBottom.BorderTop = BorderStyle.Thin;
+                styleBottom.Alignment = HorizontalAlignment.Center;
+                styleBottom.VerticalAlignment = VerticalAlignment.Center;
                 styleBottom.SetFont(titleFont);
 
                 ICellStyle styleRight = workbook.CreateCellStyle();
@@ -56,12 +60,16 @@ namespace EactBom
                 styleRight.BorderLeft = BorderStyle.Thin;
                 styleRight.BorderRight = BorderStyle.Medium;
                 styleRight.BorderTop = BorderStyle.Thin;
+                styleRight.Alignment = HorizontalAlignment.Center;
+                styleRight.VerticalAlignment = VerticalAlignment.Center;
 
                 ICellStyle styleRightBottom = workbook.CreateCellStyle();
                 styleRightBottom.BorderBottom = BorderStyle.Medium;
                 styleRightBottom.BorderLeft = BorderStyle.Thin;
                 styleRightBottom.BorderRight = BorderStyle.Medium;
                 styleRightBottom.BorderTop = BorderStyle.Thin;
+                styleRightBottom.Alignment = HorizontalAlignment.Center;
+                styleRightBottom.VerticalAlignment = VerticalAlignment.Center;
                 styleRightBottom.SetFont(titleFont);
 
                 //模号 件号
