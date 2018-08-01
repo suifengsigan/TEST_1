@@ -29,6 +29,8 @@ partial class SetPropertyUI : SnapEx.BaseUI
         EactConfig.ConfigData.PopertySelection result = null;
         if (info != null)
         {
+            strElecSize.Value = info.ElecSize;
+            strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock);
             var p = _configData.Poperties.FirstOrDefault(u => u.DisplayName == "夹具类型");
             var x = info.CuttingX(_configData.PQBlankStock);
             var y = info.CuttingY(_configData.PQBlankStock);
@@ -188,6 +190,8 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 }
             }
 
+            strElecSize.Show = strElecName.Show;
+            strElecCuttingSize.Show= strElecName.Show;
         }
     }
 

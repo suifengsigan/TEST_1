@@ -51,6 +51,8 @@ public partial class SetPropertyUI
     private Snap.UI.Block.Group group;// Block type: Group
     private Snap.UI.Block.SelectObject selectCuprum;// Block type: Selection
     private Snap.UI.Block.String strElecName;// Block type: String
+    private Snap.UI.Block.String strElecSize;// Block type: String
+    private Snap.UI.Block.String strElecCuttingSize;// Block type: String
     private Snap.UI.Block.Group group1;// Block type: Group
     //private Snap.UI.Block.ScrolledWindow scrolledWindow;// Block type: Scrolled Window
     private Snap.UI.Block.Integer txtFINISHNUMBER;// Block type: Integer
@@ -256,6 +258,8 @@ public partial class SetPropertyUI
             group = Snap.UI.Block.Group.GetBlock(theDialog, "group");
             selectCuprum = Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectCuprum");
             strElecName = Snap.UI.Block.String.GetBlock(theDialog, "strElecName");
+            strElecSize = Snap.UI.Block.String.GetBlock(theDialog, "strElecSize");
+            strElecCuttingSize = Snap.UI.Block.String.GetBlock(theDialog, "strElecCuttingSize");
             group1 = Snap.UI.Block.Group.GetBlock(theDialog, "group1");
             //scrolledWindow = (NXOpen.BlockStyler.ScrolledWindow)theDialog.TopBlock.FindBlock("scrolledWindow");
             txtFINISHNUMBER = Snap.UI.Block.Integer.GetBlock(theDialog, "txtFINISHNUMBER");
