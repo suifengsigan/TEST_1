@@ -82,13 +82,13 @@ namespace ElecManage
         public double CuttingY(double blankstock)
         {
             var elecBox = GetBox3d();
-            return (int)Math.Ceiling(Math.Abs(elecBox.MaxY - elecBox.MinY)+ (blankstock * 2));
+            return (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (blankstock * 2));
         }
 
         public double CuttingX(double blankstock)
         {
             var elecBox = GetBox3d();
-            return (int)Math.Ceiling(Math.Abs(elecBox.MaxX - elecBox.MinX)+ (blankstock * 2));
+            return (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (blankstock * 2));
         }
 
         /// <summary>
@@ -98,9 +98,9 @@ namespace ElecManage
         {
             var elecBox = GetBox3d();
             return string.Format("{0}x{1}x{2}",
-                            (int)Math.Ceiling(Math.Abs(elecBox.MaxX - elecBox.MinX) + (blankstock * 2)) 
-                            , (int)Math.Ceiling(Math.Abs(elecBox.MaxY - elecBox.MinY) + (blankstock * 2))
-                            , (int)Math.Ceiling(Math.Abs(elecBox.MaxZ - elecBox.MinZ) + (blankstock * 2)) 
+                            (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (blankstock * 2)) 
+                            , (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (blankstock * 2))
+                            , (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (blankstock * 2)) 
                             );
         }
 

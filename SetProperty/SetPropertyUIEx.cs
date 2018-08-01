@@ -29,7 +29,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
         EactConfig.ConfigData.PopertySelection result = null;
         if (info != null)
         {
-            var p = _configData.Poperties.FirstOrDefault(u => u.DisplayName == "夹具类型");
+            var p = EactConfig.ConfigData.GetInstance().Poperties.FirstOrDefault(u => u.DisplayName == "夹具类型");
             var x = info.CuttingX(_configData.PQBlankStock);
             var y = info.CuttingY(_configData.PQBlankStock);
             if (p != null)
