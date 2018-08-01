@@ -131,8 +131,12 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 }
                 if (defaultSelection != null)
                 {
-                    u.Selections.Remove(defaultSelection);
-                    u.Selections.Insert(0, defaultSelection);
+                    defaultSelection = u.Selections.FirstOrDefault(m => m.Value == defaultSelection.Value);
+                    if (defaultSelection != null)
+                    {
+                        u.Selections.Remove(defaultSelection);
+                        u.Selections.Insert(0, defaultSelection);
+                    }
                 }
                 enumration.Items = Enumerable.Select(u.Selections, m => m.Value).ToArray();
             }
