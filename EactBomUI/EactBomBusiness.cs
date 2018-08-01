@@ -440,6 +440,37 @@ namespace EactBom
                 electrodeBody.SetStringAttribute("EACT_DIE_NO_OF_WORKPIECE",steelInfo.MODEL_NUMBER);
                 electrodeBody.SetStringAttribute("EACT_WORKPIECE_NO_OF_WORKPIECE",steelInfo.MR_NUMBER);
                 electrodeBody.SetStringAttribute("EACT_ELECT_CREATE_AIX","Z+");
+
+                var info = electrode.GetElectrodeInfo();
+                var topFaceDir = electrode.TopFace.GetFaceDirection();
+                if (info.EDMPROCDIRECTION == "自动判断")
+                {
+                    var temptopFaceDir = topFaceDir;
+                    var tempAixValue = "Z+";
+                    if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisZ, SnapEx.Helper.Tolerance))
+                    {
+                        tempAixValue = "Z-";
+                    }
+                    if (SnapEx.Helper.Equals(temptopFaceDir, Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance))
+                    {
+                        tempAixValue = "X+";
+                    }
+                    if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance))
+                    {
+                        tempAixValue = "X-";
+                    }
+                    if (SnapEx.Helper.Equals(temptopFaceDir, Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance))
+                    {
+                        tempAixValue = "Y+";
+                    }
+                    if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance))
+                    {
+                        tempAixValue = "Y-";
+                    }
+                    info.EDMPROCDIRECTION = tempAixValue;
+                    electrodeBody.SetStringAttribute("EACT_ELECT_CREATE_AIX", tempAixValue);
+                }
+
                 var guid = Guid.NewGuid().ToString();
                 electrodeBody.SetStringAttribute("EACT_ELECT_GROUP", guid);
                 var jyElec = electrode as JYElectrode;
@@ -458,7 +489,7 @@ namespace EactBom
                 electrode.BaseFace.SetStringAttribute("ELEC_BASE_EDM_FACE","1");
 
                 #region
-                var topFaceDir = electrode.TopFace.GetFaceDirection();
+                
                 var topFaceOrientation = new Snap.Orientation(topFaceDir);
                 if (false)
                 {
@@ -521,7 +552,7 @@ namespace EactBom
                 var Z = string.Join(",", positions.Select(u => u.Z.ToString()).ToArray());
                 var C = string.Join(",", positions.Select(u => u.C.ToString()).ToArray());
                 var partName = GetPARTFILENAME(electrodeBody, steelInfo);
-                var info = electrode.GetElectrodeInfo();
+              
                 for (int i = 0; i < 3; i++)
                 {
                     int tempVar = 0;
