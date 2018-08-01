@@ -34,16 +34,22 @@ partial class SetPropertyUI : SnapEx.BaseUI
             var y = info.CuttingY(_configData.PQBlankStock);
             if (p != null)
             {
-                p.Selections.ForEach(m => {
+                foreach (var m in p.Selections)
+                {
+                    if (result != null)
+                    {
+                        break;
+                    }
                     var list = EactConfig.MatchJiaju.DeserializeObject(m.Ex1);
-                    list.ForEach(u => {
+                    foreach (var u in list)
+                    {
                         if ((IsEquals(x, u.X) && IsEquals(y, u.Y)) || IsEquals(x, u.Y) && IsEquals(y, u.X))
                         {
                             result = m;
+                            break;
                         }
-                    });
-                    return;
-                });
+                    }
+                }
             }
         }
          
