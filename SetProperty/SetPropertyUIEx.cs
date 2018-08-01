@@ -29,8 +29,6 @@ partial class SetPropertyUI : SnapEx.BaseUI
         EactConfig.ConfigData.PopertySelection result = null;
         if (info != null)
         {
-            strElecSize.Value = info.ElecSize;
-            strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock);
             var p = _configData.Poperties.FirstOrDefault(u => u.DisplayName == "夹具类型");
             var x = info.CuttingX(_configData.PQBlankStock);
             var y = info.CuttingY(_configData.PQBlankStock);
@@ -67,6 +65,17 @@ partial class SetPropertyUI : SnapEx.BaseUI
         txtFINISHSPACE.Value = (info == null ? 0 : info.FINISH_SPACE);
         txtMIDDLESPACE.Value = (info == null ? 0 : info.MIDDLE_SPACE);
         txtROUGHSPACE.Value = (info == null ? 0 : info.ROUGH_SPACE);
+
+        if (info != null)
+        {
+            strElecSize.Value = info.ElecSize;
+            strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock);
+        }
+        else
+        {
+            strElecSize.Value = string.Empty;
+            strElecCuttingSize.Value = string.Empty;
+        }
 
         _configData.Poperties.ForEach(u => {
             Snap.UI.Block.General cbb = null;
