@@ -443,6 +443,10 @@ namespace EactBom
 
                 var info = electrode.GetElectrodeInfo();
                 var topFaceDir = electrode.TopFace.GetFaceDirection();
+                if (!string.IsNullOrEmpty(info.EDMPROCDIRECTION) && info.EDMPROCDIRECTION != "自动判断")
+                {
+                    electrodeBody.SetStringAttribute("EACT_ELECT_CREATE_AIX", info.EDMPROCDIRECTION);
+                }
                 if (info.EDMPROCDIRECTION == "自动判断")
                 {
                     var temptopFaceDir = topFaceDir;
