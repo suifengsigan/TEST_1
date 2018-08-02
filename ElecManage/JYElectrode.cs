@@ -104,18 +104,18 @@ namespace ElecManage
                 var faceDirection = BaseFace.GetFaceDirection();
                 var plane = new Snap.Geom.Surface.Plane(elecBasePos, faceDirection);
 
-                results.ForEach(u =>
+                foreach (var u in results)
                 {
                     var uv = u.BoxUV;
                     var cneterPoint = u.Position((uv.MaxU + uv.MinU) / 2, (uv.MaxV + uv.MaxV) / 2);
                     var resullt = Snap.Compute.ClosestPoints(cneterPoint, plane);
                     var dir = Snap.Vector.Unit(resullt.Point1 - resullt.Point2);
-                    if (SnapEx.Helper.Equals(dir, -faceDirection))
+                    if (SnapEx.Helper.Equals(dir, -faceDirection) && Snap.Compute.Distance(BaseFace, u) < SnapEx.Helper.Tolerance)
                     {
                         result = u;
-                        return;
+                        break;
                     }
-                });
+                }
             }
 
             ChamferFace = result;
