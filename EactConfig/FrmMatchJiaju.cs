@@ -143,6 +143,21 @@ namespace EactConfig
             return json;
         }
 
+        public static double GetMatchJiajuValue(ConfigData data,int index)
+        {
+            double matchJiajuValue = 0;
+            var poperies = data.Poperties.FirstOrDefault(p => p.DisplayName == "夹具类型");
+            if (poperies != null)
+            {
+                var selections = poperies.Selections[index];
+                if (selections != null)
+                {
+                    matchJiajuValue = EactConfig.MatchJiaju.GetDouble(selections.Ex2);
+                }
+            }
+            return matchJiajuValue;
+        }
+
         public static double GetMatchJiajuValue(string ELEC_CLAMP_GENERAL_TYPE)
         {
             double matchJiajuValue = 0;

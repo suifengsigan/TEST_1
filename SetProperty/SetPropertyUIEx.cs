@@ -173,7 +173,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
             var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
             var unNameC = cuprums.Where(u => string.IsNullOrEmpty(u.Name)).ToList();
             var nameC = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToList();
-           
+
 
             if (nameC.Count == 1)
             {
@@ -216,7 +216,26 @@ partial class SetPropertyUI : SnapEx.BaseUI
             }
 
             strElecSize.Show = strElecName.Show;
-            strElecCuttingSize.Show= strElecName.Show;
+            strElecCuttingSize.Show = strElecName.Show;
+        }
+        else if (block == cbbChuckType.NXOpenBlock)
+        {
+            var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
+            if (cuprums.Count == 1)
+            {
+                var info = GetElecInfo(cuprums.First());
+                if (info != null)
+                {
+                    strElecSize.Value = info.ElecSize;
+                    strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
+                }
+                else
+                {
+                    strElecSize.Value = string.Empty;
+                    strElecCuttingSize.Value = string.Empty;
+                }
+            }
+           
         }
     }
 
