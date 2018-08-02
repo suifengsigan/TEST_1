@@ -97,10 +97,15 @@ namespace ElecManage
         public string ElecCuttingSize(double blankstock,double matchJiajuValue)
         {
             var elecBox = GetBox3d();
+            var z = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (matchJiajuValue));
+            if (z % 5 != 0)
+            {
+                z = z - (z % 5) + 5;
+            }
             return string.Format("{0}x{1}x{2}",
                             (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (blankstock * 2)) 
                             , (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (blankstock * 2))
-                            , (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (matchJiajuValue==0?(blankstock*2): matchJiajuValue)) 
+                            , z
                             );
         }
 
