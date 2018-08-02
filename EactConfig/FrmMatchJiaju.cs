@@ -47,6 +47,7 @@ namespace EactConfig
             lbJiajuName.Text = _ps.Value;
             var datasourcce = MatchJiaju.DeserializeObject(_ps.Ex1);
             dataGridViewJSelection.DataSource = datasourcce;
+            txtJiajuMatchValue.Text = _ps.Ex2;
         }
   
 
@@ -54,6 +55,7 @@ namespace EactConfig
         {
             var datasourcce = dataGridViewJSelection.DataSource as List<MatchJiaju> ?? new List<MatchJiaju>();
             _ps.Ex1 = MatchJiaju.SerializeObject(datasourcce);
+            _ps.Ex2 = MatchJiaju.GetDouble(txtJiajuMatchValue.Text).ToString();
         }
 
         private void DataGridViewPSelection_SelectionChanged(object sender, EventArgs e)
@@ -139,6 +141,27 @@ namespace EactConfig
         {
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             return json;
+        }
+
+        public static double GetMatchJiajuValue(string ELEC_CLAMP_GENERAL_TYPE)
+        {
+            double matchJiajuValue = 0;
+            var poperies = ConfigData.GetInstance().Poperties.FirstOrDefault(p => p.DisplayName == "夹具类型");
+            if (poperies != null)
+            {
+                var selections = poperies.Selections.FirstOrDefault(s => s.Value == ELEC_CLAMP_GENERAL_TYPE);
+                if (selections != null)
+                {
+                    matchJiajuValue = EactConfig.MatchJiaju.GetDouble(selections.Ex2);
+                }
+            }
+            return matchJiajuValue;
+        }
+
+        public static double GetDouble(string str, double defaultValue = 0)
+        {
+            double.TryParse(str, out defaultValue);
+            return defaultValue;
         }
 
         //public override string ToString()

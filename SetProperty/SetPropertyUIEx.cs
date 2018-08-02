@@ -72,16 +72,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
         txtMIDDLESPACE.Value = (info == null ? 0 : info.MIDDLE_SPACE);
         txtROUGHSPACE.Value = (info == null ? 0 : info.ROUGH_SPACE);
 
-        if (info != null)
-        {
-            strElecSize.Value = info.ElecSize;
-            strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock);
-        }
-        else
-        {
-            strElecSize.Value = string.Empty;
-            strElecCuttingSize.Value = string.Empty;
-        }
+        double matchJiajuValue = 0;
 
         _configData.Poperties.ForEach(u => {
             Snap.UI.Block.General cbb = null;
@@ -134,6 +125,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 if (u.DisplayName == "夹具类型")
                 {
                     defaultSelection = string.IsNullOrEmpty(realValue) ? (MatchJiaju(info) ?? u.Selections.FirstOrDefault(m => m.IsDefault)) : u.Selections.FirstOrDefault(m => m.Value == realValue);
+                    if (defaultSelection != null)
+                    {
+                        matchJiajuValue = EactConfig.MatchJiaju.GetDouble(defaultSelection.Ex2);
+                    }
                 }
                 if (defaultSelection != null)
                 {
@@ -147,6 +142,17 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 enumration.Items = Enumerable.Select(u.Selections, m => m.Value).ToArray();
             }
         });
+
+        if (info != null)
+        {
+            strElecSize.Value = info.ElecSize;
+            strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock, matchJiajuValue);
+        }
+        else
+        {
+            strElecSize.Value = string.Empty;
+            strElecCuttingSize.Value = string.Empty;
+        }
     }
     public override void Init()
     {

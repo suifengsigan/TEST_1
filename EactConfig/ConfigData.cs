@@ -78,6 +78,10 @@ namespace EactConfig
             /// 拓展字段1
             /// </summary>
             public string Ex1 = string.Empty;
+            /// <summary>
+            /// 拓展字段2
+            /// </summary>
+            public string Ex2 = string.Empty;
         }
 
         /// <summary>

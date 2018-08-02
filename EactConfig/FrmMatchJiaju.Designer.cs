@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.dataGridViewJSelection = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.txtY = new System.Windows.Forms.TextBox();
@@ -39,11 +40,12 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpate = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.dataGridViewJSelection = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtJiajuMatchValue = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJSelection)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -65,8 +67,20 @@
             this.panel3.Size = new System.Drawing.Size(444, 327);
             this.panel3.TabIndex = 1;
             // 
+            // dataGridViewJSelection
+            // 
+            this.dataGridViewJSelection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewJSelection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewJSelection.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewJSelection.Name = "dataGridViewJSelection";
+            this.dataGridViewJSelection.RowTemplate.Height = 23;
+            this.dataGridViewJSelection.Size = new System.Drawing.Size(444, 327);
+            this.dataGridViewJSelection.TabIndex = 0;
+            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.txtJiajuMatchValue);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.txtY);
             this.panel2.Controls.Add(this.lbJiajuName);
@@ -150,15 +164,22 @@
             this.btnAdd.Text = "新增";
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewJSelection
+            // label2
             // 
-            this.dataGridViewJSelection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewJSelection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewJSelection.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewJSelection.Name = "dataGridViewJSelection";
-            this.dataGridViewJSelection.RowTemplate.Height = 23;
-            this.dataGridViewJSelection.Size = new System.Drawing.Size(444, 327);
-            this.dataGridViewJSelection.TabIndex = 0;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(10, 180);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "匹配余量";
+            // 
+            // txtJiajuMatchValue
+            // 
+            this.txtJiajuMatchValue.Location = new System.Drawing.Point(75, 177);
+            this.txtJiajuMatchValue.Name = "txtJiajuMatchValue";
+            this.txtJiajuMatchValue.Size = new System.Drawing.Size(100, 21);
+            this.txtJiajuMatchValue.TabIndex = 11;
+            this.txtJiajuMatchValue.Text = "0";
             // 
             // FrmMatchJiaju
             // 
@@ -171,9 +192,9 @@
             this.Text = "夹具设置";
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJSelection)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJSelection)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -192,5 +213,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtX;
         private System.Windows.Forms.DataGridView dataGridViewJSelection;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtJiajuMatchValue;
     }
 }
