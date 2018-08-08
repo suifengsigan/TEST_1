@@ -107,6 +107,10 @@ namespace EactConfig
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
         /// <summary>
+        /// 异形电极
+        /// </summary>
+        public bool SpecialshapedElec = false;
+        /// <summary>
         /// BOM工具是否可以选择电极
         /// </summary>
         public bool IsCanSelElecInBom = false;

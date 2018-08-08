@@ -88,6 +88,8 @@
             this.cbbQuadrantType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtPQBlankStock = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.cbIsCanSelElecInBom = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -98,8 +100,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.txtPQBlankStock = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.CBSpecialshapedElec = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -703,6 +704,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.CBSpecialshapedElec);
             this.tabPage5.Controls.Add(this.label20);
             this.tabPage5.Controls.Add(this.txtPQBlankStock);
             this.tabPage5.Controls.Add(this.label19);
@@ -722,6 +724,23 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Eact配置";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(307, 74);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(53, 12);
+            this.label20.TabIndex = 45;
+            this.label20.Text = "毛坯余量";
+            // 
+            // txtPQBlankStock
+            // 
+            this.txtPQBlankStock.Location = new System.Drawing.Point(380, 71);
+            this.txtPQBlankStock.Name = "txtPQBlankStock";
+            this.txtPQBlankStock.Size = new System.Drawing.Size(47, 21);
+            this.txtPQBlankStock.TabIndex = 44;
+            this.txtPQBlankStock.Text = "1.5";
             // 
             // label19
             // 
@@ -812,22 +831,15 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "粗";
             // 
-            // txtPQBlankStock
+            // CBSpecialshapedElec
             // 
-            this.txtPQBlankStock.Location = new System.Drawing.Point(380, 71);
-            this.txtPQBlankStock.Name = "txtPQBlankStock";
-            this.txtPQBlankStock.Size = new System.Drawing.Size(47, 21);
-            this.txtPQBlankStock.TabIndex = 44;
-            this.txtPQBlankStock.Text = "1.5";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(307, 74);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(53, 12);
-            this.label20.TabIndex = 45;
-            this.label20.Text = "毛坯余量";
+            this.CBSpecialshapedElec.AutoSize = true;
+            this.CBSpecialshapedElec.Location = new System.Drawing.Point(460, 73);
+            this.CBSpecialshapedElec.Name = "CBSpecialshapedElec";
+            this.CBSpecialshapedElec.Size = new System.Drawing.Size(72, 16);
+            this.CBSpecialshapedElec.TabIndex = 46;
+            this.CBSpecialshapedElec.Text = "异形电极";
+            this.CBSpecialshapedElec.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -936,5 +948,6 @@
         private System.Windows.Forms.CheckBox cbIsExportBomXls;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtPQBlankStock;
+        private System.Windows.Forms.CheckBox CBSpecialshapedElec;
     }
 }
