@@ -25,10 +25,10 @@ namespace ElecManage
             ElectrodeType = ElectrodeType.XK;
         }
 
-        public override Snap.Position GetElecBasePos()
-        {
-            return ElecBasePoint.Position;
-        }
+        //public override Snap.Position GetElecBasePos()
+        //{
+        //    return ElecBasePoint.Position;
+        //}
 
         public static Electrode GetElectrode(Snap.NX.Body body)
         {
