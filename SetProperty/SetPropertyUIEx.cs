@@ -6,18 +6,41 @@ partial class SetPropertyUI : SnapEx.BaseUI
 {
     bool _isAllowMultiple = false;
     EactConfig.ConfigData _configData = EactConfig.ConfigData.GetInstance();
-    ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b)
+    bool SpecialshapedElec { get { return _configData.SpecialshapedElec && !_configData.IsSetPropertyAllowMultiple; } }
+    ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b,Action<bool> action=null)
     {
         ElecManage.ElectrodeInfo info = null;
-        var xkElec = ElecManage.XKElectrode.GetElectrode(b);
-        if (xkElec != null)
+        if (_configData.SpecialshapedElec && !_configData.IsSetPropertyAllowMultiple)
         {
-            info = new ElecManage.XKElectrodeInfo(b);
+            var xkElec = ElecManage.Electrode.GetElectrode(b);
+            if (xkElec != null)
+            {
+                info = xkElec.GetElectrodeInfo();
+            }
+            else
+            {
+                theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "异形电极，请设置相关参数！");
+                info = new ElecManage.EactElectrodeInfo(b);
+            }
+
+            if (action != null)
+            {
+                action(xkElec != null);
+            }
         }
         else
         {
-            info = new ElecManage.ElectrodeInfo(b);
+            var xkElec = ElecManage.XKElectrode.GetElectrode(b);
+            if (xkElec != null)
+            {
+                info = new ElecManage.XKElectrodeInfo(b);
+            }
+            else
+            {
+                info = new ElecManage.ElectrodeInfo(b);
+            }
         }
+        
         return info;
     }
 
@@ -154,6 +177,11 @@ partial class SetPropertyUI : SnapEx.BaseUI
             strElecCuttingSize.Value = string.Empty;
         }
     }
+
+    void RereshUI()
+    {
+        
+    }
     public override void Init()
     {
         _isAllowMultiple = _configData.IsSetPropertyAllowMultiple;
@@ -164,6 +192,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
     public override void DialogShown()
     {
         SetDefaultValue(null);
+        groupSElec.Show = false;
     }
 
     public override void Update(NXOpen.BlockStyler.UIBlock block)
