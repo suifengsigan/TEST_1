@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHSnapV4", "PHSnapV4\PHSnap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetProperty", "SetProperty\SetProperty.csproj", "{6D4D54B0-559F-4A10-BFFF-FE8A849C3733}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceDiagonal", "FaceDiagonal\FaceDiagonal.csproj", "{0D7CCC37-CA6D-4327-9B0D-A0633F311987}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,6 +235,14 @@ Global
 		{6D4D54B0-559F-4A10-BFFF-FE8A849C3733}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D4D54B0-559F-4A10-BFFF-FE8A849C3733}.Release|x86.ActiveCfg = Release|Any CPU
 		{6D4D54B0-559F-4A10-BFFF-FE8A849C3733}.Release|x86.Build.0 = Release|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Debug|x86.Build.0 = Debug|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
