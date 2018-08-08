@@ -17,6 +17,9 @@ namespace ElecManage
         public void SetEactElectrode(Snap.NX.Body body,ref Snap.NX.Face topFace,ref Snap.NX.Face baseFace,ref Snap.NX.Point basePoint)
         {
             var faces = body.Faces.ToList();
+
+            //清空相关属性
+
             if (topFace != null && baseFace != null && basePoint != null)//手动
             {
 
@@ -55,8 +58,14 @@ namespace ElecManage
                         }).FirstOrDefault();
                     }
                 }
-
-                basePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, body.Name) && u.MatchAttrValue(XKElectrode.DIM_PT, XKElectrode.DIM_PT));
+                //基准点
+                var basePoints = Snap.Globals.WorkPart.Points.Where(u => u.Layer == body.Layer).ToList().OrderBy(u => Snap.Compute.Distance(u, body)).ToList();
+                basePoint = basePoints.FirstOrDefault();
+                var tempBasePoint = basePoints.FirstOrDefault(u => u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, body.Name) && u.MatchAttrValue(XKElectrode.DIM_PT, XKElectrode.DIM_PT));
+                if (tempBasePoint != null)
+                {
+                    basePoint = tempBasePoint;
+                }
             }
         }
         /// <summary>
