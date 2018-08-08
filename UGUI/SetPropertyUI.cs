@@ -9,7 +9,7 @@
 //        Created by: PENGHUI
 //              Version: NX 9
 //              Date: 08-08-2018  (Format: mm-dd-yyyy)
-//              Time: 16:23 (Format: hh-mm)
+//              Time: 17:09 (Format: hh-mm)
 //
 //==============================================================================
 
@@ -122,6 +122,7 @@ public class SetPropertyUI
             theUI = UI.GetUI();
             theDlxFileName = "SetPropertyUI.dlx";
             theDialog = theUI.CreateDialog(theDlxFileName);
+            theDialog.AddApplyHandler(new NXOpen.BlockStyler.BlockDialog.Apply(apply_cb));
             theDialog.AddOkHandler(new NXOpen.BlockStyler.BlockDialog.Ok(ok_cb));
             theDialog.AddUpdateHandler(new NXOpen.BlockStyler.BlockDialog.Update(update_cb));
             theDialog.AddInitializeHandler(new NXOpen.BlockStyler.BlockDialog.Initialize(initialize_cb));
@@ -314,6 +315,25 @@ public class SetPropertyUI
     }
     
     //------------------------------------------------------------------------------
+    //Callback Name: apply_cb
+    //------------------------------------------------------------------------------
+    public int apply_cb()
+    {
+        int errorCode = 0;
+        try
+        {
+            //---- Enter your callback code here -----
+        }
+        catch (Exception ex)
+        {
+            //---- Enter your exception handling code here -----
+            errorCode = 1;
+            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+        }
+        return errorCode;
+    }
+    
+    //------------------------------------------------------------------------------
     //Callback Name: update_cb
     //------------------------------------------------------------------------------
     public int update_cb( NXOpen.BlockStyler.UIBlock block)
@@ -421,6 +441,7 @@ public class SetPropertyUI
         int errorCode = 0;
         try
         {
+            errorCode = apply_cb();
             //---- Enter your callback code here -----
         }
         catch (Exception ex)

@@ -10,7 +10,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
     ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b,Action<bool> action=null)
     {
         ElecManage.ElectrodeInfo info = null;
-        if (_configData.SpecialshapedElec && !_configData.IsSetPropertyAllowMultiple)
+        if (SpecialshapedElec)
         {
             var xkElec = ElecManage.Electrode.GetElectrode(b);
             if (xkElec != null)
@@ -25,7 +25,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
             if (action != null)
             {
-                action(xkElec != null);
+                action(xkElec == null);
             }
         }
         else
@@ -187,6 +187,9 @@ partial class SetPropertyUI : SnapEx.BaseUI
         _isAllowMultiple = _configData.IsSetPropertyAllowMultiple;
         selectCuprum.AllowMultiple = _isAllowMultiple;
         selectCuprum.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
+        selectBaseFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
+        selectTopFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
+        selectBaseFacePoint.SetFilter(Snap.NX.ObjectTypes.Type.Point, Snap.NX.ObjectTypes.SubType.PatternPoint);
     }
 
     public override void DialogShown()
@@ -203,10 +206,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
             var unNameC = cuprums.Where(u => string.IsNullOrEmpty(u.Name)).ToList();
             var nameC = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToList();
 
-
+            groupSElec.Show = false;
             if (nameC.Count == 1)
             {
-                SetDefaultValue(GetElecInfo(nameC.First()));
+                SetDefaultValue(GetElecInfo(nameC.First(),(b)=> { groupSElec.Show = b; }));
             }
 
             if (_isAllowMultiple)
