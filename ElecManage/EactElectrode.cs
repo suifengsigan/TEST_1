@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SnapEx;
 
 namespace ElecManage
 {
@@ -10,5 +11,36 @@ namespace ElecManage
     /// </summary>
     public class EactElectrode : Electrode
     {
+        const string BASE_BOT = "EACT_ELEC_BASE_BOTTOM_FACE";
+        const string BASE_TOP = "EACT_ELEC_BASE_TOP_FACE";
+        const string EACT_ELECT_GROUP = "EACT_ELECT_GROUP";
+
+        public EactElectrode()
+        {
+            ElectrodeType = ElectrodeType.EACT;
+        }
+        public static Electrode GetElectrode(Snap.NX.Body body)
+        {
+            Electrode result = null;
+            var elecName = body.Name;
+            var faces = body.Faces;
+            //顶面
+            var topFace = faces.FirstOrDefault(u => u.MatchAttrValue(BASE_BOT, 1));
+            //基准面
+            var baseFace = faces.FirstOrDefault(u => u.MatchAttrValue( BASE_TOP,1));
+            //基准点
+            var elecBasePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => u.MatchAttrValue(EACT_ELECT_GROUP, body.GetAttrValue(EACT_ELECT_GROUP)));
+
+            if (!string.IsNullOrEmpty(elecName) && topFace != null && baseFace != null && elecBasePoint != null)
+            {
+                var model = new XKElectrode();
+                model.BaseFace = baseFace;
+                model.TopFace = topFace;
+                model.ElecBasePoint = elecBasePoint;
+                model.ElecBody = body;
+                result = model;
+            }
+            return result;
+        }
     }
 }
