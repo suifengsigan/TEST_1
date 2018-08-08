@@ -37,8 +37,9 @@ namespace ElecManage
             var topFace = faces.FirstOrDefault(u => u.MatchAttrValue(BASE_BOT, 1));
             //基准面
             var baseFace = faces.FirstOrDefault(u => u.MatchAttrValue( BASE_TOP,1));
+            var attrValue = body.GetAttrValue(EACT_ELECT_GROUP);
             //基准点
-            var elecBasePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => u.MatchAttrValue(EACT_ELECT_GROUP, body.GetAttrValue(EACT_ELECT_GROUP)));
+            var elecBasePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => !string.IsNullOrEmpty(attrValue) &&u.MatchAttrValue(EACT_ELECT_GROUP, attrValue));
 
             if (!string.IsNullOrEmpty(elecName) && topFace != null && baseFace != null && elecBasePoint != null)
             {
