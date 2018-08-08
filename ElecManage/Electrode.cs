@@ -69,9 +69,13 @@ namespace ElecManage
 
         public ElectrodeInfo GetElectrodeInfo() 
         {
-            if (ElectrodeType == ElectrodeType.XK) 
+            if (ElectrodeType == ElectrodeType.XK)
             {
                 return new XKElectrodeInfo(ElecBody);
+            }
+            else if (ElectrodeType == ElectrodeType.EACT)
+            {
+                return new EactElectrodeInfo(ElecBody);
             }
             return new ElectrodeInfo(ElecBody);
         }
@@ -86,6 +90,10 @@ namespace ElecManage
             Electrode result = null;
             result = XKElectrode.GetElectrode(body);
             if (result == null) 
+            {
+                result = EactElectrode.GetElectrode(body);
+            }
+            if (result == null)
             {
                 result = JYElectrode.GetElectrode(body);
             }

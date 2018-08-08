@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EactElectrode.cs" />
+    <Compile Include="EactElectrodeInfo.cs" />
     <Compile Include="Electrode.cs" />
     <Compile Include="ElectrodeInfo.cs" />
     <Compile Include="Entry.cs" />

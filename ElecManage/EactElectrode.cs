@@ -19,6 +19,15 @@ namespace ElecManage
         {
             ElectrodeType = ElectrodeType.EACT;
         }
+        /// <summary>
+        /// 基准点
+        /// </summary>
+        public Snap.NX.Point ElecBasePoint { get; set; }
+
+        public override Snap.Position GetElecBasePos()
+        {
+            return ElecBasePoint.Position;
+        }
         public static Electrode GetElectrode(Snap.NX.Body body)
         {
             Electrode result = null;
@@ -33,7 +42,7 @@ namespace ElecManage
 
             if (!string.IsNullOrEmpty(elecName) && topFace != null && baseFace != null && elecBasePoint != null)
             {
-                var model = new XKElectrode();
+                var model = new EactElectrode();
                 model.BaseFace = baseFace;
                 model.TopFace = topFace;
                 model.ElecBasePoint = elecBasePoint;
