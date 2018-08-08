@@ -191,13 +191,12 @@ namespace ElecManage
 
                 if (tempDiagonaLines.Count > 0)
                 {
-                    var corners = u.Box.Corners.Distinct().ToList();
+                    var uBoxUV = u.BoxUV;
+                    var centerPoint=u.Position((uBoxUV.MaxU + uBoxUV.MinU) / 2, (uBoxUV.MaxV + uBoxUV.MinV) / 2);
                     foreach (var item in tempDiagonaLines)
                     {
                         Snap.NX.Line diagonalLine = item;
-                        var startPos = corners.Where(m => SnapEx.Helper.Equals(m, diagonalLine.StartPoint, SnapEx.Helper.Tolerance));
-                        var endPos = corners.Where(m => SnapEx.Helper.Equals(m, diagonalLine.EndPoint, SnapEx.Helper.Tolerance));
-                        if (startPos.Count() > 0 && endPos.Count() > 0)
+                        if (SnapEx.Helper.Equals(centerPoint, (diagonalLine.StartPoint + diagonalLine.EndPoint) / 2, SnapEx.Helper.Tolerance))
                         {
                             outFace = u;
                             outLine = diagonalLine;
