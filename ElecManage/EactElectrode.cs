@@ -11,9 +11,9 @@ namespace ElecManage
     /// </summary>
     public class EactElectrode : Electrode
     {
-        const string BASE_BOT = "EACT_ELEC_BASE_BOTTOM_FACE";
-        const string BASE_TOP = "EACT_ELEC_BASE_TOP_FACE";
-        const string EACT_ELECT_GROUP = "EACT_ELECT_GROUP";
+        public const string BASE_BOT = "EACT_ELEC_BASE_BOTTOM_FACE";
+        public const string BASE_TOP = "EACT_ELEC_BASE_TOP_FACE";
+        public const string EACT_ELECT_GROUP = "EACT_ELECT_GROUP";
 
         public EactElectrode()
         {

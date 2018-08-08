@@ -8,11 +8,11 @@ namespace ElecManage
 {
     public class XKElectrode : Electrode
     {
-        const string ATTR_NAME_MARK = "ATTR_NAME_MARK";
-        const string BASE_BOT = "BASE_BOT";
-        const string BASE_TOP = "BASE_TOP";
+        public const string ATTR_NAME_MARK = "ATTR_NAME_MARK";
+        public const string BASE_BOT = "BASE_BOT";
+        public const string BASE_TOP = "BASE_TOP";
         const string BASE_SIDE = "BASE_SIDE";
-        const string DIM_PT = "DIM_PT";
+        public const string DIM_PT = "DIM_PT";
         const string BASE_CHAMFER = "BASE_CHAMFER";
 
         /// <summary>

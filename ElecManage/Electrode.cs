@@ -13,6 +13,52 @@ namespace ElecManage
             BaseSideFaces = new List<Snap.NX.Face>();
             ElecHeadFaces = new List<Snap.NX.Face>();
         }
+
+        public void SetEactElectrode(Snap.NX.Body body,ref Snap.NX.Face topFace,ref Snap.NX.Face baseFace,ref Snap.NX.Point basePoint)
+        {
+            var faces = body.Faces.ToList();
+            if (topFace != null && baseFace != null && basePoint != null)//手动
+            {
+
+            }
+            else//自动
+            {
+                var topDir = new Snap.Vector(0, 0, 1);
+                //顶面
+                topFace = faces.Where(u => u.IsHasAttr(EactElectrode.BASE_BOT)|| u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, XKElectrode.BASE_BOT)).FirstOrDefault();
+                if (topFace == null)
+                {
+                    var topFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u => SnapEx.Helper.Equals(topDir, u.GetFaceDirection()));
+                    topFace = topFaces.FirstOrDefault();
+                    if (topFaces.Count() > 1)
+                    {
+                        topFace = topFaces.OrderByDescending(u => {
+                            var uv = u.BoxUV;
+                            return Math.Abs(uv.MinU - uv.MaxU) * Math.Abs(uv.MaxV - uv.MinV);
+                        }).FirstOrDefault();
+                    }
+                }
+                //基准面
+                baseFace = faces.Where(u => u.IsHasAttr(EactElectrode.BASE_TOP) || u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, XKElectrode.BASE_TOP)).FirstOrDefault();
+                if (baseFace == null)
+                {
+                    var baseFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u => SnapEx.Helper.Equals(-topDir, u.GetFaceDirection()));
+                    if (baseFaces.Count() == 0)
+                    {
+                        baseFace = topFace;
+                    }
+                    else
+                    {
+                        baseFace = baseFaces.OrderByDescending(u => {
+                            var uv = u.BoxUV;
+                            return Math.Abs(uv.MinU - uv.MaxU) * Math.Abs(uv.MaxV - uv.MinV);
+                        }).FirstOrDefault();
+                    }
+                }
+
+                basePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, body.Name) && u.MatchAttrValue(XKElectrode.DIM_PT, XKElectrode.DIM_PT));
+            }
+        }
         /// <summary>
         /// 电极类型
         /// </summary>
