@@ -108,7 +108,7 @@ namespace ElecManage
                             , z
                             );
         }
-
+        
 
         /// <summary>
         /// 实际尺寸
@@ -126,9 +126,18 @@ namespace ElecManage
             }
             set { }
         }
+        
+
+        public Electrode Electrode { get; set; }
 
         private Snap.Geom.Box3d GetBox3d()
         {
+            if (Electrode != null)
+            {
+                var topFaceDir = -Electrode.BaseFace.GetFaceDirection();
+                var topFaceOrientation = new Snap.Orientation(topFaceDir);
+                return _body.AcsToWcsBox3d(topFaceOrientation);
+            }
             return _body.AcsToWcsBox3d();
         }
 

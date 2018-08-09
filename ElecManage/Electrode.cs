@@ -172,15 +172,17 @@ namespace ElecManage
 
         public ElectrodeInfo GetElectrodeInfo() 
         {
+            ElectrodeInfo result = new ElectrodeInfo(ElecBody);
             if (ElectrodeType == ElectrodeType.XK)
             {
-                return new XKElectrodeInfo(ElecBody);
+                result= new XKElectrodeInfo(ElecBody);
             }
             else if (ElectrodeType == ElectrodeType.EACT)
             {
-                return new EactElectrodeInfo(ElecBody);
+                result = new EactElectrodeInfo(ElecBody);
             }
-            return new ElectrodeInfo(ElecBody);
+            result.Electrode = this;
+            return result;
         }
 
         public virtual Snap.Position GetElecBasePos() 

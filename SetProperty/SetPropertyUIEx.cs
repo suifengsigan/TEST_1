@@ -29,10 +29,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
         }
         else
         {
-            var xkElec = ElecManage.XKElectrode.GetElectrode(b);
+            var xkElec = ElecManage.Electrode.GetElectrode(b);
             if (xkElec != null)
             {
-                info = new ElecManage.XKElectrodeInfo(b);
+                info = xkElec.GetElectrodeInfo();
             }
             else
             {
@@ -186,6 +186,21 @@ partial class SetPropertyUI : SnapEx.BaseUI
         if (baseFace != null) { selectBaseFace.SelectedObjects = new Snap.NX.NXObject[] { baseFace }; }
         if (topFace != null) { selectTopFace.SelectedObjects = new Snap.NX.NXObject[] { topFace }; }
         if (basePoint != null) { selectBaseFacePoint.SelectedObjects = new Snap.NX.NXObject[] { basePoint }; }
+        if (baseFace != null && topFace != null && basePoint != null)
+        {
+            //更新尺寸
+            var info = GetElecInfo(body);
+            if (info != null)
+            {
+                strElecSize.Value = info.ElecSize;
+                strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
+            }
+            else
+            {
+                strElecSize.Value = string.Empty;
+                strElecCuttingSize.Value = string.Empty;
+            }
+        }
     }
     void RereshUI()
     {
