@@ -19,7 +19,6 @@ partial class SetPropertyUI : SnapEx.BaseUI
             }
             else
             {
-                theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "异形电极，请设置相关参数！");
                 info = new ElecManage.EactElectrodeInfo(b);
             }
 
@@ -178,6 +177,16 @@ partial class SetPropertyUI : SnapEx.BaseUI
         }
     }
 
+    void SetEactElec(Snap.NX.Body body,Snap.NX.Face baseFace = null, Snap.NX.Face topFace = null, Snap.NX.Point basePoint = null)
+    {
+        selectBaseFace.SelectedObjects = new Snap.NX.NXObject[] { };
+        selectTopFace.SelectedObjects = new Snap.NX.NXObject[] { };
+        selectBaseFacePoint.SelectedObjects = new Snap.NX.NXObject[] { };
+        ElecManage.Electrode.SetEactElectrode(body, ref topFace, ref baseFace, ref basePoint);
+        if (baseFace != null) { selectBaseFace.SelectedObjects = new Snap.NX.NXObject[] { baseFace }; }
+        if (topFace != null) { selectTopFace.SelectedObjects = new Snap.NX.NXObject[] { topFace }; }
+        if (basePoint != null) { selectBaseFacePoint.SelectedObjects = new Snap.NX.NXObject[] { basePoint }; }
+    }
     void RereshUI()
     {
         
@@ -209,7 +218,16 @@ partial class SetPropertyUI : SnapEx.BaseUI
             groupSElec.Show = false;
             if (nameC.Count == 1)
             {
-                SetDefaultValue(GetElecInfo(nameC.First(),(b)=> { groupSElec.Show = b; }));
+                var body = nameC.First();
+                SetDefaultValue(GetElecInfo(body, (b) =>
+                {
+                    groupSElec.Show = b;
+                    if (b)
+                    {
+                        theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "异形电极，请设置相关参数！");
+                        SetEactElec(body);
+                    }
+                }));
             }
 
             if (_isAllowMultiple)
@@ -267,7 +285,21 @@ partial class SetPropertyUI : SnapEx.BaseUI
                     strElecCuttingSize.Value = string.Empty;
                 }
             }
-           
+
+        }
+        else if (block == selectBaseFace.NXOpenBlock 
+            || block == selectBaseFacePoint.NXOpenBlock
+            ||block==selectTopFace.NXOpenBlock
+            )
+        {
+            var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
+            if (cuprums.Count == 1)
+            {
+                var basePoint = Enumerable.Select(selectBaseFacePoint.SelectedObjects, u => Snap.NX.Point.Wrap(u.NXOpenTag)).FirstOrDefault();
+                var baseFace = Enumerable.Select(selectBaseFace.SelectedObjects, u => Snap.NX.Face.Wrap(u.NXOpenTag)).FirstOrDefault();
+                var topFace = Enumerable.Select(selectTopFace.SelectedObjects, u => Snap.NX.Face.Wrap(u.NXOpenTag)).FirstOrDefault();
+                SetEactElec(cuprums.FirstOrDefault(),baseFace,topFace, basePoint);
+            }
         }
     }
 

@@ -14,11 +14,30 @@ namespace ElecManage
             ElecHeadFaces = new List<Snap.NX.Face>();
         }
 
-        public void SetEactElectrode(Snap.NX.Body body,ref Snap.NX.Face topFace,ref Snap.NX.Face baseFace,ref Snap.NX.Point basePoint)
+        public static void SetEactElectrode(Snap.NX.Body body,ref Snap.NX.Face topFace,ref Snap.NX.Face baseFace,ref Snap.NX.Point basePoint)
         {
             var faces = body.Faces.ToList();
-
             //清空相关属性
+            if (body.IsHasAttr(EactElectrode.EACT_ELECT_GROUP))
+            {
+                body.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, EactElectrode.EACT_ELECT_GROUP);
+            }
+            faces.ToList().ForEach(u => {
+                if (u.IsHasAttr(EactElectrode.EACT_ELECT_GROUP))
+                {
+                    u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, EactElectrode.EACT_ELECT_GROUP);
+                }
+
+                if (u.IsHasAttr(EactElectrode.BASE_BOT))
+                {
+                    u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, EactElectrode.BASE_BOT);
+                }
+
+                if (u.IsHasAttr(EactElectrode.BASE_TOP))
+                {
+                    u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, EactElectrode.BASE_TOP);
+                }
+            });
 
             if (topFace != null && baseFace != null && basePoint != null)//手动
             {
@@ -58,14 +77,43 @@ namespace ElecManage
                         }).FirstOrDefault();
                     }
                 }
+
+                if (topFace == null)
+                {
+                    topFace = baseFace;
+                }
+
                 //基准点
-                var basePoints = Snap.Globals.WorkPart.Points.Where(u => u.Layer == body.Layer).ToList().OrderBy(u => Snap.Compute.Distance(u, body)).ToList();
+                var basePoints = Snap.Globals.WorkPart.Points.Where(u => u.Layer == body.Layer).ToList().OrderBy(u => Snap.Compute.Distance(u.Position, body)).ToList();
                 basePoint = basePoints.FirstOrDefault();
                 var tempBasePoint = basePoints.FirstOrDefault(u => u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, body.Name) && u.MatchAttrValue(XKElectrode.DIM_PT, XKElectrode.DIM_PT));
                 if (tempBasePoint != null)
                 {
                     basePoint = tempBasePoint;
                 }
+
+                if (basePoint == null&&baseFace!=null)
+                {
+                    basePoint = Snap.Create.Point(baseFace.GetCenterPoint());
+                    basePoint.Layer = body.Layer;
+                    basePoint.Color = System.Drawing.Color.Green;
+                }
+            }
+
+            //赋属性
+            if (topFace != null)
+            {
+                topFace.SetStringAttribute(EactElectrode.BASE_BOT, "1");
+            }
+            if (baseFace != null)
+            {
+                baseFace.SetStringAttribute(EactElectrode.BASE_TOP, "1");
+            }
+            if (basePoint != null)
+            {
+                var guid = Guid.NewGuid().ToString();
+                body.SetStringAttribute(EactElectrode.EACT_ELECT_GROUP,guid);
+                basePoint.SetStringAttribute(EactElectrode.EACT_ELECT_GROUP, guid);
             }
         }
         /// <summary>

@@ -7,6 +7,11 @@ namespace SnapEx
 {
     public static class Ex
     {
+        public static Snap.Position GetCenterPoint(this Snap.NX.NXObject obj)
+        {
+            var box=obj.Box;
+            return new Snap.Position((box.MinX + box.MaxX)/2, (box.MinY + box.MaxY) / 2, (box.MinZ + box.MaxZ) / 2);
+        }
         public static Snap.Geom.Box3d AcsToWcsBox3d(this Snap.NX.NXObject obj, Snap.Orientation wcs)
         {
             var corners = new List<Snap.Position>();

@@ -55,7 +55,7 @@ namespace ElecManage
                 model.ElecBasePoint = elecBasePoint;
                 model.ElecBody = body;
                 model.ChamferFace = chamferFace;
-                model.ElecHeadFaces = Electrode.GetElecHeadFaces(faces.ToList(), baseFace, out baseSideFaces);
+                //model.ElecHeadFaces = Electrode.GetElecHeadFaces(faces.ToList(), baseFace, out baseSideFaces);
                 result = model;
             }
             return result;
