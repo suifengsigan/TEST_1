@@ -17,12 +17,15 @@ namespace EactConfig
             double num2 = ((double)windowsColor.G) / 255.0;
             double num3 = ((double)windowsColor.B) / 255.0;
             double[] numArray = new double[] { num, num2, num3 };
-            var ufSession = NXOpen.UF.UFSession.GetUFSession();
-            var disp = ufSession.Disp;
             int num4 = 0;
             int num5 = 0;
             int num6 = 1;
-            disp.AskClosestColor(num5, numArray, num6, out num4);
+            if (NXOpen.Session.GetSession().Parts.Work != null)
+            {
+                var ufSession = NXOpen.UF.UFSession.GetUFSession();
+                var disp = ufSession.Disp;
+                disp.AskClosestColor(num5, numArray, num6, out num4);
+            }
             return num4;
         }
         void InitDgv(DataGridView view)
