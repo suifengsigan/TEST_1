@@ -36,6 +36,16 @@ namespace EactBom
                 {
                     if (showMsgHandle != null) { showMsgHandle(string.Format("正在导入电极:{0}", u.ElectName)); }
                     var tempPoss = GetPositioningInfos(u,steelInfo);
+                    //检查属性是否缺失
+                    var fTempPoss = tempPoss.FirstOrDefault();
+                    if (fTempPoss != null)
+                    {
+                        var fTempPossInfo = fTempPoss.Electrode.GetElectrodeInfo();
+                        if (fTempPossInfo != null && fTempPossInfo.FINISH_NUMBER == 0 && fTempPossInfo.ROUGH_NUMBER == 0 && fTempPossInfo.MIDDLE_NUMBER == 0)
+                        {
+                            throw new Exception(string.Format("电极【{0}】属性缺失，请检查", fTempPossInfo.Elec_Name));
+                        }
+                    }
                     if (ConfigData.ShareElec && u.ShareElec())//共用电极
                     {
                         //var shareElec = u.ShareElecList.FirstOrDefault();
