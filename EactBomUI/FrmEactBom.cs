@@ -53,6 +53,16 @@ namespace EactBom
             Text = "EACT-益模智能加工系统";
 
             var configData = EactBomBusiness.Instance.ConfigData;
+
+            if (configData.IsCanPropertyUpdate)
+            {
+                txtFINISH_NUMBER.ReadOnly = false;
+                txtMIDDLE_NUMBER.ReadOnly = false;
+                txtROUGH_NUMBER.ReadOnly = false;
+                txtFINISH_SPACE.ReadOnly = false;
+                txtMIDDLE_SPACE.ReadOnly = false;
+                txtROUGH_SPACE.ReadOnly = false;
+            }
             btnSave.Visible = configData.IsCanPropertyUpdate;
             //btnShareElec.Visible = configData.ShareElec;
             groupShareElec.Visible = configData.ShareElec;
@@ -182,6 +192,56 @@ namespace EactBom
                     positions.ForEach(u =>
                     {
                         var info = u.Electrode.GetElectrodeInfo();
+                        int tempIntResult = 0;
+                        if (int.TryParse(txtFINISH_NUMBER.Text.Trim(), out tempIntResult))
+                        {
+                            info.FINISH_NUMBER = tempIntResult;
+                        }
+                        else
+                        {
+                            throw new Exception("精公数量错误，请检查");
+                        }
+                        if (int.TryParse(txtMIDDLE_NUMBER.Text.Trim(), out tempIntResult))
+                        {
+                            info.MIDDLE_NUMBER = tempIntResult;
+                        }
+                        else
+                        {
+                            throw new Exception("中公数量错误，请检查");
+                        }
+                        if (int.TryParse(txtROUGH_NUMBER.Text.Trim(), out tempIntResult))
+                        {
+                            info.ROUGH_NUMBER = tempIntResult;
+                        }
+                        else
+                        {
+                            throw new Exception("粗公数量错误，请检查");
+                        }
+                        double tempRealResult = 0;
+                        if (double.TryParse(txtFINISH_SPACE.Text.Trim(), out tempRealResult))
+                        {
+                            info.FINISH_SPACE = tempRealResult;
+                        }
+                        else
+                        {
+                            throw new Exception("精公火花位错误，请检查");
+                        }
+                        if (double.TryParse(txtMIDDLE_SPACE.Text.Trim(), out tempRealResult))
+                        {
+                            info.MIDDLE_SPACE = tempRealResult;
+                        }
+                        else
+                        {
+                            throw new Exception("中公火花位错误，请检查");
+                        }
+                        if (double.TryParse(txtROUGH_SPACE.Text.Trim(), out tempRealResult))
+                        {
+                            info.ROUGH_SPACE = tempRealResult;
+                        }
+                        else
+                        {
+                            throw new Exception("精公火花位错误，请检查");
+                        }
                         info.EDMPROCDIRECTION = cbbProdirection.Text;
                         info.EDMROCK = cbbRock.Text;
                         info.UNIT = cbbElecType.Text;
