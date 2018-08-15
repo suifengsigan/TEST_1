@@ -45,6 +45,14 @@ namespace EactBom
                         {
                             throw new Exception(string.Format("电极【{0}】属性缺失，请检查", fTempPossInfo.Elec_Name));
                         }
+                        else if (fTempPossInfo != null&&(
+                        (fTempPossInfo.FINISH_NUMBER != 0 && fTempPossInfo.FINISH_SPACE == 0)
+                        || (fTempPossInfo.MIDDLE_NUMBER != 0 && fTempPossInfo.MIDDLE_SPACE == 0)
+                        || (fTempPossInfo.ROUGH_NUMBER != 0 && fTempPossInfo.ROUGH_SPACE == 0)
+                        ))
+                        {
+                            throw new Exception(string.Format("请检查电极【{0}】火花位信息", fTempPossInfo.Elec_Name));
+                        }
                     }
                     if (ConfigData.ShareElec && u.ShareElec())//共用电极
                     {
