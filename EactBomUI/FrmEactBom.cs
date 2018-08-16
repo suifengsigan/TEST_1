@@ -240,7 +240,7 @@ namespace EactBom
                         }
                         else
                         {
-                            throw new Exception("精公火花位错误，请检查");
+                            throw new Exception("粗公火花位错误，请检查");
                         }
                         info.EDMPROCDIRECTION = cbbProdirection.Text;
                         info.EDMROCK = cbbRock.Text;
