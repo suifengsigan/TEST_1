@@ -97,12 +97,19 @@ partial class SetPropertyUI : SnapEx.BaseUI
         double matchJiajuValue = 0;
 
         _configData.Poperties.ForEach(u => {
+            var dic = new Dictionary<Snap.UI.Block.General, string>();
             Snap.UI.Block.General cbb = null;
             var realValue = string.Empty;
             if (u.DisplayName == "电极材质")
             {
                 realValue = info == null ? string.Empty : info.MAT_NAME;
                 cbb = cboxMATNAME;
+                if (_configData.IsMatNameSel)
+                {
+                    dic.Add(cboxMMATNAME, info == null ? string.Empty : info.M_MAT_NAME);
+                    dic.Add(cboxRMATNAME, info == null ? string.Empty : info.R_MAT_NAME);
+                }
+                
             }
             else if (u.DisplayName == "加工方向")
             {
@@ -142,11 +149,17 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
             if (cbb is Snap.UI.Block.Enumeration)
             {
-                var enumration = cbb as Snap.UI.Block.Enumeration;
-                var defaultSelection = string.IsNullOrEmpty(realValue)?(u.Selections.FirstOrDefault(m => m.IsDefault)): u.Selections.FirstOrDefault(m => m.Value==realValue);
+                dic.Add(cbb, realValue);
+            }
+
+            foreach (var item in dic)
+            {
+                var enumration = item.Key as Snap.UI.Block.Enumeration;
+                var rValue = item.Value;
+                var defaultSelection = string.IsNullOrEmpty(rValue) ? (u.Selections.FirstOrDefault(m => m.IsDefault)) : u.Selections.FirstOrDefault(m => m.Value == rValue);
                 if (u.DisplayName == "夹具类型")
                 {
-                    defaultSelection = string.IsNullOrEmpty(realValue) ? (MatchJiaju(info) ?? u.Selections.FirstOrDefault(m => m.IsDefault)) : u.Selections.FirstOrDefault(m => m.Value == realValue);
+                    defaultSelection = string.IsNullOrEmpty(rValue) ? (MatchJiaju(info) ?? u.Selections.FirstOrDefault(m => m.IsDefault)) : u.Selections.FirstOrDefault(m => m.Value == rValue);
                     if (defaultSelection != null)
                     {
                         matchJiajuValue = EactConfig.MatchJiaju.GetDouble(defaultSelection.Ex2);
@@ -220,6 +233,12 @@ partial class SetPropertyUI : SnapEx.BaseUI
     {
         SetDefaultValue(null);
         groupSElec.Show = false;
+        if (_configData.IsMatNameSel)
+        {
+            cboxMATNAME.Label = "精公材质";
+        }
+        cboxMMATNAME.Show = _configData.IsMatNameSel;
+        cboxRMATNAME.Show = _configData.IsMatNameSel;
     }
 
     public override void Update(NXOpen.BlockStyler.UIBlock block)
@@ -353,6 +372,12 @@ partial class SetPropertyUI : SnapEx.BaseUI
                         if (p.DisplayName == "电极材质")
                         {
                             info.MAT_NAME = p.Selections[cboxMATNAME.SelectedIndex].Value;
+                            if (_configData.IsMatNameSel)
+                            {
+                                info.M_MAT_NAME = p.Selections[cboxMMATNAME.SelectedIndex].Value;
+                                info.R_MAT_NAME = p.Selections[cboxRMATNAME.SelectedIndex].Value;
+                            }
+                            
                         }
                         else if (p.DisplayName == "加工方向")
                         {

@@ -107,6 +107,14 @@ namespace EactConfig
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
         /// <summary>
+        /// 是否删除图纸
+        /// </summary>
+        public bool IsDeleteDraft = false;
+        /// <summary>
+        /// 粗中精材质是否可选
+        /// </summary>
+        public bool IsMatNameSel = false;
+        /// <summary>
         /// 异形电极
         /// </summary>
         public bool SpecialshapedElec = false;

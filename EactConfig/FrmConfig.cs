@@ -271,6 +271,8 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsDeleteDraft.Checked = data.IsDeleteDraft;
+            cbIsMatNameSel.Checked = data.IsMatNameSel;
             CBSpecialshapedElec.Checked = data.SpecialshapedElec;
             txtPQBlankStock.Text = data.PQBlankStock.ToString();
             cbIsExportBomXls.Checked = data.IsExportBomXls;
@@ -319,6 +321,8 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsDeleteDraft= cbIsDeleteDraft.Checked;
+                data.IsMatNameSel= cbIsMatNameSel.Checked;
                 data.SpecialshapedElec = CBSpecialshapedElec.Checked;
                 var PQBlankStock = 1.5;
                 double.TryParse(txtPQBlankStock.Text, out PQBlankStock);

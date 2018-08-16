@@ -260,11 +260,13 @@ namespace ElecManage
         {
             get
             {
-                return _body.GetAttrValue(ELEC_MAT_NAME);
+                //return _body.GetAttrValue(ELEC_MAT_NAME);
+                return F_MAT_NAME;
             }
             set
             {
                 SetStringAttribute(ELEC_MAT_NAME, value);
+                SetStringAttribute(ELEC_F_MAT_NAME, value);
             }
         }
         

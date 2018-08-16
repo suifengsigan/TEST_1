@@ -59,6 +59,8 @@ public partial class SetPropertyUI
     private Snap.UI.Block.Integer txtMIDDLENUMBER;// Block type: Integer
     private Snap.UI.Block.Integer txtROUGHNUMBER;// Block type: Integer
     private Snap.UI.Block.Enumeration cboxMATNAME;// Block type: Enumeration
+    private Snap.UI.Block.Enumeration cboxMMATNAME;// Block type: Enumeration
+    private Snap.UI.Block.Enumeration cboxRMATNAME;// Block type: Enumeration
     private Snap.UI.Block.Enumeration cbbProdirection;// Block type: Enumeration
     //private Snap.UI.Block.ScrolledWindow scrolledWindow1;// Block type: Scrolled Window
     private Snap.UI.Block.Double txtFINISHSPACE;// Block type: Double
@@ -270,6 +272,8 @@ public partial class SetPropertyUI
             txtMIDDLENUMBER = Snap.UI.Block.Integer.GetBlock(theDialog, "txtMIDDLENUMBER");
             txtROUGHNUMBER = Snap.UI.Block.Integer.GetBlock(theDialog, "txtROUGHNUMBER");
             cboxMATNAME = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cboxMATNAME");
+            cboxMMATNAME = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cboxMMATNAME");
+            cboxRMATNAME = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cboxRMATNAME");
             cbbProdirection = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbProdirection");
             //scrolledWindow1 = (NXOpen.BlockStyler.ScrolledWindow)theDialog.TopBlock.FindBlock("scrolledWindow1");
             txtFINISHSPACE = Snap.UI.Block.Double.GetBlock(theDialog, "txtFINISHSPACE");

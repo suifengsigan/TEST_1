@@ -88,6 +88,7 @@
             this.cbbQuadrantType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.CBSpecialshapedElec = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.txtPQBlankStock = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -100,7 +101,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.CBSpecialshapedElec = new System.Windows.Forms.CheckBox();
+            this.cbIsMatNameSel = new System.Windows.Forms.CheckBox();
+            this.cbIsDeleteDraft = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -704,6 +706,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.cbIsDeleteDraft);
+            this.tabPage5.Controls.Add(this.cbIsMatNameSel);
             this.tabPage5.Controls.Add(this.CBSpecialshapedElec);
             this.tabPage5.Controls.Add(this.label20);
             this.tabPage5.Controls.Add(this.txtPQBlankStock);
@@ -724,6 +728,16 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Eact配置";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // CBSpecialshapedElec
+            // 
+            this.CBSpecialshapedElec.AutoSize = true;
+            this.CBSpecialshapedElec.Location = new System.Drawing.Point(460, 73);
+            this.CBSpecialshapedElec.Name = "CBSpecialshapedElec";
+            this.CBSpecialshapedElec.Size = new System.Drawing.Size(72, 16);
+            this.CBSpecialshapedElec.TabIndex = 46;
+            this.CBSpecialshapedElec.Text = "异形电极";
+            this.CBSpecialshapedElec.UseVisualStyleBackColor = true;
             // 
             // label20
             // 
@@ -831,15 +845,25 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "粗";
             // 
-            // CBSpecialshapedElec
+            // cbIsMatNameSel
             // 
-            this.CBSpecialshapedElec.AutoSize = true;
-            this.CBSpecialshapedElec.Location = new System.Drawing.Point(460, 73);
-            this.CBSpecialshapedElec.Name = "CBSpecialshapedElec";
-            this.CBSpecialshapedElec.Size = new System.Drawing.Size(72, 16);
-            this.CBSpecialshapedElec.TabIndex = 46;
-            this.CBSpecialshapedElec.Text = "异形电极";
-            this.CBSpecialshapedElec.UseVisualStyleBackColor = true;
+            this.cbIsMatNameSel.AutoSize = true;
+            this.cbIsMatNameSel.Location = new System.Drawing.Point(552, 73);
+            this.cbIsMatNameSel.Name = "cbIsMatNameSel";
+            this.cbIsMatNameSel.Size = new System.Drawing.Size(84, 16);
+            this.cbIsMatNameSel.TabIndex = 47;
+            this.cbIsMatNameSel.Text = "材质粗中精";
+            this.cbIsMatNameSel.UseVisualStyleBackColor = true;
+            // 
+            // cbIsDeleteDraft
+            // 
+            this.cbIsDeleteDraft.AutoSize = true;
+            this.cbIsDeleteDraft.Location = new System.Drawing.Point(309, 104);
+            this.cbIsDeleteDraft.Name = "cbIsDeleteDraft";
+            this.cbIsDeleteDraft.Size = new System.Drawing.Size(72, 16);
+            this.cbIsDeleteDraft.TabIndex = 48;
+            this.cbIsDeleteDraft.Text = "删除图纸";
+            this.cbIsDeleteDraft.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -949,5 +973,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtPQBlankStock;
         private System.Windows.Forms.CheckBox CBSpecialshapedElec;
+        private System.Windows.Forms.CheckBox cbIsMatNameSel;
+        private System.Windows.Forms.CheckBox cbIsDeleteDraft;
     }
 }

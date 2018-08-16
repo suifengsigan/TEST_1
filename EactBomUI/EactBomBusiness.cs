@@ -733,6 +733,23 @@ namespace EactBom
         public List<ViewElecInfo> GetElecList(MouldInfo mouldInfo,Action<string> action=null) 
         {
             var workPart = Snap.Globals.WorkPart;
+            //删除图纸
+            try
+            {
+                if (ConfigData.IsDeleteDraft)
+                {
+                    workPart.NXOpenPart.DrawingSheets.ToArray().ToList().ForEach(u =>
+                    {
+                        Snap.NX.NXObject.Delete(u);
+                    });
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             //去参数
             try
             {
