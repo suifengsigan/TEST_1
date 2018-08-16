@@ -578,17 +578,21 @@ namespace EactBom
                 for (int i = 0; i < 3; i++)
                 {
                     int tempVar = 0;
+                    var matName = info.MAT_NAME;
                     if (i == 0) //精公
                     {
                         tempVar = info.FINISH_NUMBER;
+                        matName = info.F_MAT_NAME;
                     }
                     else if (i == 1)
                     {
                         tempVar = info.MIDDLE_NUMBER;
+                        matName = info.M_MAT_NAME;
                     }
                     else
                     {
                         tempVar = info.ROUGH_NUMBER;
+                        matName = info.R_MAT_NAME;
                     }
                     for (int j = 0; j < tempVar; j++)
                     {
@@ -625,7 +629,7 @@ namespace EactBom
                         cuprum.Y = Y;
                         cuprum.Z = Z;
                         cuprum.C = C;//旋转
-                        cuprum.STRUFF = info.MAT_NAME;
+                        cuprum.STRUFF = matName;
                         cuprum.CUPRUMSN = string.Format("{0}{1}", cuprum.CUPRUMNAME, 1 + j);
                         cuprum.PARTFILENAME = string.Format("{0}", partName); ;
                         cuprum.STRUFFTYPE = "否";

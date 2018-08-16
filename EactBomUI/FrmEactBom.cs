@@ -68,9 +68,12 @@ namespace EactBom
             groupShareElec.Visible = configData.ShareElec;
             configData.Poperties.ForEach(u => {
                 ComboBox cbb = null;
+                var listCbb = new List<ComboBox>();
                 if (u.DisplayName == "电极材质") 
                 {
                     cbb = cboxMAT_NAME;
+                    listCbb.Add(cboxM_MAT_NAME);
+                    listCbb.Add(cboxR_MAT_NAME);
                 }
                 else if (u.DisplayName == "加工方向")
                 {
@@ -101,12 +104,17 @@ namespace EactBom
                     cbb = cbbChuckType;
                 }
 
-                if (cbb != null) 
+                if (cbb != null)
                 {
-                    cbb.Items.Add(new ComboBoxItem { Text = string.Empty, Value = string.Empty });
+                    listCbb.Add(cbb);
+                }
+
+                foreach (var item in listCbb)
+                {
+                    item.Items.Add(new ComboBoxItem { Text = string.Empty, Value = string.Empty });
                     u.Selections.ForEach(m =>
                     {
-                        cbb.Items.Add(new ComboBoxItem { Text = m.Value, Value = m.Value });
+                        item.Items.Add(new ComboBoxItem { Text = m.Value, Value = m.Value });
                     });
                 }
             });
@@ -249,6 +257,8 @@ namespace EactBom
                         info.M_SMOOTH = cbbMSmoth.Text;
                         info.R_SMOOTH = cbbRSmoth.Text;
                         info.MAT_NAME = cboxMAT_NAME.Text;
+                        info.M_MAT_NAME = cboxM_MAT_NAME.Text;
+                        info.R_MAT_NAME = cboxR_MAT_NAME.Text;
                         info.ELEC_CLAMP_GENERAL_TYPE = cbbChuckType.Text;
                     });
                     MessageBox.Show("保存属性成功");   
@@ -302,6 +312,8 @@ namespace EactBom
                         txtMIDDLE_SPACE.Text = info.MIDDLE_SPACE.ToString();
                         txtROUGH_SPACE.Text = info.ROUGH_SPACE.ToString();
                         cboxMAT_NAME.Text = info.MAT_NAME;
+                        cboxM_MAT_NAME.Text = info.M_MAT_NAME;
+                        cboxR_MAT_NAME.Text = info.R_MAT_NAME;
                         cbbElecType.Text = info.UNIT;
                         cbbFSmoth.Text = info.F_SMOOTH;
                         cbbMSmoth.Text = info.M_SMOOTH;

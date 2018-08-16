@@ -76,6 +76,10 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cboxR_MAT_NAME = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cboxM_MAT_NAME = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCuprums)).BeginInit();
@@ -99,7 +103,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(239, 507);
+            this.panel1.Size = new System.Drawing.Size(239, 550);
             this.panel1.TabIndex = 0;
             // 
             // groupBox2
@@ -109,7 +113,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 100);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(239, 407);
+            this.groupBox2.Size = new System.Drawing.Size(239, 450);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "电极列表";
@@ -121,7 +125,7 @@
             this.dgvCuprums.Location = new System.Drawing.Point(3, 46);
             this.dgvCuprums.Name = "dgvCuprums";
             this.dgvCuprums.RowTemplate.Height = 23;
-            this.dgvCuprums.Size = new System.Drawing.Size(233, 358);
+            this.dgvCuprums.Size = new System.Drawing.Size(233, 401);
             this.dgvCuprums.TabIndex = 0;
             // 
             // panel6
@@ -183,16 +187,16 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(239, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(649, 507);
+            this.panel2.Size = new System.Drawing.Size(649, 550);
             this.panel2.TabIndex = 1;
             // 
             // panel5
             // 
             this.panel5.Controls.Add(this.dgvPositions);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 329);
+            this.panel5.Location = new System.Drawing.Point(0, 384);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(649, 139);
+            this.panel5.Size = new System.Drawing.Size(649, 127);
             this.panel5.TabIndex = 5;
             // 
             // dgvPositions
@@ -202,7 +206,7 @@
             this.dgvPositions.Location = new System.Drawing.Point(0, 0);
             this.dgvPositions.Name = "dgvPositions";
             this.dgvPositions.RowTemplate.Height = 23;
-            this.dgvPositions.Size = new System.Drawing.Size(649, 139);
+            this.dgvPositions.Size = new System.Drawing.Size(649, 127);
             this.dgvPositions.TabIndex = 0;
             // 
             // panel4
@@ -212,11 +216,15 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(649, 329);
+            this.panel4.Size = new System.Drawing.Size(649, 384);
             this.panel4.TabIndex = 4;
             // 
             // groupBoxElecInfo
             // 
+            this.groupBoxElecInfo.Controls.Add(this.label16);
+            this.groupBoxElecInfo.Controls.Add(this.cboxM_MAT_NAME);
+            this.groupBoxElecInfo.Controls.Add(this.label9);
+            this.groupBoxElecInfo.Controls.Add(this.cboxR_MAT_NAME);
             this.groupBoxElecInfo.Controls.Add(this.label15);
             this.groupBoxElecInfo.Controls.Add(this.cbbChuckType);
             this.groupBoxElecInfo.Controls.Add(this.cbbRock);
@@ -250,7 +258,7 @@
             this.groupBoxElecInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxElecInfo.Location = new System.Drawing.Point(0, 106);
             this.groupBoxElecInfo.Name = "groupBoxElecInfo";
-            this.groupBoxElecInfo.Size = new System.Drawing.Size(649, 223);
+            this.groupBoxElecInfo.Size = new System.Drawing.Size(649, 278);
             this.groupBoxElecInfo.TabIndex = 41;
             this.groupBoxElecInfo.TabStop = false;
             this.groupBoxElecInfo.Text = "电极信息";
@@ -258,7 +266,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(449, 193);
+            this.label15.Location = new System.Drawing.Point(449, 195);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(53, 12);
             this.label15.TabIndex = 69;
@@ -268,7 +276,7 @@
             // 
             this.cbbChuckType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbChuckType.FormattingEnabled = true;
-            this.cbbChuckType.Location = new System.Drawing.Point(520, 190);
+            this.cbbChuckType.Location = new System.Drawing.Point(520, 192);
             this.cbbChuckType.Name = "cbbChuckType";
             this.cbbChuckType.Size = new System.Drawing.Size(100, 20);
             this.cbbChuckType.TabIndex = 68;
@@ -277,7 +285,7 @@
             // 
             this.cbbRock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbRock.FormattingEnabled = true;
-            this.cbbRock.Location = new System.Drawing.Point(300, 190);
+            this.cbbRock.Location = new System.Drawing.Point(300, 231);
             this.cbbRock.Name = "cbbRock";
             this.cbbRock.Size = new System.Drawing.Size(100, 20);
             this.cbbRock.TabIndex = 67;
@@ -285,7 +293,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(229, 193);
+            this.label14.Location = new System.Drawing.Point(229, 234);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(53, 12);
             this.label14.TabIndex = 66;
@@ -295,7 +303,7 @@
             // 
             this.cbbProdirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbProdirection.FormattingEnabled = true;
-            this.cbbProdirection.Location = new System.Drawing.Point(90, 190);
+            this.cbbProdirection.Location = new System.Drawing.Point(90, 231);
             this.cbbProdirection.Name = "cbbProdirection";
             this.cbbProdirection.Size = new System.Drawing.Size(100, 20);
             this.cbbProdirection.TabIndex = 65;
@@ -303,7 +311,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(31, 193);
+            this.label13.Location = new System.Drawing.Point(31, 234);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(53, 12);
             this.label13.TabIndex = 64;
@@ -312,7 +320,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(229, 150);
+            this.label12.Location = new System.Drawing.Point(229, 192);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 63;
@@ -322,7 +330,7 @@
             // 
             this.cbbElecType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbElecType.FormattingEnabled = true;
-            this.cbbElecType.Location = new System.Drawing.Point(300, 147);
+            this.cbbElecType.Location = new System.Drawing.Point(300, 189);
             this.cbbElecType.Name = "cbbElecType";
             this.cbbElecType.Size = new System.Drawing.Size(100, 20);
             this.cbbElecType.TabIndex = 62;
@@ -330,7 +338,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(31, 150);
+            this.label11.Location = new System.Drawing.Point(31, 192);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 12);
             this.label11.TabIndex = 61;
@@ -338,7 +346,7 @@
             // 
             // txtElecSize
             // 
-            this.txtElecSize.Location = new System.Drawing.Point(90, 146);
+            this.txtElecSize.Location = new System.Drawing.Point(90, 188);
             this.txtElecSize.Name = "txtElecSize";
             this.txtElecSize.ReadOnly = true;
             this.txtElecSize.Size = new System.Drawing.Size(100, 21);
@@ -401,11 +409,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(449, 150);
+            this.label7.Location = new System.Drawing.Point(31, 150);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 53;
-            this.label7.Text = "电极材质";
+            this.label7.Text = "精公材质";
             // 
             // label5
             // 
@@ -513,7 +521,7 @@
             // 
             this.cboxMAT_NAME.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxMAT_NAME.FormattingEnabled = true;
-            this.cboxMAT_NAME.Location = new System.Drawing.Point(520, 147);
+            this.cboxMAT_NAME.Location = new System.Drawing.Point(90, 147);
             this.cboxMAT_NAME.Name = "cboxMAT_NAME";
             this.cboxMAT_NAME.Size = new System.Drawing.Size(100, 20);
             this.cboxMAT_NAME.TabIndex = 40;
@@ -544,7 +552,7 @@
             this.panel3.Controls.Add(this.btnSave);
             this.panel3.Controls.Add(this.btnExport);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 468);
+            this.panel3.Location = new System.Drawing.Point(0, 511);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(649, 39);
             this.panel3.TabIndex = 3;
@@ -569,11 +577,47 @@
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(449, 153);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 71;
+            this.label9.Text = "粗公材质";
+            // 
+            // cboxR_MAT_NAME
+            // 
+            this.cboxR_MAT_NAME.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxR_MAT_NAME.FormattingEnabled = true;
+            this.cboxR_MAT_NAME.Location = new System.Drawing.Point(520, 150);
+            this.cboxR_MAT_NAME.Name = "cboxR_MAT_NAME";
+            this.cboxR_MAT_NAME.Size = new System.Drawing.Size(100, 20);
+            this.cboxR_MAT_NAME.TabIndex = 70;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(229, 150);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 12);
+            this.label16.TabIndex = 73;
+            this.label16.Text = "中公材质";
+            // 
+            // cboxM_MAT_NAME
+            // 
+            this.cboxM_MAT_NAME.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxM_MAT_NAME.FormattingEnabled = true;
+            this.cboxM_MAT_NAME.Location = new System.Drawing.Point(300, 147);
+            this.cboxM_MAT_NAME.Name = "cboxM_MAT_NAME";
+            this.cboxM_MAT_NAME.Size = new System.Drawing.Size(100, 20);
+            this.cboxM_MAT_NAME.TabIndex = 72;
+            // 
             // FrmEactBom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 507);
+            this.ClientSize = new System.Drawing.Size(888, 550);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "FrmEactBom";
@@ -649,5 +693,9 @@
         private System.Windows.Forms.ComboBox cboxMAT_NAME;
         private System.Windows.Forms.GroupBox groupShareElec;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox cboxM_MAT_NAME;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cboxR_MAT_NAME;
     }
 }
