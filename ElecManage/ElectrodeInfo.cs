@@ -267,6 +267,70 @@ namespace ElecManage
                 SetStringAttribute(ELEC_MAT_NAME, value);
             }
         }
+        
+
+
+        /// <summary>
+        /// 精公材质
+        /// </summary>
+        public virtual string F_MAT_NAME
+        {
+            get
+            {
+                var result = _body.GetAttrValue(ELEC_F_MAT_NAME);
+                if (!string.IsNullOrEmpty(result))
+                {
+                    return result;
+                }
+                return _body.GetAttrValue(ELEC_MAT_NAME);
+            }
+            set
+            {
+                SetStringAttribute(ELEC_F_MAT_NAME, value);
+            }
+        }
+
+
+        /// <summary>
+        /// 中公材质
+        /// </summary>
+        public virtual string M_MAT_NAME
+        {
+            get
+            {
+                var result = _body.GetAttrValue(ELEC_M_MAT_NAME);
+                if (!string.IsNullOrEmpty(result))
+                {
+                    return result;
+                }
+                return _body.GetAttrValue(ELEC_MAT_NAME);
+            }
+            set
+            {
+                SetStringAttribute(ELEC_M_MAT_NAME, value);
+            }
+        }
+
+
+        /// <summary>
+        /// 粗公材质
+        /// </summary>
+        public virtual string R_MAT_NAME
+        {
+            get
+            {
+                var result = _body.GetAttrValue(ELEC_R_MAT_NAME);
+                if (!string.IsNullOrEmpty(result))
+                {
+                    return result;
+                }
+                return _body.GetAttrValue(ELEC_MAT_NAME);
+            }
+            set
+            {
+                SetStringAttribute(ELEC_R_MAT_NAME, value);
+            }
+        }
 
         /// <summary>
         /// 精公光洁度
