@@ -26,6 +26,10 @@ namespace ElecManage
 
         public override Snap.Position GetElecBasePos()
         {
+            if (ElecBasePoint == null)
+            {
+                base.GetElecBasePos();
+            }
             return ElecBasePoint.Position;
         }
         public static Electrode GetElectrode(Snap.NX.Body body)
@@ -41,7 +45,7 @@ namespace ElecManage
             //基准点
             var elecBasePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => !string.IsNullOrEmpty(attrValue) &&u.MatchAttrValue(EACT_ELECT_GROUP, attrValue));
 
-            if (!string.IsNullOrEmpty(elecName) && topFace != null && baseFace != null && elecBasePoint != null)
+            if (!string.IsNullOrEmpty(elecName) && topFace != null && baseFace != null)
             {
                 var model = new EactElectrode();
                 model.BaseFace = baseFace;
