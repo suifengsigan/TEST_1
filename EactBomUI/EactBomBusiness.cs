@@ -467,7 +467,7 @@ namespace EactBom
                             if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件...")); }
                             //Ftp上传
 
-                            FtpUpload("CMM_PROG", steelInfo, stpFileName, partName);
+                            FtpUpload("CMM", steelInfo, stpFileName, partName);
                         }
                     }
 
@@ -506,18 +506,18 @@ namespace EactBom
                 EACTFTP.MakeDirPath(sToPath);
             }
 
-            switch (ConfigData.FtpPathType)
-            {
-                case 0:
-                    {
-                        EACTFTP.DeleteFtpDirWithAll(sToPath, false);
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
+            //switch (ConfigData.FtpPathType)
+            //{
+            //    case 0:
+            //        {
+            //            EACTFTP.DeleteFtpDirWithAll(sToPath, false);
+            //            break;
+            //        }
+            //    default:
+            //        {
+            //            break;
+            //        }
+            //}
 
             EACTFTP.NextDirectory(sToPath);
             EACTFTP.UpLoadFile(fileName);
