@@ -277,6 +277,9 @@ namespace ElecManage
                 model.BaseFace = baseFace;
                 model.ElecBody = body;
                 result = model;
+
+                model.AllObject.Add(body);
+                model.AllObject.Add(diagonalLine);
             }
             return result;
         }

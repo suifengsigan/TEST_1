@@ -121,10 +121,14 @@ namespace EactBom
 
         private void ExportAutoPrt(ElecManage.MouldInfo steelInfo, List<PositioningInfo> allPositions)
         {
-            var bodies = new List<Snap.NX.Body>();
+            var bodies = new List<Snap.NX.NXObject>();
             bodies.Add(steelInfo.MouldBody);
-            bodies.AddRange(steelInfo.SInsertBodies);
-            bodies.AddRange(Enumerable.Select(allPositions, u => u.Electrode.ElecBody));
+            steelInfo.SInsertBodies.ForEach(u => {
+                bodies.Add(u);
+            });
+            allPositions.ForEach(u => {
+                bodies.AddRange(u.Electrode.AllObject);
+            });
             var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"AutoPrtTool"));
             if (System.IO.Directory.Exists(path))
             {

@@ -144,6 +144,11 @@ namespace ElecManage
         /// 象限面
         /// </summary>
         public Snap.NX.Face ChamferFace { get; set; }
+        /// <summary>
+        /// 电极中所有的对象
+        /// </summary>
+
+        public List<Snap.NX.NXObject> AllObject = new List<Snap.NX.NXObject>();
 
         public virtual Snap.NX.Face GetTopFace() 
         {

@@ -53,6 +53,11 @@ namespace ElecManage
                 model.ElecBasePoint = elecBasePoint;
                 model.ElecBody = body;
                 result = model;
+                model.AllObject.Add(body);
+                if (elecBasePoint != null)
+                {
+                    model.AllObject.Add(elecBasePoint);
+                }
             }
             return result;
         }

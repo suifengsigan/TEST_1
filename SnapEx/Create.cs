@@ -175,9 +175,9 @@ namespace SnapEx
         }
         public static void ExportPrt(Snap.NX.Body body, string path, Func<Snap.Geom.Transform> func = null, params Snap.Geom.Transform[] transfroms)
         {
-            ExportPrt(new List<Snap.NX.Body> { body }, path, func,true, transfroms);
+            ExportPrt(new List<Snap.NX.NXObject> { body }, path, func,true, transfroms);
         }
-        public static void ExportPrt(List<Snap.NX.Body> bodies, string path, Func<Snap.Geom.Transform> func = null, bool isSetWcsOrientation = true, params Snap.Geom.Transform[] transfroms)
+        public static void ExportPrt(List<Snap.NX.NXObject> bodies, string path, Func<Snap.Geom.Transform> func = null, bool isSetWcsOrientation = true, params Snap.Geom.Transform[] transfroms)
         {
             var fileName = string.Format("{0}{1}", path, ".prt");
             if (System.IO.File.Exists(fileName))
