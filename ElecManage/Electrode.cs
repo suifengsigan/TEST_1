@@ -163,9 +163,9 @@ namespace ElecManage
         /// <summary>
         /// 获取象限类型
         /// </summary>
-        public QuadrantType GetQuadrantType() 
+        public QuadrantType GetQuadrantType(QuadrantType defaultQ=QuadrantType.First) 
         {
-            var result = QuadrantType.First;
+            var result = defaultQ;
             var chamferFace = GetChamferFace();
             if (chamferFace != null) 
             {

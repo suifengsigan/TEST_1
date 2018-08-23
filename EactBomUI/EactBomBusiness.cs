@@ -740,7 +740,6 @@ namespace EactBom
                 var info = Electrode.GetElectrode(u);
                 if (info != null)
                 {
-
                     var positioning = new PositioningInfo();
                     positioning.Electrode = info;
                     var pos = info.GetElecBasePos();
@@ -748,7 +747,7 @@ namespace EactBom
                     positioning.X = Math.Round(pos.X,4);
                     positioning.Y = Math.Round(pos.Y, 4);
                     positioning.Z = Math.Round(pos.Z, 4);
-                    positioning.QuadrantType = info.GetQuadrantType();
+                    positioning.QuadrantType = info.GetQuadrantType(ConfigData.QuadrantType);
                     result.Add(positioning);
                 }
             });
