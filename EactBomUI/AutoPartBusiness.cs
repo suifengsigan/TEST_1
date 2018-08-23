@@ -27,16 +27,17 @@ namespace EactBomUI
             Snap.Globals.WorkPart = snapPart;
             try
             {
-                var bodies=Snap.Globals.WorkPart.Bodies.ToList();
+                EactBomBusiness.Instance.ConfigData.IsCanSelElecInBom = true;
+                var bodies = Snap.Globals.WorkPart.Bodies.ToList();
                 var steel = bodies.FirstOrDefault(u => u.IsHasAttr(EactBom.EactBomBusiness.EACT_MOULDBODY));
                 ElecManage.MouldInfo MouldInfo = EactBom.EactBomBusiness.Instance.GetMouldInfo(steel);
                 var sInsertBodies = bodies.Where(u => u.IsHasAttr(EactBom.EactBomBusiness.EACT_SINSERTBODY)).ToList();
                 MouldInfo.SInsertBodies = sInsertBodies;
+                MouldInfo.ElecBodies = bodies.Where(u => !(u.IsHasAttr(EactBom.EactBomBusiness.EACT_MOULDBODY) || u.IsHasAttr(EactBom.EactBomBusiness.EACT_SINSERTBODY))).ToList();
                 MouldInfo.Orientation = Snap.Globals.WcsOrientation;
                 ElecManage.Entry.Instance.IsDistinguishSideElec = true;
                 ElecManage.Entry.Instance.DefaultQuadrantType = (QuadrantType)steel.GetAttrIntegerValue(EactBom.EactBomBusiness.EACT_DEFAULTQUADRANTTYPE);
                 var list = EactBomBusiness.Instance.GetElecList(MouldInfo, showMsg);
-
                 EactBomBusiness.Instance.ExportEact(list, MouldInfo, showMsg, EactBomBusiness.Instance.ConfigData.ExportPrt, EactBomBusiness.Instance.ConfigData.ExportStp
                     , EactBomBusiness.Instance.ConfigData.ExportCNCPrt,
                     false, true
@@ -44,10 +45,13 @@ namespace EactBomUI
             }
             catch (Exception ex)
             {
-                showMsg(string.Format("{0}取点错误【{1}】", name, ex.Message));
-                Console.WriteLine("AutoSelPoint错误:{0}", ex.Message);
+                Console.WriteLine("AutoPartBusiness错误:{0}", ex.Message);
+                throw ex;
             }
-            snapPart.Close(true, true);
+            finally
+            {
+                snapPart.Close(true, true);
+            }
         }
     }
 }
