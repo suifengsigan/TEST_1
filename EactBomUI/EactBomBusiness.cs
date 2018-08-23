@@ -13,6 +13,8 @@ namespace EactBom
         public EactConfig.ConfigData ConfigData = EactConfig.ConfigData.GetInstance();
         const string EACT_MOULDBODY = "EACT_MOULDBODY";
         const string EACT_SINSERTBODY = "EACT_SINSERTBODY";
+        public const string Eact_AutoPrtTool = "Eact_AutoPrtTool";
+        public const string Eact_AutoCMM = "Eact_AutoCMM";
         //DefaultQuadrantType
         public const string EACT_DEFAULTQUADRANTTYPE = "EACT_DEFAULTQUADRANTTYPE";
         private EactBomBusiness()
@@ -138,7 +140,7 @@ namespace EactBom
             allPositions.ForEach(u => {
                 bodies.AddRange(u.Electrode.AllObject);
             });
-            var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"AutoPrtTool"));
+            var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Eact_AutoPrtTool);
             if (System.IO.Directory.Exists(path))
             {
                 System.IO.Directory.Delete(path, true);
@@ -157,7 +159,7 @@ namespace EactBom
             if (System.IO.File.Exists(fileName))
             {
                 //Ftp上传
-                FtpUpload("AutoPrtTool",fileName);
+                FtpUpload(Eact_AutoPrtTool, fileName);
             }
         }
 
@@ -447,6 +449,11 @@ namespace EactBom
                     {
                         //Ftp上传
                         FtpUpload("CMM", steelInfo, fileName, partName);
+                        if (ConfigData.IsAutoCMM)
+                        {
+                            //Ftp AutoCMM上传
+                            FtpUpload(Eact_AutoCMM, fileName);
+                        }
                     }
 
                     if (isExportStd)

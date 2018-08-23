@@ -107,6 +107,10 @@ namespace EactConfig
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
         /// <summary>
+        /// AutoCMM图档
+        /// </summary>
+        public bool IsAutoCMM = false;
+        /// <summary>
         /// 是否删除图纸
         /// </summary>
         public bool IsDeleteDraft = false;

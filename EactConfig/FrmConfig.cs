@@ -271,6 +271,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsAutoCMM.Checked = data.IsAutoCMM;
             cbIsAutoPrtTool.Checked = data.IsAutoPrtTool;
             cbIsDeleteDraft.Checked = data.IsDeleteDraft;
             cbIsMatNameSel.Checked = data.IsMatNameSel;
@@ -322,6 +323,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsAutoCMM = cbIsAutoCMM.Checked;
                 data.IsAutoPrtTool=cbIsAutoPrtTool.Checked;
                 data.IsDeleteDraft= cbIsDeleteDraft.Checked;
                 data.IsMatNameSel= cbIsMatNameSel.Checked;

@@ -79,7 +79,16 @@
             this.label11 = new System.Windows.Forms.Label();
             this.cbbQuadrantType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.cbIsAutoPrtTool = new System.Windows.Forms.CheckBox();
+            this.cbExportStp = new System.Windows.Forms.CheckBox();
+            this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbbCNCTransRule = new System.Windows.Forms.ComboBox();
+            this.cbbExportCNC = new System.Windows.Forms.CheckBox();
+            this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
+            this.btnSetPrtColor = new System.Windows.Forms.Button();
+            this.cbExportCMM = new System.Windows.Forms.CheckBox();
             this.cbIsDeleteDraft = new System.Windows.Forms.CheckBox();
             this.cbIsMatNameSel = new System.Windows.Forms.CheckBox();
             this.CBSpecialshapedElec = new System.Windows.Forms.CheckBox();
@@ -95,16 +104,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cbbCNCTransRule = new System.Windows.Forms.ComboBox();
-            this.cbbExportCNC = new System.Windows.Forms.CheckBox();
-            this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
-            this.btnSetPrtColor = new System.Windows.Forms.Button();
-            this.cbExportCMM = new System.Windows.Forms.CheckBox();
-            this.cbExportStp = new System.Windows.Forms.CheckBox();
-            this.cbIsAutoPrtTool = new System.Windows.Forms.CheckBox();
+            this.cbIsAutoCMM = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -119,7 +119,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPoperty)).BeginInit();
             this.panel4.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,7 +147,6 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -522,6 +520,21 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.cbIsDeleteDraft);
+            this.tabPage4.Controls.Add(this.cbIsMatNameSel);
+            this.tabPage4.Controls.Add(this.CBSpecialshapedElec);
+            this.tabPage4.Controls.Add(this.label20);
+            this.tabPage4.Controls.Add(this.txtPQBlankStock);
+            this.tabPage4.Controls.Add(this.label19);
+            this.tabPage4.Controls.Add(this.cbIsCanSelElecInBom);
+            this.tabPage4.Controls.Add(this.label17);
+            this.tabPage4.Controls.Add(this.cbIsSetPropertyAllowMultiple);
+            this.tabPage4.Controls.Add(this.txtEleFType);
+            this.tabPage4.Controls.Add(this.label15);
+            this.tabPage4.Controls.Add(this.txtEleMType);
+            this.tabPage4.Controls.Add(this.label14);
+            this.tabPage4.Controls.Add(this.txtEleRType);
+            this.tabPage4.Controls.Add(this.label16);
             this.tabPage4.Controls.Add(this.cbIsExportBomXls);
             this.tabPage4.Controls.Add(this.cbbElecNameRule);
             this.tabPage4.Controls.Add(this.label12);
@@ -623,169 +636,9 @@
             this.label10.TabIndex = 0;
             this.label10.Text = "默认象限角";
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.cbIsDeleteDraft);
-            this.tabPage5.Controls.Add(this.cbIsMatNameSel);
-            this.tabPage5.Controls.Add(this.CBSpecialshapedElec);
-            this.tabPage5.Controls.Add(this.label20);
-            this.tabPage5.Controls.Add(this.txtPQBlankStock);
-            this.tabPage5.Controls.Add(this.label19);
-            this.tabPage5.Controls.Add(this.cbIsCanSelElecInBom);
-            this.tabPage5.Controls.Add(this.label17);
-            this.tabPage5.Controls.Add(this.cbIsSetPropertyAllowMultiple);
-            this.tabPage5.Controls.Add(this.txtEleFType);
-            this.tabPage5.Controls.Add(this.label15);
-            this.tabPage5.Controls.Add(this.txtEleMType);
-            this.tabPage5.Controls.Add(this.label14);
-            this.tabPage5.Controls.Add(this.txtEleRType);
-            this.tabPage5.Controls.Add(this.label16);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(711, 355);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Eact配置";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // cbIsDeleteDraft
-            // 
-            this.cbIsDeleteDraft.AutoSize = true;
-            this.cbIsDeleteDraft.Location = new System.Drawing.Point(309, 104);
-            this.cbIsDeleteDraft.Name = "cbIsDeleteDraft";
-            this.cbIsDeleteDraft.Size = new System.Drawing.Size(72, 16);
-            this.cbIsDeleteDraft.TabIndex = 48;
-            this.cbIsDeleteDraft.Text = "删除图纸";
-            this.cbIsDeleteDraft.UseVisualStyleBackColor = true;
-            // 
-            // cbIsMatNameSel
-            // 
-            this.cbIsMatNameSel.AutoSize = true;
-            this.cbIsMatNameSel.Location = new System.Drawing.Point(552, 73);
-            this.cbIsMatNameSel.Name = "cbIsMatNameSel";
-            this.cbIsMatNameSel.Size = new System.Drawing.Size(84, 16);
-            this.cbIsMatNameSel.TabIndex = 47;
-            this.cbIsMatNameSel.Text = "材质粗中精";
-            this.cbIsMatNameSel.UseVisualStyleBackColor = true;
-            // 
-            // CBSpecialshapedElec
-            // 
-            this.CBSpecialshapedElec.AutoSize = true;
-            this.CBSpecialshapedElec.Location = new System.Drawing.Point(460, 73);
-            this.CBSpecialshapedElec.Name = "CBSpecialshapedElec";
-            this.CBSpecialshapedElec.Size = new System.Drawing.Size(72, 16);
-            this.CBSpecialshapedElec.TabIndex = 46;
-            this.CBSpecialshapedElec.Text = "异形电极";
-            this.CBSpecialshapedElec.UseVisualStyleBackColor = true;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(307, 74);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(53, 12);
-            this.label20.TabIndex = 45;
-            this.label20.Text = "毛坯余量";
-            // 
-            // txtPQBlankStock
-            // 
-            this.txtPQBlankStock.Location = new System.Drawing.Point(380, 71);
-            this.txtPQBlankStock.Name = "txtPQBlankStock";
-            this.txtPQBlankStock.Size = new System.Drawing.Size(47, 21);
-            this.txtPQBlankStock.TabIndex = 44;
-            this.txtPQBlankStock.Text = "1.5";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(106, 104);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(59, 12);
-            this.label19.TabIndex = 43;
-            this.label19.Text = "BOM工具：";
-            // 
-            // cbIsCanSelElecInBom
-            // 
-            this.cbIsCanSelElecInBom.AutoSize = true;
-            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(222, 104);
-            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
-            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(72, 16);
-            this.cbIsCanSelElecInBom.TabIndex = 42;
-            this.cbIsCanSelElecInBom.Text = "可选电极";
-            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(106, 73);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(77, 12);
-            this.label17.TabIndex = 41;
-            this.label17.Text = "赋属性工具：";
-            // 
-            // cbIsSetPropertyAllowMultiple
-            // 
-            this.cbIsSetPropertyAllowMultiple.AutoSize = true;
-            this.cbIsSetPropertyAllowMultiple.Location = new System.Drawing.Point(222, 73);
-            this.cbIsSetPropertyAllowMultiple.Name = "cbIsSetPropertyAllowMultiple";
-            this.cbIsSetPropertyAllowMultiple.Size = new System.Drawing.Size(48, 16);
-            this.cbIsSetPropertyAllowMultiple.TabIndex = 40;
-            this.cbIsSetPropertyAllowMultiple.Text = "多选";
-            this.cbIsSetPropertyAllowMultiple.UseVisualStyleBackColor = true;
-            // 
-            // txtEleFType
-            // 
-            this.txtEleFType.Location = new System.Drawing.Point(380, 26);
-            this.txtEleFType.Name = "txtEleFType";
-            this.txtEleFType.Size = new System.Drawing.Size(47, 21);
-            this.txtEleFType.TabIndex = 21;
-            this.txtEleFType.Text = "F";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(343, 29);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(17, 12);
-            this.label15.TabIndex = 20;
-            this.label15.Text = "精";
-            // 
-            // txtEleMType
-            // 
-            this.txtEleMType.Location = new System.Drawing.Point(257, 26);
-            this.txtEleMType.Name = "txtEleMType";
-            this.txtEleMType.Size = new System.Drawing.Size(47, 21);
-            this.txtEleMType.TabIndex = 19;
-            this.txtEleMType.Text = "M";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(220, 29);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(17, 12);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "中";
-            // 
-            // txtEleRType
-            // 
-            this.txtEleRType.Location = new System.Drawing.Point(143, 26);
-            this.txtEleRType.Name = "txtEleRType";
-            this.txtEleRType.Size = new System.Drawing.Size(47, 21);
-            this.txtEleRType.TabIndex = 17;
-            this.txtEleRType.Text = "R";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(106, 29);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(17, 12);
-            this.label16.TabIndex = 16;
-            this.label16.Text = "粗";
-            // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.cbIsAutoCMM);
             this.tabPage6.Controls.Add(this.cbIsAutoPrtTool);
             this.tabPage6.Controls.Add(this.cbExportStp);
             this.tabPage6.Controls.Add(this.cbIsSetPrtColor);
@@ -802,6 +655,26 @@
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "图档配置";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // cbIsAutoPrtTool
+            // 
+            this.cbIsAutoPrtTool.AutoSize = true;
+            this.cbIsAutoPrtTool.Location = new System.Drawing.Point(81, 32);
+            this.cbIsAutoPrtTool.Name = "cbIsAutoPrtTool";
+            this.cbIsAutoPrtTool.Size = new System.Drawing.Size(108, 16);
+            this.cbIsAutoPrtTool.TabIndex = 57;
+            this.cbIsAutoPrtTool.Text = "启用自动导图档";
+            this.cbIsAutoPrtTool.UseVisualStyleBackColor = true;
+            // 
+            // cbExportStp
+            // 
+            this.cbExportStp.AutoSize = true;
+            this.cbExportStp.Location = new System.Drawing.Point(81, 185);
+            this.cbExportStp.Name = "cbExportStp";
+            this.cbExportStp.Size = new System.Drawing.Size(42, 16);
+            this.cbExportStp.TabIndex = 56;
+            this.cbExportStp.Text = "Stp";
+            this.cbExportStp.UseVisualStyleBackColor = true;
             // 
             // cbIsSetPrtColor
             // 
@@ -847,14 +720,14 @@
             this.cbbEdmTransRule.FormattingEnabled = true;
             this.cbbEdmTransRule.Location = new System.Drawing.Point(172, 69);
             this.cbbEdmTransRule.Name = "cbbEdmTransRule";
-            this.cbbEdmTransRule.Size = new System.Drawing.Size(392, 20);
+            this.cbbEdmTransRule.Size = new System.Drawing.Size(307, 20);
             this.cbbEdmTransRule.TabIndex = 51;
             // 
             // btnSetPrtColor
             // 
             this.btnSetPrtColor.Location = new System.Drawing.Point(172, 108);
             this.btnSetPrtColor.Name = "btnSetPrtColor";
-            this.btnSetPrtColor.Size = new System.Drawing.Size(331, 23);
+            this.btnSetPrtColor.Size = new System.Drawing.Size(307, 23);
             this.btnSetPrtColor.TabIndex = 50;
             this.btnSetPrtColor.Text = "设置电打面颜色";
             this.btnSetPrtColor.UseVisualStyleBackColor = true;
@@ -869,25 +742,151 @@
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
             // 
-            // cbExportStp
+            // cbIsDeleteDraft
             // 
-            this.cbExportStp.AutoSize = true;
-            this.cbExportStp.Location = new System.Drawing.Point(81, 185);
-            this.cbExportStp.Name = "cbExportStp";
-            this.cbExportStp.Size = new System.Drawing.Size(42, 16);
-            this.cbExportStp.TabIndex = 56;
-            this.cbExportStp.Text = "Stp";
-            this.cbExportStp.UseVisualStyleBackColor = true;
+            this.cbIsDeleteDraft.AutoSize = true;
+            this.cbIsDeleteDraft.Location = new System.Drawing.Point(281, 287);
+            this.cbIsDeleteDraft.Name = "cbIsDeleteDraft";
+            this.cbIsDeleteDraft.Size = new System.Drawing.Size(72, 16);
+            this.cbIsDeleteDraft.TabIndex = 64;
+            this.cbIsDeleteDraft.Text = "删除图纸";
+            this.cbIsDeleteDraft.UseVisualStyleBackColor = true;
             // 
-            // cbIsAutoPrtTool
+            // cbIsMatNameSel
             // 
-            this.cbIsAutoPrtTool.AutoSize = true;
-            this.cbIsAutoPrtTool.Location = new System.Drawing.Point(81, 32);
-            this.cbIsAutoPrtTool.Name = "cbIsAutoPrtTool";
-            this.cbIsAutoPrtTool.Size = new System.Drawing.Size(108, 16);
-            this.cbIsAutoPrtTool.TabIndex = 57;
-            this.cbIsAutoPrtTool.Text = "启用自动导图档";
-            this.cbIsAutoPrtTool.UseVisualStyleBackColor = true;
+            this.cbIsMatNameSel.AutoSize = true;
+            this.cbIsMatNameSel.Location = new System.Drawing.Point(523, 252);
+            this.cbIsMatNameSel.Name = "cbIsMatNameSel";
+            this.cbIsMatNameSel.Size = new System.Drawing.Size(84, 16);
+            this.cbIsMatNameSel.TabIndex = 63;
+            this.cbIsMatNameSel.Text = "材质粗中精";
+            this.cbIsMatNameSel.UseVisualStyleBackColor = true;
+            // 
+            // CBSpecialshapedElec
+            // 
+            this.CBSpecialshapedElec.AutoSize = true;
+            this.CBSpecialshapedElec.Location = new System.Drawing.Point(431, 252);
+            this.CBSpecialshapedElec.Name = "CBSpecialshapedElec";
+            this.CBSpecialshapedElec.Size = new System.Drawing.Size(72, 16);
+            this.CBSpecialshapedElec.TabIndex = 62;
+            this.CBSpecialshapedElec.Text = "异形电极";
+            this.CBSpecialshapedElec.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(278, 253);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(53, 12);
+            this.label20.TabIndex = 61;
+            this.label20.Text = "毛坯余量";
+            // 
+            // txtPQBlankStock
+            // 
+            this.txtPQBlankStock.Location = new System.Drawing.Point(351, 250);
+            this.txtPQBlankStock.Name = "txtPQBlankStock";
+            this.txtPQBlankStock.Size = new System.Drawing.Size(47, 21);
+            this.txtPQBlankStock.TabIndex = 60;
+            this.txtPQBlankStock.Text = "1.5";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(78, 287);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(59, 12);
+            this.label19.TabIndex = 59;
+            this.label19.Text = "BOM工具：";
+            // 
+            // cbIsCanSelElecInBom
+            // 
+            this.cbIsCanSelElecInBom.AutoSize = true;
+            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(194, 287);
+            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
+            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(72, 16);
+            this.cbIsCanSelElecInBom.TabIndex = 58;
+            this.cbIsCanSelElecInBom.Text = "可选电极";
+            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(77, 252);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(77, 12);
+            this.label17.TabIndex = 57;
+            this.label17.Text = "赋属性工具：";
+            // 
+            // cbIsSetPropertyAllowMultiple
+            // 
+            this.cbIsSetPropertyAllowMultiple.AutoSize = true;
+            this.cbIsSetPropertyAllowMultiple.Location = new System.Drawing.Point(193, 252);
+            this.cbIsSetPropertyAllowMultiple.Name = "cbIsSetPropertyAllowMultiple";
+            this.cbIsSetPropertyAllowMultiple.Size = new System.Drawing.Size(48, 16);
+            this.cbIsSetPropertyAllowMultiple.TabIndex = 56;
+            this.cbIsSetPropertyAllowMultiple.Text = "多选";
+            this.cbIsSetPropertyAllowMultiple.UseVisualStyleBackColor = true;
+            // 
+            // txtEleFType
+            // 
+            this.txtEleFType.Location = new System.Drawing.Point(352, 209);
+            this.txtEleFType.Name = "txtEleFType";
+            this.txtEleFType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleFType.TabIndex = 55;
+            this.txtEleFType.Text = "F";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(315, 212);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 12);
+            this.label15.TabIndex = 54;
+            this.label15.Text = "精";
+            // 
+            // txtEleMType
+            // 
+            this.txtEleMType.Location = new System.Drawing.Point(229, 209);
+            this.txtEleMType.Name = "txtEleMType";
+            this.txtEleMType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleMType.TabIndex = 53;
+            this.txtEleMType.Text = "M";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(192, 212);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(17, 12);
+            this.label14.TabIndex = 52;
+            this.label14.Text = "中";
+            // 
+            // txtEleRType
+            // 
+            this.txtEleRType.Location = new System.Drawing.Point(115, 209);
+            this.txtEleRType.Name = "txtEleRType";
+            this.txtEleRType.Size = new System.Drawing.Size(47, 21);
+            this.txtEleRType.TabIndex = 51;
+            this.txtEleRType.Text = "R";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(78, 212);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 12);
+            this.label16.TabIndex = 50;
+            this.label16.Text = "粗";
+            // 
+            // cbIsAutoCMM
+            // 
+            this.cbIsAutoCMM.AutoSize = true;
+            this.cbIsAutoCMM.Location = new System.Drawing.Point(498, 71);
+            this.cbIsAutoCMM.Name = "cbIsAutoCMM";
+            this.cbIsAutoCMM.Size = new System.Drawing.Size(66, 16);
+            this.cbIsAutoCMM.TabIndex = 58;
+            this.cbIsAutoCMM.Text = "AutoCMM";
+            this.cbIsAutoCMM.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -916,8 +915,6 @@
             this.panel4.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
@@ -974,25 +971,9 @@
         private System.Windows.Forms.ComboBox cbbElecNameRule;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox cbImportEman;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TextBox txtEleFType;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txtEleMType;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox txtEleRType;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox cbIsSetPropertyAllowMultiple;
         private System.Windows.Forms.ComboBox cbbFtpPathType;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.CheckBox cbIsCanSelElecInBom;
         private System.Windows.Forms.CheckBox cbIsExportBomXls;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox txtPQBlankStock;
-        private System.Windows.Forms.CheckBox CBSpecialshapedElec;
-        private System.Windows.Forms.CheckBox cbIsMatNameSel;
-        private System.Windows.Forms.CheckBox cbIsDeleteDraft;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.CheckBox cbIsAutoPrtTool;
         private System.Windows.Forms.CheckBox cbExportStp;
@@ -1003,5 +984,21 @@
         private System.Windows.Forms.ComboBox cbbEdmTransRule;
         private System.Windows.Forms.Button btnSetPrtColor;
         private System.Windows.Forms.CheckBox cbExportCMM;
+        private System.Windows.Forms.CheckBox cbIsDeleteDraft;
+        private System.Windows.Forms.CheckBox cbIsMatNameSel;
+        private System.Windows.Forms.CheckBox CBSpecialshapedElec;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtPQBlankStock;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox cbIsCanSelElecInBom;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox cbIsSetPropertyAllowMultiple;
+        private System.Windows.Forms.TextBox txtEleFType;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtEleMType;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtEleRType;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox cbIsAutoCMM;
     }
 }
