@@ -209,7 +209,9 @@ namespace SnapEx
                         {
                             trans = Snap.Geom.Transform.Composition(trans, u);
                         });
-                        body.Move(trans);
+
+                        if (transfroms.Count() > 0) { body.Move(trans); }
+                       
                         if (func != null&&bodies.Count==1)
                         {
                             body.Move(func());

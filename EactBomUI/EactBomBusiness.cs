@@ -787,6 +787,10 @@ namespace EactBom
                 {
                     workPart.NXOpenPart.DrawingSheets.ToArray().ToList().ForEach(u =>
                     {
+                        if (action != null)
+                        {
+                            action(string.Format("正在删除图纸：{0}", u.Name));
+                        }
                         Snap.NX.NXObject.Delete(u);
                     });
                 }
@@ -800,7 +804,11 @@ namespace EactBom
             //去参数
             try
             {
-                SnapEx.Create.RemoveParameters(Enumerable.Select(workPart.Bodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid), u => u.NXOpenBody).ToList());
+                if (action != null)
+                {
+                    action(string.Format("正在移除参数..."));
+                }
+                SnapEx.Create.RemoveParameters(Enumerable.Select(workPart.Bodies.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.BodySolid&&u.NXOpenBody.GetFeatures().Count()>1), u => u.NXOpenBody).ToList());
             }
             catch (Exception ex)
             {
@@ -830,7 +838,7 @@ namespace EactBom
                             {
                                 if (action != null)
                                 {
-                                    action(u.Name);
+                                    action(string.Format("正在加载电极{0}", u.Name));
                                 }
                                 var viewInfo = new ViewElecInfo { ElectName = u.Name };
                                 viewInfo.Bodies.Add(u);
@@ -876,7 +884,7 @@ namespace EactBom
                             {
                                 if (action != null)
                                 {
-                                    action(u.Name);
+                                    action(string.Format("正在加载电极{0}", u.Name));
                                 }
                                 var viewInfo = new ViewElecInfo { ElectName = u.Name };
                                 viewInfo.Bodies.Add(u);

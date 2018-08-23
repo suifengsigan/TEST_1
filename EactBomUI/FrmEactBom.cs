@@ -348,7 +348,7 @@ namespace EactBom
                 if (_curSteel != item)
                 {
                     dgvCuprums.DataSource = EactBomBusiness.Instance.GetElecList(item, (s) => {
-                        SplashScreen.Splasher.Status = string.Format("正在加载电极：{0}", s);
+                        SplashScreen.Splasher.Status = s;
                     });
                 }
                 _curSteel = item;
