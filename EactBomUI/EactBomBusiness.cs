@@ -11,8 +11,8 @@ namespace EactBom
     public class EactBomBusiness
     {
         public EactConfig.ConfigData ConfigData = EactConfig.ConfigData.GetInstance();
-        const string EACT_MOULDBODY = "EACT_MOULDBODY";
-        const string EACT_SINSERTBODY = "EACT_SINSERTBODY";
+        public const string EACT_MOULDBODY = "EACT_MOULDBODY";
+        public const string EACT_SINSERTBODY = "EACT_SINSERTBODY";
         public const string Eact_AutoPrtTool = "Eact_AutoPrtTool";
         public const string Eact_AutoCMM = "Eact_AutoCMM";
         //DefaultQuadrantType
@@ -27,7 +27,7 @@ namespace EactBom
         }
         public readonly static EactBomBusiness Instance = new EactBomBusiness();
 
-        public void ExportEact(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo,Action<string> showMsgHandle=null,bool isExportPrt=false,bool isExportStd=false,bool isExportCncPrt=false,bool isAutoPrtTool=false) 
+        public void ExportEact(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, Action<string> showMsgHandle = null, bool isExportPrt = false, bool isExportStd = false, bool isExportCncPrt = false, bool isAutoPrtTool = false, bool isAutoPartBusiness=false) 
         {
             var datas = new List<DataAccess.Model.EACT_CUPRUM>();
             List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas = null;
@@ -52,14 +52,16 @@ namespace EactBom
                     ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt);
                 }
 
-                if (ConfigData.IsExportBomXls)
+                if (!isAutoPartBusiness)
                 {
-                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出物料单...")); }
-                    ExcelHelper.ExportExcelBom(Enumerable.Select(positions, s => s.Electrode).ToList(), steelInfo);
+                    if (ConfigData.IsExportBomXls)
+                    {
+                        if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出物料单...")); }
+                        ExcelHelper.ExportExcelBom(Enumerable.Select(positions, s => s.Electrode).ToList(), steelInfo);
+                    }
+
+                    DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, shareElecDatas);
                 }
-
-                DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, shareElecDatas);
-
             }
             else
             {
