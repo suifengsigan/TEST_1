@@ -194,13 +194,13 @@ namespace ElecManage
         {
             Electrode result = null;
             result = XKElectrode.GetElectrode(body);
-            if (result == null) 
-            {
-                result = EactElectrode.GetElectrode(body);
-            }
             if (result == null)
             {
                 result = JYElectrode.GetElectrode(body);
+            }
+            if (result == null) 
+            {
+                result = EactElectrode.GetElectrode(body);
             }
             return result;
         }

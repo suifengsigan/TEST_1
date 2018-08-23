@@ -93,307 +93,8 @@ namespace EactBom
 
             if (datas.Count > 0 || (shareElecDatas != null && shareElecDatas.Count > 0))
             {
-                //去参数
-                positions.ForEach(u => {
-                    var list = Enumerable.Select(u.Electrode.ElecBody.NXOpenBody.GetFeatures(), m => Snap.NX.Feature.Wrap(m.Tag)).ToList();
-                    if (list.Count > 1)
-                    {
-                        SnapEx.Create.RemoveParameters(new List<NXOpen.Body> { u.Electrode.ElecBody });
-                    }
-                });
 
-                var PRTFILEPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE"));
-                if (System.IO.Directory.Exists(PRTFILEPath))
-                {
-                    System.IO.Directory.Delete(PRTFILEPath, true);
-                }
-
-                //CNC图档
-                if (isExportCncPrt)
-                {
-                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CNC图档...")); }
-                    var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE\{0}\{1}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
-                    if (!System.IO.Directory.Exists(path))
-                    {
-                        System.IO.Directory.CreateDirectory(path);
-                    }
-                    positions.ForEach(u =>
-                    {
-                        if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CNC图档:{0}", u.Electrode.ElecBody.Name)); }
-                        var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
-                        //移至绝对坐标原点
-                        var baseDir = u.Electrode.BaseFace.GetFaceDirection();
-                        var acsOrientation = Snap.Orientation.Identity;
-                        acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var wcsOrientation = new Snap.Orientation(-baseDir);
-                        wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
-                        var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
-                        baseDirOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
-                        transY = Snap.Geom.Transform.Composition(transR, transY);
-                        var topFaceUV = u.Electrode.TopFace.BoxUV;
-                        var topFaceCenterPoint = u.Electrode.TopFace.Position((topFaceUV.MinU + topFaceUV.MaxU) / 2, (topFaceUV.MinV + topFaceUV.MaxV) / 2);
-                        var box3d = u.Electrode.ElecBody.AcsToWcsBox3d(wcsOrientation);
-                        switch (ConfigData.CNCTranRule)
-                        {
-                            case 2://长度矩阵Y轴（基准台底面）
-                                {
-                                    break;
-                                }
-                            default:
-                                {
-                                    topFaceCenterPoint = topFaceCenterPoint + (System.Math.Abs(box3d.MaxZ - box3d.MinZ) * baseDir);
-                                    break;
-                                }
-                        }
-                        var pos = topFaceCenterPoint.Copy(transY);
-                        var transQ = Snap.Geom.Transform.CreateRotation(topFaceCenterPoint, new Snap.Vector(0, 0, 1), u.C);
-                        pos = pos.Copy(transQ);
-                        var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
-                        SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, partName),
-                            () =>
-                            {
-                                var trans = Snap.Geom.Transform.CreateTranslation();
-                                trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.TopFace.GetFaceDirection(), 180);
-                                switch (ConfigData.CNCTranRule)
-                                {
-                                    case 1://长度矩阵
-                                        {
-                                            var uv = u.Electrode.BaseFace.Box;
-                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
-                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                            if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
-                                            {
-                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
-                                            }
-                                            break;
-                                        }
-                                    case 2://长度矩阵Y轴（基准台底面）
-                                        {
-                                            var uv = u.Electrode.BaseFace.Box;
-                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
-                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                            if (absX >= absY)
-                                            {
-                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 270));
-                                            }
-                                            break;
-                                        }
-                                        
-                                }
-                                switch (ConfigData.FtpPathType)
-                                {
-                                    case 1:
-                                        {
-                                            u.Electrode.ElecBody.Name = partName;
-                                            u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
-                                            break;
-                                        }
-                                }
-                                return trans;
-                            }
-                            , transY, transQ, transX);
-
-                        var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".prt");
-                        if (System.IO.File.Exists(fileName))
-                        {
-                            //Ftp上传
-                            FtpUpload("CNC", steelInfo, fileName, partName);
-                        }
-                       
-                    });
-                }
-
-                if (isExportPrt)
-                {
-                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Prt文件...")); }
-                    var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE\{0}\{1}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
-                    if (!System.IO.Directory.Exists(path))
-                    {
-                        System.IO.Directory.CreateDirectory(path);
-                    }
-                    positions.ForEach(u =>
-                    {
-                        var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
-                        if (ConfigData.IsSetPrtColor)
-                        {
-                            u.Electrode.InitAllFace();
-                        }
-
-                        if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Prt文件:{0}", u.Electrode.ElecBody.Name)); }
-                        var headFaces = new List<Snap.NX.Face>();
-                        var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
-                        var baseDir = u.Electrode.BaseFace.GetFaceDirection();
-
-                        var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
-                        if (ConfigData.IsSetPrtColor)
-                        {
-                            allPoss.ForEach(h =>
-                            {
-                                var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "EACT_EDM_ELEC_AREA");
-                                try
-                                {
-                                    if (u != h)
-                                    {
-                                        var transR1 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
-                                        var transR2 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), baseDir, h.C);
-                                        var transM1 = Snap.Geom.Transform.CreateTranslation(h.Electrode.GetElecBasePos() - u.Electrode.GetElecBasePos());
-                                        transR1 = Snap.Geom.Transform.Composition(transR1, transR2);
-                                        transR1 = Snap.Geom.Transform.Composition(transR1, transM1);
-                                        u.Electrode.ElecBody.Move(transR1);
-                                        //u.Electrode.ElecBody.Copy().Color = System.Drawing.Color.Red;
-                                    }
-                                    u.Electrode.ElecHeadFaces.ToList().ForEach(m =>
-                                    {
-                                        var headFace = headFaces.FirstOrDefault(f => f.NXOpenTag == m.NXOpenTag);
-                                        var matchBodies = new List<Snap.NX.Body>();
-                                        matchBodies.Add(steelInfo.MouldBody);
-                                        matchBodies.AddRange(steelInfo.SInsertBodies);
-                                        matchBodies.ForEach(mb => {
-                                            if (headFace == null && Snap.Compute.Distance(m, mb) < SnapEx.Helper.Tolerance)
-                                            {
-                                                headFaces.Add(m);
-                                            }
-                                        });
-                                       
-                                    });
-                                }
-                                catch (Exception ex)
-                                {
-                                    NXOpen.UI.GetUI().NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, ex.Message);
-                                }
-
-                                Snap.Globals.UndoToMark(mark, null);
-                            });
-                        }
-
-                        //移至绝对坐标原点
-                        var acsOrientation = Snap.Orientation.Identity;
-                        acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var wcsOrientation = new Snap.Orientation(-baseDir);
-                        wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
-                        var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
-                        baseDirOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                        var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
-                        transY = Snap.Geom.Transform.Composition(transR, transY);
-                        var pos = u.Electrode.GetElecBasePos().Copy(transY);
-                        var transQ = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), new Snap.Vector(0, 0, 1), u.C);
-                        pos = pos.Copy(transQ);
-                        var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
-                        SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, partName),
-                            () =>
-                            {
-                                headFaces.ForEach(m => { m.Color = System.Drawing.Color.FromArgb(ConfigData.EDMColor); });
-                                var area = 0.0;
-                                var ddf = new List<NXOpen.Body>();
-                                headFaces.ForEach(m =>
-                                {
-                                    area += SnapEx.Create.GetProjectionArea(m);
-                                });
-                                area *= 0.5;
-                                u.Electrode.ElecBody.SetStringAttribute("EACT_EDM_ELEC_AREA", area.ToString());
-                                var trans = Snap.Geom.Transform.CreateTranslation();
-                                bool isCmmRotation = false;
-                                switch (ConfigData.EDMTranRule)
-                                {
-                                    case 1://长度矩阵X轴
-                                        {
-                                            var uv = u.Electrode.BaseFace.Box;
-                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
-                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                            if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
-                                            {
-                                                isCmmRotation = true;
-                                                trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90);
-                                            }
-                                            break;
-                                        }
-                                    case 2://长度矩阵Y轴
-                                        {
-                                            var uv = u.Electrode.BaseFace.Box;
-                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
-                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
-                                            if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
-                                            {
-                                                isCmmRotation = true;
-                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 270));
-                                            }
-                                            break;
-                                        }
-                                    case 3://JR
-                                        {
-                                            if (ElecManage.Entry.Instance.DefaultQuadrantType == QuadrantType.First)
-                                            {
-                                                var uv = u.Electrode.BaseFace.Box;
-                                                var absX = Math.Abs(uv.MaxX - uv.MinX);
-                                                var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                                if ((Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)||(Math.Abs(absX - absY) < SnapEx.Helper.Tolerance))
-                                                {
-                                                    isCmmRotation = true;
-                                                    trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), -90);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                var uv = u.Electrode.BaseFace.Box;
-                                                var absX = Math.Abs(uv.MaxX - uv.MinX);
-                                                var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
-                                                if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
-                                                {
-                                                    isCmmRotation = true;
-                                                    trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
-                                                }
-                                            }
-                                            break;
-                                        }
-                                    case 4://默认矩阵(沿Y轴)
-                                        {
-                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
-                                            break;
-                                        }
-                                }
-                                datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation?"1":"0");
-                                datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = area.ToString());
-                                switch (ConfigData.FtpPathType)
-                                {
-                                    case 1:
-                                        {
-                                            u.Electrode.ElecBody.Name = partName;
-                                            u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
-                                            break;
-                                        }
-                                }
-                                return trans;
-                            }
-                            , transY, transQ, transX);
-                        
-                        var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".prt");
-                        if (System.IO.File.Exists(fileName))
-                        {
-                            //Ftp上传
-                            FtpUpload("CMM", steelInfo, fileName, partName);
-                        }
-
-                        if (isExportStd)
-                        {
-                            var stpFileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".stp");
-                            SnapEx.Create.ExportStp(fileName, stpFileName);
-                            if (System.IO.File.Exists(stpFileName))
-                            {
-                                if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件...")); }
-                                //Ftp上传
-
-                                FtpUpload("CMM_PROG", steelInfo, stpFileName, partName);
-                            }
-                        }
-                       
-                    });
-                }
-
+                ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt);
                 if (ConfigData.IsExportBomXls)
                 {
                     if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出物料单...")); }
@@ -405,6 +106,311 @@ namespace EactBom
             else
             {
                 throw new Exception("未找到可导入的电极,请检查电极属性信息！");
+            }
+        }
+
+        private void ExportPrt(ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, 
+            Action<string> showMsgHandle = null, bool isExportPrt = false, bool isExportStd = false, bool isExportCncPrt = false)
+        {
+            //去参数
+            positions.ForEach(u => {
+                var list = Enumerable.Select(u.Electrode.ElecBody.NXOpenBody.GetFeatures(), m => Snap.NX.Feature.Wrap(m.Tag)).ToList();
+                if (list.Count > 1)
+                {
+                    SnapEx.Create.RemoveParameters(new List<NXOpen.Body> { u.Electrode.ElecBody });
+                }
+            });
+
+            var PRTFILEPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE"));
+            if (System.IO.Directory.Exists(PRTFILEPath))
+            {
+                System.IO.Directory.Delete(PRTFILEPath, true);
+            }
+
+            //CNC图档
+            if (isExportCncPrt)
+            {
+                if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CNC图档...")); }
+                var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE\{0}\{1}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
+                if (!System.IO.Directory.Exists(path))
+                {
+                    System.IO.Directory.CreateDirectory(path);
+                }
+                positions.ForEach(u =>
+                {
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CNC图档:{0}", u.Electrode.ElecBody.Name)); }
+                    var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
+                    //移至绝对坐标原点
+                    var baseDir = u.Electrode.BaseFace.GetFaceDirection();
+                    var acsOrientation = Snap.Orientation.Identity;
+                    acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+                    var wcsOrientation = new Snap.Orientation(-baseDir);
+                    wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+                    var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
+                    var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
+                    baseDirOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+                    var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
+                    transY = Snap.Geom.Transform.Composition(transR, transY);
+                    var topFaceUV = u.Electrode.TopFace.BoxUV;
+                    var topFaceCenterPoint = u.Electrode.TopFace.Position((topFaceUV.MinU + topFaceUV.MaxU) / 2, (topFaceUV.MinV + topFaceUV.MaxV) / 2);
+                    var box3d = u.Electrode.ElecBody.AcsToWcsBox3d(wcsOrientation);
+                    switch (ConfigData.CNCTranRule)
+                    {
+                        case 2://长度矩阵Y轴（基准台底面）
+                            {
+                                break;
+                            }
+                        default:
+                            {
+                                topFaceCenterPoint = topFaceCenterPoint + (System.Math.Abs(box3d.MaxZ - box3d.MinZ) * baseDir);
+                                break;
+                            }
+                    }
+                    var pos = topFaceCenterPoint.Copy(transY);
+                    var transQ = Snap.Geom.Transform.CreateRotation(topFaceCenterPoint, new Snap.Vector(0, 0, 1), u.C);
+                    pos = pos.Copy(transQ);
+                    var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
+                    SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, partName),
+                        () =>
+                        {
+                            var trans = Snap.Geom.Transform.CreateTranslation();
+                            trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.TopFace.GetFaceDirection(), 180);
+                            switch (ConfigData.CNCTranRule)
+                            {
+                                case 1://长度矩阵
+                                        {
+                                        var uv = u.Electrode.BaseFace.Box;
+                                        var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                        var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                        if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
+                                        {
+                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
+                                        }
+                                        break;
+                                    }
+                                case 2://长度矩阵Y轴（基准台底面）
+                                        {
+                                        var uv = u.Electrode.BaseFace.Box;
+                                        var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                        var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                        if (absX >= absY)
+                                        {
+                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 270));
+                                        }
+                                        break;
+                                    }
+
+                            }
+                            switch (ConfigData.FtpPathType)
+                            {
+                                case 1:
+                                    {
+                                        u.Electrode.ElecBody.Name = partName;
+                                        u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
+                                        break;
+                                    }
+                            }
+                            return trans;
+                        }
+                        , transY, transQ, transX);
+
+                    var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".prt");
+                    if (System.IO.File.Exists(fileName))
+                    {
+                        //Ftp上传
+                        FtpUpload("CNC", steelInfo, fileName, partName);
+                    }
+
+                });
+            }
+
+            if (isExportPrt)
+            {
+                if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Prt文件...")); }
+                var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE\{0}\{1}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
+                if (!System.IO.Directory.Exists(path))
+                {
+                    System.IO.Directory.CreateDirectory(path);
+                }
+                positions.ForEach(u =>
+                {
+                    var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
+                    if (ConfigData.IsSetPrtColor)
+                    {
+                        u.Electrode.InitAllFace();
+                    }
+
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Prt文件:{0}", u.Electrode.ElecBody.Name)); }
+                    var headFaces = new List<Snap.NX.Face>();
+                    var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
+                    var baseDir = u.Electrode.BaseFace.GetFaceDirection();
+
+                    var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
+                    if (ConfigData.IsSetPrtColor)
+                    {
+                        allPoss.ForEach(h =>
+                        {
+                            var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "EACT_EDM_ELEC_AREA");
+                            try
+                            {
+                                if (u != h)
+                                {
+                                    var transR1 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), topFaceDir, u.C);
+                                    var transR2 = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), baseDir, h.C);
+                                    var transM1 = Snap.Geom.Transform.CreateTranslation(h.Electrode.GetElecBasePos() - u.Electrode.GetElecBasePos());
+                                    transR1 = Snap.Geom.Transform.Composition(transR1, transR2);
+                                    transR1 = Snap.Geom.Transform.Composition(transR1, transM1);
+                                    u.Electrode.ElecBody.Move(transR1);
+                                    //u.Electrode.ElecBody.Copy().Color = System.Drawing.Color.Red;
+                                }
+                                u.Electrode.ElecHeadFaces.ToList().ForEach(m =>
+                                {
+                                    var headFace = headFaces.FirstOrDefault(f => f.NXOpenTag == m.NXOpenTag);
+                                    var matchBodies = new List<Snap.NX.Body>();
+                                    matchBodies.Add(steelInfo.MouldBody);
+                                    matchBodies.AddRange(steelInfo.SInsertBodies);
+                                    matchBodies.ForEach(mb => {
+                                        if (headFace == null && Snap.Compute.Distance(m, mb) < SnapEx.Helper.Tolerance)
+                                        {
+                                            headFaces.Add(m);
+                                        }
+                                    });
+
+                                });
+                            }
+                            catch (Exception ex)
+                            {
+                                NXOpen.UI.GetUI().NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, ex.Message);
+                            }
+
+                            Snap.Globals.UndoToMark(mark, null);
+                        });
+                    }
+
+                    //移至绝对坐标原点
+                    var acsOrientation = Snap.Orientation.Identity;
+                    acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+                    var wcsOrientation = new Snap.Orientation(-baseDir);
+                    wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+                    var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
+                    var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
+                    baseDirOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+                    var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
+                    transY = Snap.Geom.Transform.Composition(transR, transY);
+                    var pos = u.Electrode.GetElecBasePos().Copy(transY);
+                    var transQ = Snap.Geom.Transform.CreateRotation(u.Electrode.GetElecBasePos(), new Snap.Vector(0, 0, 1), u.C);
+                    pos = pos.Copy(transQ);
+                    var transX = Snap.Geom.Transform.CreateTranslation(new Snap.Position() - pos);
+                    SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, partName),
+                        () =>
+                        {
+                            headFaces.ForEach(m => { m.Color = System.Drawing.Color.FromArgb(ConfigData.EDMColor); });
+                            var area = 0.0;
+                            var ddf = new List<NXOpen.Body>();
+                            headFaces.ForEach(m =>
+                            {
+                                area += SnapEx.Create.GetProjectionArea(m);
+                            });
+                            area *= 0.5;
+                            u.Electrode.ElecBody.SetStringAttribute("EACT_EDM_ELEC_AREA", area.ToString());
+                            var trans = Snap.Geom.Transform.CreateTranslation();
+                            bool isCmmRotation = false;
+                            switch (ConfigData.EDMTranRule)
+                            {
+                                case 1://长度矩阵X轴
+                                        {
+                                        var uv = u.Electrode.BaseFace.Box;
+                                        var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                        var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                        if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
+                                        {
+                                            isCmmRotation = true;
+                                            trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90);
+                                        }
+                                        break;
+                                    }
+                                case 2://长度矩阵Y轴
+                                        {
+                                        var uv = u.Electrode.BaseFace.Box;
+                                        var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                        var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                        trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
+                                        if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
+                                        {
+                                            isCmmRotation = true;
+                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 270));
+                                        }
+                                        break;
+                                    }
+                                case 3://JR
+                                        {
+                                        if (ElecManage.Entry.Instance.DefaultQuadrantType == QuadrantType.First)
+                                        {
+                                            var uv = u.Electrode.BaseFace.Box;
+                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                            if ((Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY) || (Math.Abs(absX - absY) < SnapEx.Helper.Tolerance))
+                                            {
+                                                isCmmRotation = true;
+                                                trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), -90);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var uv = u.Electrode.BaseFace.Box;
+                                            var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                            var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                            trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
+                                            if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
+                                            {
+                                                isCmmRotation = true;
+                                                trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 90));
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case 4://默认矩阵(沿Y轴)
+                                        {
+                                        trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
+                                        break;
+                                    }
+                            }
+                            datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation ? "1" : "0");
+                            datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = area.ToString());
+                            switch (ConfigData.FtpPathType)
+                            {
+                                case 1:
+                                    {
+                                        u.Electrode.ElecBody.Name = partName;
+                                        u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
+                                        break;
+                                    }
+                            }
+                            return trans;
+                        }
+                        , transY, transQ, transX);
+
+                    var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".prt");
+                    if (System.IO.File.Exists(fileName))
+                    {
+                        //Ftp上传
+                        FtpUpload("CMM", steelInfo, fileName, partName);
+                    }
+
+                    if (isExportStd)
+                    {
+                        var stpFileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".stp");
+                        SnapEx.Create.ExportStp(fileName, stpFileName);
+                        if (System.IO.File.Exists(stpFileName))
+                        {
+                            if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Stp文件...")); }
+                            //Ftp上传
+
+                            FtpUpload("CMM_PROG", steelInfo, stpFileName, partName);
+                        }
+                    }
+
+                });
             }
         }
 

@@ -28,7 +28,7 @@ namespace ElecManage
         {
             if (ElecBasePoint == null)
             {
-                base.GetElecBasePos();
+                return base.GetElecBasePos();
             }
             return ElecBasePoint.Position;
         }

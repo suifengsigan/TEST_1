@@ -71,23 +71,17 @@
             this.btnPopertyAdd = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.cbIsExportBomXls = new System.Windows.Forms.CheckBox();
-            this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cbbCNCTransRule = new System.Windows.Forms.ComboBox();
-            this.cbbExportCNC = new System.Windows.Forms.CheckBox();
-            this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
-            this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbbElecNameRule = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.rbCanPUpdate = new System.Windows.Forms.CheckBox();
             this.cbShareElec = new System.Windows.Forms.CheckBox();
-            this.cbExportStp = new System.Windows.Forms.CheckBox();
-            this.cbExportCMM = new System.Windows.Forms.CheckBox();
             this.cbbLicenseType = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.cbbQuadrantType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.cbIsDeleteDraft = new System.Windows.Forms.CheckBox();
+            this.cbIsMatNameSel = new System.Windows.Forms.CheckBox();
             this.CBSpecialshapedElec = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.txtPQBlankStock = new System.Windows.Forms.TextBox();
@@ -101,8 +95,16 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txtEleRType = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.cbIsMatNameSel = new System.Windows.Forms.CheckBox();
-            this.cbIsDeleteDraft = new System.Windows.Forms.CheckBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbbCNCTransRule = new System.Windows.Forms.ComboBox();
+            this.cbbExportCNC = new System.Windows.Forms.CheckBox();
+            this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
+            this.btnSetPrtColor = new System.Windows.Forms.Button();
+            this.cbExportCMM = new System.Windows.Forms.CheckBox();
+            this.cbExportStp = new System.Windows.Forms.CheckBox();
+            this.cbIsAutoPrtTool = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -118,6 +120,7 @@
             this.panel4.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -146,6 +149,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -519,18 +523,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.cbIsExportBomXls);
-            this.tabPage4.Controls.Add(this.cbIsSetPrtColor);
-            this.tabPage4.Controls.Add(this.label13);
-            this.tabPage4.Controls.Add(this.cbbCNCTransRule);
-            this.tabPage4.Controls.Add(this.cbbExportCNC);
-            this.tabPage4.Controls.Add(this.cbbEdmTransRule);
-            this.tabPage4.Controls.Add(this.btnSetPrtColor);
             this.tabPage4.Controls.Add(this.cbbElecNameRule);
             this.tabPage4.Controls.Add(this.label12);
             this.tabPage4.Controls.Add(this.rbCanPUpdate);
             this.tabPage4.Controls.Add(this.cbShareElec);
-            this.tabPage4.Controls.Add(this.cbExportStp);
-            this.tabPage4.Controls.Add(this.cbExportCMM);
             this.tabPage4.Controls.Add(this.cbbLicenseType);
             this.tabPage4.Controls.Add(this.label11);
             this.tabPage4.Controls.Add(this.cbbQuadrantType);
@@ -546,69 +542,12 @@
             // cbIsExportBomXls
             // 
             this.cbIsExportBomXls.AutoSize = true;
-            this.cbIsExportBomXls.Location = new System.Drawing.Point(286, 270);
+            this.cbIsExportBomXls.Location = new System.Drawing.Point(196, 170);
             this.cbIsExportBomXls.Name = "cbIsExportBomXls";
             this.cbIsExportBomXls.Size = new System.Drawing.Size(60, 16);
             this.cbIsExportBomXls.TabIndex = 49;
             this.cbIsExportBomXls.Text = "物料单";
             this.cbIsExportBomXls.UseVisualStyleBackColor = true;
-            // 
-            // cbIsSetPrtColor
-            // 
-            this.cbIsSetPrtColor.AutoSize = true;
-            this.cbIsSetPrtColor.Location = new System.Drawing.Point(80, 200);
-            this.cbIsSetPrtColor.Name = "cbIsSetPrtColor";
-            this.cbIsSetPrtColor.Size = new System.Drawing.Size(84, 16);
-            this.cbIsSetPrtColor.TabIndex = 48;
-            this.cbIsSetPrtColor.Text = "电打面分析";
-            this.cbIsSetPrtColor.UseVisualStyleBackColor = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(516, 201);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 12);
-            this.label13.TabIndex = 47;
-            this.label13.Text = "label13";
-            // 
-            // cbbCNCTransRule
-            // 
-            this.cbbCNCTransRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbCNCTransRule.FormattingEnabled = true;
-            this.cbbCNCTransRule.Location = new System.Drawing.Point(171, 235);
-            this.cbbCNCTransRule.Name = "cbbCNCTransRule";
-            this.cbbCNCTransRule.Size = new System.Drawing.Size(392, 20);
-            this.cbbCNCTransRule.TabIndex = 46;
-            // 
-            // cbbExportCNC
-            // 
-            this.cbbExportCNC.AutoSize = true;
-            this.cbbExportCNC.Location = new System.Drawing.Point(80, 237);
-            this.cbbExportCNC.Name = "cbbExportCNC";
-            this.cbbExportCNC.Size = new System.Drawing.Size(66, 16);
-            this.cbbExportCNC.TabIndex = 45;
-            this.cbbExportCNC.Text = "CNC图档";
-            this.cbbExportCNC.UseVisualStyleBackColor = true;
-            // 
-            // cbbEdmTransRule
-            // 
-            this.cbbEdmTransRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbEdmTransRule.FormattingEnabled = true;
-            this.cbbEdmTransRule.Location = new System.Drawing.Point(171, 157);
-            this.cbbEdmTransRule.Name = "cbbEdmTransRule";
-            this.cbbEdmTransRule.Size = new System.Drawing.Size(392, 20);
-            this.cbbEdmTransRule.TabIndex = 44;
-            // 
-            // btnSetPrtColor
-            // 
-            this.btnSetPrtColor.Location = new System.Drawing.Point(171, 196);
-            this.btnSetPrtColor.Name = "btnSetPrtColor";
-            this.btnSetPrtColor.Size = new System.Drawing.Size(331, 23);
-            this.btnSetPrtColor.TabIndex = 43;
-            this.btnSetPrtColor.Text = "设置电打面颜色";
-            this.btnSetPrtColor.UseVisualStyleBackColor = true;
-            this.btnSetPrtColor.Click += new System.EventHandler(this.btnSetPrtColor_Click);
             // 
             // cbbElecNameRule
             // 
@@ -631,7 +570,7 @@
             // rbCanPUpdate
             // 
             this.rbCanPUpdate.AutoSize = true;
-            this.rbCanPUpdate.Location = new System.Drawing.Point(393, 270);
+            this.rbCanPUpdate.Location = new System.Drawing.Point(303, 170);
             this.rbCanPUpdate.Name = "rbCanPUpdate";
             this.rbCanPUpdate.Size = new System.Drawing.Size(72, 16);
             this.rbCanPUpdate.TabIndex = 40;
@@ -641,32 +580,12 @@
             // cbShareElec
             // 
             this.cbShareElec.AutoSize = true;
-            this.cbShareElec.Location = new System.Drawing.Point(171, 270);
+            this.cbShareElec.Location = new System.Drawing.Point(81, 170);
             this.cbShareElec.Name = "cbShareElec";
             this.cbShareElec.Size = new System.Drawing.Size(72, 16);
             this.cbShareElec.TabIndex = 39;
             this.cbShareElec.Text = "共用电极";
             this.cbShareElec.UseVisualStyleBackColor = true;
-            // 
-            // cbExportStp
-            // 
-            this.cbExportStp.AutoSize = true;
-            this.cbExportStp.Location = new System.Drawing.Point(80, 270);
-            this.cbExportStp.Name = "cbExportStp";
-            this.cbExportStp.Size = new System.Drawing.Size(42, 16);
-            this.cbExportStp.TabIndex = 38;
-            this.cbExportStp.Text = "Stp";
-            this.cbExportStp.UseVisualStyleBackColor = true;
-            // 
-            // cbExportCMM
-            // 
-            this.cbExportCMM.AutoSize = true;
-            this.cbExportCMM.Location = new System.Drawing.Point(80, 161);
-            this.cbExportCMM.Name = "cbExportCMM";
-            this.cbExportCMM.Size = new System.Drawing.Size(66, 16);
-            this.cbExportCMM.TabIndex = 37;
-            this.cbExportCMM.Text = "CMM图档";
-            this.cbExportCMM.UseVisualStyleBackColor = true;
             // 
             // cbbLicenseType
             // 
@@ -728,6 +647,26 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Eact配置";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // cbIsDeleteDraft
+            // 
+            this.cbIsDeleteDraft.AutoSize = true;
+            this.cbIsDeleteDraft.Location = new System.Drawing.Point(309, 104);
+            this.cbIsDeleteDraft.Name = "cbIsDeleteDraft";
+            this.cbIsDeleteDraft.Size = new System.Drawing.Size(72, 16);
+            this.cbIsDeleteDraft.TabIndex = 48;
+            this.cbIsDeleteDraft.Text = "删除图纸";
+            this.cbIsDeleteDraft.UseVisualStyleBackColor = true;
+            // 
+            // cbIsMatNameSel
+            // 
+            this.cbIsMatNameSel.AutoSize = true;
+            this.cbIsMatNameSel.Location = new System.Drawing.Point(552, 73);
+            this.cbIsMatNameSel.Name = "cbIsMatNameSel";
+            this.cbIsMatNameSel.Size = new System.Drawing.Size(84, 16);
+            this.cbIsMatNameSel.TabIndex = 47;
+            this.cbIsMatNameSel.Text = "材质粗中精";
+            this.cbIsMatNameSel.UseVisualStyleBackColor = true;
             // 
             // CBSpecialshapedElec
             // 
@@ -845,25 +784,110 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "粗";
             // 
-            // cbIsMatNameSel
+            // tabPage6
             // 
-            this.cbIsMatNameSel.AutoSize = true;
-            this.cbIsMatNameSel.Location = new System.Drawing.Point(552, 73);
-            this.cbIsMatNameSel.Name = "cbIsMatNameSel";
-            this.cbIsMatNameSel.Size = new System.Drawing.Size(84, 16);
-            this.cbIsMatNameSel.TabIndex = 47;
-            this.cbIsMatNameSel.Text = "材质粗中精";
-            this.cbIsMatNameSel.UseVisualStyleBackColor = true;
+            this.tabPage6.Controls.Add(this.cbIsAutoPrtTool);
+            this.tabPage6.Controls.Add(this.cbExportStp);
+            this.tabPage6.Controls.Add(this.cbIsSetPrtColor);
+            this.tabPage6.Controls.Add(this.label13);
+            this.tabPage6.Controls.Add(this.cbbCNCTransRule);
+            this.tabPage6.Controls.Add(this.cbbExportCNC);
+            this.tabPage6.Controls.Add(this.cbbEdmTransRule);
+            this.tabPage6.Controls.Add(this.btnSetPrtColor);
+            this.tabPage6.Controls.Add(this.cbExportCMM);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(711, 355);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "图档配置";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // cbIsDeleteDraft
+            // cbIsSetPrtColor
             // 
-            this.cbIsDeleteDraft.AutoSize = true;
-            this.cbIsDeleteDraft.Location = new System.Drawing.Point(309, 104);
-            this.cbIsDeleteDraft.Name = "cbIsDeleteDraft";
-            this.cbIsDeleteDraft.Size = new System.Drawing.Size(72, 16);
-            this.cbIsDeleteDraft.TabIndex = 48;
-            this.cbIsDeleteDraft.Text = "删除图纸";
-            this.cbIsDeleteDraft.UseVisualStyleBackColor = true;
+            this.cbIsSetPrtColor.AutoSize = true;
+            this.cbIsSetPrtColor.Location = new System.Drawing.Point(81, 112);
+            this.cbIsSetPrtColor.Name = "cbIsSetPrtColor";
+            this.cbIsSetPrtColor.Size = new System.Drawing.Size(84, 16);
+            this.cbIsSetPrtColor.TabIndex = 55;
+            this.cbIsSetPrtColor.Text = "电打面分析";
+            this.cbIsSetPrtColor.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(517, 113);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(47, 12);
+            this.label13.TabIndex = 54;
+            this.label13.Text = "label13";
+            // 
+            // cbbCNCTransRule
+            // 
+            this.cbbCNCTransRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbCNCTransRule.FormattingEnabled = true;
+            this.cbbCNCTransRule.Location = new System.Drawing.Point(172, 147);
+            this.cbbCNCTransRule.Name = "cbbCNCTransRule";
+            this.cbbCNCTransRule.Size = new System.Drawing.Size(392, 20);
+            this.cbbCNCTransRule.TabIndex = 53;
+            // 
+            // cbbExportCNC
+            // 
+            this.cbbExportCNC.AutoSize = true;
+            this.cbbExportCNC.Location = new System.Drawing.Point(81, 149);
+            this.cbbExportCNC.Name = "cbbExportCNC";
+            this.cbbExportCNC.Size = new System.Drawing.Size(66, 16);
+            this.cbbExportCNC.TabIndex = 52;
+            this.cbbExportCNC.Text = "CNC图档";
+            this.cbbExportCNC.UseVisualStyleBackColor = true;
+            // 
+            // cbbEdmTransRule
+            // 
+            this.cbbEdmTransRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbEdmTransRule.FormattingEnabled = true;
+            this.cbbEdmTransRule.Location = new System.Drawing.Point(172, 69);
+            this.cbbEdmTransRule.Name = "cbbEdmTransRule";
+            this.cbbEdmTransRule.Size = new System.Drawing.Size(392, 20);
+            this.cbbEdmTransRule.TabIndex = 51;
+            // 
+            // btnSetPrtColor
+            // 
+            this.btnSetPrtColor.Location = new System.Drawing.Point(172, 108);
+            this.btnSetPrtColor.Name = "btnSetPrtColor";
+            this.btnSetPrtColor.Size = new System.Drawing.Size(331, 23);
+            this.btnSetPrtColor.TabIndex = 50;
+            this.btnSetPrtColor.Text = "设置电打面颜色";
+            this.btnSetPrtColor.UseVisualStyleBackColor = true;
+            // 
+            // cbExportCMM
+            // 
+            this.cbExportCMM.AutoSize = true;
+            this.cbExportCMM.Location = new System.Drawing.Point(81, 73);
+            this.cbExportCMM.Name = "cbExportCMM";
+            this.cbExportCMM.Size = new System.Drawing.Size(66, 16);
+            this.cbExportCMM.TabIndex = 49;
+            this.cbExportCMM.Text = "CMM图档";
+            this.cbExportCMM.UseVisualStyleBackColor = true;
+            // 
+            // cbExportStp
+            // 
+            this.cbExportStp.AutoSize = true;
+            this.cbExportStp.Location = new System.Drawing.Point(81, 185);
+            this.cbExportStp.Name = "cbExportStp";
+            this.cbExportStp.Size = new System.Drawing.Size(42, 16);
+            this.cbExportStp.TabIndex = 56;
+            this.cbExportStp.Text = "Stp";
+            this.cbExportStp.UseVisualStyleBackColor = true;
+            // 
+            // cbIsAutoPrtTool
+            // 
+            this.cbIsAutoPrtTool.AutoSize = true;
+            this.cbIsAutoPrtTool.Location = new System.Drawing.Point(81, 32);
+            this.cbIsAutoPrtTool.Name = "cbIsAutoPrtTool";
+            this.cbIsAutoPrtTool.Size = new System.Drawing.Size(108, 16);
+            this.cbIsAutoPrtTool.TabIndex = 57;
+            this.cbIsAutoPrtTool.Text = "启用自动导图档";
+            this.cbIsAutoPrtTool.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -894,6 +918,8 @@
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -943,17 +969,10 @@
         private System.Windows.Forms.ComboBox cbbQuadrantType;
         private System.Windows.Forms.ComboBox cbbLicenseType;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox cbExportStp;
-        private System.Windows.Forms.CheckBox cbExportCMM;
         private System.Windows.Forms.CheckBox cbShareElec;
         private System.Windows.Forms.CheckBox rbCanPUpdate;
         private System.Windows.Forms.ComboBox cbbElecNameRule;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button btnSetPrtColor;
-        private System.Windows.Forms.ComboBox cbbEdmTransRule;
-        private System.Windows.Forms.ComboBox cbbCNCTransRule;
-        private System.Windows.Forms.CheckBox cbbExportCNC;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox cbImportEman;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TextBox txtEleFType;
@@ -962,7 +981,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtEleRType;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.CheckBox cbIsSetPrtColor;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox cbIsSetPropertyAllowMultiple;
         private System.Windows.Forms.ComboBox cbbFtpPathType;
@@ -975,5 +993,15 @@
         private System.Windows.Forms.CheckBox CBSpecialshapedElec;
         private System.Windows.Forms.CheckBox cbIsMatNameSel;
         private System.Windows.Forms.CheckBox cbIsDeleteDraft;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.CheckBox cbIsAutoPrtTool;
+        private System.Windows.Forms.CheckBox cbExportStp;
+        private System.Windows.Forms.CheckBox cbIsSetPrtColor;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cbbCNCTransRule;
+        private System.Windows.Forms.CheckBox cbbExportCNC;
+        private System.Windows.Forms.ComboBox cbbEdmTransRule;
+        private System.Windows.Forms.Button btnSetPrtColor;
+        private System.Windows.Forms.CheckBox cbExportCMM;
     }
 }

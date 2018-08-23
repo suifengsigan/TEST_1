@@ -134,6 +134,10 @@ namespace EactConfig
         /// 是否识别侧放电极
         /// </summary>
         public bool IsDistinguishSideElec = true;
+        /// <summary>
+        /// 是否启用自动导图档功能
+        /// </summary>
+        public bool IsAutoPrtTool = true;
         private string _EleRType { get; set; }
         public string EleRType { set { _EleRType = value; } get { if (string.IsNullOrEmpty(_EleRType)) return "R"; return _EleRType; } }
         private string _EleMType { get; set; }
