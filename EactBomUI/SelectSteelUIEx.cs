@@ -5,6 +5,7 @@ using System.Text;
 
 partial class SelectSteelUI : SnapEx.BaseUI
 {
+    
     public System.Windows.Forms.DialogResult Result = System.Windows.Forms.DialogResult.No;
     public ElecManage.MouldInfo MouldInfo = null;
     List<string> _items = new List<string>();
@@ -178,8 +179,9 @@ partial class SelectSteelUI : SnapEx.BaseUI
         Snap.Globals.WcsOrientation = MouldInfo.Orientation;
         ElecManage.Entry.Instance.DefaultQuadrantType = (QuadrantType)enumSelectedXX.SelectedIndex;
         ElecManage.Entry.Instance.IsDistinguishSideElec = toggleIsDistinguishSideElec.Value;
+        steel.SetIntegerAttribute(EactBom.EactBomBusiness.EACT_DEFAULTQUADRANTTYPE, enumSelectedXX.SelectedIndex);
 
-       Result = System.Windows.Forms.DialogResult.OK;
+        Result = System.Windows.Forms.DialogResult.OK;
     }
 
 }

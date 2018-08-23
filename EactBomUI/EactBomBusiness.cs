@@ -13,6 +13,8 @@ namespace EactBom
         public EactConfig.ConfigData ConfigData = EactConfig.ConfigData.GetInstance();
         const string EACT_MOULDBODY = "EACT_MOULDBODY";
         const string EACT_SINSERTBODY = "EACT_SINSERTBODY";
+        //DefaultQuadrantType
+        public const string EACT_DEFAULTQUADRANTTYPE = "EACT_DEFAULTQUADRANTTYPE";
         private EactBomBusiness()
         {
             //var connStr = string.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3}", @"192.168.1.30\SQLSERVER2014", "EACT", "sa", "Qwer1234");
