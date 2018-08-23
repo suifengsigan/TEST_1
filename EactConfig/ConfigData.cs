@@ -137,7 +137,7 @@ namespace EactConfig
         /// <summary>
         /// 是否启用自动导图档功能
         /// </summary>
-        public bool IsAutoPrtTool = true;
+        public bool IsAutoPrtTool = false;
         private string _EleRType { get; set; }
         public string EleRType { set { _EleRType = value; } get { if (string.IsNullOrEmpty(_EleRType)) return "R"; return _EleRType; } }
         private string _EleMType { get; set; }

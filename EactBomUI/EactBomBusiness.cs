@@ -11,6 +11,8 @@ namespace EactBom
     public class EactBomBusiness
     {
         public EactConfig.ConfigData ConfigData = EactConfig.ConfigData.GetInstance();
+        const string EACT_MOULDBODY = "EACT_MOULDBODY";
+        const string EACT_SINSERTBODY = "EACT_SINSERTBODY";
         private EactBomBusiness()
         {
             //var connStr = string.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3}", @"192.168.1.30\SQLSERVER2014", "EACT", "sa", "Qwer1234");
@@ -21,7 +23,7 @@ namespace EactBom
         }
         public readonly static EactBomBusiness Instance = new EactBomBusiness();
 
-        public void ExportEact(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo,Action<string> showMsgHandle=null,bool isExportPrt=false,bool isExportStd=false,bool isExportCncPrt=false) 
+        public void ExportEact(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo,Action<string> showMsgHandle=null,bool isExportPrt=false,bool isExportStd=false,bool isExportCncPrt=false,bool isAutoPrtTool=false) 
         {
             var datas = new List<DataAccess.Model.EACT_CUPRUM>();
             List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas = null;
@@ -93,20 +95,50 @@ namespace EactBom
 
             if (datas.Count > 0 || (shareElecDatas != null && shareElecDatas.Count > 0))
             {
+                if (isAutoPrtTool)
+                {
+                    ExportAutoPrt(steelInfo, allPositions);
+                }
+                else
+                {
+                    ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt);
+                }
 
-                ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt);
                 if (ConfigData.IsExportBomXls)
                 {
                     if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出物料单...")); }
-                    ExcelHelper.ExportExcelBom(Enumerable.Select(positions,s=>s.Electrode).ToList(), steelInfo);
+                    ExcelHelper.ExportExcelBom(Enumerable.Select(positions, s => s.Electrode).ToList(), steelInfo);
                 }
 
-                DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER,ConfigData.IsImportEman, shareElecDatas);
+                DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, shareElecDatas);
+
             }
             else
             {
                 throw new Exception("未找到可导入的电极,请检查电极属性信息！");
             }
+        }
+
+        private void ExportAutoPrt(ElecManage.MouldInfo steelInfo, List<PositioningInfo> allPositions)
+        {
+            var bodies = new List<Snap.NX.Body>();
+            bodies.Add(steelInfo.MouldBody);
+            bodies.AddRange(steelInfo.SInsertBodies);
+            bodies.AddRange(Enumerable.Select(allPositions, u => u.Electrode.ElecBody));
+            var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"AutoPrtTool"));
+            if (System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.Delete(path, true);
+            }
+            System.IO.Directory.CreateDirectory(path);
+            var partName = steelInfo.MODEL_NUMBER + "-" + steelInfo.MR_NUMBER + "-" + Guid.NewGuid().ToString("N");
+            SnapEx.Create.ExportPrt(bodies, System.IO.Path.Combine(path, partName), () => {
+                steelInfo.MouldBody.SetStringAttribute(EACT_MOULDBODY, "1");
+                steelInfo.SInsertBodies.ForEach(u => {
+                    u.SetStringAttribute(EACT_SINSERTBODY, "1");
+                });
+                return Snap.Geom.Transform.CreateTranslation();
+            }, false);
         }
 
         private void ExportPrt(ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, 

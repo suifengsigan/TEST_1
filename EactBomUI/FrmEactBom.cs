@@ -391,7 +391,8 @@ namespace EactBom
                             SplashScreen.Splasher.Status = s;
                         }
                     }, EactBomBusiness.Instance.ConfigData.ExportPrt, EactBomBusiness.Instance.ConfigData.ExportStp
-                    , EactBomBusiness.Instance.ConfigData.ExportCNCPrt
+                    , EactBomBusiness.Instance.ConfigData.ExportCNCPrt,
+                    EactBomBusiness.Instance.ConfigData.IsAutoPrtTool
                     );
                     SplashScreen.Splasher.Status = "导入完毕............";
                     System.Threading.Thread.Sleep(800);

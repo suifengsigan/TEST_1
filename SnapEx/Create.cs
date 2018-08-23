@@ -173,8 +173,11 @@ namespace SnapEx
 
             Snap.Globals.UndoToMark(mark, null);
         }
-
-        public static void ExportPrt(Snap.NX.Body body, string path,Func<Snap.Geom.Transform> func=null, params Snap.Geom.Transform[] transfroms) 
+        public static void ExportPrt(Snap.NX.Body body, string path, Func<Snap.Geom.Transform> func = null, params Snap.Geom.Transform[] transfroms)
+        {
+            ExportPrt(new List<Snap.NX.Body> { body }, path, func,true, transfroms);
+        }
+        public static void ExportPrt(List<Snap.NX.Body> bodies, string path, Func<Snap.Geom.Transform> func = null, bool isSetWcsOrientation = true, params Snap.Geom.Transform[] transfroms)
         {
             var fileName = string.Format("{0}{1}", path, ".prt");
             if (System.IO.File.Exists(fileName))
@@ -185,34 +188,47 @@ namespace SnapEx
             var mark = Snap.Globals.SetUndoMark(Snap.Globals.MarkVisibility.Invisible, "ExportPrt");
             try
             {
-                if (body.IsOccurrence)
+                foreach (var body in bodies)
                 {
-                    transfroms.ToList().ForEach(u =>
+                    if (body.IsOccurrence)
                     {
-                        var trans = u.Matrix;
-                        Matrix3x3 matrix = new Matrix3x3();
-                        matrix.Xx = trans[0]; matrix.Xy = trans[4]; matrix.Xz = trans[8];
-                        matrix.Yx = trans[1]; matrix.Yy = trans[5]; matrix.Yz = trans[9];
-                        matrix.Zx = trans[2]; matrix.Zy = trans[6]; matrix.Zz = trans[10];
-                        workPart.ComponentAssembly.MoveComponent(body.OwningComponent, new Vector3d(trans[3], trans[7], trans[11]), matrix);
-                    });
-                }
-                else
-                {
-                    var trans = Snap.Geom.Transform.CreateTranslation();
-                    transfroms.ToList().ForEach(u =>
+                        transfroms.ToList().ForEach(u =>
+                        {
+                            var trans = u.Matrix;
+                            Matrix3x3 matrix = new Matrix3x3();
+                            matrix.Xx = trans[0]; matrix.Xy = trans[4]; matrix.Xz = trans[8];
+                            matrix.Yx = trans[1]; matrix.Yy = trans[5]; matrix.Yz = trans[9];
+                            matrix.Zx = trans[2]; matrix.Zy = trans[6]; matrix.Zz = trans[10];
+                            workPart.ComponentAssembly.MoveComponent(body.OwningComponent, new Vector3d(trans[3], trans[7], trans[11]), matrix);
+                        });
+                    }
+                    else
                     {
-                        trans = Snap.Geom.Transform.Composition(trans, u);
-                    });
-                    body.Move(trans);
-                    if (func != null)
-                    {
-                        body.Move(func());
+                        var trans = Snap.Geom.Transform.CreateTranslation();
+                        transfroms.ToList().ForEach(u =>
+                        {
+                            trans = Snap.Geom.Transform.Composition(trans, u);
+                        });
+                        body.Move(trans);
+                        if (func != null&&bodies.Count==1)
+                        {
+                            body.Move(func());
+                        }
                     }
                 }
 
-                NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, Snap.Position.Origin.Array);
-                Snap.Globals.WcsOrientation = Snap.Orientation.Identity;
+                if (func != null && bodies.Count > 1)
+                {
+                    func();
+                }
+
+
+                if (isSetWcsOrientation)
+                {
+                    NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, Snap.Position.Origin.Array);
+                    Snap.Globals.WcsOrientation = Snap.Orientation.Identity;
+                }
+               
 
                 //NXOpen.UF.UFSession.GetUFSession().Part.Export(path, 1, new Tag[] { body.NXOpenTag });
                 NXOpen.UF.UFPart.ExportOptions options = new NXOpen.UF.UFPart.ExportOptions();
@@ -221,7 +237,7 @@ namespace SnapEx
                 options.expression_mode = NXOpen.UF.UFPart.ExportExpMode.CopyExpShallowly;
                 NXOpen.UF.UFSession.GetUFSession().Part.ExportWithOptions(
                     path,
-                    1, new Tag[] { body.NXOpenTag },
+                    bodies.Count, Enumerable.Select(bodies,u=>u.NXOpenTag).ToArray(),
                     ref options
                     );
             }
