@@ -97,6 +97,7 @@ namespace EactBom
             {
                 if (isAutoPrtTool)
                 {
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出自动转换图档...")); }
                     ExportAutoPrt(steelInfo, allPositions);
                 }
                 else
