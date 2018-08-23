@@ -35,11 +35,43 @@ namespace EactBom
             }
             var positions = new List<PositioningInfo>();
             var allPositions = new List<PositioningInfo>();
+
+            GetExportEactData(infos, steelInfo, datas, positions, allPositions, shareElecDatas, showMsgHandle);
+
+            if (datas.Count > 0 || (shareElecDatas != null && shareElecDatas.Count > 0))
+            {
+                if (isAutoPrtTool)
+                {
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出自动转换图档...")); }
+                    ExportAutoPrt(steelInfo, allPositions);
+                }
+                else
+                {
+                    ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt);
+                }
+
+                if (ConfigData.IsExportBomXls)
+                {
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出物料单...")); }
+                    ExcelHelper.ExportExcelBom(Enumerable.Select(positions, s => s.Electrode).ToList(), steelInfo);
+                }
+
+                DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, shareElecDatas);
+
+            }
+            else
+            {
+                throw new Exception("未找到可导入的电极,请检查电极属性信息！");
+            }
+        }
+
+        private void GetExportEactData(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas, Action<string> showMsgHandle = null)
+        {
             infos.ForEach(u => {
-                if (u.Checked) 
+                if (u.Checked)
                 {
                     if (showMsgHandle != null) { showMsgHandle(string.Format("正在导入电极:{0}", u.ElectName)); }
-                    var tempPoss = GetPositioningInfos(u,steelInfo);
+                    var tempPoss = GetPositioningInfos(u, steelInfo);
                     //检查属性是否缺失
                     var fTempPoss = tempPoss.FirstOrDefault();
                     if (fTempPoss != null)
@@ -49,7 +81,7 @@ namespace EactBom
                         {
                             throw new Exception(string.Format("电极【{0}】属性缺失，请检查", fTempPossInfo.Elec_Name));
                         }
-                        else if (fTempPossInfo != null&&(
+                        else if (fTempPossInfo != null && (
                         (fTempPossInfo.FINISH_NUMBER != 0 && fTempPossInfo.FINISH_SPACE == 0)
                         || (fTempPossInfo.MIDDLE_NUMBER != 0 && fTempPossInfo.MIDDLE_SPACE == 0)
                         || (fTempPossInfo.ROUGH_NUMBER != 0 && fTempPossInfo.ROUGH_SPACE == 0)
@@ -94,32 +126,6 @@ namespace EactBom
                     }
                 }
             });
-
-            if (datas.Count > 0 || (shareElecDatas != null && shareElecDatas.Count > 0))
-            {
-                if (isAutoPrtTool)
-                {
-                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出自动转换图档...")); }
-                    ExportAutoPrt(steelInfo, allPositions);
-                }
-                else
-                {
-                    ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt);
-                }
-
-                if (ConfigData.IsExportBomXls)
-                {
-                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出物料单...")); }
-                    ExcelHelper.ExportExcelBom(Enumerable.Select(positions, s => s.Electrode).ToList(), steelInfo);
-                }
-
-                DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, shareElecDatas);
-
-            }
-            else
-            {
-                throw new Exception("未找到可导入的电极,请检查电极属性信息！");
-            }
         }
 
         private void ExportAutoPrt(ElecManage.MouldInfo steelInfo, List<PositioningInfo> allPositions)
@@ -146,6 +152,13 @@ namespace EactBom
                 });
                 return Snap.Geom.Transform.CreateTranslation();
             }, false);
+
+            var fileName = string.Format("{0}{1}", System.IO.Path.Combine(path, partName), ".prt");
+            if (System.IO.File.Exists(fileName))
+            {
+                //Ftp上传
+                FtpUpload("AutoPrtTool",fileName);
+            }
         }
 
         private void ExportPrt(ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, 
@@ -452,6 +465,20 @@ namespace EactBom
                 });
             }
         }
+
+        private void FtpUpload(string type,  string fileName)
+        {
+            var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
+            string sToPath = string.Format("{0}", type);
+           
+            if (!EACTFTP.DirectoryExist(sToPath))
+            {
+                EACTFTP.MakeDirPath(sToPath);
+            }
+            EACTFTP.NextDirectory(sToPath);
+            EACTFTP.UpLoadFile(fileName);
+        }
+
 
         private void FtpUpload(string type, ElecManage.MouldInfo steelInfo, string fileName, string partName)
         {
