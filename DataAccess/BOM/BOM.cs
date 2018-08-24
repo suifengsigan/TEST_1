@@ -9,6 +9,7 @@ namespace DataAccess
 {
     public abstract class BOM
     {
+        public static void UpdateCuprumDISCHARGING(List<EACT_CUPRUM> CupRumList) { GetBomDal().UpdateCuprumDISCHARGING(CupRumList); }
         public static List<EACT_CUPRUM> GetCuprumList(List<string> cuprumNames, string modelNo, string partNo)
         {
             return GetBomDal().GetCuprumList(cuprumNames, modelNo, partNo);

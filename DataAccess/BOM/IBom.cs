@@ -10,5 +10,6 @@ namespace DataAccess
     {
         void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID, bool isImportEman, List<EACT_CUPRUM_EXP> cuprumEXPs = null);
         List<EACT_CUPRUM> GetCuprumList(List<string> cuprumNames, string modelNo, string partNo);
+        void UpdateCuprumDISCHARGING(List<EACT_CUPRUM> CupRumList);
     }
 }

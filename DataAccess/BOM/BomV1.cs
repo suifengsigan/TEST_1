@@ -10,6 +10,32 @@ namespace DataAccess
     public class BomV1:IBom
     {
         /// <summary>
+        /// 更新电极放电面积
+        /// </summary>
+        public void UpdateCuprumDISCHARGING(List<EACT_CUPRUM> CupRumList)
+        {
+            using (var conn = DAL.GetConn())
+            {
+                conn.Open();
+                var _tran = conn.BeginTransaction();
+                try
+                {
+                    foreach (var item in CupRumList)
+                    {
+                        //清除符合条件的预装表数据
+                        var update_cuprum_d_sql = string.Format("update EACT_cuprum set DISCHARGING=@DISCHARGING,REGION=@REGION where CUPRUMSN+STEELMODELSN = @CS");
+                        conn.Execute(update_cuprum_d_sql, new { DISCHARGING = item.DISCHARGING, CS = item.CUPRUMSN + item.STEELMODELSN, REGION=item.REGION }, _tran);
+                    }
+                    _tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _tran.Rollback();
+                    throw ex;
+                }
+            }
+        }
+        /// <summary>
         /// 获取所有的共用电极信息
         /// </summary>
         public List<EACT_CUPRUM> GetCuprumList(List<string> cuprumNames, string modelNo, string partNo)

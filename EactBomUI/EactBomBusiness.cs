@@ -62,6 +62,10 @@ namespace EactBom
 
                     DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, shareElecDatas);
                 }
+                else
+                {
+                    DataAccess.BOM.UpdateCuprumDISCHARGING(datas);
+                }
             }
             else
             {
