@@ -286,7 +286,7 @@ namespace EactBom
 
             if (isExportPrt)
             {
-                if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Prt文件...")); }
+                if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CMM图档...")); }
                 var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, string.Format(@"PRTFILE\{0}\{1}", steelInfo.MODEL_NUMBER, steelInfo.MR_NUMBER));
                 if (!System.IO.Directory.Exists(path))
                 {
@@ -300,7 +300,7 @@ namespace EactBom
                         u.Electrode.InitAllFace();
                     }
 
-                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出Prt文件:{0}", u.Electrode.ElecBody.Name)); }
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CMM图档:{0}", u.Electrode.ElecBody.Name)); }
                     var headFaces = new List<Snap.NX.Face>();
                     var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
                     var baseDir = u.Electrode.BaseFace.GetFaceDirection();
@@ -458,7 +458,11 @@ namespace EactBom
                         if (ConfigData.IsAutoCMM)
                         {
                             //Ftp AutoCMM上传
-                            FtpUpload(Eact_AutoCMM, fileName);
+                            var autoCmmFileName = Path.GetFileNameWithoutExtension(fileName);
+                            var autoCmmExtension = Path.GetExtension(fileName);
+                            var destFileName = Path.Combine(Path.GetDirectoryName(fileName), string.Format("{0}_{1}{2}", autoCmmFileName, Guid.NewGuid().ToString("N"), autoCmmExtension));
+                            File.Copy(fileName, destFileName);
+                            FtpUpload(Eact_AutoCMM, destFileName);
                         }
                     }
 
