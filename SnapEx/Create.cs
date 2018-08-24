@@ -6,6 +6,7 @@ using Snap;
 using NXOpen.Features;
 using NXOpen;
 using NXOpen.Drawings;
+using NXOpen.UF;
 
 namespace SnapEx
 {
@@ -31,6 +32,77 @@ namespace SnapEx
             Vector axisY = wcs.AxisY;
             Vector axisZ = wcs.AxisZ;
             return new Vector((double)(absVector * axisX), (double)(absVector * axisY), (double)(absVector * axisZ));
+        }
+
+        /// <summary>
+        /// 获取面上所有的测量点
+        /// </summary>
+        public static List<Snap.Position> GetFacePoints(Snap.NX.Face face, double max_facet_size = 1)
+        {
+            var mark = Snap.Globals.SetUndoMark(Globals.MarkVisibility.Invisible, "GetFacePoints");
+            var positions = new List<Snap.Position>();
+            try
+            {
+                #region old code
+                var parameters = new UFFacet.Parameters();
+
+                var ufSession = NXOpen.UF.UFSession.GetUFSession();
+                var facet = ufSession.Facet;
+                facet.AskDefaultParameters(out parameters);
+                parameters.max_facet_edges = 3;
+                parameters.specify_max_facet_size = true;
+                parameters.max_facet_size = 1;
+
+                NXOpen.Tag facet_model = NXOpen.Tag.Null;
+                facet.FacetSolid(face.NXOpenTag, ref parameters, out facet_model);
+
+                if (facet_model == NXOpen.Tag.Null) return positions;
+                NXOpen.Tag solid = NXOpen.Tag.Null;
+                facet.AskSolidOfModel(facet_model, out solid);
+                if (solid != face.NXOpenTag) return positions;
+
+                int facet_id = NXOpen.UF.UFConstants.UF_FACET_NULL_FACET_ID;
+                bool isWhile = true;
+                while (isWhile)
+                {
+                    facet.CycleFacets(facet_model, ref facet_id);
+                    if (facet_id != NXOpen.UF.UFConstants.UF_FACET_NULL_FACET_ID)
+                    {
+                        int num_vertices = 0;
+                        facet.AskNumVertsInFacet(facet_model, facet_id, out num_vertices);
+                        if (num_vertices == 3)
+                        {
+                            var vertices = new double[num_vertices, 3];
+                            facet.AskVerticesOfFacet(facet_model, facet_id, out num_vertices, vertices);
+                            for (int i = 0; i < num_vertices; i++)
+                            {
+                                int pt_status = 0;
+                                var position = new Snap.Position(vertices[i, 0], vertices[i, 1], vertices[i, 2]);
+                                ufSession.Modl.AskPointContainment(position.Array, face.NXOpenTag, out pt_status);
+                                if (0x1 == pt_status || 0x3 == pt_status)
+                                {
+                                    positions.Add(position);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        isWhile = false;
+                    }
+                }
+
+                ufSession.Obj.DeleteObject(facet_model);
+                positions = positions.Distinct().ToList();
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Snap.Globals.UndoToMark(mark, null);
+            }
+
+            return positions;
         }
 
         /// <summary>
