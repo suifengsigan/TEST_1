@@ -51,7 +51,7 @@ namespace SnapEx
                 facet.AskDefaultParameters(out parameters);
                 parameters.max_facet_edges = 3;
                 parameters.specify_max_facet_size = true;
-                parameters.max_facet_size = 1;
+                parameters.max_facet_size = max_facet_size;
 
                 NXOpen.Tag facet_model = NXOpen.Tag.Null;
                 facet.FacetSolid(face.NXOpenTag, ref parameters, out facet_model);
