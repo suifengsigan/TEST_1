@@ -7,7 +7,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
     bool _isAllowMultiple = false;
     EactConfig.ConfigData _configData = EactConfig.ConfigData.GetInstance();
     bool SpecialshapedElec { get { return _configData.SpecialshapedElec && !_configData.IsSetPropertyAllowMultiple; } }
-    ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b,Action<bool> action=null)
+    ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b)
     {
         ElecManage.ElectrodeInfo info = null;
         if (SpecialshapedElec)
@@ -16,15 +16,6 @@ partial class SetPropertyUI : SnapEx.BaseUI
             if (xkElec != null)
             {
                 info = xkElec.GetElectrodeInfo();
-            }
-            else
-            {
-                info = new ElecManage.EactElectrodeInfo(b);
-            }
-
-            if (action != null)
-            {
-                action(xkElec == null);
             }
         }
         else
@@ -254,7 +245,21 @@ partial class SetPropertyUI : SnapEx.BaseUI
             if (nameC.Count == 1)
             {
                 var body = nameC.First();
-                SetDefaultValue(GetElecInfo(body, (b) =>
+                var info = GetElecInfo(body);
+                var groupSElecShow = info == null;
+                if (info == null)
+                {
+                    info = new ElecManage.EactElectrodeInfo(body);
+                }
+
+                if (_configData.Edition==1&&(info.KL_SIZE_HEIGHT == 0 || info.KL_SIZE_LEN == 0 || info.KL_SIZE_WIDTH == 0))
+                {
+                    theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Error, "该电极未设置开料尺寸！");
+                    selectCuprum.SelectedObjects = new Snap.NX.NXObject[] { };
+                    return;
+                }
+
+                Action<bool> action = (b) =>
                 {
                     groupSElec.Show = b;
                     if (b)
@@ -262,7 +267,13 @@ partial class SetPropertyUI : SnapEx.BaseUI
                         theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "异形电极，请设置相关参数！");
                         SetEactElec(body);
                     }
-                }));
+                };
+
+                if (SpecialshapedElec)
+                {
+                    action(groupSElecShow);
+                }
+                SetDefaultValue(info);
             }
 
             if (_isAllowMultiple)
