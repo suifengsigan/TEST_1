@@ -36,6 +36,26 @@ namespace ElecManage
         protected string EACT_EDMPROCDIRECTION = "EACT_EDMPROCDIRECTION";//加工方向
         protected string EACT_EDMROCK = "EACT_EDMROCK"; //摇摆方式
         protected string EACT_SHAREELEC = "EACT_SHAREELEC";//共用电极
+        /// <summary>
+        /// 摇摆方式
+        /// </summary>
+        protected string EACT_EDM_SWING_TYPE = "EDM_SWING_TYPE";
+        /// <summary>
+        /// 夹具名称
+        /// </summary>
+        protected string EACT_CLAMP_NAME = "CLAMP_NAME";
+        /// <summary>
+        /// 开料尺寸高
+        /// </summary>
+        protected string EACT_KL_SIZE_HEIGHT = "KL_SIZE_HEIGHT";
+        /// <summary>
+        /// 开料尺寸长
+        /// </summary>
+        protected string EACT_KL_SIZE_LEN = "KL_SIZE_LEN";
+        /// <summary>
+        /// 开料尺寸宽
+        /// </summary>
+        protected string EACT_KL_SIZE_WIDTH = "KL_SIZE_WIDTH";
 
         void SetStringAttribute(string name, string value) 
         {
@@ -47,6 +67,66 @@ namespace ElecManage
         public ElectrodeInfo(Snap.NX.Body body) 
         {
             _body = body;
+        }
+
+        /// <summary>
+        /// 夹具名称
+        /// </summary>
+        public string CLAMP_NAME
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_CLAMP_NAME);
+            }
+            set
+            {
+                SetStringAttribute(EACT_CLAMP_NAME, value);
+            }
+        }
+
+        /// <summary>
+        /// 开料尺寸长
+        /// </summary>
+        public double KL_SIZE_LEN
+        {
+            get
+            {
+                return _body.GetAttrRealValue(EACT_KL_SIZE_LEN);
+            }
+            set
+            {
+                SetStringAttribute(EACT_KL_SIZE_LEN, value.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 开料尺寸宽
+        /// </summary>
+        public double KL_SIZE_WIDTH
+        {
+            get
+            {
+                return _body.GetAttrRealValue(EACT_KL_SIZE_WIDTH);
+            }
+            set
+            {
+                SetStringAttribute(EACT_KL_SIZE_WIDTH, value.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 开料尺寸高
+        /// </summary>
+        public double KL_SIZE_HEIGHT
+        {
+            get
+            {
+                return _body.GetAttrRealValue(EACT_KL_SIZE_HEIGHT);
+            }
+            set
+            {
+                SetStringAttribute(EACT_KL_SIZE_HEIGHT, value.ToString());
+            }
         }
 
         public double Y
@@ -108,7 +188,6 @@ namespace ElecManage
                             , z
                             );
         }
-        
 
         /// <summary>
         /// 实际尺寸
@@ -429,11 +508,17 @@ namespace ElecManage
         {
             get
             {
-                return _body.GetAttrValue(EACT_EDMROCK);
+                var rock = _body.GetAttrValue(EACT_EDMROCK);
+                if (!string.IsNullOrEmpty(rock))
+                {
+                    return rock;
+                }
+                return _body.GetAttrValue(EACT_EDM_SWING_TYPE);
             }
             set
             {
                 SetStringAttribute(EACT_EDMROCK, value);
+                SetStringAttribute(EACT_EDM_SWING_TYPE, value);
             }
         }
 
