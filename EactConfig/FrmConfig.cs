@@ -41,6 +41,8 @@ namespace EactConfig
 
         void InitUI() 
         {
+            cbEdition.Items.Add(new ComboBoxItem { Text = "默认", Value = 0 });
+            cbEdition.Items.Add(new ComboBoxItem { Text = "PZ", Value = 1 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "默认", Value = 0 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "FZ", Value = 1 });
             cbbQuadrantType.Items.Add(new ComboBoxItem { Text = "第一象限", Value = QuadrantType.First });
@@ -314,6 +316,8 @@ namespace EactConfig
             cbbCNCTransRule.SelectedIndex = CNCTransRuleItems.IndexOf(CNCTransRuleItems.FirstOrDefault(u => (int)u.Value == data.CNCTranRule));
             var FtpPathType = cbbFtpPathType.Items.Cast<ComboBoxItem>().ToList();
             cbbFtpPathType.SelectedIndex = FtpPathType.IndexOf(FtpPathType.FirstOrDefault(u => (int)u.Value == data.FtpPathType));
+            var Edition = cbEdition.Items.Cast<ComboBoxItem>().ToList();
+            cbEdition.SelectedIndex = Edition.IndexOf(Edition.FirstOrDefault(u => (int)u.Value == data.Edition));
             //var ugVersionItems = cbbUGVersion.Items.Cast<ComboBoxItem>().ToList();
             //cbbUGVersion.SelectedIndex = ugVersionItems.IndexOf(ugVersionItems.FirstOrDefault(u => (int)u.Value == data.UGVersion));
         }
@@ -361,6 +365,7 @@ namespace EactConfig
                 data.EDMTranRule = (int)(cbbEdmTransRule.SelectedItem as ComboBoxItem).Value;
                 data.CNCTranRule = (int)(cbbCNCTransRule.SelectedItem as ComboBoxItem).Value;
                 data.FtpPathType = (int)(cbbFtpPathType.SelectedItem as ComboBoxItem).Value;
+                data.Edition = (int)(cbEdition.SelectedItem as ComboBoxItem).Value;
                 data.Poperties = dataGridViewPoperty.DataSource as List<ConfigData.Poperty> ?? new List<ConfigData.Poperty>();
                 ConfigData.WriteConfig(data);
                 MessageBox.Show("保存成功");

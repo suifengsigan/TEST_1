@@ -107,6 +107,10 @@ namespace EactConfig
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
         /// <summary>
+        /// 版本
+        /// </summary>
+        public int Edition = 0;
+        /// <summary>
         /// AutoCMM图档
         /// </summary>
         public bool IsAutoCMM = false;
