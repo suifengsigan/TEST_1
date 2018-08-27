@@ -227,6 +227,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
         selectBaseFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
         selectTopFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
         selectBaseFacePoint.SetFilter(Snap.NX.ObjectTypes.Type.Point, Snap.NX.ObjectTypes.SubType.PatternPoint);
+        ElecManage.Entry.Edition = _configData.Edition;
     }
 
     public override void DialogShown()

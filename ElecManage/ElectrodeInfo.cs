@@ -176,6 +176,14 @@ namespace ElecManage
         /// </summary>
         public string ElecCuttingSize(double blankstock,double matchJiajuValue)
         {
+            if (Entry.Edition == 1)
+            {
+                return string.Format("{0}x{1}x{2}",
+                          KL_SIZE_LEN
+                          , KL_SIZE_WIDTH
+                          , KL_SIZE_HEIGHT
+                          );
+            }
             var elecBox = GetBox3d();
             var z = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (matchJiajuValue));
             if (z % 5 != 0)
