@@ -236,11 +236,22 @@ namespace ElecManage
         {
             get
             {
+                if (Entry.Edition == 1)
+                {
+                    return CLAMP_NAME;
+                }
                 return _body.GetAttrValue(CLAMP_GENERAL_TYPE);
             }
             set
             {
-                SetStringAttribute(CLAMP_GENERAL_TYPE, value);
+                if (Entry.Edition == 1)
+                {
+                    CLAMP_NAME = value;
+                }
+                else
+                {
+                    SetStringAttribute(CLAMP_GENERAL_TYPE, value);
+                }
             }
         }
 

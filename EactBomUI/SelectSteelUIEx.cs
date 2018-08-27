@@ -179,6 +179,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
         Snap.Globals.WcsOrientation = MouldInfo.Orientation;
         ElecManage.Entry.Instance.DefaultQuadrantType = (QuadrantType)enumSelectedXX.SelectedIndex;
         ElecManage.Entry.Instance.IsDistinguishSideElec = toggleIsDistinguishSideElec.Value;
+        ElecManage.Entry.Edition = EactBom.EactBomBusiness.Instance.ConfigData.Edition;
         steel.SetIntegerAttribute(EactBom.EactBomBusiness.EACT_DEFAULTQUADRANTTYPE, enumSelectedXX.SelectedIndex);
 
         Result = System.Windows.Forms.DialogResult.OK;
