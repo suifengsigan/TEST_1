@@ -138,8 +138,8 @@ namespace EactBom
 
             var txtShareElec = new DataGridViewTextBoxColumn();
             txtShareElec.DataPropertyName = "ShareElecStr";
-            txtShareElec.HeaderText = "共用电极";
-            txtShareElec.Width = 80;
+            txtShareElec.HeaderText = "共用";
+            txtShareElec.Width = 40;
             txtShareElec.ReadOnly = true;
             txtShareElec.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             txtShareElec.Visible = configData.ShareElec;
