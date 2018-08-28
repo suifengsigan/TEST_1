@@ -83,6 +83,7 @@ namespace EactConfig
             btnPSelectionUpdate.Click += btnPSelectionUpdate_Click;
             dataGridViewPSelection.CellMouseDown += DataGridViewPSelection_CellMouseDown;
             dataGridViewPSelection.CellPainting += DataGridViewPSelection_CellPainting;
+            btnSetPrtColor.Click += btnSetPrtColor_Click;
         }
 
         private void DataGridViewPSelection_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
