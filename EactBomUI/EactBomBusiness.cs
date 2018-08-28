@@ -97,6 +97,14 @@ namespace EactBom
                         {
                             throw new Exception(string.Format("请检查电极【{0}】火花位信息", fTempPossInfo.Elec_Name));
                         }
+
+                        if (ConfigData.Edition == 1)//PZ
+                        {
+                            if (fTempPossInfo != null && (fTempPossInfo.KL_SIZE_LEN == 0 || fTempPossInfo.KL_SIZE_WIDTH == 0 || fTempPossInfo.KL_SIZE_HEIGHT== 0))
+                            {
+                                throw new Exception(string.Format("电极【{0}】开料尺寸缺失，请检查", fTempPossInfo.Elec_Name));
+                            }
+                        }
                     }
                     if (ConfigData.ShareElec && u.ShareElec())//共用电极
                     {
