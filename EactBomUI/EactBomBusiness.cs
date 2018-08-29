@@ -558,11 +558,11 @@ namespace EactBom
 
                 var info = electrode.GetElectrodeInfo();
                 var topFaceDir = electrode.TopFace.GetFaceDirection();
-                if (!string.IsNullOrEmpty(info.EDMPROCDIRECTION) && info.EDMPROCDIRECTION != "自动判断")
+                if ( !(info.EDMPROCDIRECTION == "自动判断" || string.IsNullOrEmpty(info.EDMPROCDIRECTION)))
                 {
                     electrodeBody.SetStringAttribute("EACT_ELECT_CREATE_AIX", info.EDMPROCDIRECTION);
                 }
-                if (info.EDMPROCDIRECTION == "自动判断")
+                if (info.EDMPROCDIRECTION == "自动判断"|| string.IsNullOrEmpty(info.EDMPROCDIRECTION))
                 {
                     var temptopFaceDir = topFaceDir;
                     var tempAixValue = "Z+";
