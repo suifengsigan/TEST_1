@@ -37,9 +37,11 @@
             // 
             this.lbStatusInfo.AutoSize = true;
             this.lbStatusInfo.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbStatusInfo.Location = new System.Drawing.Point(109, 107);
+            this.lbStatusInfo.Location = new System.Drawing.Point(2, 107);
+            this.lbStatusInfo.MaximumSize = new System.Drawing.Size(350, 0);
+            this.lbStatusInfo.MinimumSize = new System.Drawing.Size(350, 0);
             this.lbStatusInfo.Name = "lbStatusInfo";
-            this.lbStatusInfo.Size = new System.Drawing.Size(44, 17);
+            this.lbStatusInfo.Size = new System.Drawing.Size(350, 17);
             this.lbStatusInfo.TabIndex = 0;
             this.lbStatusInfo.Text = "............";
             this.lbStatusInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
