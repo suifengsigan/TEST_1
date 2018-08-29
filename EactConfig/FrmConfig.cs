@@ -304,7 +304,6 @@ namespace EactConfig
             rbCanPUpdate.Checked = data.IsCanPropertyUpdate;
             cbShareElec.Checked = data.ShareElec;
             btnSetPrtColor.BackColor = System.Drawing.Color.FromArgb(data.EDMColor);
-            System.Windows.Forms.MessageBox.Show(data.EDMColor.ToString());
             label13.Text = ColorIndex(System.Drawing.Color.FromArgb(data.EDMColor)).ToString();
             var items= cbbQuadrantType.Items.Cast<ComboBoxItem>().ToList();
             cbbQuadrantType.SelectedIndex = items.IndexOf(items.FirstOrDefault(u => (QuadrantType)u.Value == data.QuadrantType));

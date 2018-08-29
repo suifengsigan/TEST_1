@@ -98,11 +98,29 @@ namespace EactBom
                             throw new Exception(string.Format("请检查电极【{0}】火花位信息", fTempPossInfo.Elec_Name));
                         }
 
-                        if (ConfigData.Edition == 1)//PZ
+                        if (ConfigData.Edition == 1&& fTempPossInfo != null)//PZ
                         {
-                            if (fTempPossInfo != null && (fTempPossInfo.KL_SIZE_LEN == 0 || fTempPossInfo.KL_SIZE_WIDTH == 0 || fTempPossInfo.KL_SIZE_HEIGHT== 0))
+                            if ((fTempPossInfo.KL_SIZE_LEN == 0 || fTempPossInfo.KL_SIZE_WIDTH == 0 || fTempPossInfo.KL_SIZE_HEIGHT== 0))
                             {
                                 throw new Exception(string.Format("电极【{0}】开料尺寸缺失，请检查", fTempPossInfo.Elec_Name));
+                            }
+
+                            if ((fTempPossInfo.FINISH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.F_SMOOTH))
+                            || fTempPossInfo.MIDDLE_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.M_SMOOTH)
+                            || fTempPossInfo.ROUGH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.R_SMOOTH)
+                            )
+                            {
+                                throw new Exception(string.Format("电极【{0}】光洁度缺失，请检查", fTempPossInfo.Elec_Name));
+                            }
+
+                            if (string.IsNullOrEmpty(fTempPossInfo.EDMROCK))
+                            {
+                                throw new Exception(string.Format("电极【{0}】摇摆方式缺失，请检查", fTempPossInfo.Elec_Name));
+                            }
+
+                            if (string.IsNullOrEmpty(fTempPossInfo.ELEC_CLAMP_GENERAL_TYPE))
+                            {
+                                throw new Exception(string.Format("电极【{0}】夹具缺失，请检查", fTempPossInfo.Elec_Name));
                             }
                         }
                     }
