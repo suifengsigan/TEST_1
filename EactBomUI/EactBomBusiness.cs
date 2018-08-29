@@ -836,6 +836,9 @@ namespace EactBom
                 }
             });
 
+            //调整顺序
+            result = result.OrderBy(u => u.C).ToList();
+
             return result;
         }
 
