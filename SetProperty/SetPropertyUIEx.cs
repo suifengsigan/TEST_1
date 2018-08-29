@@ -252,11 +252,21 @@ partial class SetPropertyUI : SnapEx.BaseUI
                     info = new ElecManage.EactElectrodeInfo(body);
                 }
 
-                if (_configData.Edition==1&&(info.KL_SIZE_HEIGHT == 0 || info.KL_SIZE_LEN == 0 || info.KL_SIZE_WIDTH == 0))
+                if (_configData.Edition==1)
                 {
-                    theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Error, "该电极未设置开料尺寸！");
-                    selectCuprum.SelectedObjects = new Snap.NX.NXObject[] { };
-                    return;
+                    if ((info.KL_SIZE_HEIGHT == 0 || info.KL_SIZE_LEN == 0 || info.KL_SIZE_WIDTH == 0))
+                    {
+                        theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Error, "该电极未设置开料尺寸！");
+                        selectCuprum.SelectedObjects = new Snap.NX.NXObject[] { };
+                        return;
+                    }
+                   
+                    if (string.IsNullOrEmpty(info.ELEC_CLAMP_GENERAL_TYPE))
+                    {
+                        theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Error, "该电极未设置夹具！");
+                        selectCuprum.SelectedObjects = new Snap.NX.NXObject[] { };
+                        return;
+                    }
                 }
 
                 Action<bool> action = (b) =>
