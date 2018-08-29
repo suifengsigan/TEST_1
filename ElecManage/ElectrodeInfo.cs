@@ -527,12 +527,12 @@ namespace ElecManage
         {
             get
             {
-                var rock = _body.GetAttrValue(EACT_EDMROCK);
+                var rock = _body.GetAttrValue(EACT_EDM_SWING_TYPE);
                 if (!string.IsNullOrEmpty(rock))
                 {
                     return rock;
                 }
-                return _body.GetAttrValue(EACT_EDM_SWING_TYPE);
+                return _body.GetAttrValue(EACT_EDMROCK);
             }
             set
             {
