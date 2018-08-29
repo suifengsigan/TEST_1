@@ -11,6 +11,22 @@ namespace EactConfig
 {
     public partial class FrmConfig : Form
     {
+        public static System.Drawing.Color WindowsColor(int colorIndex)
+        {
+            string str;
+            double[] numArray = new double[3];
+            int num = 0;
+            if (NXOpen.Session.GetSession().Parts.Work != null)
+            {
+                var ufSession = NXOpen.UF.UFSession.GetUFSession();
+                var disp = ufSession.Disp;
+                disp.AskColor(colorIndex, num, out str, numArray);
+            }
+            int red = (int)(numArray[0] * 255.0);
+            int green = (int)(numArray[1] * 255.0);
+            int blue = (int)(numArray[2] * 255.0);
+            return System.Drawing.Color.FromArgb(red, green, blue);
+        }
         public static int ColorIndex(System.Drawing.Color windowsColor)
         {
             double num = ((double)windowsColor.R) / 255.0;
@@ -303,8 +319,17 @@ namespace EactConfig
             dataGridViewPoperty.DataSource = data.Poperties;
             rbCanPUpdate.Checked = data.IsCanPropertyUpdate;
             cbShareElec.Checked = data.ShareElec;
-            btnSetPrtColor.BackColor = System.Drawing.Color.FromArgb(data.EDMColor);
-            label13.Text = ColorIndex(System.Drawing.Color.FromArgb(data.EDMColor)).ToString();
+            try
+            {
+                btnSetPrtColor.BackColor = WindowsColor(data.EDMColor);
+                label13.Text = data.EDMColor.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                btnSetPrtColor.BackColor = System.Drawing.Color.Red;
+                label13.Text = ColorIndex(System.Drawing.Color.Red).ToString();
+            }
             var items= cbbQuadrantType.Items.Cast<ComboBoxItem>().ToList();
             cbbQuadrantType.SelectedIndex = items.IndexOf(items.FirstOrDefault(u => (QuadrantType)u.Value == data.QuadrantType));
             var licenseItems = cbbLicenseType.Items.Cast<ComboBoxItem>().ToList();
@@ -358,7 +383,7 @@ namespace EactConfig
                 data.IsImportEman = cbImportEman.Checked;
                 data.IsCanPropertyUpdate = rbCanPUpdate.Checked;
                 data.ShareElec = cbShareElec.Checked;
-                data.EDMColor = btnSetPrtColor.BackColor.ToArgb();
+                data.EDMColor = ColorIndex(btnSetPrtColor.BackColor);
                 data.QuadrantType = (QuadrantType)(cbbQuadrantType.SelectedItem as ComboBoxItem).Value;
                 //data.UGVersion = (int)(cbbUGVersion.SelectedItem as ComboBoxItem).Value;
                 data.LicenseType = (int)(cbbLicenseType.SelectedItem as ComboBoxItem).Value;

@@ -390,7 +390,19 @@ namespace EactBom
                     SnapEx.Create.ExportPrt(u.Electrode.ElecBody, System.IO.Path.Combine(path, partName),
                         () =>
                         {
-                            headFaces.ForEach(m => { m.Color = System.Drawing.Color.FromArgb(ConfigData.EDMColor); });
+                            headFaces.ForEach(m => {
+                                var faceColor = System.Drawing.Color.Red;
+                                try
+                                {
+                                    faceColor = Snap.Color.WindowsColor(ConfigData.EDMColor);
+                                }
+                                catch(Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                    ConfigData.EDMColor = Snap.Color.ColorIndex(faceColor);
+                                }
+                                m.Color = faceColor;
+                            });
                             var area = 0.0;
                             var ddf = new List<NXOpen.Body>();
                             headFaces.ForEach(m =>
