@@ -272,14 +272,33 @@ namespace ElecManage
         protected static List<Snap.NX.Face> GetBaseSideFaces(Snap.NX.Face baseFace,List<Snap.NX.Face> allSideFaces)
         {
             var result = new List<Snap.NX.Face>();
-
             var faceDirection = baseFace.GetFaceDirection();
+            var baseFaceCenterPoint = baseFace.GetCenterPoint();
             var orientation = new Snap.Orientation(faceDirection);
+            var firstFace = allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -orientation.AxisY));
+            var twoFace = allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), orientation.AxisX));
+            var threeFace = allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), orientation.AxisY));
+            var fourFace = allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -orientation.AxisX));
 
-            result.AddRange(allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -orientation.AxisY)));
-            result.AddRange(allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), orientation.AxisX)));
-            result.AddRange(allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), orientation.AxisY)));
-            result.AddRange(allSideFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -orientation.AxisX)));
+            Action<List<Snap.NX.Face>> action = itemFace => {
+                if (itemFace.Count() > 1)
+                {
+                    var fFace = itemFace.Where(u => Snap.Compute.Distance(u, baseFace) < SnapEx.Helper.Tolerance).OrderByDescending(u => Snap.Compute.Distance(baseFaceCenterPoint, u)).FirstOrDefault();
+                    if (fFace != null)
+                    {
+                        result.Add(fFace);
+                    }
+                }
+                else
+                {
+                    result.AddRange(itemFace);
+                }
+            };
+
+            action(firstFace.ToList());
+            action(twoFace.ToList());
+            action(threeFace.ToList());
+            action(fourFace.ToList());
             return result;
         }
 
