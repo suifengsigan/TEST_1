@@ -37,6 +37,10 @@ namespace ElecManage
         protected string EACT_EDMROCK = "EACT_EDMROCK"; //摇摆方式
         protected string EACT_SHAREELEC = "EACT_SHAREELEC";//共用电极
         /// <summary>
+        /// EACT模号
+        /// </summary>
+        public const string EACT_DIE_NO_OF_WORKPIECE = "EACT_DIE_NO_OF_WORKPIECE";
+        /// <summary>
         /// 摇摆方式
         /// </summary>
         protected string EACT_EDM_SWING_TYPE = "EDM_SWING_TYPE";
@@ -81,6 +85,54 @@ namespace ElecManage
             set
             {
                 SetStringAttribute(EACT_CLAMP_NAME, value);
+            }
+        }
+
+        /// <summary>
+        /// 电极总高
+        /// </summary>
+        public double STRETCHH
+        {
+            get
+            {
+                var elecBox = GetBox3d();
+                var sh = Math.Abs(elecBox.MinZ - elecBox.MaxZ);
+                return sh;
+            }
+        }
+
+        /// <summary>
+        /// 基准台高
+        /// </summary>
+        public double BasestationH
+        {
+            get
+            {
+                var elecBox = GetBox3d();
+                var baseFace = Electrode.BaseFace;
+                var topFace = Electrode.TopFace;
+                if (topFace == null)
+                {
+                    topFace = baseFace;
+                }
+                var topFaceDir = -baseFace.GetFaceDirection();
+                var baseFaceBox = baseFace.AcsToWcsBox3d(new Snap.Orientation(topFaceDir));
+                var topFaceBox = topFace.AcsToWcsBox3d(new Snap.Orientation(topFaceDir));
+                var basestationH = Math.Abs((baseFaceBox.MinZ + baseFaceBox.MaxZ) / 2 - (topFaceBox.MinZ + topFaceBox.MaxZ) / 2);
+                return basestationH;
+            }
+        }
+
+        /// <summary>
+        /// 电极头部高
+        /// </summary>
+
+        public double HEADPULLUPH
+        {
+            get
+            {
+                var h = Math.Abs(STRETCHH - BasestationH);
+                return h;
             }
         }
 
