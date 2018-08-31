@@ -161,6 +161,22 @@ namespace ElecManage
         }
 
         /// <summary>
+        /// 获取检测类型
+        /// </summary>
+
+        public QuadrantType GetCMMQuadrantType(QuadrantType defaultQ = QuadrantType.First)
+        {
+            var result = defaultQ;
+            var chamferFace = GetChamferFace();
+            if (chamferFace != null)
+            {
+                var dir = chamferFace.GetFaceDirection();
+                result = SnapEx.Helper.GetQuadrantType(dir);
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 获取象限类型
         /// </summary>
         public QuadrantType GetQuadrantType(QuadrantType defaultQ=QuadrantType.First) 
