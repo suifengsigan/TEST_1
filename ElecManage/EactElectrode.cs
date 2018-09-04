@@ -40,7 +40,12 @@ namespace ElecManage
             //顶面
             var topFace = faces.FirstOrDefault(u => u.MatchAttrValue(BASE_BOT, 1));
             //基准面
-            var baseFace = faces.FirstOrDefault(u => u.MatchAttrValue( BASE_TOP,1));
+            var baseFaces = faces.Where(u => u.MatchAttrValue(BASE_TOP, 1)).ToList();
+            var baseFace = baseFaces.FirstOrDefault();
+            if (baseFaces.Count > 1)
+            {
+                baseFace = baseFaces.OrderByDescending(u => Snap.Compute.Perimeter(u)).FirstOrDefault();
+            }
             var attrValue = body.GetAttrValue(EACT_ELECT_GROUP);
             //基准点
             var elecBasePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => !string.IsNullOrEmpty(attrValue) &&u.MatchAttrValue(EACT_ELECT_GROUP, attrValue));
