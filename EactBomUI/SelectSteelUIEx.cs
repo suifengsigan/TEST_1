@@ -41,13 +41,13 @@ partial class SelectSteelUI : SnapEx.BaseUI
         _items = list;
         
         selectSteel.AllowMultiple = false;
-        selectSteel.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
+        selectSteel.SetFilter(Snap.NX.ObjectTypes.Type.Body);
 
         selectElec.AllowMultiple = true;
-        selectElec.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
+        selectElec.SetFilter(Snap.NX.ObjectTypes.Type.Body);
 
         selectionSInsert.AllowMultiple = true;
-        selectionSInsert.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
+        selectionSInsert.SetFilter(Snap.NX.ObjectTypes.Type.Body);
     }
     public override void DialogShown()
     {

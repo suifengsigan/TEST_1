@@ -214,7 +214,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
     {
         _isAllowMultiple = _configData.IsSetPropertyAllowMultiple;
         selectCuprum.AllowMultiple = _isAllowMultiple;
-        selectCuprum.SetFilter(Snap.NX.ObjectTypes.Type.Body, Snap.NX.ObjectTypes.SubType.BodySolid);
+        selectCuprum.SetFilter(Snap.NX.ObjectTypes.Type.Body);
         selectBaseFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
         selectTopFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
         selectBaseFacePoint.SetFilter(Snap.NX.ObjectTypes.Type.Point, Snap.NX.ObjectTypes.SubType.PatternPoint);
