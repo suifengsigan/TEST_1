@@ -32,7 +32,6 @@ namespace SnapEx
                 out numResults,
                 out hitList
                 );
-            isInterference = numResults > 0x0;
             if (numResults > 0x0)
             {
                 var maxDistance = Snap.Position.Distance(p1, p2);
