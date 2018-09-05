@@ -38,7 +38,7 @@ namespace SnapEx
                 for (int i = 0; i < numResults; i++)
                 {
                     double distance = Snap.Position.Distance(p1, hitList[i].hit_point);
-                    if (distance < 0.0001 && i > 3)
+                    if (distance < 0.0001)
                     {
                         break;
                     }
