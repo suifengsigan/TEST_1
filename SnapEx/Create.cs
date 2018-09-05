@@ -13,6 +13,47 @@ namespace SnapEx
     public static class Create
     {
         /// <summary>
+        /// 射线干涉法
+        /// </summary>
+        public static bool Intersect(Snap.NX.NXObject[] inspectionBodies, Snap.Position p1, Snap.Position p2)
+        {
+            bool isInterference = false;
+            double[] transform = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 };
+            int numResults = 0;
+            var hitList = new NXOpen.UF.UFModl.RayHitPointInfo[] { };
+            var ufSession = NXOpen.UF.UFSession.GetUFSession();
+            ufSession.Modl.TraceARay(
+                inspectionBodies.Length,
+                Enumerable.Select(inspectionBodies, u => u.NXOpenTag).ToArray(),
+                p1.Array,
+                (p2 - p1).Array,
+                transform,
+                0,
+                out numResults,
+                out hitList
+                );
+            isInterference = numResults > 0x0;
+            if (numResults > 0x0)
+            {
+                var maxDistance = Snap.Position.Distance(p1, p2);
+                for (int i = 0; i < numResults; i++)
+                {
+                    double distance = Snap.Position.Distance(p1, hitList[i].hit_point);
+                    if (distance < 0.0001 && i > 3)
+                    {
+                        break;
+                    }
+                    else if (distance > 0.0001 && distance <= maxDistance)
+                    {
+                        isInterference = true;
+                        break;
+                    }
+                }
+            }
+
+            return isInterference;
+        }
+        /// <summary>
         /// WAVE
         /// </summary>
         public static NXOpen.Tag CreateLinkedBody(Snap.NX.Body body, Snap.NX.Component comp, Snap.NX.Component toComp)
