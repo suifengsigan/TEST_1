@@ -10,6 +10,49 @@ namespace DataAccess
     public class BomV1:IBom
     {
         /// <summary>
+        /// 上传取点记录
+        /// </summary>
+        public void UploadAutoCMMRecord(EACT_AUTOCMM_RECORD record)
+        {
+            if (record == null || string.IsNullOrEmpty(record.MODELNO) || string.IsNullOrEmpty(record.PARTNO) || string.IsNullOrEmpty(record.PARTNAME))
+            {
+                throw new Exception("取点记录异常");
+            }
+
+            using (var conn = DAL.GetConn())
+            {
+                conn.Open();
+                var _tran = conn.BeginTransaction();
+                try
+                {
+                    var select_mould_sql = string.Format("select ID from EACT_AUTOCMM_RECORD where MODELNO+PARTNO+PARTNAME=@SN");
+                    var insert_mould_sql = string.Format("insert into EACT_AUTOCMM_RECORD(MODELNO,PARTNO,PARTNAME,CMMRESULT,CMMINFO,CMMDATE) output inserted.ID values(@MODELNO,@PARTNO,@PARTNAME,@CMMRESULT,@CMMINFO,@CMMDATE)");
+                    var update_cuprum_d_sql = string.Format("update EACT_AUTOCMM_RECORD set CMMRESULT=@CMMRESULT,CMMINFO=@CMMINFO,CMMDATE=@CMMDATE where MODELNO+PARTNO+PARTNAME=@SN");
+
+                    object mouldId = conn.ExecuteScalar(select_mould_sql, new {SN=record.MODELNO+record.PARTNO+record.PARTNAME }, _tran, null, null);
+                    if (mouldId == null)
+                    {
+                        mouldId = conn.ExecuteScalar(insert_mould_sql, record, _tran, null, null).ToString();
+                    }
+                    else
+                    {
+                        conn.Execute(update_cuprum_d_sql, new {
+                            SN = record.MODELNO + record.PARTNO + record.PARTNAME ,
+                            CMMRESULT=record.CMMRESULT ,
+                            CMMDATE=record.CMMDATE,
+                            CMMINFO=record.CMMINFO
+                        }, _tran, null, null);
+                    }
+                    _tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _tran.Rollback();
+                    throw ex;
+                }
+            }
+        }
+        /// <summary>
         /// 更新电极放电面积
         /// </summary>
         public void UpdateCuprumDISCHARGING(List<EACT_CUPRUM> CupRumList)

@@ -9,6 +9,7 @@ namespace DataAccess
 {
     public class BomV2 : IBom
     {
+        public void UploadAutoCMMRecord(EACT_AUTOCMM_RECORD record) { }
         public void UpdateCuprumDISCHARGING(List<EACT_CUPRUM> CupRumList) { }
         public void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID, bool isImportEman, List<EACT_CUPRUM_EXP> cuprumEXPs = null)
         {

@@ -9,6 +9,13 @@ namespace DataAccess
 {
     public abstract class BOM
     {
+        /// <summary>
+        /// 上传取点记录
+        /// </summary>
+        public static void UploadAutoCMMRecord(EACT_AUTOCMM_RECORD record)
+        {
+            GetBomDal().UploadAutoCMMRecord(record);
+        }
         public static void UpdateCuprumDISCHARGING(List<EACT_CUPRUM> CupRumList) { GetBomDal().UpdateCuprumDISCHARGING(CupRumList); }
         public static List<EACT_CUPRUM> GetCuprumList(List<string> cuprumNames, string modelNo, string partNo)
         {

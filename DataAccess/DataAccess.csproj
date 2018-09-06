@@ -56,6 +56,7 @@
     <Compile Include="ModelV2\EACT_STEEL.cs" />
     <Compile Include="ModelV2\EACT_STEEL_CUPRUM.cs" />
     <Compile Include="Model\BOM.cs" />
+    <Compile Include="Model\EACT_AUTOCMM_RECORD.cs" />
     <Compile Include="Model\EACT_CUPRUM.cs" />
     <Compile Include="Model\EACT_CUPRUM_EXP.cs" />
     <Compile Include="Model\Eman_Mould.cs" />
