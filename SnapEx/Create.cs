@@ -18,6 +18,10 @@ namespace SnapEx
         public static bool Intersect(Snap.NX.NXObject[] inspectionBodies, Snap.Position p1, Snap.Position p2)
         {
             bool isInterference = false;
+            if (Helper.Equals(p1, p2, SnapEx.Helper.Tolerance))
+            {
+                return isInterference;
+            }
             double[] transform = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 };
             int numResults = 0;
             var hitList = new NXOpen.UF.UFModl.RayHitPointInfo[] { };
