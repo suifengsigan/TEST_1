@@ -93,7 +93,7 @@ namespace ElecManage
         }
 
         /// <summary>
-        /// Eact模号(用于取点)
+        /// Eact件号(用于取点)
         /// </summary>
         public string EACT_PARTNO
         {
