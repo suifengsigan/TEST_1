@@ -29,7 +29,7 @@ namespace DataAccess.Model
         /// <summary>
         /// CMM取点是否成功 0表示未上传  1表示上传成功 2表示上传失败
         /// </summary>
-        public string CMMRESULT { get; set; }
+        public int CMMRESULT { get; set; }
         /// <summary>
         /// 表示CMM取点信息
         /// </summary>
