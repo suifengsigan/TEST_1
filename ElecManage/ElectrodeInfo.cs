@@ -41,6 +41,10 @@ namespace ElecManage
         /// </summary>
         public const string EACT_DIE_NO_OF_WORKPIECE = "EACT_DIE_NO_OF_WORKPIECE";
         /// <summary>
+        /// EACT件号
+        /// </summary>
+        public const string EACT_WORKPIECE_NO_OF_WORKPIECE = "EACT_WORKPIECE_NO_OF_WORKPIECE";
+        /// <summary>
         /// 摇摆方式
         /// </summary>
         protected string EACT_EDM_SWING_TYPE = "EDM_SWING_TYPE";
@@ -71,6 +75,36 @@ namespace ElecManage
         public ElectrodeInfo(Snap.NX.Body body) 
         {
             _body = body;
+        }
+
+        /// <summary>
+        /// Eact模号(用于取点)
+        /// </summary>
+        public string EACT_MODELNO
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_DIE_NO_OF_WORKPIECE);
+            }
+            set
+            {
+                SetStringAttribute(EACT_DIE_NO_OF_WORKPIECE, value);
+            }
+        }
+
+        /// <summary>
+        /// Eact模号(用于取点)
+        /// </summary>
+        public string EACT_PARTNO
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_WORKPIECE_NO_OF_WORKPIECE);
+            }
+            set
+            {
+                SetStringAttribute(EACT_WORKPIECE_NO_OF_WORKPIECE, value);
+            }
         }
 
         /// <summary>

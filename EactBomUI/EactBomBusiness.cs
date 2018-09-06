@@ -582,8 +582,8 @@ namespace EactBom
                 electrode.GetTopFace();
                 electrodeBody.SetStringAttribute("EACT_ELEC", "1");
                 electrodeBody.SetStringAttribute("EACT_ELEC_NAME", electrodeBody.Name);
-                electrodeBody.SetStringAttribute("EACT_DIE_NO_OF_WORKPIECE",steelInfo.MODEL_NUMBER);
-                electrodeBody.SetStringAttribute("EACT_WORKPIECE_NO_OF_WORKPIECE",steelInfo.MR_NUMBER);
+                electrodeBody.SetStringAttribute(EactElectrodeInfo.EACT_DIE_NO_OF_WORKPIECE, steelInfo.MODEL_NUMBER);
+                electrodeBody.SetStringAttribute(EactElectrodeInfo.EACT_WORKPIECE_NO_OF_WORKPIECE,steelInfo.MR_NUMBER);
                 electrodeBody.SetStringAttribute("EACT_ELECT_CREATE_AIX","Z+");
 
                 var info = electrode.GetElectrodeInfo();
