@@ -303,7 +303,7 @@ namespace ElecManage
 
         public Electrode Electrode { get; set; }
 
-        private Snap.Geom.Box3d GetBox3d()
+        public Snap.Geom.Box3d GetBox3d()
         {
             if (Electrode != null)
             {
