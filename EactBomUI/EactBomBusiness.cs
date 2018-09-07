@@ -475,15 +475,8 @@ namespace EactBom
                             }
                             datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation ? "1" : "0");
                             datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = area.ToString());
-                            switch (ConfigData.FtpPathType)
-                            {
-                                case 1:
-                                    {
-                                        u.Electrode.ElecBody.Name = partName;
-                                        u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
-                                        break;
-                                    }
-                            }
+                            u.Electrode.ElecBody.Name = partName;
+                            u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
                             return trans;
                         }
                         , transY, transQ, transX);
