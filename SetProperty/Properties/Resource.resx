@@ -121,7 +121,4 @@
   <data name="NXSigningResource" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NXSigningResource.res;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="timg__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\timg (1).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

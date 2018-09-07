@@ -1,0 +1,1021 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>MiniSnap</name>
+  </assembly>
+  <members>
+    <member name="T:MiniSnap.Create">
+      <summary>Provides functions for creating NX objects in the Work Part</summary>
+    </member>
+    <member name="M:MiniSnap.Create.Arc(MiniSnap.Position,System.Double,System.Double,System.Double)">
+      <summary>Constructs a MiniSnap.NX.Arc parallel to the XY-plane</summary>
+      <param name="center">Center point (in absolute coordinates)</param>
+      <param name="radius">Radius</param>
+      <param name="angle1">Start angle (in degrees)</param>
+      <param name="angle2">End angle (in degrees)</param>
+      <returns>A <see cref="T:MiniSnap.NX.Arc">MiniSnap.NX.Arc</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Arc(System.Double,System.Double,System.Double,System.Double,System.Double)">
+      <summary>Constructs a MiniSnap.NX.Arc lying in the XY-plane</summary>
+      <param name="cx">X-coordinate of center point (in absolute coordinates)</param>
+      <param name="cy">Y-coordinate of center point (in absolute coordinates)</param>
+      <param name="radius">Radius</param>
+      <param name="angle1">Start angle (in degrees)</param>
+      <param name="angle2">End angle (in degrees)</param>
+      <returns>A <see cref="T:MiniSnap.NX.Arc">Snap.NX.Arc</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.BezierCurve(MiniSnap.NX.Point[])">
+      <summary>Creates a Bezier curve using given points as poles</summary>
+      <param name="poles">Array of m+1 poles (3D)</param>
+      <returns>A <see cref="T:MiniSnap.NX.Spline">Snap.NX.Spline</see> object of degree m (order m+1)</returns>
+    </member>
+    <member name="M:MiniSnap.Create.BezierCurve(MiniSnap.Position[])">
+      <summary>Creates a Bezier curve from given poles</summary>
+      <param name="poles">Array of m+1 poles (3D)</param>
+      <returns>A <see cref="T:MiniSnap.NX.Spline">Snap.NX.Spline</see> object of degree m (order m+1)</returns>
+    </member>
+    <member name="M:MiniSnap.Create.BezierCurve(MiniSnap.Position[],System.Double[])">
+      <summary>Creates a rational Bezier curve from given poles and weights</summary>
+      <param name="poles">Array of m+1 poles (3D)</param>
+      <param name="weights">Array of m+1 weights</param>
+      <returns>A <see cref="T:MiniSnap.NX.Spline">Snap.NX.Spline</see> object of degree m (order m+1)</returns>
+    </member>
+    <member name="M:MiniSnap.Create.BezierPatch(MiniSnap.Position[0:,0:])">
+      <summary>Creates a polynomial Bezier patch</summary>
+      <param name="poles">A 2D array of (mu+1) x (mv+1) 3D positions representing poles</param>
+      <returns>A polynomial Bezier patch of degree mu x mv</returns>
+    </member>
+    <member name="M:MiniSnap.Create.BezierPatch(MiniSnap.Position[0:,0:],System.Double[0:,0:])">
+      <summary>Creates a rational Bezier patch</summary>
+      <param name="poles">A 2D array of (mu+1) x (mv+1) 3D positions representing poles</param>
+      <param name="weights">A 2D array of (mu+1) x (mv+1) values representing weights</param>
+      <returns>A rational Bezier patch of degree mu x mv</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Bsurface(MiniSnap.Position[0:,0:],System.Double[],System.Double[])">
+      <summary>Constructs a polynomial b-surface from poles and knot sequences</summary>
+      <param name="poles">A 2D array of nu x nv 3D poles</param>
+      <param name="knotsU">Knots for u-direction -- an array of nu+ku knot values : u[0], ... , u[nu+ku-1]</param>
+      <param name="knotsV">Knots for v-direction -- an array of nv+kv knot values : v[0], ... , v[nv+kv-1]</param>
+      <returns>A <see cref="T:MiniSnap.NX.Bsurface">NX.Bsurface</see> object, which is a body having a single face.</returns>
+    </member>
+    <member name="M:MiniSnap.Create.BsurfaceThroughPoints(MiniSnap.Position[0:,0:],System.Double[],System.Double[],System.Double[],System.Double[])">
+      <summary>Creates a Bsurface interpolating (passing through) a given array of points</summary>
+      <param name="intPoints">An nu x nv array of points to be interpolated</param>
+      <param name="nodesU">The nu parameter u-values at which to interpolate (aka nodes)</param>
+      <param name="nodesV">The nv parameter v-values at which to interpolate (aka nodes)</param>
+      <param name="knotsU">Knots for u-direction -- an array of nu+ku knot values : u[0], ... , u[nu+ku-1]</param>
+      <param name="knotsV">Knots for v-direction -- an array of nv+kv knot values : v[0], ... , v[nv+kv-1]</param>
+      <returns>A Bsurface interpolating the given points at the given (u,v) values</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Circle(MiniSnap.Position,MiniSnap.Position,MiniSnap.Position)">
+      <summary>Create a circle through three points</summary>
+      <param name="p1">First point</param>
+      <param name="p2">Second point</param>
+      <param name="p3">Third point</param>
+      <returns>Circle (360 degrees) passing through the 3 points</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Circle(MiniSnap.Position,MiniSnap.Vector,System.Double)">
+      <summary>Constructs a circle from center, normal, radius</summary>
+      <param name="center">Center point (in absolute coordinates)</param>
+      <param name="axisZ">Unit vector normal to plane of circle</param>
+      <param name="radius">Radius</param>
+      <returns>A <see cref="T:MiniSnap.NX.Arc">MiniSnap.NX.Arc</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Circle(MiniSnap.Position,System.Double)">
+      <summary>Constructs a circle parallel to the XY-plane</summary>
+      <param name="center">Center point (in absolute coordinates)</param>
+      <param name="radius">Radius</param>
+      <returns>A <see cref="T:MiniSnap.NX.Arc">MiniSnap.NX.Arc</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Circle(System.Double,System.Double,System.Double)">
+      <summary>Constructs a circle lying in the XY-plane</summary>
+      <param name="cx">X-coordinate of center point (in absolute coordinates)</param>
+      <param name="cy">Y-coordinate of center point (in absolute coordinates)</param>
+      <param name="radius">Radius</param>
+      <returns>A <see cref="T:MiniSnap.NX.Arc">Snap.NX.Arc</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Cylinder(MiniSnap.Position,MiniSnap.Vector,MiniSnap.Number,MiniSnap.Number)">
+      <summary>Create a cylinder feature, given base point, axis vector, height, and diameter</summary>
+      <param name="axisPoint">The cylinder axis position (center of base arc)</param>
+      <param name="axisVector">The cylinder axis vector (length doesn't matter)</param>
+      <param name="height">Number object representing height of cylinder (must be positive)</param>
+      <param name="diameter">Number object representing diameter of cylinder</param>
+      <returns>A <see cref="T:MiniSnap.NX.Cylinder">MiniSnap.NX.Cylinder</see> feature</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Line(MiniSnap.NX.Point,MiniSnap.NX.Point)">
+      <summary>Create a line between two points (NX.Point objects)</summary>
+      <param name="pt0">Point at start of line</param>
+      <param name="pt1">Point at end of line</param>
+      <returns>A <see cref="T:MiniSnap.NX.Line">Snap.NX.Line</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Line(MiniSnap.Position,MiniSnap.Position)">
+      <summary>Create a line between two positions</summary>
+      <param name="p0">Position for start of line</param>
+      <param name="p1">Position for end of line</param>
+      <returns>A <see cref="T:MiniSnap.NX.Line">Snap.NX.Line</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Line(System.Double,System.Double,System.Double,System.Double)">
+      <summary>Construct a line, given x,y coordinates of its end-points (z assumed zero)</summary>
+      <param name="x0">X-coordinate of start point</param>
+      <param name="y0">Y-coordinate of start point</param>
+      <param name="x1">X-coordinate of end   point</param>
+      <param name="y1">Y-coordinate of end   point</param>
+      <returns>A <see cref="T:MiniSnap.NX.Line">Snap.NX.Line</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Point(MiniSnap.Position)">
+      <summary>Create a point from a position</summary>
+      <param name="p">Position</param>
+      <returns>A <see cref="T:MiniSnap.NX.Point">Snap.NX.Point</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Point(System.Double,System.Double)">
+      <summary>Create a point from xy-coordinates (assumes z=0)</summary>
+      <param name="x">x-coordinate</param>
+      <param name="y">y-coordinate</param>
+      <returns>A <see cref="T:MiniSnap.NX.Point">Snap.NX.Point</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Point(System.Double,System.Double,System.Double)">
+      <summary>Create a point from x, y, z coordinates</summary>
+      <param name="x">x-coordinate</param>
+      <param name="y">y-coordinate</param>
+      <param name="z">z-coordinate</param>
+      <returns>A <see cref="T:MiniSnap.NX.Point">Snap.NX.Point</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Point(System.Double[])">
+      <summary>Create a point from an array of 3 coordinates</summary>
+      <param name="coords">Array of doubles</param>
+      <returns>A <see cref="T:MiniSnap.NX.Point">Snap.NX.Point</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Sphere(MiniSnap.NX.Point,MiniSnap.Number)">
+      <summary>Create a sphere feature, given center point and diameter</summary>
+      <param name="center">Point at center</param>
+      <param name="diameter">Diameter</param>
+      <returns>A <see cref="T:MiniSnap.NX.Sphere">Snap.NX.Sphere</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Sphere(MiniSnap.Position,MiniSnap.Number)">
+      <summary>Create a sphere feature, given center position and diameter</summary>
+      <param name="center">Position of center</param>
+      <param name="diameter">Diameter</param>
+      <returns>A <see cref="T:MiniSnap.NX.Sphere">Snap.NX.Sphere</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Sphere(System.Double,System.Double,System.Double,MiniSnap.Number)">
+      <summary>Create a sphere feature, given center coordinates and diameter</summary>
+      <param name="x">x-coordinate of center</param>
+      <param name="y">y-coordinate of center</param>
+      <param name="z">z-coordinate of center</param>
+      <param name="diameter">Diameter</param>
+      <returns>A <see cref="T:MiniSnap.NX.Sphere">Snap.NX.Sphere</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Spline(System.Double[],MiniSnap.Position[])">
+      <summary>Creates a polynomial spline curve from knots and poles</summary>
+      <param name="knots">Knots -- an array of n+k knot values : t[0], ... , t[n+k-1]</param>
+      <param name="poles">An array of n 3D positions representing poles</param>
+      <returns>A <see cref="T:MiniSnap.NX.Spline">Snap.NX.Spline</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Spline(System.Double[],MiniSnap.Position[],System.Double[])">
+      <summary>Creates a rational spline curve from knots, poles, and weights</summary>
+      <param name="knots">Knots -- an array of n+k knot values : t[0], ... , t[n+k-1]</param>
+      <param name="poles">An array of n 3D positions representing poles</param>
+      <param name="weights">An array of n weight values</param>
+      <returns>A <see cref="T:MiniSnap.NX.Spline">Snap.NX.Spline</see> object</returns>
+    </member>
+    <member name="M:MiniSnap.Create.Unite(MiniSnap.NX.Body,MiniSnap.NX.Body[])">
+      <summary>Unites an array of tool bodies with a target body</summary>
+      <param name="targetBody">Target body</param>
+      <param name="toolBodies">Array of tool bodies</param>
+      <returns>
+        <see cref="T:MiniSnap.NX.Boolean">Snap.NX.Boolean</see> feature formed by uniting tools with target</returns>
+    </member>
+    <member name="T:MiniSnap.InfoWindow">
+      <summary>
+            Provides functions to write output to the NX Information window 
+            (sometimes known as the "Listing" window).
+            </summary>
+    </member>
+    <member name="M:MiniSnap.InfoWindow.Clear">
+      <summary>Clear the Info Window</summary>
+    </member>
+    <member name="M:MiniSnap.InfoWindow.Close">
+      <summary>Closes the Information window</summary>
+    </member>
+    <member name="M:MiniSnap.InfoWindow.Write(System.String)">
+      <summary>
+            Write a string to the Info window (with no newline added)
+            </summary>
+      <param name="mystring">The string to write</param>
+    </member>
+    <member name="M:MiniSnap.InfoWindow.WriteLine(System.String)">
+      <summary>
+            Write a string to the Info window (with a newline added)
+            </summary>
+      <param name="mystring">The string to write</param>
+    </member>
+    <member name="T:MiniSnap.Number">
+      <summary>Class to allow either double or string inputs when creating features</summary>
+    </member>
+    <member name="M:MiniSnap.Number.ToString">
+      <summary>Produce a string representation of a Number object</summary>
+      <returns>The string</returns>
+    </member>
+    <member name="F:MiniSnap.Number.Zero">
+      <summary>The Number representing zero</summary>
+    </member>
+    <member name="T:MiniSnap.Orientation">
+      <summary>
+            Represents an orientation in 3D space  (interchangeable with <see cref="T:NXOpen.Matrix3x3">NXOpen.Matrix3x3</see>)
+            </summary>
+    </member>
+    <member name="M:MiniSnap.Orientation.#ctor">
+      <summary>Constructor for the identity Orientation</summary>
+    </member>
+    <member name="M:MiniSnap.Orientation.#ctor(MiniSnap.Vector)">
+      <summary>Constructor, given a Z-axis vector</summary>
+      <param name="axisZ">Vector to be used as the Z-axis of the orientation (length doesn't matter)</param>
+      <returns>Orientation having the given vector as its Z-axis</returns>
+    </member>
+    <member name="M:MiniSnap.Orientation.#ctor(MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Constructor, given X and Y axes</summary>
+      <param name="axisX">The X-axis vector</param>
+      <param name="axisY">The Y-axis vector</param>
+    </member>
+    <member name="M:MiniSnap.Orientation.#ctor(MiniSnap.Vector,MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Constructor, given three orthogonal unit vectors</summary>
+      <param name="axisX">Unit vector to be used as X-axis</param>
+      <param name="axisY">Unit vector to be used as Y-axis</param>
+      <param name="axisZ">Unit vector to be used as Z-axis</param>
+    </member>
+    <member name="M:MiniSnap.Orientation.#ctor(NXOpen.Matrix3x3)">
+      <summary>Constructor, given an NXOpen.Matrix3x3 object</summary>
+      <param name="matrix">An NXOpen.Matrix3x3 object</param>
+    </member>
+    <member name="P:MiniSnap.Orientation.Array">
+      <summary>
+            The array representation of the orientation
+            </summary>
+    </member>
+    <member name="P:MiniSnap.Orientation.AxisX">
+      <summary>The X-axis of the orientation (unit vector)</summary>
+    </member>
+    <member name="P:MiniSnap.Orientation.AxisY">
+      <summary>The Y-axis of the orientation (unit vector)</summary>
+    </member>
+    <member name="P:MiniSnap.Orientation.AxisZ">
+      <summary>The Z-axis of the orientation (unit vector)</summary>
+    </member>
+    <member name="P:MiniSnap.Orientation.Identity">
+      <summary>Returns the identity Orientation</summary>
+    </member>
+    <member name="T:MiniSnap.Position">
+      <summary>
+            Represents a position in 3D space (interchangeable with <see cref="T:NXOpen.Point3d">NXOpen.Point3d</see>)
+            </summary>
+    </member>
+    <member name="M:MiniSnap.Position.#ctor(MiniSnap.NX.Point)">
+      <summary>Creates a position from An NX.Point object</summary>
+      <param name="pt">An NX.Point object (or an NXOpen.Point)</param>
+    </member>
+    <member name="M:MiniSnap.Position.#ctor(NXOpen.Point)">
+      <summary>Creates a position from an NXOpen.Point object</summary>
+      <param name="pt">An NXOpen.Point object</param>
+    </member>
+    <member name="M:MiniSnap.Position.#ctor(NXOpen.Point3d)">
+      <summary>Creates a position from an NXOpen.Point3d object</summary>
+      <param name="pt">An NXOpen.Point3d object</param>
+    </member>
+    <member name="M:MiniSnap.Position.#ctor(System.Double,System.Double)">
+      <summary>Creates a position from x and y coordinates (z assumed = 0)</summary>
+      <param name="x">x-coordinate</param>
+      <param name="y">y-coordinate</param>
+    </member>
+    <member name="M:MiniSnap.Position.#ctor(System.Double,System.Double,System.Double)">
+      <summary>Creates a position from three rectangular coordinates</summary>
+      <param name="x">x-coordinate</param>
+      <param name="y">y-coordinate</param>
+      <param name="z">z-coordinate</param>
+    </member>
+    <member name="M:MiniSnap.Position.#ctor(System.Double[])">
+      <summary>Creates a position from an array of three coordinates</summary>
+      <param name="coords">Array of three coordinates</param>
+    </member>
+    <member name="P:MiniSnap.Position.Array">
+      <summary>Array of the coordinates of the position</summary>
+    </member>
+    <member name="M:MiniSnap.Position.GetX(MiniSnap.Position[0:,0:])">
+      <summary>Generate a 2D array of X-coordinates from a 2D array of positions</summary>
+      <param name="positions">Array of positions v00, v01, ..., vmn</param>
+      <returns>Array of coordinates v00.X, v01.X, ... , vmn.X</returns>
+    </member>
+    <member name="M:MiniSnap.Position.GetX(MiniSnap.Position[])">
+      <summary>Generate an array of X-coordinates from an array of positions</summary>
+      <param name="positions">Array of positions v0, v1, ..., vn</param>
+      <returns>Array of coordinates v0.X, v1.X, ... , vn.X</returns>
+    </member>
+    <member name="M:MiniSnap.Position.GetXYZ(MiniSnap.Position[])">
+      <summary>Generate an array of XYZ coordinates from an array of positions</summary>
+      <param name="positions">Array of positions v0, v1, ..., vn</param>
+      <returns>Array of coordinates v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, ... , vn.Z</returns>
+    </member>
+    <member name="M:MiniSnap.Position.GetY(MiniSnap.Position[0:,0:])">
+      <summary>Generate a 2D array of Y-coordinates from a 2D array of positions</summary>
+      <param name="positions">Array of positions p00, p01, ..., pmn</param>
+      <returns>Array of Y-coordinates p00.Y, p01.Y, ... , pmn.Y</returns>
+    </member>
+    <member name="M:MiniSnap.Position.GetY(MiniSnap.Position[])">
+      <summary>Generate an array of Y-coordinates from an array of positions</summary>
+      <param name="positions">Array of vectors v0, v1, ..., vn</param>
+      <returns>Array of coordinates v0.Y, v1.Y, ... , vn.Y</returns>
+    </member>
+    <member name="M:MiniSnap.Position.GetZ(MiniSnap.Position[0:,0:])">
+      <summary>Generate a 2D array of Z-coordinates from a 2D array of positions</summary>
+      <param name="positions">Array of positions v00, v01, ..., vmn</param>
+      <returns>Array of coordinates v00.Z, v01.Z, ... , vmn.Z</returns>
+    </member>
+    <member name="M:MiniSnap.Position.GetZ(MiniSnap.Position[])">
+      <summary>Generate an array of Z-coordinates from an array of positions</summary>
+      <param name="positions">Array of positions p0, p1, ..., pn</param>
+      <returns>Array of Z-coordinates p0.Z, p1.Z, ... , pn.Z</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_Addition(MiniSnap.Position,MiniSnap.Position)">
+      <summary>Adds two positions using the "+" notation</summary>
+      <param name="u">First position</param>
+      <param name="v">Second position</param>
+      <returns>Sum of two positions: u + v</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_Addition(MiniSnap.Position,MiniSnap.Vector)">
+      <summary>Adds a position and a vector using the "+" notation</summary>
+      <param name="u">Position</param>
+      <param name="v">Vector</param>
+      <returns>Sum of position and vector: u + v</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_Division(MiniSnap.Position,System.Double)">
+      <summary>Divides a position by a scalar using "/" notation</summary>
+      <param name="u">Position</param>
+      <param name="s">Scalar (double)</param>
+      <returns>Scalar multiple: u/s</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_Multiply(System.Double,MiniSnap.Position)">
+      <summary>Multiplies a position by a scalar using "*" notation</summary>
+      <param name="s">Scalar (double)</param>
+      <param name="u">Position</param>
+      <returns>Scalar multiple: s*u</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_Multiply(System.Int32,MiniSnap.Position)">
+      <summary>Multiplies a position by a scalar using "*" notation</summary>
+      <param name="s">Scalar (int)</param>
+      <param name="u">Position</param>
+      <returns>Scalar multiple: s*u</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_Subtraction(MiniSnap.Position,MiniSnap.Position)">
+      <summary>Subtracts two positions using the "-" notation</summary>
+      <param name="u">First position</param>
+      <param name="v">Second position</param>
+      <returns>Vector representing difference of two positions: u - v</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_Subtraction(MiniSnap.Position,MiniSnap.Vector)">
+      <summary>Subtracts a vector from a position using the "-" notation</summary>
+      <param name="p">Position</param>
+      <param name="v">Vector</param>
+      <returns>Position minus vector: p  - v</returns>
+    </member>
+    <member name="M:MiniSnap.Position.op_UnaryNegation(MiniSnap.Position)">
+      <summary>Negates (reverses) a position using the "-" notation</summary>
+      <param name="u">The position</param>
+      <returns>Negative of the given position</returns>
+    </member>
+    <member name="F:MiniSnap.Position.Origin">
+      <summary>A position corresponding to the origin -- (0,0,0)</summary>
+    </member>
+    <member name="M:MiniSnap.Position.PositionsFromCoordinates(System.Double[],System.Double[],System.Double[])">
+      <summary>Build an array of positions from three arrays of coordinates</summary>
+      <param name="x">Array of x-coordinates x00, x01, ... , xmn</param>
+      <param name="y">Array of y-coordinates y00, y01, ... , ymn</param>
+      <param name="z">Array of z-coordinates z00, z01, ... , zmn</param>
+      <returns>Array of positions v0, v1, ..., vn, where v[i] = ( x[i], y[i] z[i] )</returns>
+    </member>
+    <member name="M:MiniSnap.Position.ToString">
+      <summary>Produce a string representation of a Position object</summary>
+      <returns>String in the form (X, Y, Z)</returns>
+    </member>
+    <member name="F:MiniSnap.Position.X">
+      <summary>The x-coordinate of the position</summary>
+    </member>
+    <member name="F:MiniSnap.Position.Y">
+      <summary>The y-coordinate of the position</summary>
+    </member>
+    <member name="F:MiniSnap.Position.Z">
+      <summary>The z-coordinate of the position</summary>
+    </member>
+    <member name="T:MiniSnap.UnloadOption">
+      <summary>
+            Indicates when you want the system to unload your application library from a running NX session.
+            </summary>
+    </member>
+    <member name="F:MiniSnap.UnloadOption.Immediately">
+      <summary>
+            You want the system to unload the library as soon as your application program has finished running.
+            </summary>
+    </member>
+    <member name="F:MiniSnap.UnloadOption.Explicitly">
+      <summary>
+            You will unload the library yourself, using the "Unload Shared Image" command in File--&gt;Utilities.
+            </summary>
+    </member>
+    <member name="F:MiniSnap.UnloadOption.AtTermination">
+      <summary>
+            You want the system to unload the library when the current NX session terminates. 
+            </summary>
+    </member>
+    <member name="T:MiniSnap.Vector">
+      <summary>
+            Represents a vector in 3D space (interchangeable with <see cref="T:NXOpen.Vector3d">NXOpen.Vector3d</see>)
+            </summary>
+    </member>
+    <member name="M:MiniSnap.Vector.#ctor(MiniSnap.NX.Point)">
+      <summary>Creates a vector from An NX.Point object</summary>
+      <param name="pt">An NX.Point object (or an NXOpen.Point)</param>
+    </member>
+    <member name="M:MiniSnap.Vector.#ctor(NXOpen.Point)">
+      <summary>Creates a vector from an NXOpen.Point object</summary>
+      <param name="pt">An NXOpen.Point object</param>
+    </member>
+    <member name="M:MiniSnap.Vector.#ctor(NXOpen.Point3d)">
+      <summary>Creates a vector from an NXOpen.Point3d object</summary>
+      <param name="pt">An NXOpen.Point3d object</param>
+    </member>
+    <member name="M:MiniSnap.Vector.#ctor(NXOpen.Vector3d)">
+      <summary>Creates a vector from an NXOpen.Vector3d object</summary>
+      <param name="v">An NXOpen.Vector3d object</param>
+    </member>
+    <member name="M:MiniSnap.Vector.#ctor(System.Double,System.Double)">
+      <summary>Creates a vector from x and y coordinates (z assumed = 0)</summary>
+      <param name="x">x-coordinate</param>
+      <param name="y">y-coordinate</param>
+    </member>
+    <member name="M:MiniSnap.Vector.#ctor(System.Double,System.Double,System.Double)">
+      <summary>Creates a vector from three rectangular coordinates</summary>
+      <param name="x">x-coordinate</param>
+      <param name="y">y-coordinate</param>
+      <param name="z">z-coordinate</param>
+    </member>
+    <member name="M:MiniSnap.Vector.#ctor(System.Double[])">
+      <summary>Creates a vector from an array of three coordinates</summary>
+      <param name="coords">Array of three coordinates</param>
+    </member>
+    <member name="M:MiniSnap.Vector.Angle(MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Calculates the angle in degrees between two vectors</summary>
+      <param name="u">First vector</param>
+      <param name="v">Second vector</param>
+      <returns>The angle, theta, in degrees, where 0 ≤ theta ≤ 180</returns>
+    </member>
+    <member name="P:MiniSnap.Vector.Array">
+      <summary>Array of the components of the vector</summary>
+    </member>
+    <member name="P:MiniSnap.Vector.AxisX">
+      <summary>A unit vector in the direction of the X-axis -- (1,0,0)</summary>
+    </member>
+    <member name="P:MiniSnap.Vector.AxisY">
+      <summary>A unit vector in the direction of the Y-axis -- (0,1,0)</summary>
+    </member>
+    <member name="P:MiniSnap.Vector.AxisZ">
+      <summary>A unit vector in the direction of the Z-axis -- (0,0,1)</summary>
+    </member>
+    <member name="M:MiniSnap.Vector.Cross(MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Calculates the cross product (vector product) of two vectors</summary>
+      <param name="u">First vector</param>
+      <param name="v">Second vector</param>
+      <returns>Cross product</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.Norm(MiniSnap.Vector)">
+      <summary>Calculates the norm (length) of a vector</summary>
+      <param name="u">The vector</param>
+      <returns>Norm (length) of vector</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.Norm2(MiniSnap.Vector)">
+      <summary>Calculates the norm squared (length squared) of a vector</summary>
+      <param name="u">The vector</param>
+      <returns>Norm (length) squared of vector</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.op_Addition(MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Adds two vectors using the "+" notation</summary>
+      <param name="u">First vector</param>
+      <param name="v">Second vector</param>
+      <returns>Sum of two vectors: u + v</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.op_Division(MiniSnap.Vector,System.Double)">
+      <summary>Divides a vector by a scalar using "/" notation</summary>
+      <param name="u">Vector</param>
+      <param name="s">Scalar (double)</param>
+      <returns>Scalar multiple: u/s</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.op_Multiply(MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Calculates the dot product (scalar product) of two vectors</summary>
+      <param name="u">First vector</param>
+      <param name="v">Second vector</param>
+      <returns>Dot product: u*v</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.op_Multiply(System.Double,MiniSnap.Vector)">
+      <summary>Multiplies a vector by a scalar using "*" notation</summary>
+      <param name="s">Scalar (double)</param>
+      <param name="u">Vector</param>
+      <returns>Scalar multiple: s*u</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.op_Multiply(System.Int32,MiniSnap.Vector)">
+      <summary>Multiplies a vector by a scalar using "*" notation</summary>
+      <param name="s">Scalar (int)</param>
+      <param name="u">Vector</param>
+      <returns>Scalar multiple: s*u</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.op_Subtraction(MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Subtracts two vectors using the "-" notation</summary>
+      <param name="u">First vector</param>
+      <param name="v">Second vector</param>
+      <returns>Difference of two vectors: u - v</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.op_UnaryNegation(MiniSnap.Vector)">
+      <summary>Negates (reverses) a vector using the "-" notation</summary>
+      <param name="u">The vector</param>
+      <returns>Negative of the given vector</returns>
+    </member>
+    <member name="P:MiniSnap.Vector.PolarPhi">
+      <summary>The polar angle "phi" -- angle between the vector and the XY-plane, in degrees</summary>
+    </member>
+    <member name="P:MiniSnap.Vector.PolarTheta">
+      <summary>The polar angle "theta" -- angle of rotation in the XY-plane, in degrees</summary>
+    </member>
+    <member name="M:MiniSnap.Vector.ToString">
+      <summary>Produce a string representation of a Vector object</summary>
+      <returns>String in the form (X, Y, Z)</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.Unit(MiniSnap.Vector)">
+      <summary>Unitizes a given vector</summary>
+      <param name="u">Vector to be unitized</param>
+      <returns>Unit vector in same direction</returns>
+    </member>
+    <member name="M:MiniSnap.Vector.UnitCross(MiniSnap.Vector,MiniSnap.Vector)">
+      <summary>Calculates the unitized cross product (vector product) of two vectors</summary>
+      <param name="u">First vector</param>
+      <param name="v">Second vector</param>
+      <returns>Unitized cross product</returns>
+    </member>
+    <member name="F:MiniSnap.Vector.X">
+      <summary>The x-component (or coordinate) of the vector</summary>
+    </member>
+    <member name="F:MiniSnap.Vector.Y">
+      <summary>The y-component (or coordinate) of the vector</summary>
+    </member>
+    <member name="F:MiniSnap.Vector.Z">
+      <summary>The z-component (or coordinate) of the vector</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Arc">
+      <summary>
+            Represents an NX arc/circle object (interchangeable with <see cref="T:NXOpen.Arc">NXOpen.Arc</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.AxisX">
+      <summary>A unit vector along the X-axis of the arc (where angle = 0)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.AxisY">
+      <summary>A unit vector along the Y-axis of the arc (where angle = 90)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.AxisZ">
+      <summary>A unit vector along the Z-axis of the arc (normal to the plane of the arc)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.Center">
+      <summary> The center of the arc (in absolute coordinates)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.EndAngle">
+      <summary> The end angle of the arc (in degrees) </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.NXOpenArc">
+      <summary>The enclosed <see cref="T:NXOpen.Arc">NXOpen.Arc</see> object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.Radius">
+      <summary>The radius of the arc</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Arc.StartAngle">
+      <summary> The start angle of the arc (in degrees) </summary>
+    </member>
+    <member name="T:MiniSnap.NX.Body">
+      <summary>
+            Represents a MiniSNAP.NX.Body object (interchangeable with <see cref="T:NXOpen.Body">NXOpen.Body</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Body.Density">
+      <summary>The density of the body</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Body.Edges">
+      <summary>The array of edges in the body</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Body.Faces">
+      <summary>The array of faces in the body</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Body.IsSheetBody">
+      <summary>If true, indicates that the body is a sheet</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Body.IsSolidBody">
+      <summary>If true, indicates that the body is a solid</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Body.NXOpenBody">
+      <summary>The enclosed NXOpen.Body object</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Boolean">
+      <summary>
+            Represents a MiniSnap.NX.Boolean feature (interchangeable with <see cref="T:NXOpen.Features.BooleanFeature">NXOpen.Features.BooleanFeature</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Boolean.BooleanBuilder">
+      <summary>The NXOpen.Features.BooleanBuilder object.</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Boolean.NXOpenBooleanFeature">
+      <summary>The enclosed NXOpen.Features.BooleanFeature object</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Bsurface">
+      <summary>
+            Represents a MiniSNAP.NX.Bsurface object, which is a body with a single face (interchangeable with <see cref="T:NXOpen.Body">NXOpen.Body</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Bsurface.Face">
+      <summary>Gets the (one and only) NX.Face of the NX.Bsurface body</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Curve">
+      <summary>
+            Represents a MiniSNAP.NX.Curve object (interchangeable with <see cref="T:NXOpen.Curve">NXOpen.Curve</see>)   
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.Arclength">
+      <summary>The arclength of the curve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.EndPoint">
+      <summary>The end point of the curve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.IsClosed">
+      <summary>If true, indicates that the curve is closed (start-point = end-point)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.MaxU">
+      <summary>The upper-limit parameter value (at the end-point of the curve)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.MinU">
+      <summary>The lower-limit parameter value (at the start-point of the curve)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.NXOpenCurve">
+      <summary>The enclosed NXOpen.Curve object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.NXOpenDisplayableObject">
+      <summary>The associated NXOpen.DisplayableObject of this NX.Curve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.NXOpenICurve">
+      <summary>The enclosed NXOpen.ICurve object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.NXOpenTag">
+      <summary>Get the NXOpen.Tag from this NX.Curve</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Curve.Position(System.Double)">
+      <summary>Calculates a point on the curve at a given parameter value</summary>
+      <param name="value">Parameter value</param>
+      <returns>Point</returns>
+    </member>
+    <member name="P:MiniSnap.NX.Curve.StartPoint">
+      <summary>The start point of the curve</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Curve.Tangent(System.Double)">
+      <summary>Calculates the unit tangent vector at a given parameter value</summary>
+      <param name="value">Parameter value</param>
+      <returns>Unit tangent vector</returns>
+    </member>
+    <member name="T:MiniSnap.NX.Cylinder">
+      <summary>
+            Represents a MiniSnap.NX.Cylinder feature (interchangeable with <see cref="T:NXOpen.Features.Cylinder">NXOpen.Features.Cylinder</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Cylinder.AxisPoint">
+      <summary>The axis point of the cylinder</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Cylinder.AxisVector">
+      <summary>The axis vector of the cylinder</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Cylinder.CylinderBuilder">
+      <summary>The NXOpen.Features.CylinderBuilder object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Cylinder.Diameter">
+      <summary>The cylinder diameter</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Cylinder.Height">
+      <summary>The cylinder height (must be positive)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Cylinder.NXOpenCylinder">
+      <summary>The enclosed NXOpen.Features.Cylinder object</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Edge">
+      <summary>
+            Represents a MiniSnap.NX.Edge object (interchangeable with <see cref="T:NXOpen.Edge">NXOpen.Edge</see>)   
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.Arclength">
+      <summary>The arclength of the edge</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.Body">
+      <summary>The body on which the edge lies</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.EndPoint">
+      <summary>The end point of the edge</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.Faces">
+      <summary>The faces on which the edge lies</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.IsClosed">
+      <summary>The closed state of edge</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.MaxU">
+      <summary>The upper u-value -- the parameter value at the end-point of the edge</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.MinU">
+      <summary>The lower u-value -- the parameter value at the start-point of the edge</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.NXOpenDisplayableObject">
+      <summary>The associated NXOpen.DisplayableObject of this NX.Edge</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.NXOpenEdge">
+      <summary>The enclosed NXOpen.Edge object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.NXOpenICurve">
+      <summary>The enclosed NXOpen.ICurve object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.NXOpenTag">
+      <summary>Get the NXOpen.Tag from this NX.Edge</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Edge.Position(System.Double)">
+      <summary>Calculates a point on the edge at a given parameter value</summary>
+      <param name="value">Parameter value</param>
+      <returns>Point</returns>
+    </member>
+    <member name="P:MiniSnap.NX.Edge.StartPoint">
+      <summary>The start point of the edge</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Edge.Tangent(System.Double)">
+      <summary>Calculates the unit tangent vector at a given parameter value</summary>
+      <param name="value">Parameter value</param>
+      <returns>Unit tangent vector</returns>
+    </member>
+    <member name="T:MiniSnap.NX.Face">
+      <summary>
+            Represents a MiniSnap.NX.Face object (interchangeable with <see cref="T:NXOpen.Face">NXOpen.Face</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Face.Body">
+      <summary>The body on which the face lies</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Face.Edges">
+      <summary>The array of edges in the face</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Face.Normal(System.Double,System.Double)">
+      <summary>Evaluate surface normal at given parameter values</summary>
+      <param name="u">u-parameter value -- not normalized to the range [0,1]</param>
+      <param name="v">v-parameter value -- not normalized to the range [0,1]</param>
+      <returns>Surface normal at the point (unit vector)</returns>
+    </member>
+    <member name="P:MiniSnap.NX.Face.NXOpenFace">
+      <summary>The enclosed NXOpen.Face object</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Face.Position(System.Double,System.Double)">
+      <summary>Evaluate point on surface at given parameter values</summary>
+      <param name="u">u-parameter value -- not normalized to the range [0,1]</param>
+      <param name="v">v-parameter value -- not normalized to the range [0,1]</param>
+      <returns>Point on surface</returns>
+    </member>
+    <member name="T:MiniSnap.NX.Feature">
+      <summary>
+            Represents a MiniSnap.NX.Feature object (interchangeable with <see cref="T:NXOpen.Features.Feature">NXOpen.Features.Feature</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.Bodies">
+      <summary>The associated bodies (NX.Body objects)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.Body">
+      <summary>The associated body (an NX.Body object)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.Color">
+      <summary>The color of the displayable object in feature (as a System.Drawing.Color)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.Edges">
+      <summary>The associated edges (NX.Edge objects)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.Faces">
+      <summary>The associated faces (NX.Face objects)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.NXOpenDisplayableObject">
+      <summary>The associated NXOpen.DisplayableObject of this NX.Feature</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.NXOpenDisplayableObjects">
+      <summary>The associated NXOpen.DisplayableObjects array of this NX.Feature</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Feature.NXOpenFeature">
+      <summary>The enclosed NXOpen.Features.Feature object</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Feature.Orphan">
+      <summary>Remove parameters of features, which are associated with given bodies or curves points</summary>
+    </member>
+    <member name="M:MiniSnap.NX.Feature.Orphan(MiniSnap.NX.Feature[])">
+      <summary>Remove parameters of features, which are associated with given bodies or curves points</summary>
+      <param name="features">Feature array</param>
+    </member>
+    <member name="T:MiniSnap.NX.ICurve">
+      <summary>Represents a MiniSnap.NX.ICurve object -- either a curve or an edge.</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.Arclength">
+      <summary>Arclength of the icurve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.EndPoint">
+      <summary>End point of the icurve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.IsClosed">
+      <summary>Periodic property of the icurve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.MaxU">
+      <summary>The upper u-value (at the end point of the curve)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.MinU">
+      <summary>The lower u-value (at the start point of the curve)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.NXOpenDisplayableObject">
+      <summary>The associated NXOpen.DisplayableObject of this NX.ICurve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.NXOpenICurve">
+      <summary>Returns the NXOpen.ICurve of the object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.NXOpenTag">
+      <summary>The NXOpen.Tag of this NX.ICurve</summary>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.NXOpenTaggedObject">
+      <summary>The enclosed NXOpen.TaggedObject of this NX.ICurve</summary>
+    </member>
+    <member name="M:MiniSnap.NX.ICurve.Position(System.Double)">
+      <summary>Calculates a point on the icurve at a given parameter value</summary>
+      <param name="value">Parameter value</param>
+      <returns>Point</returns>
+    </member>
+    <member name="P:MiniSnap.NX.ICurve.StartPoint">
+      <summary>Start point of the icurve</summary>
+    </member>
+    <member name="M:MiniSnap.NX.ICurve.Tangent(System.Double)">
+      <summary>Calculates unit tangent vector at a given parameter value</summary>
+      <param name="value">Parameter value</param>
+      <returns>Unit tangent vector</returns>
+    </member>
+    <member name="T:MiniSnap.NX.Line">
+      <summary>
+            Represents a MiniSnap.NX.Line object (interchangeable with <see cref="T:NXOpen.Line">NXOpen.Line</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Line.Direction">
+      <summary>A unit vector in the direction of the line</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Line.EndPoint">
+      <summary>The end point of the line</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Line.NXOpenLine">
+      <summary>The enclosed NXOpen.Line object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Line.StartPoint">
+      <summary>The start point of the line</summary>
+    </member>
+    <member name="T:MiniSnap.NX.NXObject">
+      <summary>
+            Represents a MiniSnap.NX.NXObject object (interchangeable with <see cref="T:NXOpen.TaggedObject">NXOpen.TaggedObject</see>)
+            </summary>
+    </member>
+    <member name="M:MiniSnap.NX.NXObject.#ctor(NXOpen.Tag)">
+      <summary>Construct an NXObject, given an NXOpen.Tag</summary>
+      <param name="objectTag">An NXOpen.Tag</param>
+    </member>
+    <member name="M:MiniSnap.NX.NXObject.#ctor(NXOpen.TaggedObject)">
+      <summary>Construct an NXObject, given an NXOpen.TaggedObject object</summary>
+      <param name="taggedObject">An NXOpen.TaggedObject</param>
+    </member>
+    <member name="P:MiniSnap.NX.NXObject.Color">
+      <summary>The color of the object (as a System.Drawing.Color)</summary>
+    </member>
+    <member name="M:MiniSnap.NX.NXObject.Delete">
+      <summary>Deletes an NX.NXObject</summary>
+    </member>
+    <member name="M:MiniSnap.NX.NXObject.Delete(MiniSnap.NX.NXObject[])">
+      <summary>Deletes an array of NXObject</summary>
+      <param name="nxObjects">The objects to delete</param>
+    </member>
+    <member name="P:MiniSnap.NX.NXObject.Name">
+      <summary>The name of the object (aka "custom name", sometimes)</summary>
+    </member>
+    <member name="P:MiniSnap.NX.NXObject.NXOpenDisplayableObject">
+      <summary>The associated NXOpen.DisplayableObject of this NX.NXObject</summary>
+    </member>
+    <member name="P:MiniSnap.NX.NXObject.NXOpenDisplayableObjects">
+      <summary>The associated NXOpen.DisplayableObject of this NX.NXObject</summary>
+    </member>
+    <member name="P:MiniSnap.NX.NXObject.NXOpenTag">
+      <summary>Get the NXOpen.Tag from this NX.NXObject</summary>
+    </member>
+    <member name="P:MiniSnap.NX.NXObject.NXOpenTaggedObject">
+      <summary>The enclosed NXOpen.TaggedObject of this NX.NXObject</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Point">
+      <summary>
+            Represents a MiniSnap.NX.Point object (interchangeable with <see cref="T:NXOpen.Point">NXOpen.Point</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Point.NXOpenPoint">
+      <summary>The enclosed NXOpen.Point object (actually a "Smart Point")</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Point.Position">
+      <summary>The position of the point</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Point.X">
+      <summary>The x-coordinate of the point</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Point.Y">
+      <summary>The y-coordinate of the point</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Point.Z">
+      <summary>The z-coordinate of the point</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Sphere">
+      <summary>
+            Represents a MiniSnap.NX.Sphere feature (interchangeable with <see cref="T:NXOpen.Features.Sphere">NXOpen.Features.Sphere</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Sphere.Center">
+      <summary>The position of the center of the sphere</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Sphere.Diameter">
+      <summary>The diameter of sphere</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Sphere.NXOpenSphere">
+      <summary>The enclosed NXOpen.Features.Sphere object</summary>
+    </member>
+    <member name="P:MiniSnap.NX.Sphere.SphereBuilder">
+      <summary>The NXOpen.Features.SphereBuilder object.</summary>
+    </member>
+    <member name="T:MiniSnap.NX.Spline">
+      <summary>
+            Represents a MiniSnap.NX.Spline object (interchangeable with <see cref="T:NXOpen.Spline">NXOpen.Spline</see>)
+            </summary>
+    </member>
+    <member name="P:MiniSnap.NX.Spline.NXOpenSpline">
+      <summary>The enclosed NXOpen.Spline object</summary>
+    </member>
+    <member name="T:MiniSnap.UI.Input">
+      <summary>Functions to support simple input of information (numbers, positions, vectors, etc.)</summary>
+    </member>
+    <member name="M:MiniSnap.UI.Input.#ctor">
+      <summary>
+        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:MiniSnap.UI.Input.#ctor"]</p>
+      </summary>
+    </member>
+    <member name="M:MiniSnap.UI.Input.GetDouble(System.String,System.String,System.String,System.Double)">
+      <summary>Display a simple dialog allowing the user to input a floating point number</summary>
+      <param name="cue">Message to be shown in the Cue line when the dialog is displayed</param>
+      <param name="title">Text shown in the title bar of the dialog window</param>
+      <param name="label">Label displayed to the left of the numerical entry field</param>
+      <param name="initialValue">The initial value to be displayed in the numerical entry field</param>
+      <returns>The number the user entered</returns>
+    </member>
+    <member name="M:MiniSnap.UI.Input.GetPosition(System.String,System.String)">
+      <summary>Display a simple dialog allowing the user to specify a position</summary>
+      <param name="title">Text shown in the title bar of the dialog window</param>
+      <param name="label">Label displayed to the left of the position specified field</param>
+      <returns>Structure containing the specified position</returns>
+    </member>
+    <member name="T:MiniSnap.UI.Input.PositionResult">
+      <summary>Represents the result returned when the user species a point (position)</summary>
+    </member>
+    <member name="F:MiniSnap.UI.Input.PositionResult.Position">
+      <summary>The position specified by the user</summary>
+    </member>
+    <member name="F:MiniSnap.UI.Input.PositionResult.Response">
+      <summary>The response</summary>
+    </member>
+    <member name="T:MiniSnap.UI.Response">
+      <summary>The user response for the selection operation.</summary>
+    </member>
+    <member name="F:MiniSnap.UI.Response.Back">
+      <summary>User clicked Back button</summary>
+    </member>
+    <member name="F:MiniSnap.UI.Response.Cancel">
+      <summary>User clicked Cancel button</summary>
+    </member>
+    <member name="F:MiniSnap.UI.Response.Ok">
+      <summary>User clicked Ok button</summary>
+    </member>
+    <member name="T:MiniSnap.UI.WinForm">
+      <summary>A Windows form for use in NX/Open applications</summary>
+    </member>
+    <member name="M:MiniSnap.UI.WinForm.#ctor">
+      <summary>Constructs a new NX WinForm</summary>
+    </member>
+    <member name="M:MiniSnap.UI.WinForm.ReparentForm(System.Windows.Forms.Form)">
+      <summary>Set the parent for the form window of the MiniSNAP application.</summary>
+      <param name="form">A form object with type System.Windows.Forms.Form</param>
+    </member>
+    <member name="M:MiniSnap.UI.WinForm.SetApplicationIcon(System.Windows.Forms.Form)">
+      <summary>Sets the icon for the supplied form the same as the icon used by NX</summary>
+      <param name="form">A form object with type System.Windows.Forms.Form</param>
+    </member>
+  </members>
+</doc>
