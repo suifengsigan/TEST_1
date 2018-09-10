@@ -83,7 +83,7 @@ namespace SnapEx
         /// </summary>
         public static List<Snap.Position> GetFacePoints(Snap.NX.Face face, double max_facet_size = 1)
         {
-            var mark = Snap.Globals.SetUndoMark(Globals.MarkVisibility.Invisible, "GetFacePoints");
+            //var mark = Snap.Globals.SetUndoMark(Globals.MarkVisibility.Invisible, "GetFacePoints");
             var positions = new List<Snap.Position>();
             try
             {
@@ -143,7 +143,7 @@ namespace SnapEx
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Snap.Globals.UndoToMark(mark, null);
+                //Snap.Globals.UndoToMark(mark, null);
             }
 
             return positions;
