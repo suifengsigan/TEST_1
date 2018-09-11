@@ -81,7 +81,7 @@ namespace SnapEx
         /// <summary>
         /// 获取面上所有的测量点
         /// </summary>
-        public static List<Snap.Position> GetFacePoints(Snap.NX.Face face, double max_facet_size = 1)
+        public static List<Snap.Position> GetFacePoints(Snap.NX.Face face,bool isRoundInt=false, double max_facet_size = 1)
         {
             //var mark = Snap.Globals.SetUndoMark(Globals.MarkVisibility.Invisible, "GetFacePoints");
             var positions = new List<Snap.Position>();
@@ -122,6 +122,10 @@ namespace SnapEx
                             {
                                 int pt_status = 0;
                                 var position = new Snap.Position(vertices[i, 0], vertices[i, 1], vertices[i, 2]);
+                                if (isRoundInt&&face.ObjectSubType==Snap.NX.ObjectTypes.SubType.FacePlane)
+                                {
+                                    position = new Snap.Position(System.Math.Round(position.X), System.Math.Round(position.Y), System.Math.Round(position.Z));
+                                }
                                 ufSession.Modl.AskPointContainment(position.Array, face.NXOpenTag, out pt_status);
                                 if (0x1 == pt_status || 0x3 == pt_status)
                                 {
