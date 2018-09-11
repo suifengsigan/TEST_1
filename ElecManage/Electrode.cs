@@ -259,7 +259,7 @@ namespace ElecManage
                 {
                     try
                     {
-                        var uv = u.Box;
+                        var uv = u.BoxEx();
                         var cneterPoint = new Snap.Position((uv.MaxX+uv.MinX)/2, (uv.MaxY + uv.MinY) / 2, (uv.MaxZ + uv.MinZ) / 2);
                         var resullt = Snap.Compute.ClosestPoints(cneterPoint, plane);
                         var dir = Snap.Vector.Unit(resullt.Point1 - resullt.Point2);

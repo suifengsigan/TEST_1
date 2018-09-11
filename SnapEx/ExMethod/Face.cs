@@ -10,6 +10,33 @@ namespace  SnapEx
     public static partial class ExMethod
     {
         /// <summary>
+        /// 获取BOX
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static Snap.Geom.Box3d BoxEx(this Snap.NX.Face face)
+        {
+            int surfaceType;
+            double radius1;
+            double radius2;
+            int normalFlip;
+            double[] point = new double[3];
+            double[] dir = new double[3];
+            double[] box = new double[6];
+            try
+            {
+                NXOpen.UF.UFSession uFSession = NXOpen.UF.UFSession.GetUFSession();
+                uFSession.Modl.AskFaceData(face.NXOpenTag, out surfaceType, point, dir, box, out radius1, out radius2, out normalFlip);
+                var faceBox = new Snap.Geom.Box3d(box[0], box[1], box[2], box[3], box[4], box[5]);
+                return faceBox;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return face.Box;
+            }
+        }
+        /// <summary>
         /// 获取面的法向
         /// </summary>
         public static Vector GetFaceDirection(this Snap.NX.Face face)
