@@ -44,6 +44,14 @@ namespace  SnapEx
             return Vector.Unit(GetSurfaceAxisVector(face));
         }
 
+        public static Vector GetFaceDirectionByPoint(this Snap.NX.Face face, Snap.Position pos)
+        {
+            var ufSession = NXOpen.UF.UFSession.GetUFSession();
+            double[] param = new double[2], point = new double[3], u1 = new double[3], v1 = new double[3], u2 = new double[3], v2 = new double[3], unitNorm = new double[3], radii = new double[2];
+            ufSession.Modl.AskFaceProps(face.NXOpenTag, param, point, u1, v1, u2, v2, unitNorm, radii);
+            return Snap.Vector.Unit(new Snap.Vector(unitNorm));
+        }
+
         /// <summary>
         /// 获取拔模角度
         /// </summary>
