@@ -124,7 +124,7 @@ namespace SnapEx
                                 var position = new Snap.Position(vertices[i, 0], vertices[i, 1], vertices[i, 2]);
                                 if (isRoundInt&&face.ObjectSubType==Snap.NX.ObjectTypes.SubType.FacePlane)
                                 {
-                                    position = new Snap.Position(System.Math.Round(position.X), System.Math.Round(position.Y), System.Math.Round(position.Z));
+                                    position = new Snap.Position(System.Math.Round(position.X, 2), System.Math.Round(position.Y, 2), System.Math.Round(position.Z, 2));
                                 }
                                 ufSession.Modl.AskPointContainment(position.Array, face.NXOpenTag, out pt_status);
                                 if (0x1 == pt_status || 0x3 == pt_status)
