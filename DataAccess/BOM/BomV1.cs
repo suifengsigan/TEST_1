@@ -168,8 +168,11 @@ namespace DataAccess
                         var select_mould_sql = string.Format("select mouldid from EACT_mould where sn='{0}'", CupRumList[0].STEELMODELSN);
                         var insert_mould_sql = string.Format("insert into EACT_mould(SN,DESIGNER,DESIGNERTIME) output inserted.mouldid values('{0}','{1}',getdate())", CupRumList[0].STEELMODELSN, creator);
 
-                        conn.Execute(delete_cuprum_assembly_sql, null, _tran);
-                        conn.Execute(delete_cuprum_sql, null, _tran);
+                        //conn.Execute(delete_cuprum_assembly_sql, null, _tran);
+                        //conn.Execute(delete_cuprum_sql, null, _tran);
+                        var sel_cuprumList_sql = string.Format("select CUPRUMID,CUPRUMSN,STEELMODELSN from EACT_cuprum where CUPRUMSN+STEELMODELSN in({0})", ids.TrimEnd(','));
+                        var updateCuprumList = conn.Query<EACT_CUPRUM>(sel_cuprumList_sql, null, _tran);
+
                         object mouldId = conn.ExecuteScalar(select_mould_sql, null, _tran, null, null);
                         if (mouldId == null)
                         {
@@ -179,24 +182,44 @@ namespace DataAccess
                         {
                             foreach (var item in CupRumList)
                             {
-                                //插入电极表并返回插入的电极ID
-                                var insert_cuprum_sql = string.Empty;
-                                insert_cuprum_sql = "insert into EACT_cuprum(mouldid,cuprumname,cuprumsn,frienum,vdi,struff,strufftype,STYLIST,";
-                                insert_cuprum_sql += "Dateofdelivery,openstruff,discharging,Shape,rock,Procdirection,Rmf,offsetx,offsety,";
-                                insert_cuprum_sql += "x,y,z,c,steel,Substratecquadrant,STEELMODELSN,STEELMODULESN,Assemblyexp,PARTFILENAME,HEADPULLUPH,STRETCHH,STRUFFGROUPL,UNIT";
-                                insert_cuprum_sql += ",PROCESSNUM,REGION";
-                                insert_cuprum_sql += ") output inserted.cuprumid values({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}',";
-                                insert_cuprum_sql += "'{8}','{9}','{10}','{11}','{12}','{13}','{14}',{15},{16},";
-                                insert_cuprum_sql += "'{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}')";
-                                insert_cuprum_sql = string.Format(insert_cuprum_sql,
-                                    mouldId, item.CUPRUMNAME, item.CUPRUMSN, item.FRIENUM, item.VDI, item.STRUFF, item.STRUFFTYPE
-                                    , creator, item.DATEOFDELIVERY, item.OPENSTRUFF, item.DISCHARGING, item.SHAPE, item.ROCK
-                                    , item.PROCDIRECTION, item.RMF, DecimalConvert(item.OFFSETX)
-                                    , DecimalConvert(item.OFFSETY), item.X, item.Y, item.Z, item.C, item.STEEL, item.SUBSTRATECQUADRANT
-                                     , item.STEELMODELSN, item.STEELMODULESN, item.ASSEMBLYEXP, item.PARTFILENAME, item.HEADPULLUPH, item.STRETCHH
-                                     , item.STRUFFGROUPL, item.UNIT, item.PROCESSNUM, item.REGION
-                                    );
-                                string cuprumId = conn.ExecuteScalar(insert_cuprum_sql, null, _tran, null, null).ToString();
+                                string cuprumId = string.Empty;
+
+                                var updateCuprum = updateCuprumList.FirstOrDefault(u => u.CUPRUMSN == item.CUPRUMSN && u.STEELMODELSN == item.STEELMODELSN);
+                                if (updateCuprum != null)
+                                {
+                                    cuprumId = updateCuprum.CUPRUMID.ToString();
+                                    var update_cuprum_sql = string.Empty;
+                                    update_cuprum_sql = "update EACT_cuprum set ";
+                                    update_cuprum_sql += "CUPRUMNAME=@CUPRUMNAME,CUPRUMSN=@CUPRUMSN,VDI=@VDI,STRUFF=@STRUFF,STRUFFTYPE=@STRUFFTYPE,STYLIST=@STYLIST,DATEOFDELIVERY=@DATEOFDELIVERY,";
+                                    update_cuprum_sql += "OPENSTRUFF=@OPENSTRUFF,DISCHARGING=@DISCHARGING,SHAPE=@SHAPE,ROCK=@ROCK,PROCDIRECTION=@PROCDIRECTION,RMF=@RMF,OFFSETX=@OFFSETX,OFFSETY=@OFFSETY,X=@X,";
+                                    update_cuprum_sql += "Y=@Y,Z=@Z,C=@C,STEEL=@STEEL,SUBSTRATECQUADRANT=@SUBSTRATECQUADRANT,STEELMODELSN=@STEELMODELSN,STEELMODULESN=@STEELMODULESN,ASSEMBLYEXP=@ASSEMBLYEXP,PARTFILENAME=@PARTFILENAME,HEADPULLUPH=@HEADPULLUPH,STRETCHH=@STRETCHH,STRUFFGROUPL=@STRUFFGROUPL,UNIT=@UNIT,PROCESSNUM=@PROCESSNUM,REGION=@REGION";
+                                    update_cuprum_sql += " where CUPRUMSN+STEELMODELSN = '{0}'";
+                                    update_cuprum_sql = string.Format(update_cuprum_sql, item.CUPRUMSN + item.STEELMODELSN);
+                                    item.STYLIST = creator;
+                                    conn.Execute(update_cuprum_sql, item, _tran, null, null);
+                                }
+                                else
+                                {
+                                    //插入电极表并返回插入的电极ID
+                                    var insert_cuprum_sql = string.Empty;
+                                    insert_cuprum_sql = "insert into EACT_cuprum(mouldid,cuprumname,cuprumsn,frienum,vdi,struff,strufftype,STYLIST,";
+                                    insert_cuprum_sql += "Dateofdelivery,openstruff,discharging,Shape,rock,Procdirection,Rmf,offsetx,offsety,";
+                                    insert_cuprum_sql += "x,y,z,c,steel,Substratecquadrant,STEELMODELSN,STEELMODULESN,Assemblyexp,PARTFILENAME,HEADPULLUPH,STRETCHH,STRUFFGROUPL,UNIT";
+                                    insert_cuprum_sql += ",PROCESSNUM,REGION";
+                                    insert_cuprum_sql += ") output inserted.cuprumid values({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}',";
+                                    insert_cuprum_sql += "'{8}','{9}','{10}','{11}','{12}','{13}','{14}',{15},{16},";
+                                    insert_cuprum_sql += "'{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}')";
+                                    insert_cuprum_sql = string.Format(insert_cuprum_sql,
+                                        mouldId, item.CUPRUMNAME, item.CUPRUMSN, item.FRIENUM, item.VDI, item.STRUFF, item.STRUFFTYPE
+                                        , creator, item.DATEOFDELIVERY, item.OPENSTRUFF, item.DISCHARGING, item.SHAPE, item.ROCK
+                                        , item.PROCDIRECTION, item.RMF, DecimalConvert(item.OFFSETX)
+                                        , DecimalConvert(item.OFFSETY), item.X, item.Y, item.Z, item.C, item.STEEL, item.SUBSTRATECQUADRANT
+                                         , item.STEELMODELSN, item.STEELMODULESN, item.ASSEMBLYEXP, item.PARTFILENAME, item.HEADPULLUPH, item.STRETCHH
+                                         , item.STRUFFGROUPL, item.UNIT, item.PROCESSNUM, item.REGION
+                                        );
+                                    cuprumId = conn.ExecuteScalar(insert_cuprum_sql, null, _tran, null, null).ToString();
+                                }
+                                
 
                                 //共用电极
                                 if (cuprumEXPs != null)
@@ -248,10 +271,15 @@ namespace DataAccess
                                     select_chuck_type_sql = string.Format(select_chuck_type_sql, item.EDMCONDITIONSN.ToLower().Split('x')[0], item.EDMCONDITIONSN.ToLower().Split('x')[1]);
                                     chuckId = conn.ExecuteScalar(select_chuck_type_sql, null, _tran, null, null).ToString();
                                 }
-                                //插入电极预装表
-                                var insert_cuprum_assembly_sql = "insert into EACT_cuprum_assembly(cuprumid,specid,struffid,chucktypeid,RECORDTIME)";
-                                insert_cuprum_assembly_sql += " values(" + cuprumId + "," + specId + "," + struffId + "," + chuckId + ",getdate())";
-                                conn.Execute(insert_cuprum_assembly_sql, null, _tran);
+
+                                if (updateCuprum == null)
+                                {
+                                    //插入电极预装表
+                                    var insert_cuprum_assembly_sql = "insert into EACT_cuprum_assembly(cuprumid,specid,struffid,chucktypeid,RECORDTIME)";
+                                    insert_cuprum_assembly_sql += " values(" + cuprumId + "," + specId + "," + struffId + "," + chuckId + ",getdate())";
+                                    conn.Execute(insert_cuprum_assembly_sql, null, _tran);
+                                }
+                                  
                             }
                         }
                     }

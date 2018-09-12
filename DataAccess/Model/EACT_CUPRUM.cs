@@ -578,5 +578,6 @@ namespace DataAccess.Model
         /// EM-109921正泰--正泰EMan_EACT电极导入接口方案_V3
         /// </summary>
         public virtual int PartClassID { get; set; }
+        public virtual string CREATOR { get; set; }
     }
 }
