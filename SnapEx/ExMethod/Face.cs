@@ -44,6 +44,12 @@ namespace  SnapEx
             return Vector.Unit(GetSurfaceAxisVector(face));
         }
 
+        public static Snap.Position GetCenterPointEx(this Snap.NX.Face face)
+        {
+            var box = face.BoxEx();
+            return new Snap.Position((box.MaxX + box.MinX) / 2, (box.MaxY + box.MinY) / 2, (box.MaxZ + box.MinZ) / 2);
+        }
+
         public static Vector GetFaceDirectionByPoint(this Snap.NX.Face face, Snap.Position pos)
         {
             var ufSession = NXOpen.UF.UFSession.GetUFSession();
