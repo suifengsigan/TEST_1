@@ -34,9 +34,9 @@ namespace ElecManage
             if (strs.Count >= 3)
             {
                 return string.Format("{0}x{1}x{2}",
-                        strs[0]
-                        , strs[1]
-                        , strs[2]
+                        strs[0].Trim()
+                        , strs[1].Trim()
+                        , strs[2].Trim()
                         );
             }
             return base.ElecCuttingSize(blankstock, matchJiajuValue);
