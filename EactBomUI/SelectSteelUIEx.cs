@@ -152,15 +152,15 @@ partial class SelectSteelUI : SnapEx.BaseUI
             {
                 var bodies=Snap.Globals.WorkPart.Bodies.Where(u => u.Layer == integerSInsertLayer.Value).ToList();
                 bodies = bodies.Where(u => u.NXOpenTag != steel.NXOpenTag).ToList();
-                foreach (var item in bodies.ToList())
-                {
-                    var distance = Snap.Compute.Distance(steel, item);
-                    bool isContact = distance <= SnapEx.Helper.Tolerance;
-                    if (!isContact)
-                    {
-                        bodies.RemoveAll(u=>u.NXOpenTag==item.NXOpenTag);
-                    }
-                }
+                //foreach (var item in bodies.ToList())
+                //{
+                //    var distance = Snap.Compute.Distance(steel, item);
+                //    bool isContact = distance <= SnapEx.Helper.Tolerance;
+                //    if (!isContact)
+                //    {
+                //        bodies.RemoveAll(u=>u.NXOpenTag==item.NXOpenTag);
+                //    }
+                //}
 
                 MouldInfo.SInsertBodies = bodies;
             }
