@@ -260,7 +260,7 @@ namespace ElecManage
         /// <summary>
         /// 开料尺寸
         /// </summary>
-        public string ElecCuttingSize(double blankstock,double matchJiajuValue)
+        public virtual string ElecCuttingSize(double blankstock,double matchJiajuValue)
         {
             if (Entry.Edition == 1)
             {
