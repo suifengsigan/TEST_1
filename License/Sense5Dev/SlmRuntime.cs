@@ -10,7 +10,7 @@ namespace SLM
     /// </summary>
     internal class SlmRuntime
     {
-        public const string DllName = "slm_runtime_easyX86.dll";
+        public const string DllName = "EliteNet\\slm_runtime_easyX86.dll";
         /// <summary>
         /// 
         /// </summary>

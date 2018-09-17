@@ -111,7 +111,7 @@ namespace License
             public byte[] bID;
             public uint dwAtrLen;
         }
-        const string DllNameX86 = "Sense4userX86.dll";
+        const string DllNameX86 = "EliteNet\\Sense4userX86.dll";
         //Assume that Sense4user.dll in c:\, if not, modify the lines below
         [DllImport(DllNameX86)]
         private static extern uint S4Enum([MarshalAs(UnmanagedType.LPArray), Out] SENSE4_CONTEXT[] s4_context, ref uint size);
@@ -127,7 +127,7 @@ namespace License
             uint InbufferSize, byte[] OutBuffer, uint OutBufferSize, ref uint BytesReturned);
 
 
-        const string DllNameX64 = "Sense4userX64.dll";
+        const string DllNameX64 = "EliteNet\\Sense4userX64.dll";
         //Assume that Sense4user.dll in c:\, if not, modify the lines below
         [DllImport(DllNameX64, EntryPoint = "S4Enum")]
         private static extern uint S4Enum64([MarshalAs(UnmanagedType.LPArray), Out] SENSE4_CONTEXT[] s4_context, ref uint size);
