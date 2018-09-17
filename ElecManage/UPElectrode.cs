@@ -11,7 +11,10 @@ namespace ElecManage
         public const string UP_PART_MOLD_FACE_TYPE = "UP_PART_MOLD_FACE_TYPE";
         public const string BASE_BOT = "4";
         public const string BASE_TOP = "7";
-        const string BASE_SIDE = "2356";
+        const string BASE_SIDE2 = "2";
+        const string BASE_SIDE3 = "3";
+        const string BASE_SIDE5 = "5";
+        const string BASE_SIDE6 = "6";
         const string BASE_CHAMFER = "1";
 
         public UPElectrode()
@@ -29,7 +32,12 @@ namespace ElecManage
             //基准面
             var baseFace = faces.FirstOrDefault(u => u.MatchAttrValue(UP_PART_MOLD_FACE_TYPE, BASE_TOP));
             //基准台侧面
-            var baseSideFaces = faces.Where(u => BASE_SIDE.Contains(u.GetAttrValue(UP_PART_MOLD_FACE_TYPE))).ToList();
+            var baseSideFaces = faces.Where(u => 
+            u.MatchAttrValue(UP_PART_MOLD_FACE_TYPE, BASE_SIDE2)
+            || u.MatchAttrValue(UP_PART_MOLD_FACE_TYPE, BASE_SIDE3)
+            || u.MatchAttrValue(UP_PART_MOLD_FACE_TYPE, BASE_SIDE5)
+            || u.MatchAttrValue(UP_PART_MOLD_FACE_TYPE, BASE_SIDE6)
+            ).ToList();
             //象限面
             var chamferFace = faces.FirstOrDefault(u => u.MatchAttrValue(UP_PART_MOLD_FACE_TYPE, BASE_CHAMFER));
 
