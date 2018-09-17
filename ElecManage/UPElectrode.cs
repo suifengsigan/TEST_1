@@ -16,7 +16,7 @@ namespace ElecManage
 
         public UPElectrode()
         {
-            ElectrodeType = ElectrodeType.XK;
+            ElectrodeType = ElectrodeType.UP;
         }
 
         public static Electrode GetElectrode(Snap.NX.Body body)
