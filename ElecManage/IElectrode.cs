@@ -29,6 +29,10 @@ namespace ElecManage
         /// <summary>
         /// Eact
         /// </summary>
-        EACT
+        EACT,
+        /// <summary>
+        /// 优品
+        /// </summary>
+        UP
     }
 }

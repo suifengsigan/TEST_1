@@ -80,6 +80,8 @@
     <Compile Include="MouldInfo.cs" />
     <Compile Include="PositioningInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UPElectrode.cs" />
+    <Compile Include="UPElectrodeInfo.cs" />
     <Compile Include="XKElecConst.cs" />
     <Compile Include="XKElectrode.cs" />
     <Compile Include="XKElectrodeInfo.cs" />
