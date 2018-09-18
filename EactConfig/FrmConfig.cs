@@ -298,6 +298,7 @@ namespace EactConfig
             txtPQBlankStock.Text = data.PQBlankStock.ToString();
             cbIsExportBomXls.Checked = data.IsExportBomXls;
             cbIsCanSelElecInBom.Checked = data.IsCanSelElecInBom;
+            cbIsCanSelLayerInBom.Checked = data.isCanSelLayerInBom;
             cbIsSetPropertyAllowMultiple.Checked = data.IsSetPropertyAllowMultiple;
             cbIsSetPrtColor.Checked = data.IsSetPrtColor;
             txtEleFType.Text = data.EleFType;
@@ -363,6 +364,7 @@ namespace EactConfig
                 data.PQBlankStock = PQBlankStock;
                 data.IsExportBomXls = cbIsExportBomXls.Checked;
                 data.IsCanSelElecInBom= cbIsCanSelElecInBom.Checked;
+                data.isCanSelLayerInBom = cbIsCanSelLayerInBom.Checked;
                 data.IsSetPropertyAllowMultiple = cbIsSetPropertyAllowMultiple.Checked;
                 data.IsSetPrtColor = cbIsSetPrtColor.Checked;
                 data.EleFType = txtEleFType.Text;

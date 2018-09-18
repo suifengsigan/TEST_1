@@ -131,6 +131,10 @@ namespace EactConfig
         /// </summary>
         public bool IsCanSelElecInBom = false;
         /// <summary>
+        /// Bom工具是否可以选择图层
+        /// </summary>
+        public bool isCanSelLayerInBom = false;
+        /// <summary>
         /// 是否导出物料单
         /// </summary>
         public bool IsExportBomXls = false;

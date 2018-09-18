@@ -70,13 +70,14 @@
             this.btnPopertyUpate = new System.Windows.Forms.Button();
             this.btnPopertyAdd = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cbEdition = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.cbIsDeleteDraft = new System.Windows.Forms.CheckBox();
             this.cbIsMatNameSel = new System.Windows.Forms.CheckBox();
             this.CBSpecialshapedElec = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.txtPQBlankStock = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.cbIsCanSelElecInBom = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
             this.cbIsSetPropertyAllowMultiple = new System.Windows.Forms.CheckBox();
             this.txtEleFType = new System.Windows.Forms.TextBox();
@@ -105,8 +106,9 @@
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.cbEdition = new System.Windows.Forms.ComboBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.cbIsCanSelElecInBom = new System.Windows.Forms.RadioButton();
+            this.cbIsCanSelLayerInBom = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -522,6 +524,9 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.cbIsCanSelLayerInBom);
+            this.tabPage4.Controls.Add(this.cbIsCanSelElecInBom);
+            this.tabPage4.Controls.Add(this.radioButton1);
             this.tabPage4.Controls.Add(this.cbEdition);
             this.tabPage4.Controls.Add(this.label21);
             this.tabPage4.Controls.Add(this.cbIsDeleteDraft);
@@ -530,7 +535,6 @@
             this.tabPage4.Controls.Add(this.label20);
             this.tabPage4.Controls.Add(this.txtPQBlankStock);
             this.tabPage4.Controls.Add(this.label19);
-            this.tabPage4.Controls.Add(this.cbIsCanSelElecInBom);
             this.tabPage4.Controls.Add(this.label17);
             this.tabPage4.Controls.Add(this.cbIsSetPropertyAllowMultiple);
             this.tabPage4.Controls.Add(this.txtEleFType);
@@ -556,10 +560,28 @@
             this.tabPage4.Text = "基本配置";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // cbEdition
+            // 
+            this.cbEdition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEdition.FormattingEnabled = true;
+            this.cbEdition.Location = new System.Drawing.Point(167, 21);
+            this.cbEdition.Name = "cbEdition";
+            this.cbEdition.Size = new System.Drawing.Size(392, 20);
+            this.cbEdition.TabIndex = 66;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(74, 24);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(29, 12);
+            this.label21.TabIndex = 65;
+            this.label21.Text = "版本";
+            // 
             // cbIsDeleteDraft
             // 
             this.cbIsDeleteDraft.AutoSize = true;
-            this.cbIsDeleteDraft.Location = new System.Drawing.Point(272, 308);
+            this.cbIsDeleteDraft.Location = new System.Drawing.Point(181, 333);
             this.cbIsDeleteDraft.Name = "cbIsDeleteDraft";
             this.cbIsDeleteDraft.Size = new System.Drawing.Size(72, 16);
             this.cbIsDeleteDraft.TabIndex = 64;
@@ -611,16 +633,6 @@
             this.label19.Size = new System.Drawing.Size(59, 12);
             this.label19.TabIndex = 59;
             this.label19.Text = "BOM工具：";
-            // 
-            // cbIsCanSelElecInBom
-            // 
-            this.cbIsCanSelElecInBom.AutoSize = true;
-            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(185, 308);
-            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
-            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(72, 16);
-            this.cbIsCanSelElecInBom.TabIndex = 58;
-            this.cbIsCanSelElecInBom.Text = "可选电极";
-            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
             // 
             // label17
             // 
@@ -892,23 +904,37 @@
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
             // 
-            // label21
+            // radioButton1
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(74, 24);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(29, 12);
-            this.label21.TabIndex = 65;
-            this.label21.Text = "版本";
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(181, 307);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(47, 16);
+            this.radioButton1.TabIndex = 67;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "默认";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // cbEdition
+            // cbIsCanSelElecInBom
             // 
-            this.cbEdition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEdition.FormattingEnabled = true;
-            this.cbEdition.Location = new System.Drawing.Point(167, 21);
-            this.cbEdition.Name = "cbEdition";
-            this.cbEdition.Size = new System.Drawing.Size(392, 20);
-            this.cbEdition.TabIndex = 66;
+            this.cbIsCanSelElecInBom.AutoSize = true;
+            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(282, 308);
+            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
+            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(71, 16);
+            this.cbIsCanSelElecInBom.TabIndex = 68;
+            this.cbIsCanSelElecInBom.Text = "可选电极";
+            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
+            // 
+            // cbIsCanSelLayerInBom
+            // 
+            this.cbIsCanSelLayerInBom.AutoSize = true;
+            this.cbIsCanSelLayerInBom.Location = new System.Drawing.Point(386, 308);
+            this.cbIsCanSelLayerInBom.Name = "cbIsCanSelLayerInBom";
+            this.cbIsCanSelLayerInBom.Size = new System.Drawing.Size(71, 16);
+            this.cbIsCanSelLayerInBom.TabIndex = 69;
+            this.cbIsCanSelLayerInBom.Text = "可选图层";
+            this.cbIsCanSelLayerInBom.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -1012,7 +1038,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtPQBlankStock;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.CheckBox cbIsCanSelElecInBom;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox cbIsSetPropertyAllowMultiple;
         private System.Windows.Forms.TextBox txtEleFType;
@@ -1024,5 +1049,8 @@
         private System.Windows.Forms.CheckBox cbIsAutoCMM;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cbEdition;
+        private System.Windows.Forms.RadioButton cbIsCanSelLayerInBom;
+        private System.Windows.Forms.RadioButton cbIsCanSelElecInBom;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
