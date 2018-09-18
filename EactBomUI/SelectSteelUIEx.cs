@@ -17,6 +17,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
 
     void RereshUI() 
     {
+        toggleIsDistinguishSideElec.Show = false;
         groupElec.Show = EactBom.EactBomBusiness.Instance.ConfigData.IsCanSelElecInBom;
         groupElecLayer.Show = EactBom.EactBomBusiness.Instance.ConfigData.isCanSelLayerInBom;
         coord_system0.Show = enum0.SelectedItem == "指定";
@@ -183,7 +184,7 @@ partial class SelectSteelUI : SnapEx.BaseUI
         NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, MouldInfo.Origin.Array);
         Snap.Globals.WcsOrientation = MouldInfo.Orientation;
         ElecManage.Entry.Instance.DefaultQuadrantType = (QuadrantType)enumSelectedXX.SelectedIndex;
-        ElecManage.Entry.Instance.IsDistinguishSideElec = toggleIsDistinguishSideElec.Value;
+        ElecManage.Entry.Instance.IsDistinguishSideElec = EactBom.EactBomBusiness.Instance.ConfigData.IsDistinguishSideElec;
         ElecManage.Entry.Edition = EactBom.EactBomBusiness.Instance.ConfigData.Edition;
         steel.SetIntegerAttribute(EactBom.EactBomBusiness.EACT_DEFAULTQUADRANTTYPE, enumSelectedXX.SelectedIndex);
 

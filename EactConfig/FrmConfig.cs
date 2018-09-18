@@ -290,6 +290,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsDistinguishSideElec.Checked = data.IsDistinguishSideElec;
             cbIsAutoCMM.Checked = data.IsAutoCMM;
             cbIsAutoPrtTool.Checked = data.IsAutoPrtTool;
             cbIsDeleteDraft.Checked = data.IsDeleteDraft;
@@ -354,6 +355,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsDistinguishSideElec = cbIsDistinguishSideElec.Checked;
                 data.IsAutoCMM = cbIsAutoCMM.Checked;
                 data.IsAutoPrtTool=cbIsAutoPrtTool.Checked;
                 data.IsDeleteDraft= cbIsDeleteDraft.Checked;

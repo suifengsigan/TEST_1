@@ -70,6 +70,9 @@
             this.btnPopertyUpate = new System.Windows.Forms.Button();
             this.btnPopertyAdd = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cbIsCanSelLayerInBom = new System.Windows.Forms.RadioButton();
+            this.cbIsCanSelElecInBom = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.cbEdition = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.cbIsDeleteDraft = new System.Windows.Forms.CheckBox();
@@ -106,9 +109,7 @@
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.cbIsCanSelElecInBom = new System.Windows.Forms.RadioButton();
-            this.cbIsCanSelLayerInBom = new System.Windows.Forms.RadioButton();
+            this.cbIsDistinguishSideElec = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -524,6 +525,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.cbIsDistinguishSideElec);
             this.tabPage4.Controls.Add(this.cbIsCanSelLayerInBom);
             this.tabPage4.Controls.Add(this.cbIsCanSelElecInBom);
             this.tabPage4.Controls.Add(this.radioButton1);
@@ -559,6 +561,38 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "基本配置";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // cbIsCanSelLayerInBom
+            // 
+            this.cbIsCanSelLayerInBom.AutoSize = true;
+            this.cbIsCanSelLayerInBom.Location = new System.Drawing.Point(386, 308);
+            this.cbIsCanSelLayerInBom.Name = "cbIsCanSelLayerInBom";
+            this.cbIsCanSelLayerInBom.Size = new System.Drawing.Size(71, 16);
+            this.cbIsCanSelLayerInBom.TabIndex = 69;
+            this.cbIsCanSelLayerInBom.Text = "可选图层";
+            this.cbIsCanSelLayerInBom.UseVisualStyleBackColor = true;
+            // 
+            // cbIsCanSelElecInBom
+            // 
+            this.cbIsCanSelElecInBom.AutoSize = true;
+            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(282, 308);
+            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
+            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(71, 16);
+            this.cbIsCanSelElecInBom.TabIndex = 68;
+            this.cbIsCanSelElecInBom.Text = "可选电极";
+            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(181, 307);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(47, 16);
+            this.radioButton1.TabIndex = 67;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "默认";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // cbEdition
             // 
@@ -904,37 +938,15 @@
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // cbIsDistinguishSideElec
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(181, 307);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 16);
-            this.radioButton1.TabIndex = 67;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "默认";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // cbIsCanSelElecInBom
-            // 
-            this.cbIsCanSelElecInBom.AutoSize = true;
-            this.cbIsCanSelElecInBom.Location = new System.Drawing.Point(282, 308);
-            this.cbIsCanSelElecInBom.Name = "cbIsCanSelElecInBom";
-            this.cbIsCanSelElecInBom.Size = new System.Drawing.Size(71, 16);
-            this.cbIsCanSelElecInBom.TabIndex = 68;
-            this.cbIsCanSelElecInBom.Text = "可选电极";
-            this.cbIsCanSelElecInBom.UseVisualStyleBackColor = true;
-            // 
-            // cbIsCanSelLayerInBom
-            // 
-            this.cbIsCanSelLayerInBom.AutoSize = true;
-            this.cbIsCanSelLayerInBom.Location = new System.Drawing.Point(386, 308);
-            this.cbIsCanSelLayerInBom.Name = "cbIsCanSelLayerInBom";
-            this.cbIsCanSelLayerInBom.Size = new System.Drawing.Size(71, 16);
-            this.cbIsCanSelLayerInBom.TabIndex = 69;
-            this.cbIsCanSelLayerInBom.Text = "可选图层";
-            this.cbIsCanSelLayerInBom.UseVisualStyleBackColor = true;
+            this.cbIsDistinguishSideElec.AutoSize = true;
+            this.cbIsDistinguishSideElec.Location = new System.Drawing.Point(282, 333);
+            this.cbIsDistinguishSideElec.Name = "cbIsDistinguishSideElec";
+            this.cbIsDistinguishSideElec.Size = new System.Drawing.Size(96, 16);
+            this.cbIsDistinguishSideElec.TabIndex = 70;
+            this.cbIsDistinguishSideElec.Text = "识别侧放电极";
+            this.cbIsDistinguishSideElec.UseVisualStyleBackColor = true;
             // 
             // FrmConfig
             // 
@@ -1052,5 +1064,6 @@
         private System.Windows.Forms.RadioButton cbIsCanSelLayerInBom;
         private System.Windows.Forms.RadioButton cbIsCanSelElecInBom;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.CheckBox cbIsDistinguishSideElec;
     }
 }
