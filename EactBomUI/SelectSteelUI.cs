@@ -64,6 +64,9 @@ public partial class SelectSteelUI
     private Snap.UI.Block.Integer integerSInsertLayer;// Block type: Integer
     private Snap.UI.Block.Group groupElec;// Block type: Group
     private Snap.UI.Block.SelectObject selectElec;// Block type: Selection
+    private Snap.UI.Block.Group groupElecLayer;
+    private Snap.UI.Block.Integer integerElecStartLayer;
+    private Snap.UI.Block.Integer integerElecEndLayer;
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -271,6 +274,9 @@ public partial class SelectSteelUI
             selectElec = Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectElec");
             groupElec = Snap.UI.Block.Group.GetBlock(theDialog, "groupElec");
 
+            groupElecLayer = Snap.UI.Block.Group.GetBlock(theDialog, "groupElecLayer");
+            integerElecStartLayer = Snap.UI.Block.Integer.GetBlock(theDialog, "integerElecStartLayer");
+            integerElecEndLayer = Snap.UI.Block.Integer.GetBlock(theDialog, "integerElecEndLayer");
         }
         catch (Exception ex)
         {

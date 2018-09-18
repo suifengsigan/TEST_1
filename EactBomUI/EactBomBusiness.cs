@@ -892,7 +892,7 @@ namespace EactBom
             }
             var mouldBody = mouldInfo.MouldBody;
             var result = new List<ViewElecInfo>();
-            if (ConfigData.IsCanSelElecInBom)
+            if (ConfigData.IsCanSelElecInBom||ConfigData.isCanSelLayerInBom)
             {
                 var bodies = mouldInfo.ElecBodies;
                 mouldInfo.SInsertBodies.ForEach(u => {
