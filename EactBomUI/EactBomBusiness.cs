@@ -921,6 +921,13 @@ namespace EactBom
                                 result.Add(viewInfo);
                                 elec = viewInfo;
                             }
+                            else
+                            {
+                                if (ConfigData.isCanSelLayerInBom && ConfigData.Edition == 1)
+                                {
+                                    throw new Exception(string.Format("图层【{0}】中电极{1}无法识别，请检查", u.Layer, u.Name));
+                                }
+                            }
                         }
                         else
                         {
