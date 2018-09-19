@@ -107,9 +107,9 @@ namespace DataAccess
             sql.AppendFormat("EACT_CUPRUM_EXP.MODELNO='{0}' and ", cuprumNames.FirstOrDefault().MODELNO);
             sql.AppendFormat("EACT_CUPRUM_EXP.PARTNO='{0}' and ", cuprumNames.FirstOrDefault().PARTNO);
             sql.Append("EACT_CUPRUM_EXP.CUPRUMID in ");
-            sql.Append("(select EACT_CUPRUM.CUPRUMID from EACT_CUPRUM where EACT_CUPRUM.CUPRUMNAME in ");
+            sql.Append("(select EACT_CUPRUM.CUPRUMID from EACT_CUPRUM where EACT_CUPRUM.CUPRUMSN in ");
             sql.Append("(");
-            sql.Append(string.Join(",", Enumerable.Select(cuprumNames, u => string.Format("'{0}'", u.CUPRUMNAME)).Distinct().ToArray()));
+            sql.Append(string.Join(",", Enumerable.Select(cuprumNames, u => string.Format("'{0}'", u.CUPRUMSN)).Distinct().ToArray()));
             sql.Append(")");
             sql.Append(")");
             return sql.ToString();
@@ -232,6 +232,8 @@ namespace DataAccess
                                     shareElec.Y = item.Y;
                                     shareElec.Z = item.Z;
                                     shareElec.C = item.C;
+                                    shareElec.CUPRUMNAME = item.CUPRUMNAME;
+                                    shareElec.CUPRUMSN = item.CUPRUMSN;
                                     cuprumEXPs.Add(shareElec);
                                 }
 

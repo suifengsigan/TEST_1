@@ -146,6 +146,7 @@ namespace EactBom
                                 C = string.Join(",", tempPoss.Select(m => m.C.ToString()).ToArray())
                                ,
                                 CUPRUMNAME = shareElec.CUPRUMNAME
+                                ,CUPRUMSN=shareElec.CUPRUMSN
                             });
                         }
                     }
