@@ -684,8 +684,8 @@ namespace EactBom
                 if (positions.IndexOf(item) > 0) continue;
 
                 //TODO 导BOM
-                var STRETCHH = info.STRETCHH;
-                var HEADPULLUPH = info.HEADPULLUPH;
+                var STRETCHH = System.Math.Round(info.STRETCHH,2);
+                var HEADPULLUPH = System.Math.Round(info.HEADPULLUPH,2);
                 var PROCESSNUM = positions.Count.ToString();
                 var X = string.Join(",", positions.Select(u => u.X.ToString()).ToArray());
                 var Y = string.Join(",", positions.Select(u => u.Y.ToString()).ToArray());
