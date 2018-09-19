@@ -185,8 +185,7 @@ namespace ElecManage
             var chamferFace = GetChamferFace();
             if (chamferFace != null) 
             {
-                var dir = SnapEx.Create.MapAcsToWcs(chamferFace.GetFaceDirection(),new Snap.Orientation(-BaseFace.GetFaceDirection()));
-                dir = SnapEx.Create.MapAcsToWcs(dir, Snap.Globals.Wcs.Orientation);
+                var dir = SnapEx.Create.MapAcsToWcs(chamferFace.GetFaceDirection(), Snap.Globals.Wcs.Orientation);
                 result = SnapEx.Helper.GetQuadrantType(dir);
             }
             return result;
