@@ -481,7 +481,7 @@ namespace EactBom
                                     }
                             }
                             datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation ? "1" : "0");
-                            datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = area.ToString());
+                            datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = System.Math.Round(area, 2).ToString());
                             u.Electrode.ElecBody.Name = partName;
                             u.Electrode.ElecBody.SetStringAttribute("EACT_ELEC_NAME", partName);
                             return trans;
