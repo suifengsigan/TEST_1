@@ -189,10 +189,10 @@ namespace ElecManage
                 wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
                 var acsOrientation = Snap.Orientation.Identity;
                 acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                var transR = Snap.Geom.Transform.CreateRotation(wcsOrientation, acsOrientation);
-                var baseFaceOrientation = new Snap.Orientation(-BaseFace.GetFaceDirection().Copy(transR));
+                var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
+                var baseFaceOrientation = new Snap.Orientation(-BaseFace.GetFaceDirection());
                 baseFaceOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(baseFaceOrientation, acsOrientation));
+                transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(wcsOrientation, baseFaceOrientation));
                 var dir = chamferFace.GetFaceDirection().Copy(transR);
                 result = SnapEx.Helper.GetQuadrantType(dir);
             }
