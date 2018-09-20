@@ -14,7 +14,7 @@ namespace ElecManage
             ElecHeadFaces = new List<Snap.NX.Face>();
         }
 
-        public static void SetEactElectrode(Snap.NX.Body body,ref Snap.NX.Face topFace,ref Snap.NX.Face baseFace,ref Snap.NX.Point basePoint)
+        public static void SetEactElectrode(Snap.NX.Body body, ref Snap.NX.Face topFace, ref Snap.NX.Face baseFace, ref Snap.NX.Point basePoint)
         {
             var faces = body.Faces.ToList();
             //清空相关属性
@@ -47,7 +47,7 @@ namespace ElecManage
             {
                 var topDir = new Snap.Vector(0, 0, 1);
                 //顶面
-                topFace = faces.Where(u => u.IsHasAttr(EactElectrode.BASE_BOT)|| u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, XKElectrode.BASE_BOT)).FirstOrDefault();
+                topFace = faces.Where(u => u.IsHasAttr(EactElectrode.BASE_BOT) || u.MatchAttrValue(XKElectrode.ATTR_NAME_MARK, XKElectrode.BASE_BOT)).FirstOrDefault();
                 if (topFace == null)
                 {
                     var topFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u => SnapEx.Helper.Equals(topDir, u.GetFaceDirection()));
@@ -92,7 +92,7 @@ namespace ElecManage
                     basePoint = tempBasePoint;
                 }
 
-                if (basePoint == null&&baseFace!=null)
+                if (basePoint == null && baseFace != null)
                 {
                     basePoint = Snap.Create.Point(baseFace.GetCenterPoint());
                     basePoint.Layer = body.Layer;
@@ -112,14 +112,14 @@ namespace ElecManage
             if (basePoint != null)
             {
                 var guid = Guid.NewGuid().ToString();
-                body.SetStringAttribute(EactElectrode.EACT_ELECT_GROUP,guid);
+                body.SetStringAttribute(EactElectrode.EACT_ELECT_GROUP, guid);
                 basePoint.SetStringAttribute(EactElectrode.EACT_ELECT_GROUP, guid);
             }
         }
         /// <summary>
         /// 电极类型
         /// </summary>
-        public ElectrodeType ElectrodeType=ElectrodeType.UNKOWN;
+        public ElectrodeType ElectrodeType = ElectrodeType.UNKOWN;
         /// <summary>
         /// 电极体
         /// </summary>
@@ -150,12 +150,12 @@ namespace ElecManage
 
         public List<Snap.NX.NXObject> AllObject = new List<Snap.NX.NXObject>();
 
-        public virtual Snap.NX.Face GetTopFace() 
+        public virtual Snap.NX.Face GetTopFace()
         {
             return TopFace;
         }
 
-        public virtual Snap.NX.Face GetChamferFace() 
+        public virtual Snap.NX.Face GetChamferFace()
         {
             return ChamferFace;
         }
@@ -176,6 +176,21 @@ namespace ElecManage
             return result;
         }
 
+        public static Snap.Geom.Transform GetElecTransWcsToAcs(Snap.Vector baseDir)
+        {
+            var wcsOrientation = Snap.Globals.WcsOrientation;
+            wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+            var acsOrientation = Snap.Orientation.Identity;
+            acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+            var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
+            var baseFaceOrientation = new Snap.Orientation(-baseDir);
+            baseFaceOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+            var tempWcsOrientation = new Snap.Orientation(wcsOrientation.AxisZ);
+            tempWcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+            transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(tempWcsOrientation, baseFaceOrientation));
+            return transR;
+        }
+
         /// <summary>
         /// 获取象限类型
         /// </summary>
@@ -185,15 +200,7 @@ namespace ElecManage
             var chamferFace = GetChamferFace();
             if (chamferFace != null&&BaseFace!=null) 
             {
-                var wcsOrientation = Snap.Globals.WcsOrientation;
-                wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                var acsOrientation = Snap.Orientation.Identity;
-                acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
-                var baseFaceOrientation = new Snap.Orientation(-BaseFace.GetFaceDirection());
-                baseFaceOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(wcsOrientation, baseFaceOrientation));
-                var dir = chamferFace.GetFaceDirection().Copy(transR);
+                var dir = chamferFace.GetFaceDirection().Copy(GetElecTransWcsToAcs(BaseFace.GetFaceDirection()));
                 result = SnapEx.Helper.GetQuadrantType(dir);
             }
             return result;

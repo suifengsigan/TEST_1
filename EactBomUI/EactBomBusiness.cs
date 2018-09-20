@@ -229,14 +229,7 @@ namespace EactBom
                     var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
                     //移至绝对坐标原点
                     var baseDir = u.Electrode.BaseFace.GetFaceDirection();
-                    var wcsOrientation = Snap.Globals.WcsOrientation;
-                    wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                    var acsOrientation = Snap.Orientation.Identity;
-                    acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                    var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
-                    var baseFaceOrientation = new Snap.Orientation(-baseDir);
-                    baseFaceOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                    transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(wcsOrientation, baseFaceOrientation));
+                    var wcsOrientation = Snap.Globals.WcsOrientation; var transR = ElecManage.Electrode.GetElecTransWcsToAcs(baseDir);
                     var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
                     baseDirOrientation.AxisZ = new Snap.Vector(0, 0, 0);
                     var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
@@ -378,14 +371,7 @@ namespace EactBom
                     }
 
                     //移至绝对坐标原点
-                    var wcsOrientation = Snap.Globals.WcsOrientation;
-                    wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                    var acsOrientation = Snap.Orientation.Identity;
-                    acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                    var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
-                    var baseFaceOrientation = new Snap.Orientation(-baseDir);
-                    baseFaceOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-                    transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(wcsOrientation, baseFaceOrientation));
+                    var transR = ElecManage.Electrode.GetElecTransWcsToAcs(baseDir);
                     var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
                     baseDirOrientation.AxisZ = new Snap.Vector(0, 0, 0);
                     var transY = Snap.Geom.Transform.CreateRotation(baseDirOrientation, new Snap.Orientation(new Snap.Vector(-1, 0, 0), new Snap.Vector(0, -1, 0), new Snap.Vector(0, 0, 0)));
