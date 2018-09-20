@@ -183,11 +183,9 @@ namespace ElecManage
             var acsOrientation = Snap.Orientation.Identity;
             acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
             var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
-            var baseFaceOrientation = new Snap.Orientation(-baseDir);
+            var baseFaceOrientation = new Snap.Orientation(-baseDir.Copy(transR));
             baseFaceOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-            var tempWcsOrientation = new Snap.Orientation(wcsOrientation.AxisZ);
-            tempWcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
-            transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(tempWcsOrientation, baseFaceOrientation));
+            transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(acsOrientation, baseFaceOrientation));
             return transR;
         }
 
