@@ -46,18 +46,31 @@
             return new Transform(array);
         }
 
+        public static Transform CreateRotation(Snap.Orientation orientation1, Snap.Orientation orientation2)
+        {
+            return CreateRotation(orientation1, orientation2, true);
+        }
         /// <summary>
         /// TODO PH ADD
         /// </summary>
-        public static Transform CreateRotation(Snap.Orientation orientation1, Snap.Orientation orientation2)
+        public static Transform CreateRotation(Snap.Orientation orientation1, Snap.Orientation orientation2, bool isOrigin)
         {
             int num;
             UFSession uFSession = Globals.UFSession;
             double[] matrix = new double[12];
             double[] numArray2 = Snap.Math.MatrixMath.MatrixToVector(orientation1.Array);
-            numArray2[0] = orientation1.AxisZ.X;
-            numArray2[1] = orientation1.AxisZ.Y;
-            numArray2[2] = orientation1.AxisZ.Z;
+            if (!isOrigin)
+            {
+                numArray2[0] = orientation1.AxisZ.X;
+                numArray2[1] = orientation1.AxisZ.Y;
+                numArray2[2] = orientation1.AxisZ.Z;
+            }
+            else
+            {
+                numArray2[0] = 0;
+                numArray2[1] = 0;
+                numArray2[2] = 0;
+            }
             numArray2[3] = orientation1.AxisX.X;
             numArray2[4] = orientation1.AxisX.Y;
             numArray2[5] = orientation1.AxisX.Z;
@@ -67,9 +80,18 @@
 
 
             double[] numArray3 = Snap.Math.MatrixMath.MatrixToVector(orientation2.Array);
-            numArray3[0] = orientation2.AxisZ.X;
-            numArray3[1] = orientation2.AxisZ.Y;
-            numArray3[2] = orientation2.AxisZ.Z;
+            if (!isOrigin)
+            {
+                numArray3[0] = orientation2.AxisZ.X;
+                numArray3[1] = orientation2.AxisZ.Y;
+                numArray3[2] = orientation2.AxisZ.Z;
+            }
+            else
+            {
+                numArray3[0] = 0;
+                numArray3[1] = 0;
+                numArray3[2] = 0;
+            }
             numArray3[3] = orientation2.AxisX.X;
             numArray3[4] = orientation2.AxisX.Y;
             numArray3[5] = orientation2.AxisX.Z;
