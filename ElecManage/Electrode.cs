@@ -178,13 +178,11 @@ namespace ElecManage
 
         public static Snap.Geom.Transform GetElecTransWcsToAcs(Snap.Vector baseDir)
         {
-            var wcsOrientation = Snap.Globals.WcsOrientation;
-            wcsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
+            var wcsOrientation = new Snap.Orientation(Snap.Globals.WcsOrientation.AxisZ);
             var acsOrientation = Snap.Orientation.Identity;
-            acsOrientation.AxisZ = new Snap.Vector(0, 0, 0);
             var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
+            transR = Snap.Geom.Transform.Composition(Snap.Geom.Transform.CreateRotation(Snap.Globals.WcsOrientation, wcsOrientation), transR);
             var baseFaceOrientation = new Snap.Orientation(-baseDir.Copy(transR));
-            baseFaceOrientation.AxisZ = new Snap.Vector(0, 0, 0);
             transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(acsOrientation, baseFaceOrientation));
             return transR;
         }
