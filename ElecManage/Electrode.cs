@@ -178,13 +178,29 @@ namespace ElecManage
 
         public static Snap.Geom.Transform GetElecTransWcsToAcs(Snap.Vector baseDir)
         {
-            var wcsOrientation = new Snap.Orientation(Snap.Globals.WcsOrientation.AxisZ);
+            var wcsOrientation = Snap.Globals.WcsOrientation;
             var acsOrientation = Snap.Orientation.Identity;
             var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
-            transR = Snap.Geom.Transform.Composition(Snap.Geom.Transform.CreateRotation(Snap.Globals.WcsOrientation, wcsOrientation), transR);
             var baseFaceOrientation = new Snap.Orientation(-baseDir.Copy(transR));
-            transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(acsOrientation, baseFaceOrientation));
+            transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(CreateOrientation(acsOrientation.AxisZ,baseFaceOrientation), baseFaceOrientation));
             return transR;
+        }
+
+        public static Snap.Orientation CreateOrientation(Snap.Vector axisZ, Snap.Orientation orientation)
+        {
+            Snap.Vector vector;
+            if (System.Math.Abs(orientation.AxisZ.X) < System.Math.Abs(orientation.AxisZ.Y))
+            {
+                vector = new Snap.Vector(1.0, 0.0, 0.0);
+            }
+            else
+            {
+                vector = new Snap.Vector(0.0, 1.0, 0.0);
+            }
+            axisZ = Snap.Vector.Unit(axisZ);
+            Snap.Vector v = Snap.Vector.Unit(Snap.Vector.Cross(vector, axisZ));
+            Snap.Vector vector3 = Snap.Vector.Unit(Snap.Vector.Cross(axisZ, v));
+            return new Snap.Orientation(v, vector3,axisZ);
         }
 
         /// <summary>
