@@ -73,6 +73,36 @@ namespace EactBom
             }
         }
 
+        /// <summary>
+        /// 设置电极属性默认值
+        /// </summary>
+        public void SetElecDefaultValue(ElectrodeInfo info)
+        {
+            var _configData = ConfigData;
+            if (_configData.IsElecSetDefault)
+            {
+                var ent = info;
+                foreach (var item in ent.GetType().GetProperties())
+                {
+                    var v = ((System.ComponentModel.DisplayNameAttribute[])item.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), false)).ToList();
+                    if (v.Count > 0)
+                    {
+                        var displayName = v.First().DisplayName;
+                        var poperty = _configData.Poperties.FirstOrDefault(u => u.DisplayName == displayName);
+                        var rValue = (item.GetValue(ent, null) ?? string.Empty).ToString();
+                        if (poperty != null && string.IsNullOrEmpty(rValue))
+                        {
+                            var defaultSelection = string.IsNullOrEmpty(rValue) ? (poperty.Selections.FirstOrDefault(m => m.IsDefault)) : poperty.Selections.FirstOrDefault(m => m.Value == rValue);
+                            if (defaultSelection != null)
+                            {
+                                item.SetValue(ent, defaultSelection.Value, null);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void GetExportEactData(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas, Action<string> showMsgHandle = null)
         {
             infos.ForEach(u => {

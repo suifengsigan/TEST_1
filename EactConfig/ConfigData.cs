@@ -164,6 +164,10 @@ namespace EactConfig
         /// CNC翻转规则
         /// </summary>
         public int CNCTranRule = 0;
+        /// <summary>
+        /// 电极是否设置默认值
+        /// </summary>
+        public bool IsElecSetDefault = false;
         public bool ShareElec = false;
         /// <summary>
         /// 翻转规则
