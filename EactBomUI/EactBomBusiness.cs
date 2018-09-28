@@ -92,7 +92,7 @@ namespace EactBom
                         var rValue = (item.GetValue(ent, null) ?? string.Empty).ToString();
                         if (poperty != null && string.IsNullOrEmpty(rValue))
                         {
-                            var defaultSelection = string.IsNullOrEmpty(rValue) ? (poperty.Selections.FirstOrDefault(m => m.IsDefault)) : poperty.Selections.FirstOrDefault(m => m.Value == rValue);
+                            var defaultSelection =(poperty.Selections.FirstOrDefault(m => m.IsDefault))?? poperty.Selections.FirstOrDefault();
                             if (defaultSelection != null)
                             {
                                 item.SetValue(ent, defaultSelection.Value, null);
@@ -846,6 +846,7 @@ namespace EactBom
                     positioning.Z = Math.Round(pos.Z, 4);
                     positioning.QuadrantType = info.GetQuadrantType(ConfigData.QuadrantType);
                     result.Add(positioning);
+                    SetElecDefaultValue(info.GetElectrodeInfo());
                 }
             });
 

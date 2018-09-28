@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using SnapEx;
@@ -326,6 +327,7 @@ namespace ElecManage
         /// <summary>
         /// 夹具类型
         /// </summary>
+        [DisplayName("夹具类型")]
         public virtual string ELEC_CLAMP_GENERAL_TYPE 
         {
             get
@@ -521,6 +523,7 @@ namespace ElecManage
         /// <summary>
         /// 精公光洁度
         /// </summary>
+        [DisplayName("精公光洁度")]
         public virtual string F_SMOOTH
         {
             get
@@ -537,6 +540,7 @@ namespace ElecManage
         /// <summary>
         /// 中公光洁度
         /// </summary>
+        [DisplayName("中公光洁度")]
         public virtual string M_SMOOTH
         {
             get
@@ -552,6 +556,7 @@ namespace ElecManage
         /// <summary>
         /// 粗公光洁度
         /// </summary>
+        [DisplayName("粗公光洁度")]
         public virtual string R_SMOOTH
         {
             get
@@ -579,6 +584,7 @@ namespace ElecManage
         /// <summary>
         /// 工位类型
         /// </summary>
+        [DisplayName("电极类型")]
         public virtual string UNIT
         {
             get
@@ -594,6 +600,7 @@ namespace ElecManage
         /// <summary>
         /// 加工方向
         /// </summary>
+        [DisplayName("加工方向")]
         public virtual string EDMPROCDIRECTION 
         {
             get
@@ -609,6 +616,7 @@ namespace ElecManage
         /// <summary>
         /// 摇摆方式
         /// </summary>
+        [DisplayName("摇摆方式")]
         public virtual string EDMROCK
         {
             get
