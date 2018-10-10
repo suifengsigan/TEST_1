@@ -42,7 +42,8 @@ namespace ElecManage
             //基准台侧面
             var baseSideFaces = faces.Where(u => u.MatchAttrValue(ATTR_NAME_MARK, BASE_SIDE)).ToList();
             //基准点
-            var elecBasePoint = Snap.Globals.WorkPart.Points.FirstOrDefault(u => u.MatchAttrValue(ATTR_NAME_MARK, elecName) && u.MatchAttrValue(DIM_PT, DIM_PT));
+            var elecBasePoint = Snap.Globals.WorkPart.Points.Where(u => u.MatchAttrValue(ATTR_NAME_MARK, elecName) && u.MatchAttrValue(DIM_PT, DIM_PT))
+                .OrderBy(u => Snap.Compute.Distance(u.Position, body)).FirstOrDefault();
             //象限面
             var chamferFace = faces.FirstOrDefault(u => u.MatchAttrValue(ATTR_NAME_MARK, BASE_CHAMFER));
             
