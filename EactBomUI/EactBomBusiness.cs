@@ -495,6 +495,18 @@ namespace EactBom
                                         trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 180));
                                         break;
                                     }
+                                case 5://宝讯
+                                    {
+                                        var uv = u.Electrode.BaseFace.Box;
+                                        var absX = Math.Abs(uv.MaxX - uv.MinX);
+                                        var absY = Math.Abs(uv.MaxY - uv.MinY);
+                                        if (Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY)
+                                        {
+                                            isCmmRotation = true;
+                                            trans = Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), -90);
+                                        }
+                                        break;
+                                    }
                             }
                             datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.REGION = isCmmRotation ? "1" : "0");
                             datas.Where(d => d.PARTFILENAME == partName).ToList().ForEach(d => d.DISCHARGING = System.Math.Round(area, 2).ToString());
