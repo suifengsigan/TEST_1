@@ -75,9 +75,11 @@ namespace EactConfig
             cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿X轴)", Value = 1 });
             cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿Y轴)", Value = 2 });
             cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "JR", Value = 3 });
+            cbbEdmTransRule.Items.Add(new ComboBoxItem { Text = "BX", Value = 5 });
             cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "默认矩阵(沿X轴)", Value = 0 });
             cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿X轴)", Value = 1 });
             cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿Y轴_基准台底面)", Value = 2 });
+            cbbCNCTransRule.Items.Add(new ComboBoxItem { Text = "长度矩阵(沿Y轴)", Value = 3 });
             //cbbUGVersion.Items.Add(new ComboBoxItem { Text = "UG6.0", Value = 0 });
             //cbbUGVersion.Items.Add(new ComboBoxItem { Text = "UG9.0", Value = 1 });
         }
