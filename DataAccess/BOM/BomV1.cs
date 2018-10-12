@@ -9,6 +9,16 @@ namespace DataAccess
 {
     public class BomV1:IBom
     {
+        public bool IsConnect()
+        {
+            bool result = false;
+            using (var conn = DAL.GetConn())
+            {
+                conn.Open();
+                result = System.Data.ConnectionState.Open == conn.State;
+            }
+            return result;
+        }
         /// <summary>
         /// 上传取点记录
         /// </summary>

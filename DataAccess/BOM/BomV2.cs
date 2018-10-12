@@ -343,5 +343,10 @@ namespace DataAccess
 
             return query;
         }
+
+        public bool IsConnect()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

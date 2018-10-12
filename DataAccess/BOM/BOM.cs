@@ -9,6 +9,10 @@ namespace DataAccess
 {
     public abstract class BOM
     {
+        public static bool IsConnect()
+        {
+            return GetBomDal().IsConnect();
+        }
         /// <summary>
         /// 上传取点记录
         /// </summary>
