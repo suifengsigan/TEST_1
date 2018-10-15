@@ -140,7 +140,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
             if (cbb is Snap.UI.Block.Enumeration)
             {
-                dic.Add(cbb, realValue);
+                if (!dic.ContainsKey(cbb))
+                {
+                    dic.Add(cbb, realValue);
+                }
             }
 
             foreach (var item in dic)
