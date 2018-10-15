@@ -98,7 +98,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 if (_configData.IsMatNameSel)
                 {
                     dic.Add(cboxMMATNAME, info == null ? string.Empty : info.M_MAT_NAME);
-                    dic.Add(cboxRMATNAME, info == null ? string.Empty : info.R_MAT_NAME);
+                    if (!dic.ContainsKey(cboxRMATNAME))
+                    {
+                        dic.Add(cboxRMATNAME, info == null ? string.Empty : info.R_MAT_NAME);
+                    }
                 }
                 
             }
@@ -227,14 +230,14 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
     public override void DialogShown()
     {
+        cboxMMATNAME.Show = _configData.IsMatNameSel;
+        cboxRMATNAME.Show = _configData.IsMatNameSel;
         SetDefaultValue(null);
         groupSElec.Show = false;
         if (_configData.IsMatNameSel)
         {
             cboxMATNAME.Label = "精公材质";
         }
-        cboxMMATNAME.Show = _configData.IsMatNameSel;
-        cboxRMATNAME.Show = _configData.IsMatNameSel;
     }
 
     public override void Update(NXOpen.BlockStyler.UIBlock block)
