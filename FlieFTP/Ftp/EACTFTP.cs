@@ -527,23 +527,24 @@ namespace FlieFTP
         /// <returns></returns>
         public string[] GetFileList(string LocaPath)
         {
-            try
-            {
-                var result = new List<string>();
-                var d = ftpConnection.GetFileInfos(LocaPath).ToList();
-                d.ForEach(u =>
-                {
-                    if (!u.Dir)
-                    {
-                        result.Add(u.Name);
-                    }
-                });
-                return result.ToArray();
-            }
-            catch
-            {
-                throw;
-            }
+            return GetFileListEx(LocaPath);
+            //try
+            //{
+            //    var result = new List<string>();
+            //    var d = ftpConnection.GetFileInfos(LocaPath).ToList();
+            //    d.ForEach(u =>
+            //    {
+            //        if (!u.Dir)
+            //        {
+            //            result.Add(u.Name);
+            //        }
+            //    });
+            //    return result.ToArray();
+            //}
+            //catch
+            //{
+            //    throw;
+            //}
         }
 
         #endregion
