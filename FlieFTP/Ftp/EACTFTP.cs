@@ -506,6 +506,19 @@ namespace FlieFTP
             }
         }
 
+        public string[] GetFileListEx(string LocaPath)
+        {
+            try
+            {
+                var d = ftpConnection.GetFileInfos(LocaPath).Where(u => !u.Dir).OrderBy(u=>u.LastModified);
+                return Enumerable.Select(d, u => u.Name).ToArray();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         /// <summary>
         /// 在远端路径查找一个文件
         /// </summary>
