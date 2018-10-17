@@ -422,6 +422,9 @@ namespace SnapEx
             var dir = System.IO.Path.GetDirectoryName(fileName);
             var info = new System.IO.DirectoryInfo(dir);
             var UGII_BASE_DIR = info.Parent.FullName;
+            var tempEnvironmentVariable = System.IO.Path.Combine(UGII_BASE_DIR, "STEP214UG");
+            System.Environment.SetEnvironmentVariable("ROSE_DB", tempEnvironmentVariable);
+            System.Environment.SetEnvironmentVariable("ROSE", tempEnvironmentVariable);
             string str = string.Format("\"{0}\\step214ug\\step214ug.exe\" \"{1}\" \"o={2}\" \"d={3}\\step214ug\\ugstep214.def\""
                 , UGII_BASE_DIR
                 , inFileName
