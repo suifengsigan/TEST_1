@@ -395,6 +395,8 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
                 bodies.ForEach(b => {
                     ElecManage.ElectrodeInfo info = GetElecInfo(b);
+                    //TODO 20181018 1815 胡
+                    if (info == null) return;
                     info.FINISH_NUMBER = txtFINISHNUMBER.Value;
                     info.MIDDLE_NUMBER = txtMIDDLENUMBER.Value;
                     info.ROUGH_NUMBER = txtROUGHNUMBER.Value;
