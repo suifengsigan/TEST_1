@@ -809,6 +809,14 @@ namespace EactBom
                         cuprum.UNIT = info.UNIT;
                         cuprum.STRUFFGROUPL = string.Empty;
                         cuprum.CHUCK = info.ELEC_CLAMP_GENERAL_TYPE;
+                        if (!string.IsNullOrEmpty(info.ASSEMBLYEXP) || !string.IsNullOrEmpty(info.ASSEMBLYEXP1))
+                        {
+                            cuprum.ASSEMBLYEXP = Newtonsoft.Json.JsonConvert.SerializeObject(new { EXP = info.ASSEMBLYEXP, EXP1 = info.ASSEMBLYEXP1 });
+                        }
+                        else
+                        {
+                            cuprum.ASSEMBLYEXP = string.Empty;
+                        }
                         cuprums.Add(cuprum);
                     }
                 }

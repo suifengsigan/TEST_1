@@ -37,6 +37,8 @@ namespace ElecManage
         protected string EACT_EDMPROCDIRECTION = "EACT_EDMPROCDIRECTION";//加工方向
         protected string EACT_EDMROCK = "EACT_EDMROCK"; //摇摆方式
         protected string EACT_SHAREELEC = "EACT_SHAREELEC";//共用电极
+        protected string EACT_ASSEMBLYEXP = "EACT_ASSEMBLYEXP";
+        protected string EACT_ASSEMBLYEXP1 = "EACT_ASSEMBLYEXP1";
         /// <summary>
         /// EACT模号
         /// </summary>
@@ -76,6 +78,36 @@ namespace ElecManage
         public ElectrodeInfo(Snap.NX.Body body) 
         {
             _body = body;
+        }
+
+        /// <summary>
+        /// 备注2
+        /// </summary>
+        public string ASSEMBLYEXP1
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_ASSEMBLYEXP1);
+            }
+            set
+            {
+                SetStringAttribute(EACT_ASSEMBLYEXP1, value);
+            }
+        }
+
+        /// <summary>
+        /// 备注1
+        /// </summary>
+        public string ASSEMBLYEXP
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_ASSEMBLYEXP);
+            }
+            set
+            {
+                SetStringAttribute(EACT_ASSEMBLYEXP, value);
+            }
         }
 
         /// <summary>
