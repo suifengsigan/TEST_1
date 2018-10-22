@@ -84,6 +84,8 @@ partial class SetPropertyUI : SnapEx.BaseUI
         txtFINISHSPACE.Value = (info == null ? 0 : info.FINISH_SPACE);
         txtMIDDLESPACE.Value = (info == null ? 0 : info.MIDDLE_SPACE);
         txtROUGHSPACE.Value = (info == null ? 0 : info.ROUGH_SPACE);
+        stringExp.Value = (info == null ? string.Empty : info.ASSEMBLYEXP);
+        stringExp1.Value = (info == null ? string.Empty : info.ASSEMBLYEXP1);
 
         double matchJiajuValue = 0;
 
@@ -237,6 +239,20 @@ partial class SetPropertyUI : SnapEx.BaseUI
         if (_configData.IsMatNameSel)
         {
             cboxMATNAME.Label = "精公材质";
+        }
+
+        switch (_configData.Edition)
+        {
+            case 2://鸿通
+                {
+                }
+                break;
+            default:
+                {
+                    stringExp.Show = false;
+                    stringExp1.Show = false;
+                }
+                break;
         }
     }
 
@@ -403,6 +419,15 @@ partial class SetPropertyUI : SnapEx.BaseUI
                     info.FINISH_SPACE = txtFINISHSPACE.Value;
                     info.MIDDLE_SPACE = txtMIDDLESPACE.Value;
                     info.ROUGH_SPACE = txtROUGHSPACE.Value;
+                    switch (_configData.Edition)
+                    {
+                        case 2:
+                            {
+                                info.ASSEMBLYEXP = stringExp.Value;
+                                info.ASSEMBLYEXP1 = stringExp1.Value;
+                            }
+                            break;
+                    }
 
                     _configData.Poperties.ForEach(p => {
                         if (p.DisplayName == "电极材质")
