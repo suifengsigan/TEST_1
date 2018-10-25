@@ -11,6 +11,7 @@ namespace AssemblyLoader
         public static void InitAssembly() 
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.AssemblyResolve -= new ResolveEventHandler(MyResolveEventHandler);
             currentDomain.AssemblyResolve += new ResolveEventHandler(MyResolveEventHandler);
         }
 
