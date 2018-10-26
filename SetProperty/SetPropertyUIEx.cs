@@ -105,7 +105,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
                         dic.Add(cboxRMATNAME, info == null ? string.Empty : info.R_MAT_NAME);
                     }
                 }
-                
+
             }
             else if (u.DisplayName == "加工方向")
             {
@@ -141,6 +141,11 @@ partial class SetPropertyUI : SnapEx.BaseUI
             {
                 realValue = info == null ? string.Empty : info.ELEC_CLAMP_GENERAL_TYPE;
                 cbb = cbbChuckType;
+            }
+            else if (u.DisplayName == "间隙方式")
+            {
+                realValue = info == null ? string.Empty : info.CAPSET;
+                cbb = cbbCAPSET;
             }
 
             if (cbb is Snap.UI.Block.Enumeration)
@@ -243,14 +248,22 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
         switch (_configData.Edition)
         {
+            case 3:
+                {
+                    stringExp.Show = false;
+                    stringExp1.Show = false;
+                    break;
+                }
             case 2://鸿通
                 {
+                    cbbCAPSET.Show = false;
                 }
                 break;
             default:
                 {
                     stringExp.Show = false;
                     stringExp1.Show = false;
+                    cbbCAPSET.Show = false;
                 }
                 break;
         }
@@ -467,6 +480,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
                         else if (p.DisplayName == "夹具类型")
                         {
                             info.ELEC_CLAMP_GENERAL_TYPE = p.Selections[cbbChuckType.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "间隙方式")
+                        {
+                            info.CAPSET = p.Selections[cbbCAPSET.SelectedIndex].Value;
                         }
                     });
                 });

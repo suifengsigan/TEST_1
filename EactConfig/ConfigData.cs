@@ -107,7 +107,7 @@ namespace EactConfig
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
         /// <summary>
-        /// 版本 0默认叛变 1PZ版本 2鸿通
+        /// 版本 0默认叛变 1PZ版本 2鸿通 3宝讯
         /// </summary>
         public int Edition = 0;
         /// <summary>

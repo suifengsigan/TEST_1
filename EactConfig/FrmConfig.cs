@@ -60,6 +60,7 @@ namespace EactConfig
             cbEdition.Items.Add(new ComboBoxItem { Text = "默认", Value = 0 });
             cbEdition.Items.Add(new ComboBoxItem { Text = "PZ", Value = 1 });
             cbEdition.Items.Add(new ComboBoxItem { Text = "HTUP", Value = 2 });
+            cbEdition.Items.Add(new ComboBoxItem { Text = "BX", Value = 3 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "默认", Value = 0 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "FZ", Value = 1 });
             cbbQuadrantType.Items.Add(new ComboBoxItem { Text = "第一象限", Value = QuadrantType.First });

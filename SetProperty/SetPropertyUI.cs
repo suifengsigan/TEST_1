@@ -75,6 +75,7 @@ public partial class SetPropertyUI
     private Snap.UI.Block.Enumeration cbbMSmoth;// Block type: Enumeration
     private Snap.UI.Block.Enumeration cbbRSmoth;// Block type: Enumeration
     private Snap.UI.Block.Enumeration cbbChuckType;// Block type: Enumeration
+    private Snap.UI.Block.Enumeration cbbCAPSET;// Block type: Enumeration
     private Snap.UI.Block.Group groupSElec;// Block type: Group
     private Snap.UI.Block.SelectObject selectTopFace;// Block type: Selection
     private Snap.UI.Block.SelectObject selectBaseFace;// Block type: Selection
@@ -290,7 +291,8 @@ public partial class SetPropertyUI
             cbbMSmoth = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbMSmoth");
             cbbRSmoth = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbRSmoth");
             cbbChuckType = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbChuckType");
-
+            //CAPSET
+            cbbCAPSET = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbCAPSET");
             groupSElec = Snap.UI.Block.Group.GetBlock(theDialog, "groupSElec");// Block type: Group
             selectTopFace = Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectTopFace");// Block type: Selection
             selectBaseFace=Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectBaseFace");// Block type: Selection

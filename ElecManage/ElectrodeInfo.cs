@@ -40,6 +40,10 @@ namespace ElecManage
         protected string EACT_ASSEMBLYEXP = "EACT_ASSEMBLYEXP";
         protected string EACT_ASSEMBLYEXP1 = "EACT_ASSEMBLYEXP1";
         /// <summary>
+        /// 电极间隙已计算未计算
+        /// </summary>
+        protected string EACT_CAPSET = "EACT_CAPSET";
+        /// <summary>
         /// EACT模号
         /// </summary>
         public const string EACT_DIE_NO_OF_WORKPIECE = "EACT_DIE_NO_OF_WORKPIECE";
@@ -78,6 +82,22 @@ namespace ElecManage
         public ElectrodeInfo(Snap.NX.Body body) 
         {
             _body = body;
+        }
+
+        /// <summary>
+        /// 电极间隙已计算未计算
+        /// </summary>
+        [DisplayName("间隙方式")]
+        public string CAPSET
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_CAPSET);
+            }
+            set
+            {
+                SetStringAttribute(EACT_CAPSET, value);
+            }
         }
 
         /// <summary>
