@@ -178,7 +178,7 @@ namespace ElecManage
 
         public static Snap.Geom.Transform GetElecTransWcsToAcs(Snap.Vector baseDir)
         {
-            var wcsOrientation = Snap.Globals.WcsOrientation;
+            var wcsOrientation = GetStandardOrientation(Snap.Globals.WcsOrientation);
             var acsOrientation = Snap.Orientation.Identity;
             var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
             var baseFaceOrientation = new Snap.Orientation(-baseDir.Copy(transR));
@@ -186,21 +186,47 @@ namespace ElecManage
             return transR;
         }
 
-        public static Snap.Orientation CreateOrientation(Snap.Vector axisZ, Snap.Orientation orientation)
+        public static Snap.Orientation GetStandardOrientation(Snap.Orientation ori)
         {
-            Snap.Vector vector;
-            if (System.Math.Abs(orientation.AxisZ.X) < System.Math.Abs(orientation.AxisZ.Y))
+            var result = ori;
+            if (!IsUseOrientation(ori))
             {
-                vector = new Snap.Vector(1.0, 0.0, 0.0);
+                var vectors = new List<Snap.Vector>();
+                var identiry = Snap.Orientation.Identity;
+                vectors.Add(identiry.AxisX);
+                vectors.Add(identiry.AxisY);
+                vectors.Add(identiry.AxisZ);
+                vectors.Add(-identiry.AxisX);
+                vectors.Add(-identiry.AxisY);
+                vectors.Add(-identiry.AxisZ);
+                var axisXs = vectors.Where(u => SnapEx.Helper.Equals(u, ori.AxisX)).ToList();
+                var axisYs = vectors.Where(u => SnapEx.Helper.Equals(u, ori.AxisY)).ToList();
+                var axisZs = vectors.Where(u => SnapEx.Helper.Equals(u, ori.AxisZ)).ToList();
+                if (axisXs.Count > 0 && axisYs.Count > 0 && axisZs.Count > 0)
+                {
+                    result = new Snap.Orientation(axisXs.First(), axisYs.First(), axisZs.First());
+                }
             }
-            else
+
+            return result;
+        }
+
+        public static bool IsUseOrientation(Snap.Orientation ori)
+        {
+            var result = true;
+            List<double> list = new List<double>();
+            list.AddRange(ori.AxisX.Array);
+            list.AddRange(ori.AxisY.Array);
+            list.AddRange(ori.AxisZ.Array);
+            foreach (var item in list)
             {
-                vector = new Snap.Vector(0.0, 1.0, 0.0);
+                if (!(System.Math.Round(item) == item))
+                {
+                    result = false;
+                    break;
+                }
             }
-            axisZ = Snap.Vector.Unit(axisZ);
-            Snap.Vector v = Snap.Vector.Unit(Snap.Vector.Cross(vector, axisZ));
-            Snap.Vector vector3 = Snap.Vector.Unit(Snap.Vector.Cross(axisZ, v));
-            return new Snap.Orientation(v, vector3,axisZ);
+            return result;
         }
 
         /// <summary>
