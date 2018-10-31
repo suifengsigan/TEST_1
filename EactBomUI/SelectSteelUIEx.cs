@@ -188,7 +188,31 @@ partial class SelectSteelUI : SnapEx.BaseUI
         ElecManage.Entry.Edition = EactBom.EactBomBusiness.Instance.ConfigData.Edition;
         steel.SetIntegerAttribute(EactBom.EactBomBusiness.EACT_DEFAULTQUADRANTTYPE, enumSelectedXX.SelectedIndex);
 
+        if (IsUseOrientation(Snap.Globals.WcsOrientation))
+        {
+            ShowMessage(string.Format("坐标系"), "提示");
+            return;
+        }
+
         Result = System.Windows.Forms.DialogResult.OK;
+    }
+
+    public bool IsUseOrientation(Snap.Orientation ori)
+    {
+        var result = true;
+        List<double> list = new List<double>();
+        list.AddRange(ori.AxisX.Array);
+        list.AddRange(ori.AxisY.Array);
+        list.AddRange(ori.AxisZ.Array);
+        foreach (var item in list)
+        {
+            if (!(int.Parse(item.ToString()) == item))
+            {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 
 }

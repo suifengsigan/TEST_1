@@ -129,9 +129,9 @@ namespace SnapEx
 
         }
 
-        public virtual void ShowMessage(string msg)
+        public virtual void ShowMessage(string msg,string title= "Block Styler")
         {
-            NXOpen.UI.GetUI().NXMessageBox.Show("Block Styler", NXOpen.NXMessageBox.DialogType.Information, msg);
+            NXOpen.UI.GetUI().NXMessageBox.Show(title, NXOpen.NXMessageBox.DialogType.Information, msg);
         }
     }
 }
