@@ -612,6 +612,7 @@ namespace EactBom
         List<DataAccess.Model.EACT_CUPRUM> ExportEact(List<PositioningInfo> positions, ElecManage.MouldInfo steelInfo) 
         {
             var cuprums = new List<DataAccess.Model.EACT_CUPRUM>();
+            var steelZ = steelInfo.MouldBody.AcsToWcsBox3d().MaxZ;
             foreach (var item in positions)
             {
                 var electrode = item.Electrode;
@@ -810,6 +811,7 @@ namespace EactBom
                         cuprum.STRUFFGROUPL = string.Empty;
                         cuprum.CHUCK = info.ELEC_CLAMP_GENERAL_TYPE;
                         cuprum.CAPSET = info.CAPSET;
+                        cuprum.STEELZ = (decimal)System.Math.Round(steelZ, 2);
                         if (!string.IsNullOrEmpty(info.ASSEMBLYEXP) || !string.IsNullOrEmpty(info.ASSEMBLYEXP1))
                         {
                             cuprum.ASSEMBLYEXP = Newtonsoft.Json.JsonConvert.SerializeObject(new { EXP = info.ASSEMBLYEXP, EXP1 = info.ASSEMBLYEXP1 });
