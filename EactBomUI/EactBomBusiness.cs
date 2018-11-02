@@ -105,6 +105,27 @@ namespace EactBom
 
         private void GetExportEactData(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas, Action<string> showMsgHandle = null)
         {
+            List<string> errorInfos = new List<string>();
+            Action<string> throwExAction = (s) => {
+                if (ConfigData.Edition == 1)
+                {
+                    errorInfos.Add(s);
+                }
+                else
+                {
+                    throw new Exception(s);
+                }
+            };
+
+            Action ShowExAction = () => {
+                if (ConfigData.Edition == 1 && errorInfos.Count > 0)
+                {
+                    Snap.InfoWindow.Clear();
+                    errorInfos.ForEach(u => { Snap.InfoWindow.WriteLine(u); });
+                    throw new Exception("电极属性缺失，请查看详细信息！");
+                }
+            };
+
             infos.ForEach(u => {
                 if (u.Checked)
                 {
@@ -117,7 +138,7 @@ namespace EactBom
                         var fTempPossInfo = fTempPoss.Electrode.GetElectrodeInfo();
                         if (fTempPossInfo != null && fTempPossInfo.FINISH_NUMBER == 0 && fTempPossInfo.ROUGH_NUMBER == 0 && fTempPossInfo.MIDDLE_NUMBER == 0)
                         {
-                            throw new Exception(string.Format("电极【{0}】属性缺失，请检查", fTempPossInfo.Elec_Name));
+                            throwExAction(string.Format("电极【{0}】属性缺失，请检查", fTempPossInfo.Elec_Name));
                         }
                         else if (fTempPossInfo != null && (
                         (fTempPossInfo.FINISH_NUMBER != 0 && fTempPossInfo.FINISH_SPACE == 0)
@@ -125,14 +146,14 @@ namespace EactBom
                         || (fTempPossInfo.ROUGH_NUMBER != 0 && fTempPossInfo.ROUGH_SPACE == 0)
                         ))
                         {
-                            throw new Exception(string.Format("请检查电极【{0}】火花位信息", fTempPossInfo.Elec_Name));
+                            throwExAction(string.Format("请检查电极【{0}】火花位信息", fTempPossInfo.Elec_Name));
                         }
 
                         if (ConfigData.Edition == 1&& fTempPossInfo != null)//PZ
                         {
                             if ((fTempPossInfo.KL_SIZE_LEN == 0 || fTempPossInfo.KL_SIZE_WIDTH == 0 || fTempPossInfo.KL_SIZE_HEIGHT== 0))
                             {
-                                throw new Exception(string.Format("电极【{0}】开料尺寸缺失，请检查", fTempPossInfo.Elec_Name));
+                                throwExAction(string.Format("电极【{0}】开料尺寸缺失，请检查", fTempPossInfo.Elec_Name));
                             }
 
                             if ((fTempPossInfo.FINISH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.F_SMOOTH))
@@ -140,17 +161,17 @@ namespace EactBom
                             || fTempPossInfo.ROUGH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.R_SMOOTH)
                             )
                             {
-                                throw new Exception(string.Format("电极【{0}】光洁度缺失，请检查", fTempPossInfo.Elec_Name));
+                                throwExAction(string.Format("电极【{0}】光洁度缺失，请检查", fTempPossInfo.Elec_Name));
                             }
 
                             if (string.IsNullOrEmpty(fTempPossInfo.EDMROCK))
                             {
-                                throw new Exception(string.Format("电极【{0}】摇摆方式缺失，请检查", fTempPossInfo.Elec_Name));
+                                throwExAction(string.Format("电极【{0}】摇摆方式缺失，请检查", fTempPossInfo.Elec_Name));
                             }
 
                             if (string.IsNullOrEmpty(fTempPossInfo.ELEC_CLAMP_GENERAL_TYPE))
                             {
-                                throw new Exception(string.Format("电极【{0}】夹具缺失，请检查", fTempPossInfo.Elec_Name));
+                                throwExAction(string.Format("电极【{0}】夹具缺失，请检查", fTempPossInfo.Elec_Name));
                             }
                         }
                     }
@@ -191,6 +212,8 @@ namespace EactBom
                     }
                 }
             });
+
+            ShowExAction();
         }
 
         private void ExportAutoPrt(ElecManage.MouldInfo steelInfo, List<PositioningInfo> allPositions)
@@ -913,6 +936,26 @@ namespace EactBom
 
         public List<ViewElecInfo> GetElecList(MouldInfo mouldInfo,Action<string> action=null) 
         {
+            List<string> errorInfos = new List<string>();
+            Action<string> throwExAction = (s) => {
+                if (ConfigData.Edition == 1)
+                {
+                    errorInfos.Add(s);
+                }
+                else
+                {
+                    throw new Exception(s);
+                }
+            };
+
+            Action ShowExAction = () => {
+                if (ConfigData.Edition == 1 && errorInfos.Count > 0)
+                {
+                    Snap.InfoWindow.Clear();
+                    errorInfos.ForEach(u => { Snap.InfoWindow.WriteLine(u); });
+                    throw new Exception("电极异常，请查看详细信息！");
+                }
+            };
             var workPart = Snap.Globals.WorkPart;
             //删除图纸
             try
@@ -983,7 +1026,7 @@ namespace EactBom
                             {
                                 if (ConfigData.isCanSelLayerInBom && ConfigData.Edition == 1)
                                 {
-                                    throw new Exception(string.Format("图层【{0}】中电极{1}无法识别，请检查", u.Layer, u.Name));
+                                    throwExAction(string.Format("图层【{0}】中电极{1}无法识别，请检查", u.Layer, u.Name));
                                 }
                             }
                         }
@@ -1039,11 +1082,12 @@ namespace EactBom
                         }
                     }
                 });
+
+                
             }
-           
-
-
             
+            ShowExAction();
+
 
             if (ConfigData.ShareElec) 
             {
