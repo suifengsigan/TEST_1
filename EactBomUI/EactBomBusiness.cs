@@ -103,7 +103,10 @@ namespace EactBom
             }
         }
 
-        private void GetExportEactData(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas, Action<string> showMsgHandle = null)
+        /// <summary>
+        /// 检查电极信息
+        /// </summary>
+        List<string> CheckElecInfo(ElectrodeInfo fTempPossInfo, bool isThrowEx = true)
         {
             List<string> errorInfos = new List<string>();
             Action<string> throwExAction = (s) => {
@@ -113,10 +116,57 @@ namespace EactBom
                 }
                 else
                 {
-                    throw new Exception(s);
+                    if (isThrowEx)
+                    {
+                        throw new Exception(s);
+                    }
                 }
             };
+            if (fTempPossInfo != null && fTempPossInfo.FINISH_NUMBER == 0 && fTempPossInfo.ROUGH_NUMBER == 0 && fTempPossInfo.MIDDLE_NUMBER == 0)
+            {
+                throwExAction(string.Format("电极【{0}】属性缺失，请检查", fTempPossInfo.Elec_Name));
+            }
+            else if (fTempPossInfo != null && (
+            (fTempPossInfo.FINISH_NUMBER != 0 && fTempPossInfo.FINISH_SPACE == 0)
+            || (fTempPossInfo.MIDDLE_NUMBER != 0 && fTempPossInfo.MIDDLE_SPACE == 0)
+            || (fTempPossInfo.ROUGH_NUMBER != 0 && fTempPossInfo.ROUGH_SPACE == 0)
+            ))
+            {
+                throwExAction(string.Format("请检查电极【{0}】火花位信息", fTempPossInfo.Elec_Name));
+            }
 
+            if (ConfigData.Edition == 1 && fTempPossInfo != null)//PZ
+            {
+                if ((fTempPossInfo.KL_SIZE_LEN == 0 || fTempPossInfo.KL_SIZE_WIDTH == 0 || fTempPossInfo.KL_SIZE_HEIGHT == 0))
+                {
+                    throwExAction(string.Format("电极【{0}】开料尺寸缺失，请检查", fTempPossInfo.Elec_Name));
+                }
+
+                if ((fTempPossInfo.FINISH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.F_SMOOTH))
+                || fTempPossInfo.MIDDLE_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.M_SMOOTH)
+                || fTempPossInfo.ROUGH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.R_SMOOTH)
+                )
+                {
+                    throwExAction(string.Format("电极【{0}】光洁度缺失，请检查", fTempPossInfo.Elec_Name));
+                }
+
+                if (string.IsNullOrEmpty(fTempPossInfo.EDMROCK))
+                {
+                    throwExAction(string.Format("电极【{0}】摇摆方式缺失，请检查", fTempPossInfo.Elec_Name));
+                }
+
+                if (string.IsNullOrEmpty(fTempPossInfo.ELEC_CLAMP_GENERAL_TYPE))
+                {
+                    throwExAction(string.Format("电极【{0}】夹具缺失，请检查", fTempPossInfo.Elec_Name));
+                }
+            }
+
+            return errorInfos;
+        }
+
+        private void GetExportEactData(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas, Action<string> showMsgHandle = null)
+        {
+            List<string> errorInfos = new List<string>();
             Action ShowExAction = () => {
                 if (ConfigData.Edition == 1 && errorInfos.Count > 0)
                 {
@@ -136,44 +186,7 @@ namespace EactBom
                     if (fTempPoss != null)
                     {
                         var fTempPossInfo = fTempPoss.Electrode.GetElectrodeInfo();
-                        if (fTempPossInfo != null && fTempPossInfo.FINISH_NUMBER == 0 && fTempPossInfo.ROUGH_NUMBER == 0 && fTempPossInfo.MIDDLE_NUMBER == 0)
-                        {
-                            throwExAction(string.Format("电极【{0}】属性缺失，请检查", fTempPossInfo.Elec_Name));
-                        }
-                        else if (fTempPossInfo != null && (
-                        (fTempPossInfo.FINISH_NUMBER != 0 && fTempPossInfo.FINISH_SPACE == 0)
-                        || (fTempPossInfo.MIDDLE_NUMBER != 0 && fTempPossInfo.MIDDLE_SPACE == 0)
-                        || (fTempPossInfo.ROUGH_NUMBER != 0 && fTempPossInfo.ROUGH_SPACE == 0)
-                        ))
-                        {
-                            throwExAction(string.Format("请检查电极【{0}】火花位信息", fTempPossInfo.Elec_Name));
-                        }
-
-                        if (ConfigData.Edition == 1&& fTempPossInfo != null)//PZ
-                        {
-                            if ((fTempPossInfo.KL_SIZE_LEN == 0 || fTempPossInfo.KL_SIZE_WIDTH == 0 || fTempPossInfo.KL_SIZE_HEIGHT== 0))
-                            {
-                                throwExAction(string.Format("电极【{0}】开料尺寸缺失，请检查", fTempPossInfo.Elec_Name));
-                            }
-
-                            if ((fTempPossInfo.FINISH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.F_SMOOTH))
-                            || fTempPossInfo.MIDDLE_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.M_SMOOTH)
-                            || fTempPossInfo.ROUGH_NUMBER > 0 && string.IsNullOrEmpty(fTempPossInfo.R_SMOOTH)
-                            )
-                            {
-                                throwExAction(string.Format("电极【{0}】光洁度缺失，请检查", fTempPossInfo.Elec_Name));
-                            }
-
-                            if (string.IsNullOrEmpty(fTempPossInfo.EDMROCK))
-                            {
-                                throwExAction(string.Format("电极【{0}】摇摆方式缺失，请检查", fTempPossInfo.Elec_Name));
-                            }
-
-                            if (string.IsNullOrEmpty(fTempPossInfo.ELEC_CLAMP_GENERAL_TYPE))
-                            {
-                                throwExAction(string.Format("电极【{0}】夹具缺失，请检查", fTempPossInfo.Elec_Name));
-                            }
-                        }
+                        errorInfos.AddRange(CheckElecInfo(fTempPossInfo));
                     }
                     if (ConfigData.ShareElec && u.ShareElec())//共用电极
                     {
@@ -1017,6 +1030,7 @@ namespace EactBom
                                 {
                                     action(string.Format("正在加载电极{0}", u.Name));
                                 }
+                                errorInfos.AddRange(CheckElecInfo(info.GetElectrodeInfo(), false));
                                 var viewInfo = new ViewElecInfo { ElectName = u.Name };
                                 viewInfo.Bodies.Add(u);
                                 result.Add(viewInfo);
