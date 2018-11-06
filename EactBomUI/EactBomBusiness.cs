@@ -923,6 +923,10 @@ namespace EactBom
             //调整顺序
             result = result.OrderBy(u => u.C).ToList();
 
+            result.ForEach(u => {
+                u.N = string.Format("C{0}", result.IndexOf(u) + 1);
+            });
+
             return result;
         }
 
