@@ -70,6 +70,7 @@
             this.btnPopertyUpate = new System.Windows.Forms.Button();
             this.btnPopertyAdd = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cbIsElecSetDefault = new System.Windows.Forms.CheckBox();
             this.cbIsDistinguishSideElec = new System.Windows.Forms.CheckBox();
             this.cbIsCanSelLayerInBom = new System.Windows.Forms.RadioButton();
             this.cbIsCanSelElecInBom = new System.Windows.Forms.RadioButton();
@@ -110,7 +111,7 @@
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
-            this.cbIsElecSetDefault = new System.Windows.Forms.CheckBox();
+            this.txtEmanWebPath = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -163,6 +164,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.txtEmanWebPath);
             this.tabPage1.Controls.Add(this.cbImportEman);
             this.tabPage1.Controls.Add(this.txtDbLoginPass);
             this.tabPage1.Controls.Add(this.txtDbLoginUser);
@@ -564,6 +566,16 @@
             this.tabPage4.Text = "基本配置";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // cbIsElecSetDefault
+            // 
+            this.cbIsElecSetDefault.AutoSize = true;
+            this.cbIsElecSetDefault.Location = new System.Drawing.Point(384, 333);
+            this.cbIsElecSetDefault.Name = "cbIsElecSetDefault";
+            this.cbIsElecSetDefault.Size = new System.Drawing.Size(84, 16);
+            this.cbIsElecSetDefault.TabIndex = 71;
+            this.cbIsElecSetDefault.Text = "属性默认值";
+            this.cbIsElecSetDefault.UseVisualStyleBackColor = true;
+            // 
             // cbIsDistinguishSideElec
             // 
             this.cbIsDistinguishSideElec.AutoSize = true;
@@ -950,15 +962,12 @@
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
             // 
-            // cbIsElecSetDefault
+            // txtEmanWebPath
             // 
-            this.cbIsElecSetDefault.AutoSize = true;
-            this.cbIsElecSetDefault.Location = new System.Drawing.Point(384, 333);
-            this.cbIsElecSetDefault.Name = "cbIsElecSetDefault";
-            this.cbIsElecSetDefault.Size = new System.Drawing.Size(84, 16);
-            this.cbIsElecSetDefault.TabIndex = 71;
-            this.cbIsElecSetDefault.Text = "属性默认值";
-            this.cbIsElecSetDefault.UseVisualStyleBackColor = true;
+            this.txtEmanWebPath.Location = new System.Drawing.Point(118, 272);
+            this.txtEmanWebPath.Name = "txtEmanWebPath";
+            this.txtEmanWebPath.Size = new System.Drawing.Size(372, 21);
+            this.txtEmanWebPath.TabIndex = 39;
             // 
             // FrmConfig
             // 
@@ -1078,5 +1087,6 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.CheckBox cbIsDistinguishSideElec;
         private System.Windows.Forms.CheckBox cbIsElecSetDefault;
+        private System.Windows.Forms.TextBox txtEmanWebPath;
     }
 }

@@ -106,6 +106,8 @@ namespace EactConfig
         public bool ExportCNCPrt = false;
         public bool IsImportEman = false;
         public bool IsSetPropertyAllowMultiple = false;
+
+        public string txtEmanWebPath;
         /// <summary>
         /// 版本 0默认叛变 1PZ版本 2鸿通 3宝讯
         /// </summary>

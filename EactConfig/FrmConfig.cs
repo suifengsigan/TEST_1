@@ -325,6 +325,7 @@ namespace EactConfig
             cbImportEman.Checked = data.IsImportEman;
             dataGridViewPoperty.DataSource = data.Poperties;
             rbCanPUpdate.Checked = data.IsCanPropertyUpdate;
+            txtEmanWebPath.Text = data.txtEmanWebPath;
             cbShareElec.Checked = data.ShareElec;
             try
             {
@@ -393,6 +394,7 @@ namespace EactConfig
                 data.IsImportEman = cbImportEman.Checked;
                 data.IsCanPropertyUpdate = rbCanPUpdate.Checked;
                 data.ShareElec = cbShareElec.Checked;
+                data.txtEmanWebPath = txtEmanWebPath.Text;
                 data.EDMColor = ColorIndex(btnSetPrtColor.BackColor);
                 data.QuadrantType = (QuadrantType)(cbbQuadrantType.SelectedItem as ComboBoxItem).Value;
                 //data.UGVersion = (int)(cbbUGVersion.SelectedItem as ComboBoxItem).Value;
