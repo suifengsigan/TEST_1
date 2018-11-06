@@ -161,6 +161,11 @@ namespace DataAccess
                 {
                     if (CupRumList.Count > 0)
                     {
+                        if (isImportEman && string.IsNullOrEmpty(emanWebPath))
+                        { //导入Eman
+                            Eman.ImportEman(conn, _tran, CupRumList, mouldInteriorID, creator);
+                        }
+
                         string ids = string.Join(",", Enumerable.Select(CupRumList, u => string.Format("'{0}'", u.CUPRUMSN + u.STEELMODELSN)).ToArray());
                         //TODO 先判断待导入的电极在库中是否已经存在，如果存在则先删除再插入
 
@@ -301,12 +306,7 @@ namespace DataAccess
                             conn.Execute(InsertCuprumEx(u), u, _tran, null, null);
                         });
                     }
-
-                    if (isImportEman&&string.IsNullOrEmpty(emanWebPath))
-                    { //导入Eman
-                        Eman.ImportEman(conn, _tran, CupRumList, mouldInteriorID, creator);
-                    }
-
+                    
                     _tran.Commit();
                 }
                 catch (Exception ex)
