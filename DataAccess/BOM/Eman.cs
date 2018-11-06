@@ -20,35 +20,24 @@ namespace DataAccess
             public string msg { get; set; }
         }
         public static void ImportEman(
-              System.Data.IDbConnection conn
-            , System.Data.IDbTransaction tran
-            , List<EACT_CUPRUM> CupRumList
-            , string mouldInteriorID
-            , string loginID
+             string mouldInteriorID
             , string emanWebPath
             )
         {
-            if (string.IsNullOrEmpty(emanWebPath))
+            var path = string.Format("{0}{1}", emanWebPath, mouldInteriorID);
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(path);
+            req.Method = "GET";
+            var msg = new EManMsg();
+            using (WebResponse wr = req.GetResponse())
             {
-                ImportEman(conn, tran, CupRumList, mouldInteriorID, loginID);
+                //TODO
+                string reader = new System.IO.StreamReader(wr.GetResponseStream(), Encoding.UTF8).ReadToEnd();
+                msg = Newtonsoft.Json.JsonConvert.DeserializeObject<EManMsg>(reader) ?? new EManMsg();
             }
-            else
-            {
-                var path = string.Format("{0}{1}", emanWebPath, mouldInteriorID);
-                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(path);
-                req.Method = "GET";
-                var msg =new EManMsg();
-                using (WebResponse wr = req.GetResponse())
-                {
-                    //TODO
-                    string reader = new System.IO.StreamReader(wr.GetResponseStream(), Encoding.UTF8).ReadToEnd();
-                    msg = Newtonsoft.Json.JsonConvert.DeserializeObject<EManMsg>(reader) ?? new EManMsg();
-                }
 
-                if (msg.status != "1")
-                {
-                    throw new Exception(string.Format("{0}:{1}", mouldInteriorID,msg.msg));
-                }
+            if (msg.status != "1")
+            {
+                throw new Exception(string.Format("{0}:{1}", mouldInteriorID, msg.msg));
             }
         }
         /// <summary>

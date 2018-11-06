@@ -302,9 +302,9 @@ namespace DataAccess
                         });
                     }
 
-                    if (isImportEman)
+                    if (isImportEman&&string.IsNullOrEmpty(emanWebPath))
                     { //导入Eman
-                        Eman.ImportEman(conn, _tran, CupRumList, mouldInteriorID, creator, emanWebPath);
+                        Eman.ImportEman(conn, _tran, CupRumList, mouldInteriorID, creator);
                     }
 
                     _tran.Commit();
@@ -313,6 +313,11 @@ namespace DataAccess
                 {
                     _tran.Rollback();
                     throw ex;
+                }
+
+                if (isImportEman && !string.IsNullOrEmpty(emanWebPath))
+                { //导入Eman
+                    Eman.ImportEman(mouldInteriorID, emanWebPath);
                 }
             }
         }
