@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Dapper;
 using DataAccess.Model;
@@ -12,6 +13,44 @@ namespace DataAccess
     /// </summary>
     public abstract class Eman
     {
+        public class EManMsg
+        {
+            public string result { get; set; }
+            public string status { get; set; }
+            public string msg { get; set; }
+        }
+        public static void ImportEman(
+              System.Data.IDbConnection conn
+            , System.Data.IDbTransaction tran
+            , List<EACT_CUPRUM> CupRumList
+            , string mouldInteriorID
+            , string loginID
+            , string emanWebPath
+            )
+        {
+            if (string.IsNullOrEmpty(emanWebPath))
+            {
+                ImportEman(conn, tran, CupRumList, mouldInteriorID, loginID);
+            }
+            else
+            {
+                var path = string.Format("{0}{1}", emanWebPath, mouldInteriorID);
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(path);
+                req.Method = "GET";
+                var msg =new EManMsg();
+                using (WebResponse wr = req.GetResponse())
+                {
+                    //TODO
+                    string reader = new System.IO.StreamReader(wr.GetResponseStream(), Encoding.UTF8).ReadToEnd();
+                    msg = Newtonsoft.Json.JsonConvert.DeserializeObject<EManMsg>(reader) ?? new EManMsg();
+                }
+
+                if (msg.status != "1")
+                {
+                    throw new Exception(string.Format("{0}:{1}", mouldInteriorID,msg.msg));
+                }
+            }
+        }
         /// <summary>
         /// 导入EMan
         /// </summary>

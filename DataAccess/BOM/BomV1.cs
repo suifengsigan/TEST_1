@@ -159,10 +159,6 @@ namespace DataAccess
                 var _tran = conn.BeginTransaction();
                 try
                 {
-                    if (isImportEman)
-                    { //导入Eman
-                        Eman.ImportEman(conn, _tran, CupRumList, mouldInteriorID, creator);
-                    }
                     if (CupRumList.Count > 0)
                     {
                         string ids = string.Join(",", Enumerable.Select(CupRumList, u => string.Format("'{0}'", u.CUPRUMSN + u.STEELMODELSN)).ToArray());
@@ -304,6 +300,11 @@ namespace DataAccess
                         {
                             conn.Execute(InsertCuprumEx(u), u, _tran, null, null);
                         });
+                    }
+
+                    if (isImportEman)
+                    { //导入Eman
+                        Eman.ImportEman(conn, _tran, CupRumList, mouldInteriorID, creator, emanWebPath);
                     }
 
                     _tran.Commit();
