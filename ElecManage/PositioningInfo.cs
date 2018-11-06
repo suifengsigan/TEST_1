@@ -11,6 +11,10 @@ namespace ElecManage
     /// </summary>
     public class PositioningInfo
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string N { get; set; }
         [DisplayName("跑位X")]
         public double X { get; set; }
         [DisplayName("跑位Y")]
