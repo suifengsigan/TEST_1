@@ -822,7 +822,7 @@ namespace DataAccess
         {
             var sql = new StringBuilder();
             sql.AppendLine("SELECT   MaterialID, MaterialName, CASE WHEN materialID = 'mc_001' THEN '' ELSE substring(materialID, 0, len(materialID) - 4) END AS ParentID ");
-            sql.AppendLine("FROM    dbo.MaterialClassify where dbo.MaterialClassify.materialName ='电极设计'");
+            sql.AppendLine(" FROM    dbo.MaterialClassify where dbo.MaterialClassify.mark=0 and (dbo.MaterialClassify.materialName ='电极设计' or dbo.MaterialClassify.materialName ='电极')");
             //获取所有的材质类型
             //TODO 匹配标准料
             var mcs = conn.Query<MaterialClassify>(sql.ToString(), null, tran).ToList();
