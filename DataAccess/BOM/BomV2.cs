@@ -11,7 +11,7 @@ namespace DataAccess
     {
         public void UploadAutoCMMRecord(EACT_AUTOCMM_RECORD record) { }
         public void UpdateCuprumDISCHARGING(List<EACT_CUPRUM> CupRumList) { }
-        public void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID, bool isImportEman, List<EACT_CUPRUM_EXP> cuprumEXPs = null)
+        public void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID, bool isImportEman, string emanWebPath, List<EACT_CUPRUM_EXP> cuprumEXPs = null)
         {
             using (var conn = DAL.GetConn())
             {

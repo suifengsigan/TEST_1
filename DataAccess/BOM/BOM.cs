@@ -26,9 +26,9 @@ namespace DataAccess
             return GetBomDal().GetCuprumList(cuprumNames, modelNo, partNo);
         }
 
-        public static void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID, bool isImportEman, List<EACT_CUPRUM_EXP> cuprumEXPs = null)
+        public static void ImportCuprum(List<EACT_CUPRUM> CupRumList, string creator, string mouldInteriorID, bool isImportEman, string emanWebPath, List<EACT_CUPRUM_EXP> cuprumEXPs = null)
         {
-            GetBomDal().ImportCuprum(CupRumList, creator, mouldInteriorID, isImportEman, cuprumEXPs);
+            GetBomDal().ImportCuprum(CupRumList, creator, mouldInteriorID, isImportEman, emanWebPath, cuprumEXPs);
         }
 
         private static IBom GetBomDal()

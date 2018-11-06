@@ -60,7 +60,7 @@ namespace EactBom
                         ExcelHelper.ExportExcelBom(Enumerable.Select(positions, s => s.Electrode).ToList(), steelInfo);
                     }
 
-                    DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, shareElecDatas);
+                    DataAccess.BOM.ImportCuprum(datas, ConfigData.DataBaseInfo.LoginUser, steelInfo.MODEL_NUMBER, ConfigData.IsImportEman, ConfigData.txtEmanWebPath,shareElecDatas);
                 }
                 else
                 {
