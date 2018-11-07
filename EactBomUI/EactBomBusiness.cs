@@ -848,6 +848,12 @@ namespace EactBom
                         cuprum.CHUCK = info.ELEC_CLAMP_GENERAL_TYPE;
                         cuprum.CAPSET = info.CAPSET;
                         cuprum.STEELZ = (decimal)System.Math.Round(steelZ, 2);
+                        var poperty = ConfigData.Poperties.FirstOrDefault(u => u.DisplayName == "电极材质");
+                        if (poperty != null)
+                        {
+                            var popertySelection = poperty.Selections.FirstOrDefault(u => u.Value == cuprum.STRUFF);
+                            cuprum.STRUFFCODE = popertySelection == null ? string.Empty : popertySelection.Ex3;
+                        }
                         if (!string.IsNullOrEmpty(info.ASSEMBLYEXP) || !string.IsNullOrEmpty(info.ASSEMBLYEXP1))
                         {
                             cuprum.ASSEMBLYEXP = Newtonsoft.Json.JsonConvert.SerializeObject(new { EXP = info.ASSEMBLYEXP, EXP1 = info.ASSEMBLYEXP1 });
