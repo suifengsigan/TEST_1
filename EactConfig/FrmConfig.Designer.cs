@@ -62,10 +62,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewPoperty = new System.Windows.Forms.DataGridView();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.btnPopertyDelete = new System.Windows.Forms.Button();
-            this.btnPopertyUpate = new System.Windows.Forms.Button();
-            this.btnPopertyAdd = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.cbIsElecSetDefault = new System.Windows.Forms.CheckBox();
             this.cbIsDistinguishSideElec = new System.Windows.Forms.CheckBox();
@@ -119,7 +115,6 @@
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPoperty)).BeginInit();
-            this.panel4.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.SuspendLayout();
@@ -423,7 +418,6 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.groupBox1);
-            this.panel2.Controls.Add(this.panel4);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
@@ -436,7 +430,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(436, 313);
+            this.groupBox1.Size = new System.Drawing.Size(436, 349);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "属性列表";
@@ -448,46 +442,8 @@
             this.dataGridViewPoperty.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewPoperty.Name = "dataGridViewPoperty";
             this.dataGridViewPoperty.RowTemplate.Height = 23;
-            this.dataGridViewPoperty.Size = new System.Drawing.Size(430, 293);
+            this.dataGridViewPoperty.Size = new System.Drawing.Size(430, 329);
             this.dataGridViewPoperty.TabIndex = 0;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.btnPopertyDelete);
-            this.panel4.Controls.Add(this.btnPopertyUpate);
-            this.panel4.Controls.Add(this.btnPopertyAdd);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 313);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(436, 36);
-            this.panel4.TabIndex = 0;
-            // 
-            // btnPopertyDelete
-            // 
-            this.btnPopertyDelete.Location = new System.Drawing.Point(306, 7);
-            this.btnPopertyDelete.Name = "btnPopertyDelete";
-            this.btnPopertyDelete.Size = new System.Drawing.Size(47, 23);
-            this.btnPopertyDelete.TabIndex = 2;
-            this.btnPopertyDelete.Text = "删除";
-            this.btnPopertyDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnPopertyUpate
-            // 
-            this.btnPopertyUpate.Location = new System.Drawing.Point(192, 7);
-            this.btnPopertyUpate.Name = "btnPopertyUpate";
-            this.btnPopertyUpate.Size = new System.Drawing.Size(44, 23);
-            this.btnPopertyUpate.TabIndex = 1;
-            this.btnPopertyUpate.Text = "修改";
-            this.btnPopertyUpate.UseVisualStyleBackColor = true;
-            // 
-            // btnPopertyAdd
-            // 
-            this.btnPopertyAdd.Location = new System.Drawing.Point(75, 7);
-            this.btnPopertyAdd.Name = "btnPopertyAdd";
-            this.btnPopertyAdd.Size = new System.Drawing.Size(43, 23);
-            this.btnPopertyAdd.TabIndex = 0;
-            this.btnPopertyAdd.Text = "新增";
-            this.btnPopertyAdd.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
@@ -948,7 +904,6 @@
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPoperty)).EndInit();
-            this.panel4.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage6.ResumeLayout(false);
@@ -983,12 +938,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridViewPoperty;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button btnPopertyUpate;
-        private System.Windows.Forms.Button btnPopertyAdd;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridViewPSelection;
-        private System.Windows.Forms.Button btnPopertyDelete;
         private System.Windows.Forms.TextBox txtDbLoginPass;
         private System.Windows.Forms.TextBox txtDbLoginUser;
         private System.Windows.Forms.Label label8;

@@ -93,18 +93,40 @@ namespace EactConfig
             InitUI();
             //cbExportCMM.CheckedChanged += cbExportPrt_CheckedChanged;
             this.Load += FrmConfig_Load;
-            btnPopertyAdd.Click += btnPopertyAdd_Click;
-            btnPopertyDelete.Click += btnPopertyDelete_Click;
+            //btnPopertyAdd.Click += btnPopertyAdd_Click;
+            //btnPopertyDelete.Click += btnPopertyDelete_Click;
             dataGridViewPoperty.SelectionChanged += dataGridView1_SelectionChanged;
-            btnPopertyUpate.Click += btnPopertyUpate_Click;
+            //btnPopertyUpate.Click += btnPopertyUpate_Click;
             //btnPSelectionAdd.Click += btnPSelectionAdd_Click;
             //dataGridViewPSelection.SelectionChanged += dataGridView2_SelectionChanged;
             //btnPSelectionDelete.Click += btnPSelectionDelete_Click;
             //btnPSelectionUpdate.Click += btnPSelectionUpdate_Click;
             //dataGridViewPSelection.CellMouseDown += DataGridViewPSelection_CellMouseDown;
             dataGridViewPSelection.MouseDown += DataGridViewPSelection_MouseDown;
+            dataGridViewPoperty.MouseDown += DataGridViewPoperty_MouseDown;
             dataGridViewPSelection.CellPainting += DataGridViewPSelection_CellPainting;
             btnSetPrtColor.Click += btnSetPrtColor_Click;
+        }
+
+        private void DataGridViewPoperty_MouseDown(object sender, MouseEventArgs e)
+        {
+            var dataGridViewPSelection = dataGridViewPoperty;
+            if (e.Button == MouseButtons.Right)
+            {
+                _cms = new ContextMenuStrip();
+                _cms.Items.Add("新增属性");
+                var list = dataGridViewPSelection.DataSource as List<EactConfig.ConfigData.Poperty> ?? new List<EactConfig.ConfigData.Poperty>();
+                bool temp = dataGridViewPSelection.CurrentRow != null && dataGridViewPSelection.CurrentRow.Index >= 0 && dataGridViewPSelection.CurrentRow.Index < list.Count;
+                if (temp)
+                {
+                    //_cms.Items.Add("修改加长杆");
+                    _cms.Items.Add("删除属性");
+                }
+
+                _cms.ItemClicked += _cms_ItemClicked;
+                //弹出操作菜单
+                _cms.Show(MousePosition.X, MousePosition.Y);
+            }
         }
 
         private void DataGridViewPSelection_MouseDown(object sender, MouseEventArgs e)
@@ -182,6 +204,9 @@ namespace EactConfig
 
         private void _cms_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            var dataGridViewPSelection1 = dataGridViewPoperty;
+            var datasource1 = dataGridViewPSelection1.DataSource as List<EactConfig.ConfigData.Poperty> ?? new List<EactConfig.ConfigData.Poperty>();
+
             var dataGridViewPSelection2 = dataGridViewPSelection;
             var datasource2 = dataGridViewPSelection2.DataSource as List<EactConfig.ConfigData.PopertySelection> ?? new List<EactConfig.ConfigData.PopertySelection>();
             if (e.ClickedItem.Text == "夹具设置")
@@ -194,6 +219,24 @@ namespace EactConfig
                     }
                 }
                 
+            }
+            else if (e.ClickedItem.Text == "新增属性")
+            {
+                datasource1.Add(new EactConfig.ConfigData.Poperty { });
+                dataGridViewPSelection1.DataSource = datasource1.ToList();
+            }
+            else if (e.ClickedItem.Text == "删除属性")
+            {
+                if (dataGridViewPSelection1.CurrentRow != null)
+                {
+                    var obj = dataGridViewPSelection1.CurrentRow.DataBoundItem as EactConfig.ConfigData.Poperty;
+                    if (obj != null)
+                    {
+                        datasource1.Remove(obj);
+                        dataGridViewPSelection1.DataSource = datasource1.ToList();
+                    }
+                }
+
             }
             else if (e.ClickedItem.Text == "新增选项")
             {
@@ -308,14 +351,19 @@ namespace EactConfig
 
         void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            bool temp = dataGridViewPoperty.CurrentRow != null && dataGridViewPoperty.CurrentRow.Index >= 0;
+            var data = dataGridViewPoperty.DataSource as List<ConfigData.Poperty> ?? new List<ConfigData.Poperty>();
+            bool temp = dataGridViewPoperty.CurrentRow != null
+                && dataGridViewPoperty.CurrentRow.Index >= 0
+                && dataGridViewPoperty.CurrentRow.Index < data.Count
+                ;
             //btnPopertyDelete.Enabled = temp;
             //btnPopertyUpate.Enabled = temp;
             //btnPSelectionAdd.Enabled = temp;
             dataGridViewPSelection.DataSource = null;
             if (temp)
             {
-                dataGridViewPSelection.DataSource = (dataGridViewPoperty.CurrentRow.DataBoundItem as ConfigData.Poperty).Selections;
+                var poperty = (dataGridViewPoperty.CurrentRow.DataBoundItem as ConfigData.Poperty);
+                dataGridViewPSelection.DataSource = poperty.Selections;
             }
         }
 
