@@ -360,7 +360,11 @@ namespace ElecManage
             Action<List<Snap.NX.Face>> action = itemFace => {
                 if (itemFace.Count() > 1)
                 {
-                    var fFace = itemFace.Where(u => Snap.Compute.Distance(u, baseFace) < SnapEx.Helper.Tolerance).OrderByDescending(u => Snap.Compute.Distance(baseFaceCenterPoint, u)).FirstOrDefault();
+                    var fFace = itemFace
+                    .Where(u => Snap.Compute.Distance(u, baseFace) < SnapEx.Helper.Tolerance)
+                    .OrderByDescending(u => Snap.Compute.Distance(baseFaceCenterPoint, ((Snap.NX.Face.Plane)u).Geometry))
+                    .ThenByDescending(u=>u.Area)
+                    .FirstOrDefault();
                     if (fFace != null)
                     {
                         result.Add(fFace);
