@@ -32,6 +32,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtEmanWebPath = new System.Windows.Forms.TextBox();
             this.cbImportEman = new System.Windows.Forms.CheckBox();
             this.txtDbLoginPass = new System.Windows.Forms.TextBox();
             this.txtDbLoginUser = new System.Windows.Forms.TextBox();
@@ -58,10 +59,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridViewPSelection = new System.Windows.Forms.DataGridView();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.btnPSelectionDelete = new System.Windows.Forms.Button();
-            this.btnPSelectionUpdate = new System.Windows.Forms.Button();
-            this.btnPSelectionAdd = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewPoperty = new System.Windows.Forms.DataGridView();
@@ -111,7 +108,6 @@
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
-            this.txtEmanWebPath = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -120,7 +116,6 @@
             this.panel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPSelection)).BeginInit();
-            this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPoperty)).BeginInit();
@@ -185,6 +180,13 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "数据库配置";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtEmanWebPath
+            // 
+            this.txtEmanWebPath.Location = new System.Drawing.Point(118, 272);
+            this.txtEmanWebPath.Name = "txtEmanWebPath";
+            this.txtEmanWebPath.Size = new System.Drawing.Size(372, 21);
+            this.txtEmanWebPath.TabIndex = 39;
             // 
             // cbImportEman
             // 
@@ -391,7 +393,6 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.groupBox2);
-            this.panel3.Controls.Add(this.panel5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(439, 3);
             this.panel3.Name = "panel3";
@@ -404,7 +405,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(269, 313);
+            this.groupBox2.Size = new System.Drawing.Size(269, 349);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "选项";
@@ -416,46 +417,8 @@
             this.dataGridViewPSelection.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewPSelection.Name = "dataGridViewPSelection";
             this.dataGridViewPSelection.RowTemplate.Height = 23;
-            this.dataGridViewPSelection.Size = new System.Drawing.Size(263, 293);
+            this.dataGridViewPSelection.Size = new System.Drawing.Size(263, 329);
             this.dataGridViewPSelection.TabIndex = 0;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.btnPSelectionDelete);
-            this.panel5.Controls.Add(this.btnPSelectionUpdate);
-            this.panel5.Controls.Add(this.btnPSelectionAdd);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 313);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(269, 36);
-            this.panel5.TabIndex = 0;
-            // 
-            // btnPSelectionDelete
-            // 
-            this.btnPSelectionDelete.Location = new System.Drawing.Point(194, 7);
-            this.btnPSelectionDelete.Name = "btnPSelectionDelete";
-            this.btnPSelectionDelete.Size = new System.Drawing.Size(47, 23);
-            this.btnPSelectionDelete.TabIndex = 6;
-            this.btnPSelectionDelete.Text = "删除";
-            this.btnPSelectionDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnPSelectionUpdate
-            // 
-            this.btnPSelectionUpdate.Location = new System.Drawing.Point(107, 7);
-            this.btnPSelectionUpdate.Name = "btnPSelectionUpdate";
-            this.btnPSelectionUpdate.Size = new System.Drawing.Size(44, 23);
-            this.btnPSelectionUpdate.TabIndex = 4;
-            this.btnPSelectionUpdate.Text = "修改";
-            this.btnPSelectionUpdate.UseVisualStyleBackColor = true;
-            // 
-            // btnPSelectionAdd
-            // 
-            this.btnPSelectionAdd.Location = new System.Drawing.Point(18, 7);
-            this.btnPSelectionAdd.Name = "btnPSelectionAdd";
-            this.btnPSelectionAdd.Size = new System.Drawing.Size(43, 23);
-            this.btnPSelectionAdd.TabIndex = 3;
-            this.btnPSelectionAdd.Text = "新增";
-            this.btnPSelectionAdd.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -962,13 +925,6 @@
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
             // 
-            // txtEmanWebPath
-            // 
-            this.txtEmanWebPath.Location = new System.Drawing.Point(118, 272);
-            this.txtEmanWebPath.Name = "txtEmanWebPath";
-            this.txtEmanWebPath.Size = new System.Drawing.Size(372, 21);
-            this.txtEmanWebPath.TabIndex = 39;
-            // 
             // FrmConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -989,7 +945,6 @@
             this.panel3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPSelection)).EndInit();
-            this.panel5.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPoperty)).EndInit();
@@ -1029,11 +984,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridViewPoperty;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btnPopertyUpate;
         private System.Windows.Forms.Button btnPopertyAdd;
-        private System.Windows.Forms.Button btnPSelectionUpdate;
-        private System.Windows.Forms.Button btnPSelectionAdd;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridViewPSelection;
         private System.Windows.Forms.Button btnPopertyDelete;
@@ -1041,7 +993,6 @@
         private System.Windows.Forms.TextBox txtDbLoginUser;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnPSelectionDelete;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cbbQuadrantType;
