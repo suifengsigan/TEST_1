@@ -73,6 +73,11 @@ namespace EactConfig
         {
             [DisplayName("选项")]
             public string Value { get; set; }
+            /// <summary>
+            /// 拓展字段3
+            /// </summary>
+            [DisplayName(" ")]
+            public string Ex3 { get; set; }
             public bool IsDefault = false;
             /// <summary>
             /// 拓展字段1
