@@ -28,6 +28,14 @@ namespace EactBom
             var strMsg = string.Empty;
             if (License.Entry.Instance.Verification(EactBomBusiness.Instance.ConfigData.LicenseType, out strMsg))
             {
+                Snap.Globals.WorkPart.Bodies.ToList().ForEach(u =>
+                {
+                    var name = (u.Name ?? string.Empty).ToUpper();
+                    if (u.Name != name)
+                    {
+                        u.Name = name;
+                    }
+                });
                 var ui = new SelectSteelUI();
                 ui.Show();
                 if (ui.Result == System.Windows.Forms.DialogResult.OK)
