@@ -610,7 +610,7 @@ namespace EactBom
         }
 
 
-        private void FtpUpload(string type, ElecManage.MouldInfo steelInfo, string fileName, string partName)
+        private  void FtpUpload(string type, ElecManage.MouldInfo steelInfo, string fileName, string partName)
         {
             var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
             string sToPath = string.Format("{0}/{1}/{2}", type, steelInfo.MODEL_NUMBER, partName);
@@ -618,7 +618,15 @@ namespace EactBom
             {
                 case 1:
                     {
-                        sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
+                        var extension = Path.GetExtension(fileName).ToUpper();
+                        if (extension.Contains("STP") || extension.Contains("TXT"))
+                        {
+
+                        }
+                        else
+                        {
+                            sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
+                        }
                         break;
                     }
                 case 2:
@@ -631,19 +639,6 @@ namespace EactBom
             {
                 EACTFTP.MakeDirPath(sToPath);
             }
-
-            //switch (ConfigData.FtpPathType)
-            //{
-            //    case 0:
-            //        {
-            //            EACTFTP.DeleteFtpDirWithAll(sToPath, false);
-            //            break;
-            //        }
-            //    default:
-            //        {
-            //            break;
-            //        }
-            //}
 
             EACTFTP.NextDirectory(sToPath);
             EACTFTP.UpLoadFile(fileName);
