@@ -370,6 +370,7 @@ namespace ElecManage
         /// <summary>
         /// 电极名称
         /// </summary>
+        [DisplayName("电极名称")]
         public virtual string Elec_Name
         {
             get { return _body.Name; }
