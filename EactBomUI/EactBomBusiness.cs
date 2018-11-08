@@ -621,6 +621,11 @@ namespace EactBom
                         sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
                         break;
                     }
+                case 2:
+                    {
+                        sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
+                        break;
+                    }
             }
             if (!EACTFTP.DirectoryExist(sToPath))
             {

@@ -61,7 +61,8 @@ namespace EactConfig
             cbEdition.Items.Add(new ComboBoxItem { Text = "PZ", Value = 1 });
             cbEdition.Items.Add(new ComboBoxItem { Text = "HTUP", Value = 2 });
             cbEdition.Items.Add(new ComboBoxItem { Text = "BX", Value = 3 });
-            cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "默认", Value = 0 });
+            cbbFtpPathType.Items.Add(new ComboBoxItem { Text = @"模号\电极编号\文件", Value = 0 });
+            cbbFtpPathType.Items.Add(new ComboBoxItem { Text = @"模号\文件", Value = 2 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "FZ", Value = 1 });
             cbbQuadrantType.Items.Add(new ComboBoxItem { Text = "第一象限", Value = QuadrantType.First });
             cbbQuadrantType.Items.Add(new ComboBoxItem { Text = "第二象限", Value = QuadrantType.Second });
