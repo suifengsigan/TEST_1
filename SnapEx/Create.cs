@@ -696,9 +696,13 @@ namespace SnapEx
             var builder = workPart.DrawingSheets.DrawingSheetBuilder(nullDrawingSheet);
             //模板位置(设置模板（可选择）)
             builder.MetricSheetTemplateLocation = template;
-            builder.Name = name;
+            //builder.Name = name;
 
             nullDrawingSheet = builder.Commit() as DrawingSheet;
+            if (nullDrawingSheet != null)
+            {
+                nullDrawingSheet.SetName(name);
+            }
             builder.Destroy();
             return nullDrawingSheet;
         }
