@@ -122,8 +122,8 @@ partial class SelectSteelUI : SnapEx.BaseUI
         }
 
         Snap.NX.Body steel = GetSteel();
-        steel.SetStringAttribute("MODEL_NUMBER", sMODELNUMBER.Value.Trim());
-        steel.SetStringAttribute("MR_NUMBER", sMRNUMBER.Value.Trim());
+        steel.SetStringAttribute("MODEL_NUMBER", sMODELNUMBER.Value.Trim().ToUpper());
+        steel.SetStringAttribute("MR_NUMBER", sMRNUMBER.Value.Trim().ToUpper());
         steel.SetStringAttribute("MR_MATERAL", _items[eMATERAL.SelectedIndex]);
         MouldInfo = EactBom.EactBomBusiness.Instance.GetMouldInfo(steel);
         if (enum0.SelectedItem == "指定")
