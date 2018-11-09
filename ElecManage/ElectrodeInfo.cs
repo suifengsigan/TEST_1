@@ -495,6 +495,7 @@ namespace ElecManage
         /// <summary>
         /// 材质
         /// </summary>
+        [DisplayName("电极材质")]
         public virtual string MAT_NAME
         {
             get
@@ -508,12 +509,13 @@ namespace ElecManage
                 SetStringAttribute(ELEC_F_MAT_NAME, value);
             }
         }
-        
+
 
 
         /// <summary>
         /// 精公材质
         /// </summary>
+        [DisplayName("电极材质精")]
         public virtual string F_MAT_NAME
         {
             get
@@ -535,6 +537,7 @@ namespace ElecManage
         /// <summary>
         /// 中公材质
         /// </summary>
+        [DisplayName("电极材质中")]
         public virtual string M_MAT_NAME
         {
             get
@@ -556,6 +559,7 @@ namespace ElecManage
         /// <summary>
         /// 粗公材质
         /// </summary>
+        [DisplayName("电极材质粗")]
         public virtual string R_MAT_NAME
         {
             get
