@@ -342,7 +342,7 @@ namespace EactBom
                                         var uv = u.Electrode.BaseFace.Box;
                                         var absX = Math.Abs(uv.MaxX - uv.MinX);
                                         var absY = Math.Abs(uv.MaxY - uv.MinY);
-                                        if (absX >= absY)
+                                        if (!(Math.Abs(absX - absY) >= SnapEx.Helper.Tolerance && absX < absY))
                                         {
                                             trans = Snap.Geom.Transform.Composition(trans, Snap.Geom.Transform.CreateRotation(new Snap.Position(), u.Electrode.BaseFace.GetFaceDirection(), 270));
                                         }
