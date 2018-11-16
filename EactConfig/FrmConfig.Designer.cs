@@ -104,6 +104,7 @@
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
+            this.cbIsExportEDM = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -767,6 +768,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.cbIsExportEDM);
             this.tabPage6.Controls.Add(this.cbIsAutoCMM);
             this.tabPage6.Controls.Add(this.cbIsAutoPrtTool);
             this.tabPage6.Controls.Add(this.cbExportStp);
@@ -881,6 +883,16 @@
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
             // 
+            // cbIsExportEDM
+            // 
+            this.cbIsExportEDM.AutoSize = true;
+            this.cbIsExportEDM.Location = new System.Drawing.Point(81, 217);
+            this.cbIsExportEDM.Name = "cbIsExportEDM";
+            this.cbIsExportEDM.Size = new System.Drawing.Size(66, 16);
+            this.cbIsExportEDM.TabIndex = 59;
+            this.cbIsExportEDM.Text = "EDM图纸";
+            this.cbIsExportEDM.UseVisualStyleBackColor = true;
+            // 
             // FrmConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -990,5 +1002,6 @@
         private System.Windows.Forms.CheckBox cbIsDistinguishSideElec;
         private System.Windows.Forms.CheckBox cbIsElecSetDefault;
         private System.Windows.Forms.TextBox txtEmanWebPath;
+        private System.Windows.Forms.CheckBox cbIsExportEDM;
     }
 }

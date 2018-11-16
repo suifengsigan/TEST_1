@@ -393,6 +393,7 @@ namespace EactConfig
         void FrmConfig_Load(object sender, EventArgs e)
         {
             var data = ConfigData.GetInstance();
+            cbIsExportEDM.Checked = data.IsExportEDM;
             cbIsElecSetDefault.Checked = data.IsElecSetDefault;
             cbIsDistinguishSideElec.Checked = data.IsDistinguishSideElec;
             cbIsAutoCMM.Checked = data.IsAutoCMM;
@@ -460,6 +461,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.IsExportEDM = cbIsExportEDM.Checked;
                 data.IsElecSetDefault = cbIsElecSetDefault.Checked;
                 data.IsDistinguishSideElec = cbIsDistinguishSideElec.Checked;
                 data.IsAutoCMM = cbIsAutoCMM.Checked;

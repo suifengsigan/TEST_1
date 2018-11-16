@@ -27,7 +27,7 @@ namespace EactBom
         }
         public readonly static EactBomBusiness Instance = new EactBomBusiness();
 
-        public void ExportEact(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, Action<string> showMsgHandle = null, bool isExportPrt = false, bool isExportStd = false, bool isExportCncPrt = false, bool isAutoPrtTool = false, bool isAutoPartBusiness=false) 
+        public void ExportEact(List<ViewElecInfo> infos, ElecManage.MouldInfo steelInfo, Action<string> showMsgHandle = null, bool isExportPrt = false, bool isExportStd = false, bool isExportCncPrt = false, bool isAutoPrtTool = false, bool isAutoPartBusiness=false,bool isExportEDM=false) 
         {
             var datas = new List<DataAccess.Model.EACT_CUPRUM>();
             List<DataAccess.Model.EACT_CUPRUM_EXP> shareElecDatas = null;
@@ -49,7 +49,7 @@ namespace EactBom
                 }
                 else
                 {
-                    ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt);
+                    ExportPrt(steelInfo, datas, positions, allPositions, showMsgHandle, isExportPrt, isExportStd, isExportCncPrt,isExportEDM);
                 }
 
                 if (!isAutoPartBusiness)
@@ -263,7 +263,7 @@ namespace EactBom
         }
 
         private void ExportPrt(ElecManage.MouldInfo steelInfo, List<DataAccess.Model.EACT_CUPRUM> datas, List<PositioningInfo> positions, List<PositioningInfo> allPositions, 
-            Action<string> showMsgHandle = null, bool isExportPrt = false, bool isExportStd = false, bool isExportCncPrt = false)
+            Action<string> showMsgHandle = null, bool isExportPrt = false, bool isExportStd = false, bool isExportCncPrt = false,bool isExportEDM=false)
         {
             //去参数
             positions.ForEach(u => {
@@ -592,6 +592,16 @@ namespace EactBom
                         }
                     }
 
+                });
+            }
+
+            if (isExportEDM)
+            {
+                positions.ForEach(u => {
+                    if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出EDM图纸:{0}", u.Electrode.ElecBody.Name)); }
+                    var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
+                    CommonInterface.IEDM edm = System.Reflection.Assembly.Load("EdmDrawUI").CreateInstance("EdmDrawUI") as CommonInterface.IEDM;
+                    edm.CreateDrawingSheet(allPoss, steelInfo.MouldBody);
                 });
             }
         }

@@ -392,7 +392,7 @@ namespace EactBom
                         }
                     }, EactBomBusiness.Instance.ConfigData.ExportPrt, EactBomBusiness.Instance.ConfigData.ExportStp
                     , EactBomBusiness.Instance.ConfigData.ExportCNCPrt,
-                    EactBomBusiness.Instance.ConfigData.IsAutoPrtTool
+                    EactBomBusiness.Instance.ConfigData.IsAutoPrtTool,false, EactBomBusiness.Instance.ConfigData.IsExportEDM
                     );
                     SplashScreen.Splasher.Status = "导入完毕............";
                     System.Threading.Thread.Sleep(800);

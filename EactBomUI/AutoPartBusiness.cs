@@ -40,7 +40,7 @@ namespace EactBomUI
                 var list = EactBomBusiness.Instance.GetElecList(MouldInfo, showMsg);
                 EactBomBusiness.Instance.ExportEact(list, MouldInfo, showMsg, EactBomBusiness.Instance.ConfigData.ExportPrt, EactBomBusiness.Instance.ConfigData.ExportStp
                     , EactBomBusiness.Instance.ConfigData.ExportCNCPrt,
-                    false, true
+                    false, true, EactBomBusiness.Instance.ConfigData.IsExportEDM
                     );
             }
             catch (Exception ex)

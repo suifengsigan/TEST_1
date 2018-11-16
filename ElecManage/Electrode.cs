@@ -287,16 +287,21 @@ namespace ElecManage
             return result;
         }
 
+        private bool isInitAllFace = false;
         /// <summary>
         /// 初始化所有的面
         /// </summary>
         public virtual void InitAllFace() 
         {
-            GetTopFace();
-            var allSideFaces = new List<Snap.NX.Face>();
-            var faces = ElecBody.Faces.ToList();
-            ElecHeadFaces = Electrode.GetElecHeadFaces(faces, BaseFace, out allSideFaces);
-            BaseSideFaces = Electrode.GetBaseSideFaces(BaseFace, allSideFaces);
+            if (!isInitAllFace)
+            {
+                GetTopFace();
+                var allSideFaces = new List<Snap.NX.Face>();
+                var faces = ElecBody.Faces.ToList();
+                ElecHeadFaces = Electrode.GetElecHeadFaces(faces, BaseFace, out allSideFaces);
+                BaseSideFaces = Electrode.GetBaseSideFaces(BaseFace, allSideFaces);
+                isInitAllFace = true;
+            } 
         }
 
         /// <summary>

@@ -146,6 +146,10 @@ namespace EactConfig
         /// </summary>
         public bool IsExportBomXls = false;
         /// <summary>
+        /// 是否导出Edm图纸
+        /// </summary>
+        public bool IsExportEDM = false;
+        /// <summary>
         /// 毛坯余量
         /// </summary>
         public double PQBlankStock = 1.5;
