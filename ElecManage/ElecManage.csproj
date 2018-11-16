@@ -75,6 +75,7 @@
     <Compile Include="Electrode.cs" />
     <Compile Include="ElectrodeInfo.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="CommonInterface\IEDM.cs" />
     <Compile Include="IElectrode.cs" />
     <Compile Include="JYElectrode.cs" />
     <Compile Include="MouldInfo.cs" />
