@@ -1,24 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2532C907-1BAA-4DB7-AD08-E1A0C335CA32}</ProjectGuid>
+    <ProjectGuid>{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ElecManage</RootNamespace>
-    <AssemblyName>ElecManage</AssemblyName>
+    <RootNamespace>CommonInterface</RootNamespace>
+    <AssemblyName>CommonInterface</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\PHEact\Application\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,67 +30,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NXOpen, Version=6.0.5.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NXOpen">
       <HintPath>..\..\BLL\UG\NXOpen.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="NXOpen.UF, Version=6.0.5.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NXOpen.UF">
       <HintPath>..\..\BLL\UG\NXOpen.UF.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="NXOpen.Utilities, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NXOpen.Utilities">
       <HintPath>..\..\BLL\UG\NXOpen.Utilities.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="NXOpenUI, Version=6.0.5.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NXOpenUI">
       <HintPath>..\..\BLL\UG\NXOpenUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="PHSnap, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PHSnap">
       <HintPath>..\..\BLL\UG\PHSnap.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SnapEx, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SnapEx">
       <HintPath>..\..\BLL\UG\SnapEx.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EactElectrode.cs" />
-    <Compile Include="EactElectrodeInfo.cs" />
-    <Compile Include="Electrode.cs" />
-    <Compile Include="ElectrodeInfo.cs" />
-    <Compile Include="Entry.cs" />
-    <Compile Include="IElectrode.cs" />
-    <Compile Include="JYElectrode.cs" />
-    <Compile Include="MouldInfo.cs" />
-    <Compile Include="PositioningInfo.cs" />
+    <Compile Include="IEDM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UPElectrode.cs" />
-    <Compile Include="UPElectrodeInfo.cs" />
-    <Compile Include="XKElecConst.cs" />
-    <Compile Include="XKElectrode.cs" />
-    <Compile Include="XKElectrodeInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EactConfig\EactConfig.csproj">
+      <Project>{06f3b5ed-8ca4-47bc-855b-efc2f4acf845}</Project>
+      <Name>EactConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ElecManage\ElecManage.csproj">
+      <Project>{2532c907-1baa-4db7-ad08-e1a0c335ca32}</Project>
+      <Name>ElecManage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlieFTP\FlieFTP.csproj">
+      <Project>{8bcb4146-029d-4288-be37-5ad851b7816f}</Project>
+      <Name>FlieFTP</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

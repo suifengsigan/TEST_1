@@ -71,6 +71,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetProperty", "SetProperty\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceDiagonal", "FaceDiagonal\FaceDiagonal.csproj", "{0D7CCC37-CA6D-4327-9B0D-A0633F311987}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonInterface", "CommonInterface\CommonInterface.csproj", "{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +245,14 @@ Global
 		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Release|x86.ActiveCfg = Release|Any CPU
 		{0D7CCC37-CA6D-4327-9B0D-A0633F311987}.Release|x86.Build.0 = Release|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E55018D-5C37-4ABB-8FB3-5D00B05FE28E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
