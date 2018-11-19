@@ -77,6 +77,12 @@
     <Compile Include="FrmAddOrEdit.Designer.cs">
       <DependentUpon>FrmAddOrEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigUserControl.Designer.cs">
+      <DependentUpon>ConfigUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +106,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FrmAddOrEdit.resx">
       <DependentUpon>FrmAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigUserControl.resx">
+      <DependentUpon>ConfigUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmConfig.resx">
       <DependentUpon>FrmConfig.cs</DependentUpon>
