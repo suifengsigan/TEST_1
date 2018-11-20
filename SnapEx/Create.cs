@@ -417,11 +417,11 @@ namespace SnapEx
 
         public static void ExportStp(string inFileName,string outFileName)
         {
-            //var UGII_BASE_DIR = System.Environment.GetEnvironmentVariable("UGII_BASE_DIR");
-            string fileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-            var dir = System.IO.Path.GetDirectoryName(fileName);
-            var info = new System.IO.DirectoryInfo(dir);
-            var UGII_BASE_DIR = info.Parent.FullName;
+            var UGII_BASE_DIR = System.Environment.GetEnvironmentVariable("UGII_BASE_DIR");
+            //string fileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            //var dir = System.IO.Path.GetDirectoryName(fileName);
+            //var info = new System.IO.DirectoryInfo(dir);
+            //var UGII_BASE_DIR = info.Parent.FullName;
             var tempEnvironmentVariable = System.IO.Path.Combine(UGII_BASE_DIR, "STEP214UG");
             System.Environment.SetEnvironmentVariable("ROSE_DB", tempEnvironmentVariable);
             System.Environment.SetEnvironmentVariable("ROSE", tempEnvironmentVariable);
