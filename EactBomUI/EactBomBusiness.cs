@@ -239,7 +239,7 @@ namespace EactBom
             allPositions.ForEach(u => {
                 bodies.AddRange(u.Electrode.AllObject);
             });
-            var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Eact_AutoPrtTool);
+            var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Temp\\" + Eact_AutoPrtTool);
             if (System.IO.Directory.Exists(path))
             {
                 System.IO.Directory.Delete(path, true);
