@@ -25,7 +25,7 @@ namespace CommonInterface
                 case 1:
                     {
                         var extension = Path.GetExtension(fileName).ToUpper();
-                        if (extension.Contains("STP") || extension.Contains("TXT"))
+                        if (extension.Contains("STP") || extension.Contains("TXT")|| extension.Contains("PDF"))
                         {
 
                         }
