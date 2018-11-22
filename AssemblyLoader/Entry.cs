@@ -8,11 +8,17 @@ namespace AssemblyLoader
 {
     public class Entry
     {
-        public static void InitAssembly() 
+        private static bool isInitAssembly = false;
+        public static void InitAssembly()
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.AssemblyResolve -= new ResolveEventHandler(MyResolveEventHandler);
-            currentDomain.AssemblyResolve += new ResolveEventHandler(MyResolveEventHandler);
+            //currentDomain.AssemblyResolve -= new ResolveEventHandler(MyResolveEventHandler);
+            if (!isInitAssembly)
+            {
+                currentDomain.AssemblyResolve += new ResolveEventHandler(MyResolveEventHandler);
+                isInitAssembly = true;
+            }
+
         }
 
         private static Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)
