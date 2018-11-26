@@ -221,8 +221,8 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
         var centerPosition = (Snap.Position)tempElecOrigin;
         var movePosition = centerPosition.Copy(transRef);
 
-
-        if (toggle0.Value && topFace.NXOpenTag != bottomFace.NXOpenTag) //继承
+        bool isJC = toggle0.Value && topFace.NXOpenTag != bottomFace.NXOpenTag;
+        if (isJC) //继承
         {
             var markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "reflectionBody");
             var normal = topFace.Normal(minU, minV);
@@ -262,7 +262,7 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
             if (topFace != null)
             {
                 //SetJZJAttr(topFace, newBody);
-                SetGeomcopyAttr(newBody,plane);
+                SetGeomcopyAttr(newBody,plane, isJC);
             }
             var oldPoint=SnapEx.Helper.GetElecMidPointInPart(Snap.Globals.WorkPart, body);
             var newPoint = SnapEx.Helper.GetElecMidPoint(Snap.Globals.WorkPart, body);
@@ -316,20 +316,13 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
     /// <summary>
     /// 设置镜像属性
     /// </summary>
-    List<Snap.NX.Face> SetGeomcopyAttr(Snap.NX.Body body, NXOpen.Plane plane)
+    void SetGeomcopyAttr(Snap.NX.Body body, NXOpen.Plane plane, bool isJC)
     {
-        var orientation = Snap.Orientation.Identity;
-        var baseFace = SnapEx.Helper.GetBottomFace(body);
-        var faces = new List<Snap.NX.Face>();
-        if (baseFace != null)
-        {
-            var tempFaces = body.Faces.Where(u => !u.NXOpenTag.Equals(baseFace.NXOpenTag)
-                    && Equals(baseFace.Box.MinZ, u.Box.MaxZ)).ToList();
-            faces.AddRange(tempFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -orientation.AxisY)).OrderByDescending(u => u.Area).Take(1));
-            faces.AddRange(tempFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), orientation.AxisX)).OrderByDescending(u => u.Area).Take(1));
-            faces.AddRange(tempFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), orientation.AxisY)).OrderByDescending(u => u.Area).Take(1));
-            faces.AddRange(tempFaces.Where(u => SnapEx.Helper.Equals(u.GetFaceDirection(), -orientation.AxisX)).OrderByDescending(u => u.Area).Take(1));
-        }
+        if (isJC) return;
+        var electrode = ElecManage.Electrode.GetElectrode(body);
+        if (electrode == null) return;
+        electrode.InitAllFace();
+        var transRef = Snap.Geom.Transform.CreateReflection(new Snap.Geom.Surface.Plane(plane.Origin, plane.Normal));
 
         Snap.NX.Face preXFace = null, preYFace = null;
 
@@ -339,50 +332,27 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
             {
                 u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_X_FACE");
                 u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_Y_FACE");
-                //u.SetStringAttribute("EACT_ELECT_Y_FACE", "1");
                 preXFace = u;
             }
             else if (u.GetAttributeInfo().Where(m => m.Title == "EACT_ELECT_Y_FACE").Count() > 0)
             {
                 u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_X_FACE");
                 u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "EACT_ELECT_Y_FACE");
-                //u.SetStringAttribute("EACT_ELECT_X_FACE", "1");
                 preYFace = u;
             }
         });
 
-        if (preXFace != null && preYFace != null)
-        {
-            var transRef = Snap.Geom.Transform.CreateReflection(new Snap.Geom.Surface.Plane(plane.Origin, plane.Normal));
-            var dir = preXFace.GetFaceDirection().Copy(transRef) + preYFace.GetFaceDirection().Copy(transRef);
-            dir = dir.Copy(transRef);
-            if (dir.Y > 0 && dir.X > 0)
-            {
-                body.SetStringAttribute("EACT_ELEC_QUADRANT_OF_CHAMFER", "3");
-            }
-            else if (dir.Y > 0 && dir.X < 0)
-            {
-                body.SetStringAttribute("EACT_ELEC_QUADRANT_OF_CHAMFER", "4");
-            }
-            else if (dir.Y < 0 && dir.X < 0)
-            {
-                body.SetStringAttribute("EACT_ELEC_QUADRANT_OF_CHAMFER", "1");
-            }
-            else
-            {
-                body.SetStringAttribute("EACT_ELEC_QUADRANT_OF_CHAMFER", "2");
-            }
-        }
-
-        var xFace = faces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisX, u.GetFaceDirection()));
-        var yFace = faces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisY, u.GetFaceDirection()));
+        if (preXFace == null || preYFace == null) return;
+        var orientation = new Snap.Orientation(preXFace.GetFaceDirection().Copy(transRef), preYFace.GetFaceDirection().Copy(transRef), -electrode.BaseFace.GetFaceDirection());
+        var xFace = electrode.BaseSideFaces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisX, u.GetFaceDirection()));
+        var yFace = electrode.BaseSideFaces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisY, u.GetFaceDirection()));
         if (xFace != null && yFace != null)
         {
             xFace.SetStringAttribute("EACT_ELECT_X_FACE", "1");
             yFace.SetStringAttribute("EACT_ELECT_Y_FACE", "1");
         }
 
-        return faces;
+        body.SetStringAttribute("EACT_ELEC_QUADRANT_OF_CHAMFER", ((int)electrode.GetQuadrantType(orientation) + 1).ToString());
     }
 
     void RefreshUI()

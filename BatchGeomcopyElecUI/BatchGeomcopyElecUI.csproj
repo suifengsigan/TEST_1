@@ -72,6 +72,10 @@
       <Project>{4d127110-1258-4440-8f7a-5d630b67ab33}</Project>
       <Name>AssemblyLoader</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ElecManage\ElecManage.csproj">
+      <Project>{2532c907-1baa-4db7-ad08-e1a0c335ca32}</Project>
+      <Name>ElecManage</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

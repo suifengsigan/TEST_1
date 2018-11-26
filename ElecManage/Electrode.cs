@@ -178,7 +178,12 @@ namespace ElecManage
 
         public static Snap.Geom.Transform GetElecTransWcsToAcs(Snap.Vector baseDir)
         {
-            var wcsOrientation = GetStandardOrientation(Snap.Globals.WcsOrientation);
+            return GetElecTransWcsToAcs(baseDir, Snap.Globals.WcsOrientation);
+        }
+
+        public static Snap.Geom.Transform GetElecTransWcsToAcs(Snap.Vector baseDir,Snap.Orientation wcs)
+        {
+            var wcsOrientation = GetStandardOrientation(wcs);
             var acsOrientation = Snap.Orientation.Identity;
             var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
             var baseFaceOrientation = new Snap.Orientation(-baseDir.Copy(transR));
@@ -239,6 +244,21 @@ namespace ElecManage
             if (chamferFace != null&&BaseFace!=null) 
             {
                 var dir = chamferFace.GetFaceDirection().Copy(GetElecTransWcsToAcs(BaseFace.GetFaceDirection()));
+                result = SnapEx.Helper.GetQuadrantType(dir);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取象限类型
+        /// </summary>
+        public QuadrantType GetQuadrantType(Snap.Orientation wcs,QuadrantType defaultQ = QuadrantType.First)
+        {
+            var result = defaultQ;
+            var chamferFace = GetChamferFace();
+            if (chamferFace != null && BaseFace != null)
+            {
+                var dir = chamferFace.GetFaceDirection().Copy(GetElecTransWcsToAcs(BaseFace.GetFaceDirection(),wcs));
                 result = SnapEx.Helper.GetQuadrantType(dir);
             }
             return result;
