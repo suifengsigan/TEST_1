@@ -188,6 +188,23 @@ namespace EactBom
             ckCuprumSelectAll.CheckedChanged += ckCuprumSelectAll_CheckedChanged;
             dgvCuprums.DataSourceChanged += dgvCuprums_DataSourceChanged;
             btnSave.Click += btnSave_Click;
+            this.FormClosing += FrmEactBom_FormClosing;
+        }
+
+        private void FrmEactBom_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //高亮显示20181126
+            if (EactBomBusiness.Instance.ConfigData.Edition == 2)
+            {
+                Snap.Globals.WorkPart.Bodies.ToList().ForEach(u =>
+                {
+                    if (u.IsHighlighted)
+                    {
+                        u.IsHighlighted = false;
+                    }
+                });
+            }
+
         }
 
         void btnSave_Click(object sender, EventArgs e)
@@ -323,6 +340,25 @@ namespace EactBom
                         cbbProdirection.Text = info.EDMPROCDIRECTION;
                         txtElecSize.Text = info.ElecSize;
                     }
+
+                    //高亮显示20181126
+                    if (EactBomBusiness.Instance.ConfigData.Edition == 2)
+                    {
+                        Snap.Globals.WorkPart.Bodies.ToList().ForEach(u => {
+                            if (u.IsHighlighted)
+                            {
+                                u.IsHighlighted = false;
+                            }
+                        });
+
+                        list.ForEach(u => {
+                            u.Electrode.ElecBody.IsHighlighted = true;
+                        });
+
+                        Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
+                    }
+
+
                     _curCuprum = item;
                 }
 
