@@ -14,6 +14,15 @@ namespace CommonInterface
         void CreateDrawingSheet(List<ElecManage.PositioningInfo> ps, Snap.NX.Body steel);
     }
 
+    public abstract class DatabaseHelper
+    {
+        public static string GetConnStr(EactConfig.ConfigData data)
+        {
+            var connStr = string.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3}", data.DataBaseInfo.IP, data.DataBaseInfo.Name, data.DataBaseInfo.User, data.DataBaseInfo.Pass);
+            return connStr;
+        }
+    }
+
     public abstract class FtpHelper
     {
         public static void FtpUpload(string type, ElecManage.MouldInfo steelInfo, string fileName, string partName,EactConfig.ConfigData ConfigData)
