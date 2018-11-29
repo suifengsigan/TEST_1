@@ -187,8 +187,50 @@ namespace ElecManage
             var acsOrientation = Snap.Orientation.Identity;
             var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
             var baseFaceOrientation = new Snap.Orientation(-baseDir.Copy(transR));
+            baseFaceOrientation=GetSidelongOrientation(baseFaceOrientation);
             transR = Snap.Geom.Transform.Composition(transR, Snap.Geom.Transform.CreateRotation(acsOrientation, baseFaceOrientation));
             return transR;
+        }
+
+        /// <summary>
+        /// 获取侧放矩阵
+        /// </summary>
+        public static Snap.Orientation GetSidelongOrientation(Snap.Orientation baseDirOrientation)
+        {
+            var or = GetStandardOrientation(baseDirOrientation);
+            var identity = Snap.Orientation.Identity;
+            Snap.Vector x = or.AxisX;
+            Snap.Vector y = or.AxisY;
+            if (SnapEx.Helper.Equals(or.AxisZ, -identity.AxisY))
+            {
+                x = identity.AxisX;
+                y = identity.AxisZ;
+            }
+            else if (SnapEx.Helper.Equals(or.AxisZ, identity.AxisY))
+            {
+                x = -identity.AxisX;
+                y = identity.AxisZ;
+            }
+            else if (SnapEx.Helper.Equals(or.AxisZ, -identity.AxisX))
+            {
+                x = -identity.AxisY;
+                y = identity.AxisZ;
+            }
+            else if (SnapEx.Helper.Equals(or.AxisZ, identity.AxisX))
+            {
+                x = identity.AxisY;
+                y = identity.AxisZ;
+            }
+            else if (SnapEx.Helper.Equals(or.AxisZ, -identity.AxisZ))
+            {
+                x = identity.AxisX;
+                y = -identity.AxisY;
+            }
+            else
+            {
+                return or;
+            }
+            return new Snap.Orientation(x, y);
         }
 
         public static Snap.Orientation GetStandardOrientation(Snap.Orientation ori)

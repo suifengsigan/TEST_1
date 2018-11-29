@@ -322,7 +322,7 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
         var electrode = ElecManage.Electrode.GetElectrode(body);
         if (electrode == null) return;
         electrode.InitAllFace();
-        var transRef = Snap.Geom.Transform.CreateReflection(new Snap.Geom.Surface.Plane(plane.Origin, plane.Normal));
+        //var transRef = Snap.Geom.Transform.CreateReflection(new Snap.Geom.Surface.Plane(plane.Origin, plane.Normal));
 
         Snap.NX.Face preXFace = null, preYFace = null;
 
@@ -343,7 +343,7 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
         });
 
         if (preXFace == null || preYFace == null) return;
-        var orientation = new Snap.Orientation(preXFace.GetFaceDirection().Copy(transRef), preYFace.GetFaceDirection().Copy(transRef), -electrode.BaseFace.GetFaceDirection());
+        var orientation = ElecManage.Electrode.GetSidelongOrientation(new Snap.Orientation(-electrode.BaseFace.GetFaceDirection()));
         var xFace = electrode.BaseSideFaces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisX, u.GetFaceDirection()));
         var yFace = electrode.BaseSideFaces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisY, u.GetFaceDirection()));
         if (xFace != null && yFace != null)
