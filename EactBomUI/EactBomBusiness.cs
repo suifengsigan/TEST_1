@@ -796,7 +796,8 @@ namespace EactBom
                         cuprum.STRUFFTYPE = "否";
                         cuprum.PROCDIRECTION = info.EDMPROCDIRECTION;
                         cuprum.ROCK = info.EDMROCK;
-                        cuprum.SHAPE = "简单有底";
+                        cuprum.ROCKSHAPE = info.EDMROCKSHAPE;
+                        cuprum.SHAPE = string.IsNullOrEmpty(info.EDMSHAPE) ? "简单有底" : info.EDMSHAPE;
                         cuprum.OPENSTRUFF = info.OPENSTRUFF;
                         cuprum.DISCHARGING = string.Empty;
                         cuprum.EDMCONDITIONSN = info.ElecCuttingSize(ConfigData.PQBlankStock,EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE));

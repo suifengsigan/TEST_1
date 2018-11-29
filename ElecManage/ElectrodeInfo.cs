@@ -39,6 +39,8 @@ namespace ElecManage
         protected string EACT_SHAREELEC = "EACT_SHAREELEC";//共用电极
         protected string EACT_ASSEMBLYEXP = "EACT_ASSEMBLYEXP";
         protected string EACT_ASSEMBLYEXP1 = "EACT_ASSEMBLYEXP1";
+        protected string EACT_SHAPE = "SHAPE";
+        protected string EACT_ROCKSHAPE = "ROCKSHAPE";
         /// <summary>
         /// 电极间隙已计算未计算
         /// </summary>
@@ -118,6 +120,7 @@ namespace ElecManage
         /// <summary>
         /// 备注1
         /// </summary>
+        [DisplayName("备注")]
         public string ASSEMBLYEXP
         {
             get
@@ -689,6 +692,32 @@ namespace ElecManage
             {
                 SetStringAttribute(EACT_EDMROCK, value);
                 SetStringAttribute(EACT_EDM_SWING_TYPE, value);
+            }
+        }
+
+        [DisplayName("电极形状")]
+        public virtual string EDMSHAPE
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_SHAPE);
+            }
+            set
+            {
+                SetStringAttribute(EACT_SHAPE,value);
+            }
+        }
+
+        [DisplayName("摇动平面形状")]
+        public virtual string EDMROCKSHAPE
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_ROCKSHAPE);
+            }
+            set
+            {
+                SetStringAttribute(EACT_ROCKSHAPE, value);
             }
         }
 

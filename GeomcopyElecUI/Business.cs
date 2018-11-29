@@ -378,7 +378,7 @@ partial class GeomcopyElecUI : SnapEx.BaseUI
         }
 
         body.SetStringAttribute("EACT_ELEC_QUADRANT_OF_CHAMFER", ((int)electrode.GetQuadrantType(orientation) + 1).ToString());
-        body.SetStringAttribute("EACT_EDM_OPERATE_DIR", ElecManage.Electrode.GetDIRECTION(topDir));
+        body.SetStringAttribute("EACT_EDM_OPERATE_DIR", ElecManage.Electrode.GetCNC_DIRECTION(topDir));
     }
 
 }

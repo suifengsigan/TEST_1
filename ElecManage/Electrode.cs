@@ -259,6 +259,37 @@ namespace ElecManage
         }
 
         /// <summary>
+        /// 获取加工方向(YF_YJQ)
+        /// </summary>
+        public static string GetCNC_DIRECTION(Snap.Vector topFaceDir)
+        {
+            var temptopFaceDir = topFaceDir;
+            var tempAixValue = "Z-";
+            if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisZ, SnapEx.Helper.Tolerance))
+            {
+                tempAixValue = "Z+";
+            }
+            if (SnapEx.Helper.Equals(temptopFaceDir, Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance))
+            {
+                tempAixValue = "X-";
+            }
+            if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance))
+            {
+                tempAixValue = "X+";
+            }
+            if (SnapEx.Helper.Equals(temptopFaceDir, Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance))
+            {
+                tempAixValue = "Y-";
+            }
+            if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance))
+            {
+                tempAixValue = "Y+";
+            }
+
+            return tempAixValue;
+        }
+
+        /// <summary>
         /// 获取加工方向
         /// </summary>
         public static string GetDIRECTION(Snap.Vector topFaceDir)
