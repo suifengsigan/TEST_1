@@ -800,7 +800,7 @@ namespace EactBom
                         cuprum.SHAPE = string.IsNullOrEmpty(info.EDMSHAPE) ? "简单有底" : info.EDMSHAPE;
                         cuprum.OPENSTRUFF = info.OPENSTRUFF;
                         cuprum.DISCHARGING = string.Empty;
-                        cuprum.EDMCONDITIONSN = info.ElecCuttingSize(ConfigData.PQBlankStock,EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE));
+                        cuprum.EDMCONDITIONSN = info.ElecCuttingSize(ConfigData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE));
                         cuprum.HEADPULLUPH = HEADPULLUPH.ToString();
                         cuprum.STRETCHH = STRETCHH.ToString();
                         cuprum.CLEARROOTH = string.Empty;
@@ -816,7 +816,11 @@ namespace EactBom
                             var popertySelection = poperty.Selections.FirstOrDefault(u => u.Value == cuprum.STRUFF);
                             cuprum.STRUFFCODE = popertySelection == null ? string.Empty : popertySelection.Ex3;
                         }
-                        if (!string.IsNullOrEmpty(info.ASSEMBLYEXP) || !string.IsNullOrEmpty(info.ASSEMBLYEXP1))
+                        if (!string.IsNullOrEmpty(info.ASSEMBLYEXP) && string.IsNullOrEmpty(info.ASSEMBLYEXP1))
+                        {
+                            cuprum.ASSEMBLYEXP = info.ASSEMBLYEXP;
+                        }
+                        else if (!string.IsNullOrEmpty(info.ASSEMBLYEXP) || !string.IsNullOrEmpty(info.ASSEMBLYEXP1))
                         {
                             cuprum.ASSEMBLYEXP = Newtonsoft.Json.JsonConvert.SerializeObject(new { EXP = info.ASSEMBLYEXP, EXP1 = info.ASSEMBLYEXP1 });
                         }
