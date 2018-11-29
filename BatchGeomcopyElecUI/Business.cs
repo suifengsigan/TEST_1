@@ -342,8 +342,9 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
             }
         });
 
-        if (preXFace == null || preYFace == null) return;
-        var orientation = ElecManage.Electrode.GetSidelongOrientation(new Snap.Orientation(-electrode.BaseFace.GetFaceDirection()));
+        //if (preXFace == null || preYFace == null) return;
+        var topDir = -electrode.BaseFace.GetFaceDirection();
+        var orientation = ElecManage.Electrode.GetSidelongOrientation(new Snap.Orientation(topDir));
         var xFace = electrode.BaseSideFaces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisX, u.GetFaceDirection()));
         var yFace = electrode.BaseSideFaces.FirstOrDefault(u => SnapEx.Helper.Equals(orientation.AxisY, u.GetFaceDirection()));
         if (xFace != null && yFace != null)
@@ -352,6 +353,7 @@ partial class BatchGeomcopyElecUI : SnapEx.BaseUI
             yFace.SetStringAttribute("EACT_ELECT_Y_FACE", "1");
         }
 
+        body.SetStringAttribute("EACT_EDM_OPERATE_DIR", ElecManage.Electrode.GetDIRECTION(topDir));
         body.SetStringAttribute("EACT_ELEC_QUADRANT_OF_CHAMFER", ((int)electrode.GetQuadrantType(orientation) + 1).ToString());
     }
 

@@ -652,27 +652,7 @@ namespace EactBom
                 if (info.EDMPROCDIRECTION == "自动判断"|| string.IsNullOrEmpty(info.EDMPROCDIRECTION))
                 {
                     var temptopFaceDir = topFaceDir;
-                    var tempAixValue = "Z+";
-                    if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisZ, SnapEx.Helper.Tolerance))
-                    {
-                        tempAixValue = "Z-";
-                    }
-                    if (SnapEx.Helper.Equals(temptopFaceDir, Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance))
-                    {
-                        tempAixValue = "X+";
-                    }
-                    if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisX, SnapEx.Helper.Tolerance))
-                    {
-                        tempAixValue = "X-";
-                    }
-                    if (SnapEx.Helper.Equals(temptopFaceDir, Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance))
-                    {
-                        tempAixValue = "Y+";
-                    }
-                    if (SnapEx.Helper.Equals(temptopFaceDir, -Snap.Globals.WcsOrientation.AxisY, SnapEx.Helper.Tolerance))
-                    {
-                        tempAixValue = "Y-";
-                    }
+                    var tempAixValue = Electrode.GetDIRECTION(topFaceDir);
                     info.EDMPROCDIRECTION = tempAixValue;
                     electrodeBody.SetStringAttribute("EACT_ELECT_CREATE_AIX", tempAixValue);
                 }
