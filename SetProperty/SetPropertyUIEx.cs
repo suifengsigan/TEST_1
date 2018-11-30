@@ -147,6 +147,16 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 realValue = info == null ? string.Empty : info.CAPSET;
                 cbb = cbbCAPSET;
             }
+            else if (u.DisplayName == "摇动平面形状")
+            {
+                realValue = info == null ? string.Empty : info.EDMROCKSHAPE;
+                cbb = cbbRockShape;
+            }
+            else if (u.DisplayName == "电极形状")
+            {
+                realValue = info == null ? string.Empty : info.EDMSHAPE;
+                cbb = cbbShape;
+            }
 
             if (cbb is Snap.UI.Block.Enumeration)
             {
@@ -237,6 +247,8 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
     public override void DialogShown()
     {
+        cbbShape.Show = false;
+        cbbRockShape.Show = false;
         cboxMMATNAME.Show = _configData.IsMatNameSel;
         cboxRMATNAME.Show = _configData.IsMatNameSel;
         SetDefaultValue(null);
@@ -442,7 +454,12 @@ partial class SetPropertyUI : SnapEx.BaseUI
                             break;
                     }
 
-                    _configData.Poperties.ForEach(p => {
+                    foreach (var p in _configData.Poperties)
+                    {
+                        if (p.Selections.Count <= 0)
+                        {
+                            break;
+                        }
                         if (p.DisplayName == "电极材质")
                         {
                             info.MAT_NAME = p.Selections[cboxMATNAME.SelectedIndex].Value;
@@ -451,7 +468,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
                                 info.M_MAT_NAME = p.Selections[cboxMMATNAME.SelectedIndex].Value;
                                 info.R_MAT_NAME = p.Selections[cboxRMATNAME.SelectedIndex].Value;
                             }
-                            
+
                         }
                         else if (p.DisplayName == "加工方向")
                         {
@@ -485,7 +502,19 @@ partial class SetPropertyUI : SnapEx.BaseUI
                         {
                             info.CAPSET = p.Selections[cbbCAPSET.SelectedIndex].Value;
                         }
-                    });
+                        else if (p.DisplayName == "间隙方式")
+                        {
+                            info.CAPSET = p.Selections[cbbCAPSET.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "摇动平面形状")
+                        {
+                            info.EDMROCKSHAPE = p.Selections[cbbRockShape.SelectedIndex].Value;
+                        }
+                        else if (p.DisplayName == "电极形状")
+                        {
+                            info.EDMSHAPE = p.Selections[cbbShape.SelectedIndex].Value;
+                        }
+                    }
                 });
             });
 

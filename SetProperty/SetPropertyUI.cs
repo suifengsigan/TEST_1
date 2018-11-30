@@ -76,6 +76,8 @@ public partial class SetPropertyUI
     private Snap.UI.Block.Enumeration cbbRSmoth;// Block type: Enumeration
     private Snap.UI.Block.Enumeration cbbChuckType;// Block type: Enumeration
     private Snap.UI.Block.Enumeration cbbCAPSET;// Block type: Enumeration
+    private Snap.UI.Block.Enumeration cbbRockShape;// Block type: Enumeration
+    private Snap.UI.Block.Enumeration cbbShape;// Block type: Enumeration
     private Snap.UI.Block.Group groupSElec;// Block type: Group
     private Snap.UI.Block.SelectObject selectTopFace;// Block type: Selection
     private Snap.UI.Block.SelectObject selectBaseFace;// Block type: Selection
@@ -280,6 +282,8 @@ public partial class SetPropertyUI
             cboxMMATNAME = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cboxMMATNAME");
             cboxRMATNAME = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cboxRMATNAME");
             cbbProdirection = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbProdirection");
+            cbbRockShape = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbRockShape");
+            cbbShape = Snap.UI.Block.Enumeration.GetBlock(theDialog, "cbbShape");
             //scrolledWindow1 = (NXOpen.BlockStyler.ScrolledWindow)theDialog.TopBlock.FindBlock("scrolledWindow1");
             txtFINISHSPACE = Snap.UI.Block.Double.GetBlock(theDialog, "txtFINISHSPACE");
             txtMIDDLESPACE = Snap.UI.Block.Double.GetBlock(theDialog, "txtMIDDLESPACE");
