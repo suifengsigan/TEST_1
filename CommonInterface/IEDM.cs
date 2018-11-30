@@ -51,7 +51,7 @@ namespace CommonInterface
                     }
             }
 
-            if (ConfigData.Edition == 4&& extension.Contains("PDF"))
+            if ((ConfigData.Edition == 2|| ConfigData.Edition == 4) && extension.Contains("PDF"))
             {
                 sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
             }
