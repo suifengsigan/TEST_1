@@ -105,6 +105,7 @@ namespace ElecManage
         /// <summary>
         /// 备注2
         /// </summary>
+        [DisplayName("备注2")]
         public string ASSEMBLYEXP1
         {
             get
