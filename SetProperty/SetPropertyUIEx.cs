@@ -276,6 +276,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
                     cbbCAPSET.Show = false;
                     cbbShape.Show = true;
                     cbbRockShape.Show = true;
+                    stringExp1.Show = false;
                 }
                 break;
             default:
