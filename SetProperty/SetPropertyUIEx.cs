@@ -271,6 +271,13 @@ partial class SetPropertyUI : SnapEx.BaseUI
                     cbbCAPSET.Show = false;
                 }
                 break;
+            case 4://誉诚
+                {
+                    cbbCAPSET.Show = false;
+                    cbbShape.Show = true;
+                    cbbRockShape.Show = true;
+                }
+                break;
             default:
                 {
                     stringExp.Show = false;

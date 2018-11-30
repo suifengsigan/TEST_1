@@ -29,11 +29,11 @@ namespace CommonInterface
         {
             var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
             string sToPath = string.Format("{0}/{1}/{2}", type, steelInfo.MODEL_NUMBER, partName);
+            var extension = Path.GetExtension(fileName).ToUpper();
             switch (ConfigData.FtpPathType)
             {
                 case 1:
                     {
-                        var extension = Path.GetExtension(fileName).ToUpper();
                         if (extension.Contains("STP") || extension.Contains("TXT")|| extension.Contains("PDF"))
                         {
 
@@ -50,6 +50,12 @@ namespace CommonInterface
                         break;
                     }
             }
+
+            if (ConfigData.Edition == 4&& extension.Contains("PDF"))
+            {
+                sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
+            }
+
             if (!EACTFTP.DirectoryExist(sToPath))
             {
                 EACTFTP.MakeDirPath(sToPath);
