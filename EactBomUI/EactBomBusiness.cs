@@ -299,7 +299,12 @@ namespace EactBom
                     if (showMsgHandle != null) { showMsgHandle(string.Format("正在导出CNC图档:{0}", u.Electrode.ElecBody.Name)); }
                     var partName = GetPARTFILENAME(u.Electrode.ElecBody, steelInfo);
                     //移至绝对坐标原点
+                    var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
                     var baseDir = u.Electrode.BaseFace.GetFaceDirection();
+                    if (SnapEx.Helper.Equals(baseDir, topFaceDir))
+                    {
+                        baseDir = -topFaceDir;
+                    }
                     var wcsOrientation = Snap.Globals.WcsOrientation; var transR = ElecManage.Electrode.GetElecTransWcsToAcs(baseDir);
                     var baseDirOrientation = new Snap.Orientation(new Snap.Vector(0, 0, -1));
                     baseDirOrientation.AxisZ = new Snap.Vector(0, 0, 0);
@@ -409,6 +414,10 @@ namespace EactBom
                     var headFaces = new List<Snap.NX.Face>();
                     var topFaceDir = u.Electrode.TopFace.GetFaceDirection();
                     var baseDir = u.Electrode.BaseFace.GetFaceDirection();
+                    if (SnapEx.Helper.Equals(baseDir, topFaceDir))
+                    {
+                        baseDir = -topFaceDir;
+                    }
 
                     var allPoss = allPositions.Where(m => m.Electrode.ElecBody.Name == u.Electrode.ElecBody.Name).ToList();
                     if (ConfigData.IsSetPrtColor)
