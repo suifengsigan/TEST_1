@@ -31,25 +31,12 @@ namespace ElecManage
             var topFace = faces.Where(u => u.IsHasAttr(ELEC_BASE_BOTTOM_FACE)).FirstOrDefault();
             if (topFace == null)
             {
-                var topFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u => SnapEx.Helper.Equals(-faceDirection, u.GetFaceDirection())).ToList();
-                topFace = topFaces.FirstOrDefault();
-                if (topFaces.Count > 1)
-                {
-                    var basePlane = BaseFace as Snap.NX.Face.Plane;
-                    var baseOrigin = basePlane.Geometry.Origin;
-                    var baseFaceBox = BaseFace.Box;
-                    var baseCenterPoint = new Snap.Position((baseFaceBox.MaxX + baseFaceBox.MinX) / 2, (baseFaceBox.MaxY + baseFaceBox.MinY) / 2, (baseFaceBox.MaxZ + baseFaceBox.MinZ) / 2);
-                    topFaces.ForEach(u =>
-                    {
-                        var uBox = u.Box;
-                        var uCenterPoint = new Snap.Position((uBox.MaxX + uBox.MinX) / 2, (uBox.MaxY + uBox.MinY) / 2, (uBox.MaxZ + uBox.MinZ) / 2);
-                        if (SnapEx.Helper.Equals(u.GetFaceDirection(), Snap.Vector.Unit(uCenterPoint - baseCenterPoint), SnapEx.Helper.Tolerance))
-                        {
-                            topFace = u;
-                            return;
-                        }
-                    });
-                }
+                var topFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u =>
+                SnapEx.Helper.Equals(-faceDirection, u.GetFaceDirection())
+                || SnapEx.Helper.Equals(faceDirection, u.GetFaceDirection())
+                ).ToList();
+                topFace = topFaces.OrderByDescending(u=>u.GetPlaneProjectArea(faceDirection)).FirstOrDefault();
+               
             }
             TopFace = topFace;
             return topFace;
