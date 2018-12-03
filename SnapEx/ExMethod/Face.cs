@@ -10,6 +10,17 @@ namespace  SnapEx
     public static partial class ExMethod
     {
         /// <summary>
+        /// 获取平面投影面积
+        /// </summary>
+        public static double GetPlaneProjectArea(this Snap.NX.Face face,Snap.Vector baseDir)
+        {
+            var topFaceDir = -baseDir;
+            var topFaceOrientation = new Snap.Orientation(topFaceDir);
+            var box = SnapEx.Ex.AcsToWcsBox3d(face.BoxEx(), topFaceOrientation);
+            return System.Math.Abs(box.MinX-box.MaxX)* System.Math.Abs(box.MinY - box.MaxY);
+        }
+
+        /// <summary>
         /// 获取BOX
         /// </summary>
         /// <param name="face"></param>

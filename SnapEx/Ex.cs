@@ -14,8 +14,13 @@ namespace SnapEx
         }
         public static Snap.Geom.Box3d AcsToWcsBox3d(this Snap.NX.NXObject obj, Snap.Orientation wcs)
         {
+            return AcsToWcsBox3d(obj.Box, wcs);
+        }
+
+        public static Snap.Geom.Box3d AcsToWcsBox3d(Snap.Geom.Box3d box, Snap.Orientation wcs)
+        {
             var corners = new List<Snap.Position>();
-            obj.Box.Corners.ToList().ForEach(u => {
+            box.Corners.ToList().ForEach(u => {
                 var acsOrientation = Snap.Orientation.Identity;
                 var wcsOrientation = wcs;
                 var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
