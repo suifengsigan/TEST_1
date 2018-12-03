@@ -815,6 +815,7 @@ namespace EactBom
                         cuprum.OPENSTRUFF = info.OPENSTRUFF;
                         cuprum.DISCHARGING = string.Empty;
                         cuprum.EDMCONDITIONSN = info.ElecCuttingSize(ConfigData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE));
+                        cuprum.SPEC = cuprum.EDMCONDITIONSN;
                         cuprum.HEADPULLUPH = HEADPULLUPH.ToString();
                         cuprum.STRETCHH = STRETCHH.ToString();
                         cuprum.CLEARROOTH = string.Empty;
