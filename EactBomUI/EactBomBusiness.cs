@@ -159,6 +159,11 @@ namespace EactBom
                 {
                     throwExAction(string.Format("电极【{0}】夹具缺失，请检查", fTempPossInfo.Elec_Name));
                 }
+
+                if (string.IsNullOrEmpty(fTempPossInfo.UNIT))
+                {
+                    throwExAction(string.Format("电极【{0}】电极类型缺失，请检查", fTempPossInfo.Elec_Name));
+                }
             }
 
             return errorInfos;
