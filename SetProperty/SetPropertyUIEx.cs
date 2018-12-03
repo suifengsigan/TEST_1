@@ -204,15 +204,39 @@ partial class SetPropertyUI : SnapEx.BaseUI
         }
     }
 
+    void UpdateEactElec(Snap.NX.Body body)
+    {
+        Snap.NX.Face topFace;
+        Snap.NX.Face baseFace;
+        Snap.NX.Point basePoint = null;
+        Snap.Position pos = new Snap.Position();
+        topFace = selectTopFace.SelectedObjects.FirstOrDefault() as Snap.NX.Face;
+        baseFace = selectBaseFace.SelectedObjects.FirstOrDefault() as Snap.NX.Face;
+        ElecManage.Electrode.GetEactElectrode(body, ref topFace, ref baseFace, ref basePoint, ref pos);
+        pos = selectBaseFacePointEx.Position;
+        if (basePoint == null)
+        {
+            basePoint = Snap.Create.Point(pos);
+            basePoint.Layer = body.Layer;
+            basePoint.Color = System.Drawing.Color.Green;
+        }
+        else
+        {
+            basePoint.Position = pos;
+        }
+        ElecManage.Electrode.SetEactElectrode(body, ref topFace, ref baseFace, ref basePoint);
+    }
+
     void SetEactElec(Snap.NX.Body body,Snap.NX.Face baseFace = null, Snap.NX.Face topFace = null, Snap.NX.Point basePoint = null)
     {
         selectBaseFace.SelectedObjects = new Snap.NX.NXObject[] { };
         selectTopFace.SelectedObjects = new Snap.NX.NXObject[] { };
-        selectBaseFacePoint.SelectedObjects = new Snap.NX.NXObject[] { };
-        ElecManage.Electrode.SetEactElectrode(body, ref topFace, ref baseFace, ref basePoint);
+        selectBaseFacePointEx.Position = new Snap.Position();
+        var pos = new Snap.Position();
+        ElecManage.Electrode.GetEactElectrode(body, ref topFace, ref baseFace, ref basePoint,ref pos);
         if (baseFace != null) { selectBaseFace.SelectedObjects = new Snap.NX.NXObject[] { baseFace }; }
         if (topFace != null) { selectTopFace.SelectedObjects = new Snap.NX.NXObject[] { topFace }; }
-        if (basePoint != null) { selectBaseFacePoint.SelectedObjects = new Snap.NX.NXObject[] { basePoint }; }
+        selectBaseFacePointEx.Position = pos;
         if (baseFace != null && topFace != null && basePoint != null)
         {
             //更新尺寸
@@ -240,7 +264,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
         selectCuprum.SetFilter(Snap.NX.ObjectTypes.Type.Body);
         selectBaseFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
         selectTopFace.SetFilter(Snap.NX.ObjectTypes.Type.Face, Snap.NX.ObjectTypes.SubType.FacePlane);
-        selectBaseFacePoint.SetFilter(Snap.NX.ObjectTypes.Type.Point, Snap.NX.ObjectTypes.SubType.PatternPoint);
+        //selectBaseFacePoint.SetFilter(Snap.NX.ObjectTypes.Type.Point, Snap.NX.ObjectTypes.SubType.PatternPoint);
         ElecManage.Entry.Edition = _configData.Edition;
         ElecManage.Entry.Instance.IsDistinguishSideElec = true;
     }
@@ -405,18 +429,18 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
         }
         else if (block == selectBaseFace.NXOpenBlock 
-            || block == selectBaseFacePoint.NXOpenBlock
+            || block == selectBaseFacePointEx.NXOpenBlock
             ||block==selectTopFace.NXOpenBlock
             )
         {
-            var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
-            if (cuprums.Count == 1)
-            {
-                var basePoint = Enumerable.Select(selectBaseFacePoint.SelectedObjects, u => Snap.NX.Point.Wrap(u.NXOpenTag)).FirstOrDefault();
-                var baseFace = Enumerable.Select(selectBaseFace.SelectedObjects, u => Snap.NX.Face.Wrap(u.NXOpenTag)).FirstOrDefault();
-                var topFace = Enumerable.Select(selectTopFace.SelectedObjects, u => Snap.NX.Face.Wrap(u.NXOpenTag)).FirstOrDefault();
-                SetEactElec(cuprums.FirstOrDefault(),baseFace,topFace, basePoint);
-            }
+            //var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
+            //if (cuprums.Count == 1)
+            //{
+            //    var basePoint = Enumerable.Select(selectBaseFacePoint.SelectedObjects, u => Snap.NX.Point.Wrap(u.NXOpenTag)).FirstOrDefault();
+            //    var baseFace = Enumerable.Select(selectBaseFace.SelectedObjects, u => Snap.NX.Face.Wrap(u.NXOpenTag)).FirstOrDefault();
+            //    var topFace = Enumerable.Select(selectTopFace.SelectedObjects, u => Snap.NX.Face.Wrap(u.NXOpenTag)).FirstOrDefault();
+            //    SetEactElec(cuprums.FirstOrDefault(),baseFace,topFace, basePoint);
+            //}
         }
     }
 
@@ -432,6 +456,11 @@ partial class SetPropertyUI : SnapEx.BaseUI
             {
                 theUI.NXMessageBox.Show("错误", NXOpen.NXMessageBox.DialogType.Error, "电极名称不能为空");
                 return;
+            }
+
+            if (groupSElec.Show&& cuprums.Count > 0)
+            {
+                UpdateEactElec(cuprums.First());
             }
 
             if (cuprums.Count == 1)

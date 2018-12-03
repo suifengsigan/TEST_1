@@ -81,7 +81,8 @@ public partial class SetPropertyUI
     private Snap.UI.Block.Group groupSElec;// Block type: Group
     private Snap.UI.Block.SelectObject selectTopFace;// Block type: Selection
     private Snap.UI.Block.SelectObject selectBaseFace;// Block type: Selection
-    private Snap.UI.Block.SelectObject selectBaseFacePoint;// Block type: Selection
+    //private Snap.UI.Block.SelectObject selectBaseFacePoint;// Block type: Selection
+    private Snap.UI.Block.SpecifyPoint selectBaseFacePointEx;// Block type: Selection
     //------------------------------------------------------------------------------
     //Bit Option for Property: SnapPointTypesEnabled
     //------------------------------------------------------------------------------
@@ -300,7 +301,8 @@ public partial class SetPropertyUI
             groupSElec = Snap.UI.Block.Group.GetBlock(theDialog, "groupSElec");// Block type: Group
             selectTopFace = Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectTopFace");// Block type: Selection
             selectBaseFace=Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectBaseFace");// Block type: Selection
-            selectBaseFacePoint=Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectBaseFacePoint");// Block type: Selection
+            //selectBaseFacePoint=Snap.UI.Block.SelectObject.GetBlock(theDialog, "selectBaseFacePoint");// Block type: Selection
+            selectBaseFacePointEx = Snap.UI.Block.SpecifyPoint.GetBlock(theDialog, "selectBaseFacePointEx");// Block type: Selection
         }
         catch (Exception ex)
         {
