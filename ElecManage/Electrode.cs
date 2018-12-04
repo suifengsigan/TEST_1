@@ -507,7 +507,7 @@ namespace ElecManage
                     var fFace = itemFace
                     .Where(u => Snap.Compute.Distance(u, baseFace) < SnapEx.Helper.Tolerance)
                     .OrderByDescending(u => Snap.Compute.Distance(baseFaceCenterPoint, ((Snap.NX.Face.Plane)u).Geometry))
-                    .ThenByDescending(u=>u.Area)
+                    .ThenByDescending(u=>u.GetPlaneProjectArea())
                     .FirstOrDefault();
                     if (fFace != null)
                     {

@@ -12,6 +12,13 @@ namespace  SnapEx
         /// <summary>
         /// 获取平面投影面积
         /// </summary>
+        public static double GetPlaneProjectArea(this Snap.NX.Face face)
+        {
+            return GetPlaneProjectArea(face, face.GetFaceDirection());
+        }
+        /// <summary>
+        /// 获取平面投影面积
+        /// </summary>
         public static double GetPlaneProjectArea(this Snap.NX.Face face,Snap.Vector baseDir)
         {
             var topFaceDir = -baseDir;
