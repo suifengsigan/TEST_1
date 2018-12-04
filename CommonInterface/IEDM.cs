@@ -23,18 +23,31 @@ namespace CommonInterface
         }
     }
 
+    public enum EACTEdition
+    {
+        DEFAUT,
+        PZ,
+        HTUP,
+        BX,
+        YC
+    }
+
+    public struct FtpTypeConst
+    {
+        public const string CNC = "CNC";
+    }
+
     public abstract class FtpHelper
     {
-        public static void FtpUpload(string type, ElecManage.MouldInfo steelInfo, string fileName, string partName,EactConfig.ConfigData ConfigData)
+        public static void FtpUpload(string type, ElecManage.MouldInfo steelInfo, string fileName, string partName, EactConfig.ConfigData ConfigData)
         {
-            var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
             string sToPath = string.Format("{0}/{1}/{2}", type, steelInfo.MODEL_NUMBER, partName);
             var extension = Path.GetExtension(fileName).ToUpper();
             switch (ConfigData.FtpPathType)
             {
                 case 1:
                     {
-                        if (extension.Contains("STP") || extension.Contains("TXT")|| extension.Contains("PDF"))
+                        if (extension.Contains("STP") || extension.Contains("TXT") || extension.Contains("PDF"))
                         {
 
                         }
@@ -51,18 +64,34 @@ namespace CommonInterface
                     }
             }
 
-            if ((ConfigData.Edition == 2|| ConfigData.Edition == 4) && extension.Contains("PDF"))
+            if ((ConfigData.Edition == (int)EACTEdition.HTUP || ConfigData.Edition == (int)EACTEdition.YC) && extension.Contains("PDF"))
             {
                 sToPath = string.Format("{0}/{1}", type, steelInfo.MODEL_NUMBER, partName);
             }
 
-            if (!EACTFTP.DirectoryExist(sToPath))
+            if (ConfigData.Edition == (int)EACTEdition.HTUP
+                && type == FtpTypeConst.CNC
+                && !string.IsNullOrEmpty(ConfigData.FileLocalDir)
+                )
             {
-                EACTFTP.MakeDirPath(sToPath);
+                var path = Path.Combine(ConfigData.FileLocalDir, sToPath.Replace("/",@"\"));
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                File.Copy(fileName, Path.Combine(path, Path.GetFileName(fileName)));
             }
+            else
+            {
+                var EACTFTP = FlieFTP.Entry.GetFtp(ConfigData.FTP.Address, "", ConfigData.FTP.User, ConfigData.FTP.Pass, false);
+                if (!EACTFTP.DirectoryExist(sToPath))
+                {
+                    EACTFTP.MakeDirPath(sToPath);
+                }
 
-            EACTFTP.NextDirectory(sToPath);
-            EACTFTP.UpLoadFile(fileName);
+                EACTFTP.NextDirectory(sToPath);
+                EACTFTP.UpLoadFile(fileName);
+            }
         }
     }
 }

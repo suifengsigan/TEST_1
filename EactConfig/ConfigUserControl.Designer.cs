@@ -103,6 +103,9 @@
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btnCncPrtDir = new System.Windows.Forms.Button();
+            this.txtCncPrtDir = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -270,6 +273,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label22);
+            this.tabPage2.Controls.Add(this.btnCncPrtDir);
+            this.tabPage2.Controls.Add(this.txtCncPrtDir);
             this.tabPage2.Controls.Add(this.cbbFtpPathType);
             this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.txtFtpPass);
@@ -281,7 +287,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(711, 355);
+            this.tabPage2.Size = new System.Drawing.Size(711, 385);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "FTP配置";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -359,7 +365,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(711, 355);
+            this.tabPage3.Size = new System.Drawing.Size(711, 385);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "电极属性配置";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -370,7 +376,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(439, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(269, 349);
+            this.panel3.Size = new System.Drawing.Size(269, 379);
             this.panel3.TabIndex = 1;
             // 
             // groupBox2
@@ -379,7 +385,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(269, 349);
+            this.groupBox2.Size = new System.Drawing.Size(269, 379);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "选项";
@@ -391,7 +397,7 @@
             this.dataGridViewPSelection.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewPSelection.Name = "dataGridViewPSelection";
             this.dataGridViewPSelection.RowTemplate.Height = 23;
-            this.dataGridViewPSelection.Size = new System.Drawing.Size(263, 329);
+            this.dataGridViewPSelection.Size = new System.Drawing.Size(263, 359);
             this.dataGridViewPSelection.TabIndex = 0;
             // 
             // panel2
@@ -400,7 +406,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(436, 349);
+            this.panel2.Size = new System.Drawing.Size(436, 379);
             this.panel2.TabIndex = 0;
             // 
             // groupBox1
@@ -409,7 +415,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(436, 349);
+            this.groupBox1.Size = new System.Drawing.Size(436, 379);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "属性列表";
@@ -421,7 +427,7 @@
             this.dataGridViewPoperty.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewPoperty.Name = "dataGridViewPoperty";
             this.dataGridViewPoperty.RowTemplate.Height = 23;
-            this.dataGridViewPoperty.Size = new System.Drawing.Size(430, 329);
+            this.dataGridViewPoperty.Size = new System.Drawing.Size(430, 359);
             this.dataGridViewPoperty.TabIndex = 0;
             // 
             // tabPage4
@@ -459,7 +465,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(711, 355);
+            this.tabPage4.Size = new System.Drawing.Size(711, 385);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "基本配置";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -760,7 +766,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(711, 355);
+            this.tabPage6.Size = new System.Drawing.Size(711, 385);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "图档配置";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -768,7 +774,7 @@
             // cbIsExportEDM
             // 
             this.cbIsExportEDM.AutoSize = true;
-            this.cbIsExportEDM.Location = new System.Drawing.Point(81, 217);
+            this.cbIsExportEDM.Location = new System.Drawing.Point(81, 219);
             this.cbIsExportEDM.Name = "cbIsExportEDM";
             this.cbIsExportEDM.Size = new System.Drawing.Size(66, 16);
             this.cbIsExportEDM.TabIndex = 59;
@@ -798,7 +804,7 @@
             // cbExportStp
             // 
             this.cbExportStp.AutoSize = true;
-            this.cbExportStp.Location = new System.Drawing.Point(81, 185);
+            this.cbExportStp.Location = new System.Drawing.Point(81, 187);
             this.cbExportStp.Name = "cbExportStp";
             this.cbExportStp.Size = new System.Drawing.Size(42, 16);
             this.cbExportStp.TabIndex = 56;
@@ -870,6 +876,32 @@
             this.cbExportCMM.TabIndex = 49;
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(34, 212);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(53, 12);
+            this.label22.TabIndex = 65;
+            this.label22.Text = "本地路径";
+            // 
+            // btnCncPrtDir
+            // 
+            this.btnCncPrtDir.Location = new System.Drawing.Point(424, 207);
+            this.btnCncPrtDir.Name = "btnCncPrtDir";
+            this.btnCncPrtDir.Size = new System.Drawing.Size(75, 23);
+            this.btnCncPrtDir.TabIndex = 64;
+            this.btnCncPrtDir.Text = "选择目录";
+            this.btnCncPrtDir.UseVisualStyleBackColor = true;
+            // 
+            // txtCncPrtDir
+            // 
+            this.txtCncPrtDir.Enabled = false;
+            this.txtCncPrtDir.Location = new System.Drawing.Point(127, 209);
+            this.txtCncPrtDir.Name = "txtCncPrtDir";
+            this.txtCncPrtDir.Size = new System.Drawing.Size(272, 21);
+            this.txtCncPrtDir.TabIndex = 63;
             // 
             // ConfigUserControl
             // 
@@ -974,5 +1006,8 @@
         private System.Windows.Forms.CheckBox cbIsElecSetDefault;
         private System.Windows.Forms.TextBox txtEmanWebPath;
         private System.Windows.Forms.CheckBox cbIsExportEDM;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btnCncPrtDir;
+        private System.Windows.Forms.TextBox txtCncPrtDir;
     }
 }

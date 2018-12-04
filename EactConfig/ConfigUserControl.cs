@@ -112,6 +112,16 @@ namespace EactConfig
             dataGridViewPoperty.MouseDown += DataGridViewPoperty_MouseDown;
             dataGridViewPSelection.CellPainting += DataGridViewPSelection_CellPainting;
             btnSetPrtColor.Click += btnSetPrtColor_Click;
+            btnCncPrtDir.Click += BtnCncPrtDir_Click;
+        }
+
+        private void BtnCncPrtDir_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                txtCncPrtDir.Text = folderBrowser.SelectedPath;
+            }
         }
 
         private void DataGridViewPoperty_MouseDown(object sender, MouseEventArgs e)
@@ -412,6 +422,7 @@ namespace EactConfig
             cbIsCanSelLayerInBom.Checked = data.isCanSelLayerInBom;
             cbIsSetPropertyAllowMultiple.Checked = data.IsSetPropertyAllowMultiple;
             cbIsSetPrtColor.Checked = data.IsSetPrtColor;
+            txtCncPrtDir.Text = data.FileLocalDir;
             txtEleFType.Text = data.EleFType;
             txtEleMType.Text = data.EleMType;
             txtEleRType.Text = data.EleRType;
@@ -466,6 +477,7 @@ namespace EactConfig
             try
             {
                 var data = new ConfigData();
+                data.FileLocalDir = txtCncPrtDir.Text;
                 data.IsExportEDM = cbIsExportEDM.Checked;
                 data.IsElecSetDefault = cbIsElecSetDefault.Checked;
                 data.IsDistinguishSideElec = cbIsDistinguishSideElec.Checked;

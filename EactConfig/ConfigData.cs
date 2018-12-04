@@ -150,6 +150,10 @@ namespace EactConfig
         /// </summary>
         public bool IsExportEDM = false;
         /// <summary>
+        /// 本地存放路径
+        /// </summary>
+        public string FileLocalDir = string.Empty;
+        /// <summary>
         /// 毛坯余量
         /// </summary>
         public double PQBlankStock = 1.5;
