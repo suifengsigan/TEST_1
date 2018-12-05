@@ -45,6 +45,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btnCncPrtDir = new System.Windows.Forms.Button();
+            this.txtCncPrtDir = new System.Windows.Forms.TextBox();
             this.cbbFtpPathType = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txtFtpPass = new System.Windows.Forms.TextBox();
@@ -103,9 +106,6 @@
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.btnCncPrtDir = new System.Windows.Forms.Button();
-            this.txtCncPrtDir = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -291,6 +291,31 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "FTP配置";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(34, 212);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(53, 12);
+            this.label22.TabIndex = 65;
+            this.label22.Text = "本地路径";
+            // 
+            // btnCncPrtDir
+            // 
+            this.btnCncPrtDir.Location = new System.Drawing.Point(424, 207);
+            this.btnCncPrtDir.Name = "btnCncPrtDir";
+            this.btnCncPrtDir.Size = new System.Drawing.Size(75, 23);
+            this.btnCncPrtDir.TabIndex = 64;
+            this.btnCncPrtDir.Text = "选择目录";
+            this.btnCncPrtDir.UseVisualStyleBackColor = true;
+            // 
+            // txtCncPrtDir
+            // 
+            this.txtCncPrtDir.Location = new System.Drawing.Point(127, 209);
+            this.txtCncPrtDir.Name = "txtCncPrtDir";
+            this.txtCncPrtDir.Size = new System.Drawing.Size(272, 21);
+            this.txtCncPrtDir.TabIndex = 63;
             // 
             // cbbFtpPathType
             // 
@@ -876,32 +901,6 @@
             this.cbExportCMM.TabIndex = 49;
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(34, 212);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(53, 12);
-            this.label22.TabIndex = 65;
-            this.label22.Text = "本地路径";
-            // 
-            // btnCncPrtDir
-            // 
-            this.btnCncPrtDir.Location = new System.Drawing.Point(424, 207);
-            this.btnCncPrtDir.Name = "btnCncPrtDir";
-            this.btnCncPrtDir.Size = new System.Drawing.Size(75, 23);
-            this.btnCncPrtDir.TabIndex = 64;
-            this.btnCncPrtDir.Text = "选择目录";
-            this.btnCncPrtDir.UseVisualStyleBackColor = true;
-            // 
-            // txtCncPrtDir
-            // 
-            this.txtCncPrtDir.Enabled = false;
-            this.txtCncPrtDir.Location = new System.Drawing.Point(127, 209);
-            this.txtCncPrtDir.Name = "txtCncPrtDir";
-            this.txtCncPrtDir.Size = new System.Drawing.Size(272, 21);
-            this.txtCncPrtDir.TabIndex = 63;
             // 
             // ConfigUserControl
             // 
