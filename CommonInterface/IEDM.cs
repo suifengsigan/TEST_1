@@ -74,7 +74,12 @@ namespace CommonInterface
                 && !string.IsNullOrEmpty(ConfigData.FileLocalDir)
                 )
             {
-                var path = Path.Combine(ConfigData.FileLocalDir, sToPath.Replace("/",@"\"));
+                var tempPath = sToPath.Split('/').ToList();
+                if (tempPath.Count > 0)
+                {
+                    tempPath = tempPath.Skip(1).Take(tempPath.Count - 1).ToList();
+                }
+                var path = Path.Combine(ConfigData.FileLocalDir, string.Join(@"\", tempPath.ToArray()));
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
