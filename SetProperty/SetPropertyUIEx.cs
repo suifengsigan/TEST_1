@@ -326,7 +326,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
             {
                 var body = nameC.First();
                 var info = GetElecInfo(body);
-                var groupSElecShow = info == null;
+                var groupSElecShow = info == null || info.IsSpecialShapeElec == "1";
                 if (info == null)
                 {
                     info = new ElecManage.EactElectrodeInfo(body);
