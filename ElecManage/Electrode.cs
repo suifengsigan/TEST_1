@@ -130,6 +130,11 @@ namespace ElecManage
                 body.SetStringAttribute(EactElectrode.EACT_ELECT_GROUP, guid);
                 basePoint.SetStringAttribute(EactElectrode.EACT_ELECT_GROUP, guid);
             }
+
+            if (topFace != null&& baseFace != null&& basePoint != null)
+            {
+                body.SetStringAttribute(ElectrodeInfo.EACT_SPECIALSHAPED, "1");
+            }
         }
         /// <summary>
         /// 电极类型

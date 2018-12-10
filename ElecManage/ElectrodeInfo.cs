@@ -41,6 +41,7 @@ namespace ElecManage
         protected string EACT_ASSEMBLYEXP1 = "EACT_ASSEMBLYEXP1";
         protected string EACT_SHAPE = "SHAPE";
         protected string EACT_ROCKSHAPE = "ROCKSHAPE";
+        public const string EACT_SPECIALSHAPED = "EACT_SPECIALSHAPED";
         /// <summary>
         /// 电极间隙已计算未计算
         /// </summary>
@@ -85,6 +86,22 @@ namespace ElecManage
         {
             _body = body;
         }
+
+        /// <summary>
+        /// 是否异形电极
+        /// </summary>
+        public string IsSpecialShapeElec
+        {
+            get
+            {
+                return _body.GetAttrValue(EACT_SPECIALSHAPED);
+            }
+            set
+            {
+                SetStringAttribute(EACT_SPECIALSHAPED, value);
+            }
+        }
+
 
         /// <summary>
         /// 电极间隙已计算未计算
