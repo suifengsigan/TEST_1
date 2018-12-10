@@ -377,6 +377,17 @@ namespace ElecManage
 
         public Electrode Electrode { get; set; }
 
+        public Snap.Geom.Box3d GetBox3d(Snap.Vector baseDir)
+        {
+            if (Electrode != null)
+            {
+                var topFaceDir = baseDir;
+                var topFaceOrientation = new Snap.Orientation(topFaceDir);
+                return _body.AcsToWcsBox3d(topFaceOrientation);
+            }
+            return _body.AcsToWcsBox3d();
+        }
+
         public Snap.Geom.Box3d GetBox3d()
         {
             if (Electrode != null)
