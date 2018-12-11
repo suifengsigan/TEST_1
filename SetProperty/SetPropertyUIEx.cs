@@ -206,13 +206,13 @@ partial class SetPropertyUI : SnapEx.BaseUI
 
     void UpdateEactElec(Snap.NX.Body body)
     {
-        Snap.NX.Face topFace;
-        Snap.NX.Face baseFace;
+        Snap.NX.Face topFace = null;
+        Snap.NX.Face baseFace = null;
         Snap.NX.Point basePoint = null;
         Snap.Position pos = new Snap.Position();
+        ElecManage.Electrode.GetEactElectrode(body, ref topFace, ref baseFace, ref basePoint, ref pos);
         topFace = selectTopFace.SelectedObjects.FirstOrDefault() as Snap.NX.Face;
         baseFace = selectBaseFace.SelectedObjects.FirstOrDefault() as Snap.NX.Face;
-        ElecManage.Electrode.GetEactElectrode(body, ref topFace, ref baseFace, ref basePoint, ref pos);
         pos = selectBaseFacePointEx.Position;
         if (basePoint == null)
         {
