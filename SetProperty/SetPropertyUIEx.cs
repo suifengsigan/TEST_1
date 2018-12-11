@@ -6,7 +6,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
 {
     bool _isAllowMultiple = false;
     EactConfig.ConfigData _configData = EactConfig.ConfigData.GetInstance();
-    bool SpecialshapedElec { get { return _configData.SpecialshapedElec && !_configData.IsSetPropertyAllowMultiple; } }
+    bool SpecialshapedElec { get { return _configData.SpecialshapedElec; } }
     ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b)
     {
         ElecManage.ElectrodeInfo info = null;
@@ -322,11 +322,12 @@ partial class SetPropertyUI : SnapEx.BaseUI
             var nameC = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToList();
 
             groupSElec.Show = false;
+            var groupSElecShow = false;
             if (nameC.Count == 1)
             {
                 var body = nameC.First();
                 var info = GetElecInfo(body);
-                var groupSElecShow = info == null || info.IsSpecialShapeElec == "1";
+                groupSElecShow = info == null || info.IsSpecialShapeElec == "1";
                 if (info == null)
                 {
                     info = new ElecManage.EactElectrodeInfo(body);
@@ -370,6 +371,17 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "电极名称不能为空");
                 selectCuprum.SelectedObjects = cuprums.Where(u => !string.IsNullOrEmpty(u.Name)).ToArray();
             }
+            else if (SpecialshapedElec&& nameC.Count >1)
+            {
+                var body = nameC.Last();
+                var info = GetElecInfo(body);
+                if (info == null)
+                {
+                    theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "异形电极");
+                    selectCuprum.SelectedObjects = cuprums.Where(u => u.Name!=body.Name).ToArray();
+                }
+               
+            }
 
             if (_isAllowMultiple)
             {
@@ -396,6 +408,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 else
                 {
                     if (string.IsNullOrEmpty(cuprums.First().Name))
+                    {
+                        selectCuprum.AllowMultiple = false;
+                    }
+                    else if(groupSElecShow)
                     {
                         selectCuprum.AllowMultiple = false;
                     }
