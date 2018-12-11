@@ -7,6 +7,10 @@ partial class SetPropertyUI : SnapEx.BaseUI
     bool _isAllowMultiple = false;
     EactConfig.ConfigData _configData = EactConfig.ConfigData.GetInstance();
     bool SpecialshapedElec { get { return _configData.SpecialshapedElec; } }
+    /// <summary>
+    /// 可识别电极列表
+    /// </summary>
+    List<string> _elecNameLst = new List<string>();
     ElecManage.ElectrodeInfo GetElecInfo(Snap.NX.Body b)
     {
         ElecManage.ElectrodeInfo info = null;
@@ -16,6 +20,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
             if (xkElec != null)
             {
                 info = xkElec.GetElectrodeInfo();
+                _elecNameLst.Add(info.Elec_Name);
             }
         }
         else
@@ -373,14 +378,23 @@ partial class SetPropertyUI : SnapEx.BaseUI
             }
             else if (SpecialshapedElec&& nameC.Count >1)
             {
-                var body = nameC.Last();
-                var info = GetElecInfo(body);
-                if (info == null)
+                var lstMsg = new List<string>();
+                var tempNameC = nameC.Where(u => !_elecNameLst.Contains(u.Name));
+                foreach (var item in tempNameC.GroupBy(u => u.Name))
                 {
-                    theUI.NXMessageBox.Show("提示", NXOpen.NXMessageBox.DialogType.Information, "异形电极");
-                    selectCuprum.SelectedObjects = cuprums.Where(u => u.Name!=body.Name).ToArray();
+                    var body = item.First();
+                    var info = GetElecInfo(body);
+                    if (info == null)
+                    {
+                        lstMsg.Add(string.Format("{0}:{1}", body.Name, "异形电极"));
+                        selectCuprum.SelectedObjects = cuprums.Where(u => u.Name != body.Name).ToArray();
+                    }
                 }
-               
+                if (lstMsg.Count > 0)
+                {
+                    Snap.InfoWindow.Clear();
+                    lstMsg.ForEach(u => { Snap.InfoWindow.WriteLine(u); });
+                }
             }
 
             if (_isAllowMultiple)
