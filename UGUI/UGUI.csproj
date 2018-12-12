@@ -49,6 +49,9 @@
     <None Include="BatchGeomcopyElecUI.dlx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="CheckRegionsUI.dlx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="CMMProgramUI.dlx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
