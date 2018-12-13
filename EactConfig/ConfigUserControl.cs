@@ -15,39 +15,7 @@ namespace EactConfig
         {
             btnSave_Click(null, null);
         }
-        public static System.Drawing.Color WindowsColor(int colorIndex)
-        {
-            string str;
-            double[] numArray = new double[3];
-            int num = 0;
-            if (NXOpen.Session.GetSession().Parts.Work != null)
-            {
-                var ufSession = NXOpen.UF.UFSession.GetUFSession();
-                var disp = ufSession.Disp;
-                disp.AskColor(colorIndex, num, out str, numArray);
-            }
-            int red = (int)(numArray[0] * 255.0);
-            int green = (int)(numArray[1] * 255.0);
-            int blue = (int)(numArray[2] * 255.0);
-            return System.Drawing.Color.FromArgb(red, green, blue);
-        }
-        public static int ColorIndex(System.Drawing.Color windowsColor)
-        {
-            double num = ((double)windowsColor.R) / 255.0;
-            double num2 = ((double)windowsColor.G) / 255.0;
-            double num3 = ((double)windowsColor.B) / 255.0;
-            double[] numArray = new double[] { num, num2, num3 };
-            int num4 = 0;
-            int num5 = 0;
-            int num6 = 1;
-            if (NXOpen.Session.GetSession().Parts.Work != null)
-            {
-                var ufSession = NXOpen.UF.UFSession.GetUFSession();
-                var disp = ufSession.Disp;
-                disp.AskClosestColor(num5, numArray, num6, out num4);
-            }
-            return num4;
-        }
+       
         void InitDgv(DataGridView view)
         {
             view.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -445,14 +413,14 @@ namespace EactConfig
             cbShareElec.Checked = data.ShareElec;
             try
             {
-                btnSetPrtColor.BackColor = WindowsColor(data.EDMColor);
+                btnSetPrtColor.BackColor = SnapEx.Create.WindowsColor(data.EDMColor);
                 label13.Text = data.EDMColor.ToString();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 btnSetPrtColor.BackColor = System.Drawing.Color.Red;
-                label13.Text = ColorIndex(System.Drawing.Color.Red).ToString();
+                label13.Text = SnapEx.Create.ColorIndex(System.Drawing.Color.Red).ToString();
             }
             var items= cbbQuadrantType.Items.Cast<ComboBoxItem>().ToList();
             cbbQuadrantType.SelectedIndex = items.IndexOf(items.FirstOrDefault(u => (QuadrantType)u.Value == data.QuadrantType));
@@ -513,7 +481,7 @@ namespace EactConfig
                 data.IsCanPropertyUpdate = rbCanPUpdate.Checked;
                 data.ShareElec = cbShareElec.Checked;
                 data.txtEmanWebPath = txtEmanWebPath.Text;
-                data.EDMColor = ColorIndex(btnSetPrtColor.BackColor);
+                data.EDMColor = SnapEx.Create.ColorIndex(btnSetPrtColor.BackColor);
                 data.QuadrantType = (QuadrantType)(cbbQuadrantType.SelectedItem as ComboBoxItem).Value;
                 //data.UGVersion = (int)(cbbUGVersion.SelectedItem as ComboBoxItem).Value;
                 data.LicenseType = (int)(cbbLicenseType.SelectedItem as ComboBoxItem).Value;
@@ -538,7 +506,7 @@ namespace EactConfig
             if (color.ShowDialog() == DialogResult.OK) 
             {
                 btnSetPrtColor.BackColor = color.Color;
-                label13.Text = ColorIndex(color.Color).ToString();
+                label13.Text = SnapEx.Create.ColorIndex(color.Color).ToString();
             }
         }
     }
