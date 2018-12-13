@@ -9,7 +9,7 @@
 //        Created by: PENGHUI
 //              Version: NX 9
 //              Date: 12-13-2018  (Format: mm-dd-yyyy)
-//              Time: 09:21 (Format: hh-mm)
+//              Time: 09:51 (Format: hh-mm)
 //
 //==============================================================================
 
@@ -37,14 +37,23 @@ public class CheckRegionsUI
     private NXOpen.BlockStyler.Group tabPage;// Block type: Group
     private NXOpen.BlockStyler.Group group5;// Block type: Group
     private NXOpen.BlockStyler.Enumeration enum02;// Block type: Enumeration
-    private NXOpen.BlockStyler.Group group;// Block type: Group
-    private NXOpen.BlockStyler.SelectObject bodySelect0;// Block type: Selection
-    private NXOpen.BlockStyler.SpecifyVector vector0;// Block type: Specify Vector
     private NXOpen.BlockStyler.Group group1;// Block type: Group
     private NXOpen.BlockStyler.Enumeration enum0;// Block type: Enumeration
     private NXOpen.BlockStyler.Label label01;// Block type: Label
     private NXOpen.BlockStyler.Button button0;// Block type: Button
     private NXOpen.BlockStyler.Group tabPage1;// Block type: Group
+    private NXOpen.BlockStyler.Group group4;// Block type: Group
+    private NXOpen.BlockStyler.Label label02;// Block type: Label
+    private NXOpen.BlockStyler.IntegerBlock integer0;// Block type: Integer
+    private NXOpen.BlockStyler.Label label03;// Block type: Label
+    private NXOpen.BlockStyler.IntegerBlock integer01;// Block type: Integer
+    private NXOpen.BlockStyler.Group group3;// Block type: Group
+    private NXOpen.BlockStyler.FaceCollector face_select0;// Block type: Face Collector
+    private NXOpen.BlockStyler.Enumeration enum01;// Block type: Enumeration
+    private NXOpen.BlockStyler.Button button02;// Block type: Button
+    private NXOpen.BlockStyler.Group group;// Block type: Group
+    private NXOpen.BlockStyler.SelectObject bodySelect0;// Block type: Selection
+    private NXOpen.BlockStyler.SpecifyVector vector0;// Block type: Specify Vector
     private NXOpen.BlockStyler.Group group2;// Block type: Group
     private NXOpen.BlockStyler.DoubleBlock double0;// Block type: Double
     private NXOpen.BlockStyler.Label label0;// Block type: Label
@@ -61,15 +70,24 @@ public class CheckRegionsUI
     private NXOpen.BlockStyler.Toggle toggle05;// Block type: Toggle
     private NXOpen.BlockStyler.ObjectColorPicker colorPicker05;// Block type: Color Picker
     private NXOpen.BlockStyler.Button button01;// Block type: Button
-    private NXOpen.BlockStyler.Group group4;// Block type: Group
-    private NXOpen.BlockStyler.Label label02;// Block type: Label
-    private NXOpen.BlockStyler.IntegerBlock integer0;// Block type: Integer
-    private NXOpen.BlockStyler.Label label03;// Block type: Label
-    private NXOpen.BlockStyler.IntegerBlock integer01;// Block type: Integer
-    private NXOpen.BlockStyler.Group group3;// Block type: Group
-    private NXOpen.BlockStyler.FaceCollector face_select0;// Block type: Face Collector
-    private NXOpen.BlockStyler.Enumeration enum01;// Block type: Enumeration
-    private NXOpen.BlockStyler.Button button02;// Block type: Button
+    public static readonly int                          EntityType_AllowFaces = (1 << 4);
+    public static readonly int                         EntityType_AllowDatums = (1 << 5);
+    public static readonly int                         EntityType_AllowBodies = (1 << 6);
+    public static readonly int                           FaceRules_SingleFace = (1 << 0);
+    public static readonly int                          FaceRules_RegionFaces = (1 << 1);
+    public static readonly int                         FaceRules_TangentFaces = (1 << 2);
+    public static readonly int                   FaceRules_TangentRegionFaces = (1 << 3);
+    public static readonly int                            FaceRules_BodyFaces = (1 << 4);
+    public static readonly int                         FaceRules_FeatureFaces = (1 << 5);
+    public static readonly int                        FaceRules_AdjacentFaces = (1 << 6);
+    public static readonly int                  FaceRules_ConnectedBlendFaces = (1 << 7);
+    public static readonly int                        FaceRules_AllBlendFaces = (1 << 8);
+    public static readonly int                             FaceRules_RibFaces = (1 << 9);
+    public static readonly int                            FaceRules_SlotFaces = (1 <<10);
+    public static readonly int                   FaceRules_BossandPocketFaces = (1 <<11);
+    public static readonly int                       FaceRules_MergedRibFaces = (1 <<12);
+    public static readonly int                  FaceRules_RegionBoundaryFaces = (1 <<13);
+    public static readonly int                 FaceRules_FaceandAdjacentFaces = (1 <<14);
     public static readonly int              SnapPointTypesEnabled_UserDefined = (1 << 0);
     public static readonly int                 SnapPointTypesEnabled_Inferred = (1 << 1);
     public static readonly int           SnapPointTypesEnabled_ScreenPosition = (1 << 2);
@@ -106,24 +124,6 @@ public class CheckRegionsUI
     public static readonly int                SnapPointTypesOnByDefault_Poles = (1 <<15);
     public static readonly int     SnapPointTypesOnByDefault_BoundedGridPoint = (1 <<16);
     public static readonly int     SnapPointTypesOnByDefault_FacetVertexPoint = (1 <<17);
-    public static readonly int                          EntityType_AllowFaces = (1 << 4);
-    public static readonly int                         EntityType_AllowDatums = (1 << 5);
-    public static readonly int                         EntityType_AllowBodies = (1 << 6);
-    public static readonly int                           FaceRules_SingleFace = (1 << 0);
-    public static readonly int                          FaceRules_RegionFaces = (1 << 1);
-    public static readonly int                         FaceRules_TangentFaces = (1 << 2);
-    public static readonly int                   FaceRules_TangentRegionFaces = (1 << 3);
-    public static readonly int                            FaceRules_BodyFaces = (1 << 4);
-    public static readonly int                         FaceRules_FeatureFaces = (1 << 5);
-    public static readonly int                        FaceRules_AdjacentFaces = (1 << 6);
-    public static readonly int                  FaceRules_ConnectedBlendFaces = (1 << 7);
-    public static readonly int                        FaceRules_AllBlendFaces = (1 << 8);
-    public static readonly int                             FaceRules_RibFaces = (1 << 9);
-    public static readonly int                            FaceRules_SlotFaces = (1 <<10);
-    public static readonly int                   FaceRules_BossandPocketFaces = (1 <<11);
-    public static readonly int                       FaceRules_MergedRibFaces = (1 <<12);
-    public static readonly int                  FaceRules_RegionBoundaryFaces = (1 <<13);
-    public static readonly int                 FaceRules_FaceandAdjacentFaces = (1 <<14);
     
     //------------------------------------------------------------------------------
     //Constructor for NX Styler class
@@ -224,14 +224,23 @@ public class CheckRegionsUI
             tabPage = theDialog.TopBlock.FindBlock("tabPage");
             group5 = theDialog.TopBlock.FindBlock("group5");
             enum02 = theDialog.TopBlock.FindBlock("enum02");
-            group = theDialog.TopBlock.FindBlock("group");
-            bodySelect0 = theDialog.TopBlock.FindBlock("bodySelect0");
-            vector0 = theDialog.TopBlock.FindBlock("vector0");
             group1 = theDialog.TopBlock.FindBlock("group1");
             enum0 = theDialog.TopBlock.FindBlock("enum0");
             label01 = theDialog.TopBlock.FindBlock("label01");
             button0 = theDialog.TopBlock.FindBlock("button0");
             tabPage1 = theDialog.TopBlock.FindBlock("tabPage1");
+            group4 = theDialog.TopBlock.FindBlock("group4");
+            label02 = theDialog.TopBlock.FindBlock("label02");
+            integer0 = theDialog.TopBlock.FindBlock("integer0");
+            label03 = theDialog.TopBlock.FindBlock("label03");
+            integer01 = theDialog.TopBlock.FindBlock("integer01");
+            group3 = theDialog.TopBlock.FindBlock("group3");
+            face_select0 = theDialog.TopBlock.FindBlock("face_select0");
+            enum01 = theDialog.TopBlock.FindBlock("enum01");
+            button02 = theDialog.TopBlock.FindBlock("button02");
+            group = theDialog.TopBlock.FindBlock("group");
+            bodySelect0 = theDialog.TopBlock.FindBlock("bodySelect0");
+            vector0 = theDialog.TopBlock.FindBlock("vector0");
             group2 = theDialog.TopBlock.FindBlock("group2");
             double0 = theDialog.TopBlock.FindBlock("double0");
             label0 = theDialog.TopBlock.FindBlock("label0");
@@ -248,15 +257,6 @@ public class CheckRegionsUI
             toggle05 = theDialog.TopBlock.FindBlock("toggle05");
             colorPicker05 = theDialog.TopBlock.FindBlock("colorPicker05");
             button01 = theDialog.TopBlock.FindBlock("button01");
-            group4 = theDialog.TopBlock.FindBlock("group4");
-            label02 = theDialog.TopBlock.FindBlock("label02");
-            integer0 = theDialog.TopBlock.FindBlock("integer0");
-            label03 = theDialog.TopBlock.FindBlock("label03");
-            integer01 = theDialog.TopBlock.FindBlock("integer01");
-            group3 = theDialog.TopBlock.FindBlock("group3");
-            face_select0 = theDialog.TopBlock.FindBlock("face_select0");
-            enum01 = theDialog.TopBlock.FindBlock("enum01");
-            button02 = theDialog.TopBlock.FindBlock("button02");
         }
         catch (Exception ex)
         {
@@ -288,12 +288,6 @@ public class CheckRegionsUI
             if(block == enum02)
             {
             }
-            else if(block == bodySelect0)
-            {
-            }
-            else if(block == vector0)
-            {
-            }
             else if(block == enum0)
             {
             }
@@ -301,6 +295,33 @@ public class CheckRegionsUI
             {
             }
             else if(block == button0)
+            {
+            }
+            else if(block == label02)
+            {
+            }
+            else if(block == integer0)
+            {
+            }
+            else if(block == label03)
+            {
+            }
+            else if(block == integer01)
+            {
+            }
+            else if(block == face_select0)
+            {
+            }
+            else if(block == enum01)
+            {
+            }
+            else if(block == button02)
+            {
+            }
+            else if(block == bodySelect0)
+            {
+            }
+            else if(block == vector0)
             {
             }
             else if(block == double0)
@@ -346,27 +367,6 @@ public class CheckRegionsUI
             {
             }
             else if(block == button01)
-            {
-            }
-            else if(block == label02)
-            {
-            }
-            else if(block == integer0)
-            {
-            }
-            else if(block == label03)
-            {
-            }
-            else if(block == integer01)
-            {
-            }
-            else if(block == face_select0)
-            {
-            }
-            else if(block == enum01)
-            {
-            }
-            else if(block == button02)
             {
             }
         }

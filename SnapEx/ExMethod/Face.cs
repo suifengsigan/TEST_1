@@ -84,18 +84,37 @@ namespace  SnapEx
         {
             return face.GetDraftAngle(new Snap.Vector(0, 0, 1));
         }
-
+        
         /// <summary>
         /// 获取拔模角度
         /// </summary>
-        public static double GetDraftAngle(this Snap.NX.Face face, Snap.Vector vector)
+        public static double GetDraftAngle(this Snap.NX.Face face, Snap.Vector draftVector)
         {
-            var ufSession = NXOpen.UF.UFSession.GetUFSession();
-            double[] param = new double[2], point = new double[3], u1 = new double[3], v1 = new double[3], u2 = new double[3], v2 = new double[3], unitNorm = new double[3], radii = new double[2];
-            ufSession.Modl.AskFaceProps(face.NXOpenTag, param, point, u1, v1, u2, v2, unitNorm, radii);
-            var angle = Snap.Vector.Angle(unitNorm, vector);
-            var draftAngle = 90 - angle;
-            return draftAngle;
+            var result = 0.0;
+            var angles = new List<double>();
+            var vector = face.GetFaceDirection();
+
+            if (double.IsNaN(vector.X) || double.IsNaN(vector.Y) || double.IsNaN(vector.Z))
+            {
+                var posLst = SnapEx.Create.GetFacePoints(face);
+                posLst.ForEach(u => {
+                    angles.Add(90 - Snap.Vector.Angle(draftVector, GetFaceDirectionByPoint(face,u)));
+                });
+            }
+            else
+            {
+                angles.Add(90 - Snap.Vector.Angle(draftVector, vector));
+            }
+
+            if (angles.Count > 0)
+            {
+                int count = angles.Count;
+                angles.ForEach(u => {
+                    result += u / count;
+                });
+            }
+
+            return result;
         }
 
 
