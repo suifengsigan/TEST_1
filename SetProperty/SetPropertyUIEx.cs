@@ -272,6 +272,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
         //selectBaseFacePoint.SetFilter(Snap.NX.ObjectTypes.Type.Point, Snap.NX.ObjectTypes.SubType.PatternPoint);
         ElecManage.Entry.Edition = _configData.Edition;
         ElecManage.Entry.Instance.IsDistinguishSideElec = true;
+        _elecNameLst.Clear();
     }
 
     public override void DialogShown()

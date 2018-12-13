@@ -92,7 +92,14 @@ namespace  SnapEx
         {
             var result = 0.0;
             var angles = new List<double>();
-            var vector = face.GetFaceDirection();
+            var vector = new Snap.Vector(double.NaN,double.NaN,double.NaN);
+
+            switch (face.ObjectSubType)
+            {
+                case Snap.NX.ObjectTypes.SubType.FacePlane:
+                    vector = face.GetFaceDirection();
+                    break;
+            }
 
             if (double.IsNaN(vector.X) || double.IsNaN(vector.Y) || double.IsNaN(vector.Z))
             {
