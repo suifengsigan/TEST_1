@@ -344,18 +344,40 @@ namespace EactBom
                     //高亮显示20181126
                     if (EactBomBusiness.Instance.ConfigData.Edition == 2)
                     {
-                        Snap.Globals.WorkPart.Bodies.ToList().ForEach(u => {
-                            if (!u.IsHidden)
+                        //TODO 设置所有图层
+                        var ele = list.FirstOrDefault();
+                        var eleLayer = ele.Electrode.ElecBody.Layer;
+                        if (ele != null)
+                        {
+                            for (int i = 1; i < 256; i++)
                             {
-                                u.IsHidden = true;
+                                if (i == ele.Electrode.ElecBody.Layer)
+                                {
+                                    Snap.Globals.LayerStates[i] = Snap.Globals.LayerState.Selectable;
+                                }
+                                else if (i != Snap.Globals.WorkLayer)
+                                {
+                                    if (Snap.Globals.LayerStates[i] != Snap.Globals.LayerState.Hidden)
+                                    {
+                                        Snap.Globals.LayerStates[i] = Snap.Globals.LayerState.Hidden;
+                                    }
+                                }
                             }
-                        });
 
-                        list.ForEach(u => {
-                            u.Electrode.ElecBody.IsHidden = false;
-                        });
+                            Snap.Globals.WorkPart.Bodies.ToList().ForEach(u => {
+                                if (!u.IsHidden)
+                                {
+                                    u.IsHidden = true;
+                                }
+                            });
 
-                        Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
+                            ele.Electrode.ElecBody.IsHidden = false;
+
+                            var workPart = Snap.Globals.WorkPart.NXOpenPart;
+                            workPart.ModelingViews.WorkView.Fit();
+                            Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
+                        }
+                        
                     }
 
 
