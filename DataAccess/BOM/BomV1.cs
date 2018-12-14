@@ -293,7 +293,12 @@ namespace DataAccess
                                     insert_cuprum_assembly_sql += " values(" + cuprumId + "," + specId + "," + struffId + "," + chuckId + ",getdate())";
                                     conn.Execute(insert_cuprum_assembly_sql, null, _tran);
                                 }
-                                  
+                                else
+                                {
+                                    var update_cuprum_assembly_sql = "update EACT_cuprum_assembly set specid=@specId,struffid=@struffId,chucktypeid=@chuckId,RECORDTIME=getdate() where cuprumId=@cuprumId";
+                                    conn.Execute(update_cuprum_assembly_sql, new { cuprumId = updateCuprum.CUPRUMID, specId = specId, struffId = struffId, chuckId = chuckId, RECORDTIME = DateTime.Now }, _tran);
+                                }
+
                             }
                         }
                     }
