@@ -345,14 +345,14 @@ namespace EactBom
                     if (EactBomBusiness.Instance.ConfigData.Edition == 2)
                     {
                         Snap.Globals.WorkPart.Bodies.ToList().ForEach(u => {
-                            if (u.IsHighlighted)
+                            if (!u.IsHidden)
                             {
-                                u.IsHighlighted = false;
+                                u.IsHidden = true;
                             }
                         });
 
                         list.ForEach(u => {
-                            u.Electrode.ElecBody.IsHighlighted = true;
+                            u.Electrode.ElecBody.IsHidden = false;
                         });
 
                         Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();

@@ -84,7 +84,7 @@ namespace CommonInterface
                 {
                     Directory.CreateDirectory(path);
                 }
-                File.Copy(fileName, Path.Combine(path, Path.GetFileName(fileName)));
+                File.Copy(fileName, Path.Combine(path, Path.GetFileName(fileName)),true);
             }
             else
             {
