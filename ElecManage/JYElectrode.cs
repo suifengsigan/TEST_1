@@ -44,6 +44,7 @@ namespace ElecManage
 
         public override Snap.NX.Face GetChamferFace()
         {
+            if (ChamferFace != null) return ChamferFace;
             Snap.NX.Face result = null;
             var results = new List<Snap.NX.Face>();
             if (BaseFace != null && DiagonalLine != null)
