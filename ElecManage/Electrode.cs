@@ -201,6 +201,28 @@ namespace ElecManage
             return GetElecTransWcsToAcs(baseDir, Snap.Globals.WcsOrientation);
         }
 
+        /// <summary>
+        /// 获取摄像机视角
+        /// </summary>
+        public static Snap.Orientation GetCameraOrientation(Snap.Orientation ori, Electrode elec = null)
+        {
+            var wcsOrientation = Electrode.GetStandardOrientation(Snap.Globals.WcsOrientation);
+            var acsOrientation = Snap.Orientation.Identity;
+            var transR = Snap.Geom.Transform.CreateRotation(acsOrientation, wcsOrientation);
+
+            var X = new Snap.Vector(ori.AxisX.X, ori.AxisX.Y, ori.AxisX.Z).Copy(transR);
+            var Y = new Snap.Vector(ori.AxisY.X, ori.AxisY.Y, ori.AxisY.Z).Copy(transR);
+            if (elec != null)
+            {
+                var baseDirOrientation = Electrode.GetSidelongOrientation(new Snap.Orientation(-elec.BaseFace.GetFaceDirection()));
+                var transR1 = Snap.Geom.Transform.CreateRotation(baseDirOrientation, wcsOrientation);
+                X = X.Copy(transR1);
+                Y = Y.Copy(transR1);
+            }
+
+            return new Snap.Orientation(X, Y);
+        }
+
         public static Snap.Geom.Transform GetElecTransWcsToAcs(Snap.Vector baseDir,Snap.Orientation wcs)
         {
             var wcsOrientation = GetStandardOrientation(wcs);
