@@ -376,6 +376,15 @@ namespace EactBom
                             });
 
                             var workPart = Snap.Globals.WorkPart.NXOpenPart;
+                            ////设置摄像机视角
+                            //if (list.Count > 0)
+                            //{
+                            //    workPart.ModelingViews.WorkView.Orient(
+                            //        ElecManage.Electrode.GetCameraOrientation(
+                            //            new Snap.Orientation(new Snap.Vector(0.7071067, -0.7071067, 0), new Snap.Vector(-0.5, -0.5, -0.7))
+                            //        , list.First().Electrode)
+                            //        );
+                            //}
                             workPart.ModelingViews.WorkView.Fit();
                             Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
                         }
