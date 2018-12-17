@@ -371,7 +371,9 @@ namespace EactBom
                                 }
                             });
 
-                            ele.Electrode.ElecBody.IsHidden = false;
+                            list.ForEach(u => {
+                                u.Electrode.ElecBody.IsHidden = false;
+                            });
 
                             var workPart = Snap.Globals.WorkPart.NXOpenPart;
                             workPart.ModelingViews.WorkView.Fit();
