@@ -355,24 +355,15 @@ namespace EactBom
                             }
                         });
 
-                        var listShowLayer = new List<int>();
-
                         list.ForEach(u => {
                             u.Electrode.ElecBody.IsHidden = false;
                             u.Electrode.ElecBody.IsHighlighted = true;
-                            listShowLayer.Add(u.Electrode.ElecBody.Layer);
                         });
 
                         var workPart = Snap.Globals.WorkPart.NXOpenPart;
                         steelInfo.MouldBody.IsHidden = false;
-                        listShowLayer.Add(steelInfo.MouldBody.Layer);
 
-                        listShowLayer.Distinct().ToList().ForEach(u => {
-                            if (u != Snap.Globals.WorkLayer)
-                            {
-                                Snap.Globals.LayerStates[u] = Snap.Globals.LayerState.Selectable;
-                            }
-                        });
+                       
                         workPart.ModelingViews.WorkView.Fit();
                         Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
 
