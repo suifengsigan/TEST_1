@@ -344,51 +344,38 @@ namespace EactBom
                     //高亮显示20181126
                     if (EactBomBusiness.Instance.ConfigData.Edition == 2)
                     {
-                        //TODO 设置所有图层
-                        var ele = list.FirstOrDefault();
-                        var eleLayer = ele.Electrode.ElecBody.Layer;
-                        if (ele != null)
-                        {
-                            for (int i = 1; i < 256; i++)
+                        Snap.Globals.WorkPart.Bodies.ToList().ForEach(u => {
+                            if (!u.IsHidden)
                             {
-                                if (i == ele.Electrode.ElecBody.Layer)
-                                {
-                                    Snap.Globals.LayerStates[i] = Snap.Globals.LayerState.Selectable;
-                                }
-                                else if (i != Snap.Globals.WorkLayer)
-                                {
-                                    if (Snap.Globals.LayerStates[i] != Snap.Globals.LayerState.Hidden)
-                                    {
-                                        Snap.Globals.LayerStates[i] = Snap.Globals.LayerState.Hidden;
-                                    }
-                                }
+                                u.IsHidden = true;
                             }
+                            if (u.IsHighlighted)
+                            {
+                                u.IsHighlighted = false;
+                            }
+                        });
 
-                            Snap.Globals.WorkPart.Bodies.ToList().ForEach(u => {
-                                if (!u.IsHidden)
-                                {
-                                    u.IsHidden = true;
-                                }
-                            });
+                        var listShowLayer = new List<int>();
 
-                            list.ForEach(u => {
-                                u.Electrode.ElecBody.IsHidden = false;
-                            });
+                        list.ForEach(u => {
+                            u.Electrode.ElecBody.IsHidden = false;
+                            u.Electrode.ElecBody.IsHighlighted = true;
+                            listShowLayer.Add(u.Electrode.ElecBody.Layer);
+                        });
 
-                            var workPart = Snap.Globals.WorkPart.NXOpenPart;
-                            ////设置摄像机视角
-                            //if (list.Count > 0)
-                            //{
-                            //    workPart.ModelingViews.WorkView.Orient(
-                            //        ElecManage.Electrode.GetCameraOrientation(
-                            //            new Snap.Orientation(new Snap.Vector(0.7071067, -0.7071067, 0), new Snap.Vector(-0.5, -0.5, -0.7))
-                            //        , list.First().Electrode)
-                            //        );
-                            //}
-                            workPart.ModelingViews.WorkView.Fit();
-                            Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
-                        }
-                        
+                        var workPart = Snap.Globals.WorkPart.NXOpenPart;
+                        steelInfo.MouldBody.IsHidden = false;
+                        listShowLayer.Add(steelInfo.MouldBody.Layer);
+
+                        listShowLayer.Distinct().ToList().ForEach(u => {
+                            if (u != Snap.Globals.WorkLayer)
+                            {
+                                Snap.Globals.LayerStates[u] = Snap.Globals.LayerState.Selectable;
+                            }
+                        });
+                        workPart.ModelingViews.WorkView.Fit();
+                        Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
+
                     }
 
 
