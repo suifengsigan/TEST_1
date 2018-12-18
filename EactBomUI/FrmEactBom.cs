@@ -364,8 +364,7 @@ namespace EactBom
                         steelInfo.MouldBody.IsHidden = false;
 
 
-                        workPart.ModelingViews.WorkView.SetScale(0.1);
-                        workPart.ModelingViews.WorkView.SetScale(1);
+                        workPart.ModelingViews.WorkView.Fit();
                         Snap.Globals.WorkPart.NXOpenPart.Views.Refresh();
 
                     }
