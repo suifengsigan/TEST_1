@@ -356,9 +356,9 @@ namespace ElecManage
             }
             if (configData.Edition == 5)
             {
-                var x = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (configData.FZXBlankStock));
-                var y = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (configData.FZYBlankStock));
-                var z = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (configData.FZZBlankStock));
+                var x = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (configData.FZXBlankStock*2));
+                var y = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (configData.FZYBlankStock*2));
+                var z = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (configData.FZZBlankStock*2));
                 if (configData.IsFZX5Integral && x % 5 != 0)
                 {
                     x = x - (x % 5) + 5;
