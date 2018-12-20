@@ -114,7 +114,7 @@ namespace EactConfig
 
         public string txtEmanWebPath;
         /// <summary>
-        /// 版本 0默认叛变 1PZ版本 2鸿通 3宝讯
+        /// 版本 0默认叛变 1PZ版本 2鸿通 3宝讯 4誉诚 5 方正
         /// </summary>
         public int Edition = 0;
         /// <summary>

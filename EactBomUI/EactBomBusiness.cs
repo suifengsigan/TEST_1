@@ -814,7 +814,7 @@ namespace EactBom
                         cuprum.SHAPE = string.IsNullOrEmpty(info.EDMSHAPE) ? "简单有底" : info.EDMSHAPE;
                         cuprum.OPENSTRUFF = info.OPENSTRUFF;
                         cuprum.DISCHARGING = string.Empty;
-                        cuprum.EDMCONDITIONSN = info.ElecCuttingSize(ConfigData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE));
+                        cuprum.EDMCONDITIONSN = info.ElecCuttingSize(ConfigData, EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE));
                         cuprum.SPEC = cuprum.EDMCONDITIONSN.Replace("x","*");
                         cuprum.HEADPULLUPH = HEADPULLUPH.ToString();
                         cuprum.STRETCHH = STRETCHH.ToString();

@@ -86,6 +86,12 @@
     <Compile Include="XKElectrode.cs" />
     <Compile Include="XKElectrodeInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EactConfig\EactConfig.csproj">
+      <Project>{06f3b5ed-8ca4-47bc-855b-efc2f4acf845}</Project>
+      <Name>EactConfig</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

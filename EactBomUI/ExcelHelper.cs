@@ -104,7 +104,7 @@ namespace EactBom
 
                     //开料尺寸
                     cellIndex++;
-                    sheet.GetRow(rowStart).CreateCell(cellIndex).SetCellValue(info.ElecCuttingSize(EactBomBusiness.Instance.ConfigData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE)).Replace('x', '*'));
+                    sheet.GetRow(rowStart).CreateCell(cellIndex).SetCellValue(info.ElecCuttingSize(EactBomBusiness.Instance.ConfigData, EactConfig.MatchJiaju.GetMatchJiajuValue(info.ELEC_CLAMP_GENERAL_TYPE)).Replace('x', '*'));
                     sheet.GetRow(rowStart).GetCell(cellIndex).CellStyle = style;
 
                     //夹具

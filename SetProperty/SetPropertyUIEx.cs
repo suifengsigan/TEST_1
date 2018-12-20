@@ -200,7 +200,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
         if (info != null)
         {
             strElecSize.Value = info.ElecSize;
-            strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock, matchJiajuValue);
+            strElecCuttingSize.Value = info.ElecCuttingSize(_configData, matchJiajuValue);
         }
         else
         {
@@ -249,7 +249,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
             if (info != null)
             {
                 strElecSize.Value = info.ElecSize;
-                strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
+                strElecCuttingSize.Value = info.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
             }
             else
             {
@@ -449,7 +449,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 if (info != null)
                 {
                     strElecSize.Value = info.ElecSize;
-                    strElecCuttingSize.Value = info.ElecCuttingSize(_configData.PQBlankStock, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
+                    strElecCuttingSize.Value = info.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
                 }
                 else
                 {

@@ -334,8 +334,9 @@ namespace ElecManage
         /// <summary>
         /// 开料尺寸
         /// </summary>
-        public virtual string ElecCuttingSize(double blankstock,double matchJiajuValue)
+        public virtual string ElecCuttingSize(EactConfig.ConfigData configData, double matchJiajuValue)
         {
+            double blankstock = configData.PQBlankStock;
             if (Entry.Edition == 1)
             {
                 return string.Format("{0}x{1}x{2}",
@@ -345,16 +346,38 @@ namespace ElecManage
                           );
             }
             var elecBox = GetBox3d();
-            var z = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (matchJiajuValue));
-            if (z % 5 != 0)
+            if (configData.Edition == 5)
             {
-                z = z - (z % 5) + 5;
+                var x = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (configData.FZXBlankStock));
+                var y = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (configData.FZYBlankStock));
+                var z = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (configData.FZZBlankStock));
+                if (configData.IsFZX5Integral && x % 5 != 0)
+                {
+                    x = x - (x % 5) + 5;
+                }
+                if (configData.IsFZY5Integral && y % 5 != 0)
+                {
+                    y = y - (y % 5) + 5;
+                }
+                if (configData.IsFZZ5Integral && z % 5 != 0)
+                {
+                    z = z - (z % 5) + 5;
+                }
+                return string.Format("{0}x{1}x{2}", x, y, z);
             }
-            return string.Format("{0}x{1}x{2}",
-                            (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (blankstock * 2)) 
-                            , (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (blankstock * 2))
-                            , z
-                            );
+            else
+            {
+                var z = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4) + (matchJiajuValue));
+                if (z % 5 != 0)
+                {
+                    z = z - (z % 5) + 5;
+                }
+                return string.Format("{0}x{1}x{2}",
+                                (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (blankstock * 2))
+                                , (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4) + (blankstock * 2))
+                                , z
+                                );
+            }
         }
 
         /// <summary>
