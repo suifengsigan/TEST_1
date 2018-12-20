@@ -100,12 +100,12 @@
             this.cbIsAutoPrtTool = new System.Windows.Forms.CheckBox();
             this.cbExportStp = new System.Windows.Forms.CheckBox();
             this.cbIsSetPrtColor = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.cbbCNCTransRule = new System.Windows.Forms.ComboBox();
             this.cbbExportCNC = new System.Windows.Forms.CheckBox();
             this.cbbEdmTransRule = new System.Windows.Forms.ComboBox();
             this.btnSetPrtColor = new System.Windows.Forms.Button();
             this.cbExportCMM = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -777,12 +777,12 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.label13);
             this.tabPage6.Controls.Add(this.cbIsExportEDM);
             this.tabPage6.Controls.Add(this.cbIsAutoCMM);
             this.tabPage6.Controls.Add(this.cbIsAutoPrtTool);
             this.tabPage6.Controls.Add(this.cbExportStp);
             this.tabPage6.Controls.Add(this.cbIsSetPrtColor);
-            this.tabPage6.Controls.Add(this.label13);
             this.tabPage6.Controls.Add(this.cbbCNCTransRule);
             this.tabPage6.Controls.Add(this.cbbExportCNC);
             this.tabPage6.Controls.Add(this.cbbEdmTransRule);
@@ -846,15 +846,6 @@
             this.cbIsSetPrtColor.Text = "电打面分析";
             this.cbIsSetPrtColor.UseVisualStyleBackColor = true;
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(517, 113);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(47, 12);
-            this.label13.TabIndex = 54;
-            this.label13.Text = "label13";
-            // 
             // cbbCNCTransRule
             // 
             this.cbbCNCTransRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -901,6 +892,13 @@
             this.cbExportCMM.TabIndex = 49;
             this.cbExportCMM.Text = "CMM图档";
             this.cbExportCMM.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(498, 110);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(66, 21);
+            this.label13.TabIndex = 60;
             // 
             // ConfigUserControl
             // 
@@ -975,7 +973,6 @@
         private System.Windows.Forms.CheckBox cbIsAutoPrtTool;
         private System.Windows.Forms.CheckBox cbExportStp;
         private System.Windows.Forms.CheckBox cbIsSetPrtColor;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cbbCNCTransRule;
         private System.Windows.Forms.CheckBox cbbExportCNC;
         private System.Windows.Forms.ComboBox cbbEdmTransRule;
@@ -1008,5 +1005,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button btnCncPrtDir;
         private System.Windows.Forms.TextBox txtCncPrtDir;
+        private System.Windows.Forms.TextBox label13;
     }
 }

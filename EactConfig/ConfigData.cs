@@ -158,6 +158,15 @@ namespace EactConfig
         /// </summary>
         public double PQBlankStock = 1.5;
         /// <summary>
+        /// 方正开料尺寸计算方式
+        /// </summary>
+        public double FZXBlankStock = 2;
+        public double FZYBlankStock = 2;
+        public double FZZBlankStock = 3;
+        public bool IsFZX5Integral = true;
+        public bool IsFZY5Integral = true;
+        public bool IsFZZ5Integral = true;
+        /// <summary>
         /// 是否识别侧放电极
         /// </summary>
         public bool IsDistinguishSideElec = true;

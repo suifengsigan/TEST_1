@@ -34,6 +34,7 @@ namespace EactConfig
             cbEdition.Items.Add(new ComboBoxItem { Text = "HTUP", Value = 2 });
             cbEdition.Items.Add(new ComboBoxItem { Text = "BX", Value = 3 });
             cbEdition.Items.Add(new ComboBoxItem { Text = "YC", Value = 4 });
+            cbEdition.Items.Add(new ComboBoxItem { Text = "FZ", Value = 5 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = @"模号\电极编号\文件", Value = 0 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = @"模号\文件", Value = 2 });
             cbbFtpPathType.Items.Add(new ComboBoxItem { Text = "FZ", Value = 1 });
@@ -81,6 +82,21 @@ namespace EactConfig
             dataGridViewPSelection.CellPainting += DataGridViewPSelection_CellPainting;
             btnSetPrtColor.Click += btnSetPrtColor_Click;
             btnCncPrtDir.Click += BtnCncPrtDir_Click;
+            label13.TextChanged += Label13_TextChanged;
+        }
+
+        private void Label13_TextChanged(object sender, EventArgs e)
+        {
+            int edmColor = 0;
+            int.TryParse(label13.Text, out edmColor);
+            try
+            {
+                btnSetPrtColor.BackColor = SnapEx.Create.WindowsColor(edmColor);
+            }
+            catch
+            {
+                btnSetPrtColor.BackColor = System.Drawing.Color.Red;
+            }
         }
 
         private void BtnCncPrtDir_Click(object sender, EventArgs e)
@@ -481,7 +497,9 @@ namespace EactConfig
                 data.IsCanPropertyUpdate = rbCanPUpdate.Checked;
                 data.ShareElec = cbShareElec.Checked;
                 data.txtEmanWebPath = txtEmanWebPath.Text;
-                data.EDMColor = SnapEx.Create.ColorIndex(btnSetPrtColor.BackColor);
+                int EDMColor = 0;
+                int.TryParse(label13.Text, out EDMColor);
+                data.EDMColor = EDMColor;
                 data.QuadrantType = (QuadrantType)(cbbQuadrantType.SelectedItem as ComboBoxItem).Value;
                 //data.UGVersion = (int)(cbbUGVersion.SelectedItem as ComboBoxItem).Value;
                 data.LicenseType = (int)(cbbLicenseType.SelectedItem as ComboBoxItem).Value;
