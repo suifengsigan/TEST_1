@@ -683,8 +683,31 @@ namespace EactBom
                 //var basePoint=Snap.Create.Point(electrode.GetElecBasePos());
                 //basePoint.Name = "EACT_ELECT_MID_POINT";
                 //basePoint.SetStringAttribute("EACT_ELECT_GROUP", guid); ;
-                electrode.TopFace.SetStringAttribute("EACT_ELEC_BASE_BOTTOM_FACE", "1");
-                electrode.BaseFace.SetStringAttribute("EACT_ELEC_BASE_TOP_FACE", "1");
+                //清空相关属性
+                electrode.ElecBody.Faces.ToList().ForEach(u => {
+                    if (u.IsHasAttr("ELEC_BASE_BOTTOM_FACE"))
+                    {
+                        u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "ELEC_BASE_BOTTOM_FACE");
+                    }
+
+                    if (u.IsHasAttr("ELEC_BASE_EDM_FACE"))
+                    {
+                        u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, "ELEC_BASE_EDM_FACE");
+                    }
+
+                    if (u.IsHasAttr(EactElectrode.BASE_BOT))
+                    {
+                        u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, EactElectrode.BASE_BOT);
+                    }
+
+                    if (u.IsHasAttr(EactElectrode.BASE_TOP))
+                    {
+                        u.DeleteAttributes(Snap.NX.NXObject.AttributeType.String, EactElectrode.BASE_TOP);
+                    }
+                });
+
+                electrode.TopFace.SetStringAttribute(EactElectrode.BASE_BOT, "1");
+                electrode.BaseFace.SetStringAttribute(EactElectrode.BASE_TOP, "1");
                 electrode.TopFace.SetStringAttribute("ELEC_BASE_BOTTOM_FACE", "1");
                 electrode.BaseFace.SetStringAttribute("ELEC_BASE_EDM_FACE","1");
 

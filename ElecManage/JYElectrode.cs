@@ -28,17 +28,13 @@ namespace ElecManage
             if (TopFace != null) return TopFace;
             var faceDirection = BaseFace.GetFaceDirection();
             var faces = ElecBody.Faces.ToList();
-            var topFace = faces.Where(u => u.IsHasAttr(ELEC_BASE_BOTTOM_FACE)).FirstOrDefault();
-            if (topFace == null)
-            {
-                var topFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u =>
+            var topFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u =>
                 SnapEx.Helper.Equals(-faceDirection, u.GetFaceDirection())
                 ).ToList();
-                topFace = topFaces.OrderByDescending(u=>u.GetPlaneProjectArea(faceDirection)).FirstOrDefault();
-                if (topFace == null)
-                {
-                    topFace = BaseFace;
-                }
+            var topFace = topFaces.OrderByDescending(u => u.GetPlaneProjectArea(faceDirection)).FirstOrDefault();
+            if (topFace == null)
+            {
+                topFace = BaseFace;
             }
             TopFace = topFace;
             return topFace;
