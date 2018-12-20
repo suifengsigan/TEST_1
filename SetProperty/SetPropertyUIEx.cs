@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SnapEx;
 partial class SetPropertyUI : SnapEx.BaseUI
 {
     bool _isAllowMultiple = false;
@@ -251,6 +252,13 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 strElecSize.Value = info.ElecSize;
                 strElecCuttingSize.Value = info.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
             }
+            else if (groupSElec.Show) //异形电极
+            {
+                var tempInfo = new ElecManage.ElectrodeInfo(body);
+                var tempOri = new Snap.Orientation(-baseFace.GetFaceDirection());
+                strElecSize.Value = tempInfo.GetElecSize(tempOri);
+                strElecCuttingSize.Value = info.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex), tempOri);
+            }
             else
             {
                 strElecSize.Value = string.Empty;
@@ -440,7 +448,11 @@ partial class SetPropertyUI : SnapEx.BaseUI
             strElecSize.Show = strElecName.Show;
             strElecCuttingSize.Show = strElecName.Show;
         }
-        else if (block == cbbChuckType.NXOpenBlock)
+        else if (block == cbbChuckType.NXOpenBlock
+            || block == selectBaseFace.NXOpenBlock
+            //|| block == selectBaseFacePointEx.NXOpenBlock
+            || block == selectTopFace.NXOpenBlock
+            )
         {
             var cuprums = Enumerable.Select(selectCuprum.SelectedObjects, u => Snap.NX.Body.Wrap(u.NXOpenTag)).ToList();
             if (cuprums.Count == 1)
@@ -450,6 +462,19 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 {
                     strElecSize.Value = info.ElecSize;
                     strElecCuttingSize.Value = info.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex));
+                }
+                else if (groupSElec.Show) //异形电极
+                {
+                    var tempInfo = new ElecManage.ElectrodeInfo(cuprums.First());
+                    var tempFaceDir = -Snap.Orientation.Identity.AxisZ;
+                    var baseFace = selectBaseFace.SelectedObjects.FirstOrDefault() as Snap.NX.Face;
+                    if (baseFace != null)
+                    {
+                        tempFaceDir = -baseFace.GetFaceDirection();
+                    }
+                    var tempOri = new Snap.Orientation(tempFaceDir);
+                    strElecSize.Value = tempInfo.GetElecSize(tempOri);
+                    strElecCuttingSize.Value = tempInfo.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex), tempOri);
                 }
                 else
                 {
