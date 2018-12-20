@@ -334,7 +334,7 @@ namespace ElecManage
         /// <summary>
         /// 开料尺寸
         /// </summary>
-        public virtual string ElecCuttingSize(EactConfig.ConfigData configData, double matchJiajuValue)
+        public virtual string ElecCuttingSize(EactConfig.ConfigData configData, double matchJiajuValue,Snap.Orientation topOrientation=null)
         {
             double blankstock = configData.PQBlankStock;
             if (Entry.Edition == 1)
@@ -345,7 +345,15 @@ namespace ElecManage
                           , KL_SIZE_HEIGHT
                           );
             }
-            var elecBox = GetBox3d();
+            Snap.Geom.Box3d elecBox;
+            if (topOrientation == null)
+            {
+                elecBox = GetBox3d();
+            }
+            else
+            {
+                elecBox = _body.AcsToWcsBox3d(topOrientation);
+            }
             if (configData.Edition == 5)
             {
                 var x = (int)Math.Ceiling(Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4) + (configData.FZXBlankStock));

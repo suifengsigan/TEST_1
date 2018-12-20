@@ -29,7 +29,7 @@ namespace ElecManage
         }
 
 
-        public override string ElecCuttingSize(EactConfig.ConfigData configData, double matchJiajuValue)
+        public override string ElecCuttingSize(EactConfig.ConfigData configData, double matchJiajuValue, Snap.Orientation topOrientation = null)
         {
             var str = _body.GetAttrValue("UP_ELECTRODE_SPECIFICATION");
             var strs = str.Split('X').ToList();
@@ -41,7 +41,7 @@ namespace ElecManage
                         , strs[2].Trim()
                         );
             }
-            return base.ElecCuttingSize(configData, matchJiajuValue);
+            return base.ElecCuttingSize(configData, matchJiajuValue, topOrientation);
         }
     }
 }
