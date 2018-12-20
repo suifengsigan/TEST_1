@@ -243,7 +243,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
         if (baseFace != null) { selectBaseFace.SelectedObjects = new Snap.NX.NXObject[] { baseFace }; }
         if (topFace != null) { selectTopFace.SelectedObjects = new Snap.NX.NXObject[] { topFace }; }
         selectBaseFacePointEx.Position = pos;
-        if (baseFace != null && topFace != null && basePoint != null)
+        if (baseFace != null && topFace != null)
         {
             //更新尺寸
             var info = GetElecInfo(body);
@@ -364,6 +364,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
                     }
                 }
 
+                SetDefaultValue(info);
                 Action<bool> action = (b) =>
                 {
                     groupSElec.Show = b;
@@ -378,7 +379,6 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 {
                     action(groupSElecShow);
                 }
-                SetDefaultValue(info);
             }
             else if (SpecialshapedElec && unNameC.Count > 0)
             {
