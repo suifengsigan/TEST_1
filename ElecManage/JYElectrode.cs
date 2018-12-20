@@ -33,10 +33,12 @@ namespace ElecManage
             {
                 var topFaces = faces.Where(u => u.ObjectSubType == Snap.NX.ObjectTypes.SubType.FacePlane).Where(u =>
                 SnapEx.Helper.Equals(-faceDirection, u.GetFaceDirection())
-                || SnapEx.Helper.Equals(faceDirection, u.GetFaceDirection())
                 ).ToList();
                 topFace = topFaces.OrderByDescending(u=>u.GetPlaneProjectArea(faceDirection)).FirstOrDefault();
-               
+                if (topFace == null)
+                {
+                    topFace = BaseFace;
+                }
             }
             TopFace = topFace;
             return topFace;
