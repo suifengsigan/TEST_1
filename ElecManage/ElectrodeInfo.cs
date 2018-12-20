@@ -408,15 +408,17 @@ namespace ElecManage
 
         public Electrode Electrode { get; set; }
 
-        public Snap.Geom.Box3d GetBox3d(Snap.Vector baseDir)
+        /// <summary>
+        /// 实际尺寸
+        /// </summary>
+        public string GetElecSize(Snap.Orientation ori)
         {
-            if (Electrode != null)
-            {
-                var topFaceDir = baseDir;
-                var topFaceOrientation = new Snap.Orientation(topFaceDir);
-                return _body.AcsToWcsBox3d(topFaceOrientation);
-            }
-            return _body.AcsToWcsBox3d();
+            var elecBox = _body.AcsToWcsBox3d(ori);
+            return string.Format("{0}x{1}x{2}",
+                            Math.Round(Math.Abs(elecBox.MaxX - elecBox.MinX), 4)
+                            , Math.Round(Math.Abs(elecBox.MaxY - elecBox.MinY), 4)
+                            , Math.Round(Math.Abs(elecBox.MaxZ - elecBox.MinZ), 4)
+                            );
         }
 
         public Snap.Geom.Box3d GetBox3d()
@@ -425,6 +427,9 @@ namespace ElecManage
             {
                 var topFaceDir = -Electrode.BaseFace.GetFaceDirection();
                 var topFaceOrientation = new Snap.Orientation(topFaceDir);
+                topFaceOrientation = Electrode.GetSidelongOrientation(topFaceOrientation);
+                var quadrantType = EactConfig.ConfigData.GetInstance().QuadrantType;
+                var transQ = Snap.Geom.Transform.CreateRotation(new Snap.Position(), topFaceDir, SnapEx.Helper.CAngle(Electrode.GetQuadrantType(quadrantType), quadrantType));
                 return _body.AcsToWcsBox3d(topFaceOrientation);
             }
             return _body.AcsToWcsBox3d();
