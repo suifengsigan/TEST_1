@@ -257,7 +257,7 @@ partial class SetPropertyUI : SnapEx.BaseUI
                 var tempInfo = new ElecManage.ElectrodeInfo(body);
                 var tempOri = new Snap.Orientation(-baseFace.GetFaceDirection());
                 strElecSize.Value = tempInfo.GetElecSize(tempOri);
-                strElecCuttingSize.Value = info.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex), tempOri);
+                strElecCuttingSize.Value = tempInfo.ElecCuttingSize(_configData, EactConfig.MatchJiaju.GetMatchJiajuValue(_configData, cbbChuckType.SelectedIndex), tempOri);
             }
             else
             {
