@@ -132,27 +132,7 @@ public partial class FaceDiagonalUI
     //        2) Invoke the Shared Library through File->Execute->NX Open menu.
     //
     //------------------------------------------------------------------------------
-    public static void Main()
-    {
-        FaceDiagonalUI theFaceDiagonalUI = null;
-        try
-        {
-            theFaceDiagonalUI = new FaceDiagonalUI();
-            // The following method shows the dialog immediately
-            theFaceDiagonalUI.Show();
-        }
-        catch (Exception ex)
-        {
-            //---- Enter your exception handling code here -----
-            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
-        }
-        finally
-        {
-            if (theFaceDiagonalUI != null)
-                theFaceDiagonalUI.Dispose();
-            theFaceDiagonalUI = null;
-        }
-    }
+ 
     //------------------------------------------------------------------------------
     // This method specifies how a shared image is unloaded from memory
     // within NX. This method gives you the capability to unload an
@@ -169,30 +149,30 @@ public partial class FaceDiagonalUI
     // NOTE:  A program which associates NX Open applications with the menubar
     // MUST NOT use this option since it will UNLOAD your NX Open application image
     // from the menubar.
-    //------------------------------------------------------------------------------
-    public static int GetUnloadOption(string arg)
-    {
-        //return System.Convert.ToInt32(Session.LibraryUnloadOption.Explicitly);
-        return System.Convert.ToInt32(Session.LibraryUnloadOption.Immediately);
-        // return System.Convert.ToInt32(Session.LibraryUnloadOption.AtTermination);
-    }
+    ////------------------------------------------------------------------------------
+    //public static int GetUnloadOption(string arg)
+    //{
+    //    //return System.Convert.ToInt32(Session.LibraryUnloadOption.Explicitly);
+    //    return System.Convert.ToInt32(Session.LibraryUnloadOption.Immediately);
+    //    // return System.Convert.ToInt32(Session.LibraryUnloadOption.AtTermination);
+    //}
 
     //------------------------------------------------------------------------------
     // Following method cleanup any housekeeping chores that may be needed.
     // This method is automatically called by NX.
     //------------------------------------------------------------------------------
-    public static void UnloadLibrary(string arg)
-    {
-        try
-        {
-            //---- Enter your code here -----
-        }
-        catch (Exception ex)
-        {
-            //---- Enter your exception handling code here -----
-            theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
-        }
-    }
+    //public static void UnloadLibrary(string arg)
+    //{
+    //    try
+    //    {
+    //        //---- Enter your code here -----
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        //---- Enter your exception handling code here -----
+    //        theUI.NXMessageBox.Show("Block Styler", NXMessageBox.DialogType.Error, ex.ToString());
+    //    }
+    //}
 
     //------------------------------------------------------------------------------
     //This method shows the dialog on the screen

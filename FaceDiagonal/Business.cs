@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SnapEx;
 
 public partial class FaceDiagonalUI : SnapEx.BaseUI
 {
@@ -18,6 +19,11 @@ public partial class FaceDiagonalUI : SnapEx.BaseUI
     public override void Apply()
     {
         var face = GetFace();
-        var uv = face.BoxUV;
+        var faceDirOri = new Snap.Orientation(face.GetFaceDirection());
+        var box=face.BoxEx();
+        var point = face.GetCenterPointEx();
+        var line = Snap.Create.Line(box.MaxXYZ, point + (Snap.Position.Distance(box.MaxXYZ, point) * (Snap.Vector.Unit(point - box.MaxXYZ))));
+        line.Layer = face.Layer;
+        line.Color = System.Drawing.Color.Blue;
     }
 }

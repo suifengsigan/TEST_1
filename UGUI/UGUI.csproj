@@ -76,6 +76,9 @@
     <None Include="ExtractBodyUI.dlx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="FaceDiagonalUI.dlx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="GeomcopyElecUI.dlx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
