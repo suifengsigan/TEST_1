@@ -20,9 +20,11 @@ public partial class FaceDiagonalUI : SnapEx.BaseUI
     {
         var face = GetFace();
         var faceDirOri = new Snap.Orientation(face.GetFaceDirection());
-        var box=face.BoxEx();
-        var point = face.GetCenterPointEx();
-        var line = Snap.Create.Line(box.MaxXYZ, point + (Snap.Position.Distance(box.MaxXYZ, point) * (Snap.Vector.Unit(point - box.MaxXYZ))));
+        var uBoxUV = face.BoxUV;
+        var centerPoint = face.Position((uBoxUV.MaxU + uBoxUV.MinU) / 2, (uBoxUV.MaxV + uBoxUV.MinV) / 2);
+        var MaxXYZPoint = face.Position(uBoxUV.MaxU , uBoxUV.MaxV);
+        var line = Snap.Create.Line(centerPoint - (Snap.Position.Distance(MaxXYZPoint, centerPoint) * (Snap.Vector.Unit(centerPoint - MaxXYZPoint))),
+            centerPoint + (Snap.Position.Distance(MaxXYZPoint, centerPoint) * (Snap.Vector.Unit(centerPoint - MaxXYZPoint))));
         line.Layer = face.Layer;
         line.Color = System.Drawing.Color.Blue;
     }
