@@ -148,6 +148,27 @@ namespace DataAccess
                 return QueryList;
             }
         }
+
+        public static List<EACT_CUPRUM> GetUpdateCuprum(List<EACT_CUPRUM> CupRumList)
+        {
+            using (var conn = DAL.GetConn())
+            {
+                conn.Open();
+                var _tran = conn.BeginTransaction();
+
+                if (CupRumList.Count > 0)
+                {
+
+                    string ids = string.Join(",", Enumerable.Select(CupRumList, u => string.Format("'{0}'", u.CUPRUMSN + u.STEELMODELSN)).ToArray());
+                    var sel_cuprumList_sql = string.Format("select CUPRUMID,CUPRUMSN,STEELMODELSN from EACT_cuprum where CUPRUMSN+STEELMODELSN in({0})", ids.TrimEnd(','));
+                    var updateCuprumList = conn.Query<EACT_CUPRUM>(sel_cuprumList_sql, null, _tran);
+                    return updateCuprumList.ToList();
+                }
+            }
+            return new List<EACT_CUPRUM>();
+        }
+
+
         /// <summary>
         /// 导BOM
         /// </summary>
