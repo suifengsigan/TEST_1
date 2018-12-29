@@ -13,6 +13,26 @@ namespace SnapEx
 {
     public static class Create
     {
+        /// <summary>
+        /// 创建注释
+        /// </summary>
+        public static NXOpen.Tag CreateNode(string text, Snap.Position origin)
+        {
+            var result = NXOpen.Tag.Null;
+            Session theSession = Session.GetSession();
+            Part workPart = theSession.Parts.Work;
+            Part displayPart = theSession.Parts.Display;
+            NXOpen.Annotations.SimpleDraftingAid nullAnnotations_SimpleDraftingAid = null;
+            NXOpen.Annotations.DraftingNoteBuilder draftingNoteBuilder1;
+            draftingNoteBuilder1 = workPart.Annotations.CreateDraftingNoteBuilder(nullAnnotations_SimpleDraftingAid);
+            draftingNoteBuilder1.Origin.OriginPoint = origin;
+            draftingNoteBuilder1.Origin.Anchor = NXOpen.Annotations.OriginBuilder.AlignmentPosition.MidCenter;
+            draftingNoteBuilder1.Text.SetEditorText(new string[] { text });
+            var obj = draftingNoteBuilder1.Commit() as NXOpen.Annotations.Note;
+            draftingNoteBuilder1.Destroy();
+            result = obj == null ? NXOpen.Tag.Null : obj.Tag;
+            return result;
+        }
         public static System.Drawing.Color WindowsColor(int colorIndex)
         {
             string str;
