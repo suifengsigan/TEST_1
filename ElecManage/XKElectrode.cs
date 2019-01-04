@@ -25,10 +25,14 @@ namespace ElecManage
             ElectrodeType = ElectrodeType.XK;
         }
 
-        //public override Snap.Position GetElecBasePos()
-        //{
-        //    return ElecBasePoint.Position;
-        //}
+        public override Snap.Position GetElecBasePos()
+        {
+            if (ElecBasePoint == null)
+            {
+                return base.GetElecBasePos();
+            }
+            return ElecBasePoint.Position;
+        }
 
         public static Electrode GetElectrode(Snap.NX.Body body)
         {
@@ -47,7 +51,9 @@ namespace ElecManage
             //象限面
             var chamferFace = faces.FirstOrDefault(u => u.MatchAttrValue(ATTR_NAME_MARK, BASE_CHAMFER));
             
-            if (!string.IsNullOrEmpty(elecName) && topFace != null && baseFace != null && baseSideFaces.Count >= 4 && elecBasePoint != null)
+            if (!string.IsNullOrEmpty(elecName) && topFace != null && baseFace != null && baseSideFaces.Count >= 4
+                //&& elecBasePoint != null
+                )
             {
                 var model = new XKElectrode();
                 model.BaseFace = baseFace;
