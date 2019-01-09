@@ -436,7 +436,19 @@ namespace SnapEx
                     NXOpen.UF.UFSession.GetUFSession().Csys.SetOrigin(Snap.Globals.Wcs.NXOpenTag, Snap.Position.Origin.Array);
                     Snap.Globals.WcsOrientation = Snap.Orientation.Identity;
                 }
-               
+
+                //TODO 电极显示
+                bodies.ForEach(u => {
+                    var state = Snap.Globals.LayerStates[u.Layer];
+                    if (state != Snap.Globals.LayerState.WorkLayer && state != Snap.Globals.LayerState.Visible)
+                    {
+                        Snap.Globals.LayerStates[u.Layer] = Snap.Globals.LayerState.Visible;
+                    }
+                    if (u.IsHidden)
+                    {
+                        u.IsHidden = false;
+                    }
+                });
 
                 //NXOpen.UF.UFSession.GetUFSession().Part.Export(path, 1, new Tag[] { body.NXOpenTag });
                 NXOpen.UF.UFPart.ExportOptions options = new NXOpen.UF.UFPart.ExportOptions();
