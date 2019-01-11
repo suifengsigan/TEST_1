@@ -8,6 +8,36 @@ namespace SnapEx
     public static class Helper
     {
         /// <summary>
+        /// 获取Nx版本
+        /// </summary>
+        public static double NxVersion
+        {
+            get
+            {
+                var result = 0.0;
+                var ufSession = NXOpen.UF.UFSession.GetUFSession();
+                NXOpen.UF.SystemInfo info;
+                ufSession.UF.AskSystemInfo(out info);
+
+                var tmpInts = new List<int>();
+                var programName = info.program_name.Replace("NX ", "");
+                programName.Split('.').ToList().ForEach(u => {
+                    var tmpInt = 0;
+                    if (int.TryParse(u, out tmpInt))
+                    {
+                        tmpInts.Add(tmpInt);
+                    }
+                });
+
+                if (tmpInts.Count > 0)
+                {
+                    double.TryParse(string.Format("{0}.{1}", tmpInts.First(), string.Join("", Enumerable.Select(tmpInts.Skip(1), u => u.ToString()).ToArray())),out result);
+                }
+
+                return result;
+            }
+        }
+        /// <summary>
         /// 公差
         /// </summary>
         public const double Tolerance = 0.0001;
