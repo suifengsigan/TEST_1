@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EactUF.cs" />
     <Compile Include="ElecBaseDesign\BaseUI.cs" />
     <Compile Include="ElecBaseDesign\ConstString.cs" />
     <Compile Include="ElecBaseDesign\ElecInfo.cs" />
