@@ -440,9 +440,9 @@ namespace SnapEx
                 //TODO 电极显示
                 bodies.ForEach(u => {
                     var state = Snap.Globals.LayerStates[u.Layer];
-                    if (state != Snap.Globals.LayerState.WorkLayer && state != Snap.Globals.LayerState.Visible)
+                    if (state != Snap.Globals.LayerState.WorkLayer && state != Snap.Globals.LayerState.Selectable)
                     {
-                        Snap.Globals.LayerStates[u.Layer] = Snap.Globals.LayerState.Visible;
+                        Snap.Globals.LayerStates[u.Layer] = Snap.Globals.LayerState.Selectable;
                     }
                     if (u.IsHidden)
                     {
